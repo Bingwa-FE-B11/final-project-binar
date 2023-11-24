@@ -1,11 +1,16 @@
-import React from 'react'
-import { Navbar } from '../assets/components/Navbar'
+import React from "react";
+import { NavbarHome } from "../assets/components/NavbarHome";
+import { NavbarKelas } from "../assets/components/NavbarKelas";
+import { NavbarNotif } from "../assets/components/NavbarNotif";
+import { NavbarAkun } from "../assets/components/NavbarAkun";
 
 export const HomePage = () => {
   return (
-    <div className='flex justify-center items-center min-h-screen'>
-        <span className='text-5xl font-semibold'>Homepage</span>
-        <Navbar style={{ zIndex: 0 }}/>
+    <div className="relative min-h-screen w-full">
+      <NavbarHome style={{ zIndex: 1 }} />
+      {/* <NavbarKelas style={{ zIndex: 1 }} /> */}
+      {/* <NavbarNotif style={{ zIndex: 1 }} /> */}
+      {/* <NavbarAkun style={{ zIndex: 1 }} /> */}
     </div>
-  )
-}
+  );
+};
