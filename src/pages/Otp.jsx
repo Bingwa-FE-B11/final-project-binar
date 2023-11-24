@@ -1,77 +1,78 @@
-import React from 'react'
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import BrandLogo from '../assets/img/brain.webp';
-import { GoArrowLeft } from "react-icons/go";
-
-
+import { GoArrowLeft } from 'react-icons/go';
 
 export const Otp = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   return (
-    <div className="flex items-center justify-center h-screen">      
-        <div className="w-3/5">
+    <div className="flex items-center justify-center h-screen">
+      <div className="w-3/5">
         <div className="flex flex-col  w-[30rem] mx-auto">
-          <div className='absolute top-[120px] left-[108px]'>
-            <GoArrowLeft size={25} className="items-center" 
-            onClick={() => {
-                  navigate('/Register');
-                }}/>
+          <div className="absolute top-[120px] left-[108px] cursor-pointer">
+            <GoArrowLeft
+              size={25}
+              className="items-center"
+              onClick={() => {
+                navigate('/Register');
+              }}
+            />
           </div>
           <span className="items-center pb-10 text-3xl font-bold text-primary">Masukkan OTP</span>
 
           {/* Masukkan Kode OTP */}
           <div className="flex flex-col gap-2">
-            <span className="text-lg text-center pb-5">Ketik 6 digit kode yang dikirim ke bingwa@gmail.com</span>
-            
-            <div className="flex gap-4 items-center justify-center">
-              <div className="w-[42px] h-[42px] border-2 rounded-xl"> 
+            <span className="pb-5 text-lg text-center">
+              Ketik 6 digit kode yang dikirim ke bingwa@gmail.com
+            </span>
+
+            <div className="flex items-center justify-center gap-4">
+              <div className="w-[42px] h-[42px] border-2 rounded-xl">
                 <input
                   placeholder=""
-                  className="rounded-xl w-full h-full text-center font-semibold"
+                  className="w-full h-full font-semibold text-center rounded-xl"
                   type="text"
                 />
               </div>
-              <div className="w-[42px] h-[42px] border-2 rounded-xl"> 
+              <div className="w-[42px] h-[42px] border-2 rounded-xl">
                 <input
                   placeholder=""
-                  className="rounded-xl w-full h-full text-center font-semibold"
+                  className="w-full h-full font-semibold text-center rounded-xl"
                   type="text"
                 />
               </div>
-              <div className="w-[42px] h-[42px] border-2 rounded-xl"> 
+              <div className="w-[42px] h-[42px] border-2 rounded-xl">
                 <input
                   placeholder=""
-                  className="rounded-xl w-full h-full text-center font-semibold"
+                  className="w-full h-full font-semibold text-center rounded-xl"
                   type="text"
                 />
               </div>
-              <div className="w-[42px] h-[42px] border-2 rounded-xl"> 
+              <div className="w-[42px] h-[42px] border-2 rounded-xl">
                 <input
                   placeholder=""
-                  className="rounded-xl w-full h-full text-center font-semibold"
+                  className="w-full h-full font-semibold text-center rounded-xl"
                   type="text"
                 />
               </div>
-              <div className="w-[42px] h-[42px] border-2 rounded-xl"> 
+              <div className="w-[42px] h-[42px] border-2 rounded-xl">
                 <input
                   placeholder=""
-                  className="rounded-xl w-full h-full text-center font-semibold"
+                  className="w-full h-full font-semibold text-center rounded-xl"
                   type="text"
                 />
               </div>
-              <div className="w-[42px] h-[42px] border-2 rounded-xl"> 
+              <div className="w-[42px] h-[42px] border-2 rounded-xl">
                 <input
                   placeholder=""
-                  className="rounded-xl w-full h-full text-center font-semibold"
+                  className="w-full h-full font-semibold text-center rounded-xl"
                   type="text"
                 />
               </div>
             </div>
 
-            <span className="text-lg text-center pb-5">Kirim ulang OTP dalam 60 detik</span>
+            <span className="pb-5 text-lg text-center">Kirim ulang OTP dalam 60 detik</span>
           </div>
-
-
 
           {/* Button Simpan */}
           <div className="flex flex-col py-4">
@@ -91,8 +92,6 @@ export const Otp = () => {
           <span className="font-sans text-6xl text-center text-white">Bingwa</span>
         </div>
       </div>
-      
     </div>
-  )
-}
-
+  );
+};
