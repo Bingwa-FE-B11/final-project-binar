@@ -71,6 +71,9 @@ export const Register = () => {
               <button
                 type="button"
                 className="py-3 mt-2 text-lg font-semibold text-white bg-primary hover:bg-primary-hover rounded-xl"
+                onClick={() => {
+                  navigate('/OTP');
+                }}
               >
                 Daftar
               </button>
