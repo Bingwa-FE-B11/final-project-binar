@@ -1,61 +1,69 @@
-import React from 'react'
-import { AiFillEye } from "react-icons/ai";
+import React from 'react';
+import EyePassword from '../assets/img/fi_eye.webp';
+import BrandLogo from '../assets/img/brain.webp';
 
 export const ResetPassword = () => {
-
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="w-3/5 px-60">
-        <h1 className="text-4xl font-bold pb-10 items-center text-[rgba(97,72,255,1)]">
-          Reset Password
-        </h1>
-        <div className="items-center">
-          <h1 className="text-lg font-normal text-left w-96">
-            Masukkan Password Baru 
-          </h1>
-          <div className="relative">
-          <input
-            placeholder="Masukkan Password"
-            className="border-2 border-black w-96 py-2 px-2 rounded-xl text-center"
-            id="email"
-            type="password"
-          />
-          <AiFillEye
-              className="absolute inset-y-3 right-20 text-black cursor-pointer"
-              size={20}
-            />
+    <div className="flex items-center justify-center h-screen">
+      <div className="w-3/5">
+        <div className="flex flex-col w-[30rem] mx-auto">
+          <span className="items-center pb-2 text-4xl font-bold text-primary">Reset Password</span>
+
+          {/* Password Baru */}
+          <div className="flex flex-col gap-2 pt-8">
+            <div className="flex justify-between">
+              <span className="text-lg text-left">Masukkan Password Baru</span>
+            </div>
+            <div className="relative flex flex-col">
+              <input
+                placeholder="Password Baru"
+                className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
+                type="password"
+              />
+              <img
+                src={EyePassword}
+                alt="Icon Eye Password"
+                className="absolute w-8 text-black cursor-pointer inset-y-2.5 right-4"
+              />
+            </div>
           </div>
 
-          <div className="w-96 pt-8">
-            <h1 className="text-lg font-normal text-left w-96">Ulangi Password Baru</h1>
+          {/* Konfirmasi Password Baru */}
+          <div className="flex flex-col gap-2 pt-8">
+            <div className="flex justify-between">
+              <span className="text-lg text-left">Ulangi Password Baru</span>
+            </div>
+            <div className="relative flex flex-col">
+              <input
+                placeholder="Ulangi Password Baru"
+                className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
+                type="password"
+              />
+              <img
+                src={EyePassword}
+                alt="Icon Eye Password"
+                className="absolute w-8 text-black cursor-pointer inset-y-2.5 right-4"
+              />
+            </div>
           </div>
 
-          <div className="relative">
-            <input
-              placeholder="Ulangi Password"
-              className="border-2 border-black w-96 py-2 px-2 rounded-xl text-center"
-              type='password'
-            />
-            <AiFillEye
-              className="absolute inset-y-3 right-20 text-black cursor-pointer"
-              size={20}
-            />
+          {/* Button Simpan */}
+          <div className="flex flex-col py-4">
+            <button
+              type="button"
+              className="py-3 mt-2 text-lg font-semibold text-white bg-primary hover:bg-primary-hover rounded-xl"
+            >
+              Simpan
+            </button>
           </div>
-        </div>
-        <div className="py-4 flex flex-col">
-          <button
-            type="button"
-            className="px-9 py-2 bg-[rgba(97,72,255,1)] text-white rounded-xl mt-2 w-96"
-          >
-            Simpan
-          </button>
         </div>
       </div>
 
-      <div className="flex flex-col w-2/5 bg-[rgba(97,72,255,1)] h-screen items-center justify-center ">
-        <span className="text-center text-white text-6xl font-sans">
-          Bingwa
-        </span>
+      <div className="flex items-center justify-center w-2/5 h-screen bg-primary">
+        <div className="flex items-center justify-center gap-6">
+          <img src={BrandLogo} alt="Brand Logo" className="w-[15%]" />
+          <span className="font-sans text-6xl text-center text-white">Bingwa</span>
+        </div>
       </div>
     </div>
   );
