@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import EyePassword from '../assets/img/fi_eye.webp';
 import BrandLogo from '../assets/img/brain.webp';
 
 export const ResetPassword = () => {
+  const [showPassword1, setShowPassword1] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
+
+  const handleShowPassword1 = () => {
+    setShowPassword1(!showPassword1);
+  };
+
+  const handleShowPassword2 = () => {
+    setShowPassword2(!showPassword2);
+  };
+
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="w-3/5">
@@ -18,12 +29,13 @@ export const ResetPassword = () => {
               <input
                 placeholder="Password Baru"
                 className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
-                type="password"
+                type={showPassword1 ? "text" : "password"}
               />
               <img
                 src={EyePassword}
                 alt="Icon Eye Password"
                 className="absolute w-8 text-black cursor-pointer inset-y-2.5 right-4"
+                onClick={handleShowPassword1}
               />
             </div>
           </div>
@@ -37,12 +49,13 @@ export const ResetPassword = () => {
               <input
                 placeholder="Ulangi Password Baru"
                 className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
-                type="password"
+                type={showPassword2 ? "text" : "password"}
               />
               <img
                 src={EyePassword}
                 alt="Icon Eye Password"
                 className="absolute w-8 text-black cursor-pointer inset-y-2.5 right-4"
+                onClick={handleShowPassword2}
               />
             </div>
           </div>

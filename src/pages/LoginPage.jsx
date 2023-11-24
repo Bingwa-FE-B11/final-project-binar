@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import EyePassword from '../assets/img/fi_eye.webp';
 import BrandLogo from '../assets/img/brain.webp';
 
 export const LoginPage = () => {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   return (
     <div className="flex items-center justify-center h-screen">
@@ -39,12 +44,13 @@ export const LoginPage = () => {
               <input
                 placeholder="Masukkan Password"
                 className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
-                type="password"
+                type={showPassword ? "text" : "password"}
               />
               <img
                 src={EyePassword}
                 alt="Icon Eye Password"
                 className="absolute w-8 text-black cursor-pointer inset-y-2.5 right-4"
+                onClick={handleShowPassword}
               />
             </div>
           </div>
