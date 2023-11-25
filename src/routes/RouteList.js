@@ -5,6 +5,7 @@ import { LoginPage } from '../pages/LoginPage';
 import { Register } from '../pages/Register';
 import { ResetPassword } from '../pages/ResetPassword';
 import { AdminLogin } from '../pages/AdminLogin';
+import { KelasSaya } from '../pages/KelasSaya'
 import { Otp } from '../pages/Otp';
 import { BerandaPage } from '../pages/BerandaPage';
 
@@ -19,6 +20,7 @@ export const RouteList = () => {
         <Route path="/AdminLogin" element={<AdminLogin />} />
         <Route path="/OTP" element={<Otp />} />
         <Route path="/beranda" element={<BerandaPage />} />
+        <Route path='/KelasSaya' element={<KelasSaya/>}/>
       </Routes>
     </BrowserRouter>
   );
