@@ -1,6 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import BrandLogo from '../assets/img/brain.webp';
+
+// Images
+import BrandLogo from '../../../assets/img/brain.webp';
+
+// Icons
 import { GoArrowLeft } from 'react-icons/go';
 
 export const Otp = () => {
@@ -31,42 +35,42 @@ export const Otp = () => {
               <div className="w-[42px] h-[42px] border-2 rounded-xl">
                 <input
                   placeholder=""
-                  className="w-full h-full font-semibold text-center rounded-xl border border-primary"
+                  className="w-full h-full font-semibold text-center border rounded-xl border-primary"
                   type="text"
                 />
               </div>
               <div className="w-[42px] h-[42px] border-2 rounded-xl">
                 <input
                   placeholder=""
-                  className="w-full h-full font-semibold text-center rounded-xl border border-primary"
+                  className="w-full h-full font-semibold text-center border rounded-xl border-primary"
                   type="text"
                 />
               </div>
               <div className="w-[42px] h-[42px] border-2 rounded-xl">
                 <input
                   placeholder=""
-                  className="w-full h-full font-semibold text-center rounded-xl border border-primary"
+                  className="w-full h-full font-semibold text-center border rounded-xl border-primary"
                   type="text"
                 />
               </div>
               <div className="w-[42px] h-[42px] border-2 rounded-xl">
                 <input
                   placeholder=""
-                  className="w-full h-full font-semibold text-center rounded-xl border border-primary"
+                  className="w-full h-full font-semibold text-center border rounded-xl border-primary"
                   type="text"
                 />
               </div>
               <div className="w-[42px] h-[42px] border-2 rounded-xl">
                 <input
                   placeholder=""
-                  className="w-full h-full font-semibold text-center rounded-xl border border-primary"
+                  className="w-full h-full font-semibold text-center border rounded-xl border-primary"
                   type="text"
                 />
               </div>
               <div className="w-[42px] h-[42px] border-2 rounded-xl">
                 <input
                   placeholder=""
-                  className="w-full h-full font-semibold text-center rounded-xl border border-primary"
+                  className="w-full h-full font-semibold text-center border rounded-xl border-primary"
                   type="text"
                 />
               </div>

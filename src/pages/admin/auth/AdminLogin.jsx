@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import EyePassword from '../assets/img/fi_eye.webp';
-import BrandLogo from '../assets/img/brain.webp';
+
+// Images
+import EyePassword from '../../../assets/img/fi_eye.webp';
+import BrandLogo from '../../../assets/img/brain.webp';
 
 export const AdminLogin = () => {
     const navigate = useNavigate();
@@ -60,7 +62,7 @@ export const AdminLogin = () => {
                         <div className="flex flex-col py-4">
                             <button
                                 type="button"
-                                className="py-3 mt-2 text-lg font-semibold text-white bg-primary hover:bg-primary-hover rounded-xl w-full"
+                                className="w-full py-3 mt-2 text-lg font-semibold text-white bg-primary hover:bg-primary-hover rounded-xl"
                             >
                                 Masuk
                             </button>

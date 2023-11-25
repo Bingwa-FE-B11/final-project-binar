@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import EyePassword from '../assets/img/fi_eye.webp';
-import BrandLogo from '../assets/img/brain.webp';
+
+// Images
+import EyePassword from '../../../assets/img/fi_eye.webp';
+import BrandLogo from '../../../assets/img/brain.webp';
 
 export const LoginPage = () => {
   const navigate = useNavigate();

@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import { BiSearchAlt } from "react-icons/bi";
-import { IoIosNotificationsOutline, IoIosList } from "react-icons/io";
-import { LuUser } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
-import BrandLogo from "../img/brain.webp";
 
-export const NavbarAkun = () => {
+// Icons
+import { CgLogIn } from "react-icons/cg";
+import { BiSearchAlt } from "react-icons/bi";
+
+// Images
+import BrandLogo from '../../img/brain.webp';
+
+export const NavbarHome = () => {
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
@@ -22,15 +25,17 @@ export const NavbarAkun = () => {
   };
 
   return (
-    <div className="flex bg-primary fixed top-0 justify-between items-center w-screen px-28 py-4 gap-20">
+    <div className="fixed top-0 z-50 flex items-center justify-between w-screen gap-20 py-4 bg-primary px-28">
       <div className="flex gap-10">
         <div className="flex gap-2">
           <img src={BrandLogo} alt="Brand Logo" className="w-[2.5rem]" />
-          <div className="text-white text-4xl font-bold font-sans gap-4">
+          <div
+            className="gap-4 font-sans text-4xl font-bold text-white"
+          >
             Bingwa
           </div>
         </div>
-
+  
         <div className="relative">
           <input
             type="text"
@@ -40,22 +45,13 @@ export const NavbarAkun = () => {
             onChange={handleInputChange}
             onKeyDown={handleEnterKeyPress}
           />
-          <BiSearchAlt
-            size={30}
-            className="absolute text-white bg-primary rounded inset-y-2 right-4 cursor-pointer p-1"
-          />
+          <BiSearchAlt size={30} className="absolute p-1 text-white rounded cursor-pointer bg-primary inset-y-2 right-4"/>
         </div>
       </div>
 
-      <div className="flex text-white gap-2 cursor-pointer items-center gap-6">
-        <div className="flex space-x-4">
-          <IoIosList size={30} />
-          <IoIosNotificationsOutline size={30} />
-        </div>
-        <div className="flex bg-blue-400 px-6 py-1 rounded-xl gap-2 font-bold">
-          <LuUser size={28} />
-          <div className="text-lg">Akun</div>
-        </div>
+      <div className="flex gap-2 font-bold text-white cursor-pointer" onClick={()=>{navigate("/Login")}}>
+        <CgLogIn size={30} />
+        <div className="text-xl">Masuk</div>
       </div>
     </div>
   );

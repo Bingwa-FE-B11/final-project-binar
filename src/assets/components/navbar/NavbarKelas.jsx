@@ -1,9 +1,13 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+// Icons
 import { BiSearchAlt } from "react-icons/bi";
 import { IoIosNotificationsOutline, IoIosList } from "react-icons/io";
 import { LuUser } from "react-icons/lu";
-import { useNavigate } from "react-router-dom";
-import BrandLogo from "../img/brain.webp";
+
+// Images
+import BrandLogo from "../../img/brain.webp";
 
 export const NavbarKelas = () => {
   const [search, setSearch] = useState("");
@@ -22,11 +26,11 @@ export const NavbarKelas = () => {
   };
 
   return (
-    <div className="flex bg-primary fixed top-0 justify-between items-center w-screen px-28 py-4 gap-20">
+    <div className="fixed top-0 flex items-center justify-between w-screen gap-20 py-4 bg-primary px-28">
       <div className="flex gap-10">
       <div className="flex gap-2">
         <img src={BrandLogo} alt="Brand Logo" className="w-[2.5rem]" />
-        <div className="text-white text-4xl font-bold font-sans gap-4">
+        <div className="gap-4 font-sans text-4xl font-bold text-white">
           Bingwa
         </div>
       </div>
@@ -42,13 +46,13 @@ export const NavbarKelas = () => {
         />
         <BiSearchAlt
           size={30}
-          className="absolute text-white bg-primary rounded inset-y-2 right-4 cursor-pointer p-1"
+          className="absolute p-1 text-white rounded cursor-pointer bg-primary inset-y-2 right-4"
         />
         </div>
       </div>
 
-      <div className="flex text-white gap-2 cursor-pointer space-x-4 items-center">
-        <div className="flex bg-blue-400 px-6 py-1 rounded-xl gap-2 font-bold">
+      <div className="flex items-center gap-2 space-x-4 text-white cursor-pointer">
+        <div className="flex gap-2 px-6 py-1 font-bold bg-blue-400 rounded-xl">
           <IoIosList size={28} />
           <div className="text-lg">Kelas</div>
         </div>

@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { HomePage } from '../pages/HomePage';
-import { LoginPage } from '../pages/LoginPage';
-import { Register } from '../pages/Register';
-import { ResetPassword } from '../pages/ResetPassword';
-import { AdminLogin } from '../pages/AdminLogin';
-import { KelasSaya } from '../pages/KelasSaya';
-import { Otp } from '../pages/Otp';
+import { LoginPage } from '../pages/user/auth/LoginPage';
+import { Register } from '../pages/user/auth/Register';
+import { ResetPassword } from '../pages/user/ResetPassword';
+import { AdminLogin } from '../pages/admin/auth/AdminLogin';
+import { KelasSaya } from '../pages/user/kelas/KelasSaya';
+import { Otp } from '../pages/user/auth/Otp';
 import { Error404 } from '../pages/errors/Error404';
 
 export const RouteList = () => {

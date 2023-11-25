@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Images
-import uiux from '../img/uiux.webp';
+import uiux from '../../img/uiux.webp';
 
 export const CardKategory = ({ thumbnail, category }) => {
   return (

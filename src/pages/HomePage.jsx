@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
 
 // Images
 import Header from '../assets/img/Header.webp';
 
 // Components
-import { NavbarHome } from "../assets/components/NavbarHome";
-import { CardKursus } from '../assets/components/CardKursus';
-import { CardKategory } from '../assets/components/CardKategory';
+import { NavbarHome } from '../assets/components/navbar/NavbarHome';
+import { CardKursus } from '../assets/components/cards/CardKursus';
+import { CardKategory } from '../assets/components/cards/CardKategory';
 
 export const HomePage = () => {
   return (
