@@ -23,55 +23,56 @@ export const Otp = () => {
           {/* Masukkan Kode OTP */}
           <div className="flex flex-col gap-2">
             <span className="pb-5 text-lg text-center">
-              Ketik 6 digit kode yang dikirim ke bingwa@gmail.com
+              Ketik 6 digit kode yang dikirim ke <span className='font-bold'>bingwa@gmail.com</span>
             </span>
 
+            {/* Lingkaran Otp */}
             <div className="flex items-center justify-center gap-4">
               <div className="w-[42px] h-[42px] border-2 rounded-xl">
                 <input
                   placeholder=""
-                  className="w-full h-full font-semibold text-center rounded-xl"
+                  className="w-full h-full font-semibold text-center rounded-xl border border-primary"
                   type="text"
                 />
               </div>
               <div className="w-[42px] h-[42px] border-2 rounded-xl">
                 <input
                   placeholder=""
-                  className="w-full h-full font-semibold text-center rounded-xl"
+                  className="w-full h-full font-semibold text-center rounded-xl border border-primary"
                   type="text"
                 />
               </div>
               <div className="w-[42px] h-[42px] border-2 rounded-xl">
                 <input
                   placeholder=""
-                  className="w-full h-full font-semibold text-center rounded-xl"
+                  className="w-full h-full font-semibold text-center rounded-xl border border-primary"
                   type="text"
                 />
               </div>
               <div className="w-[42px] h-[42px] border-2 rounded-xl">
                 <input
                   placeholder=""
-                  className="w-full h-full font-semibold text-center rounded-xl"
+                  className="w-full h-full font-semibold text-center rounded-xl border border-primary"
                   type="text"
                 />
               </div>
               <div className="w-[42px] h-[42px] border-2 rounded-xl">
                 <input
                   placeholder=""
-                  className="w-full h-full font-semibold text-center rounded-xl"
+                  className="w-full h-full font-semibold text-center rounded-xl border border-primary"
                   type="text"
                 />
               </div>
               <div className="w-[42px] h-[42px] border-2 rounded-xl">
                 <input
                   placeholder=""
-                  className="w-full h-full font-semibold text-center rounded-xl"
+                  className="w-full h-full font-semibold text-center rounded-xl border border-primary"
                   type="text"
                 />
               </div>
             </div>
 
-            <span className="pb-5 text-lg text-center">Kirim ulang OTP dalam 60 detik</span>
+            <span className="py-4 pb-5 text-lg text-center">Kirim ulang OTP dalam 60 detik</span>
           </div>
 
           {/* Button Simpan */}
