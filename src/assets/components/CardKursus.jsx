@@ -17,7 +17,7 @@ export const CardKursus = ({ category, rating, title, author, level, modul, dura
         style={{ backgroundImage: `url(${uiux})` }}
       ></div>
       {/* Container Desc Card Kelas */}
-      <div className="flex flex-col gap-4 px-4 py-3">
+      <div className="flex flex-col gap-4 px-4 py-3 bg-white">
         <div className="flex justify-between">
           <div className="text-lg font-bold text-primary">{category}</div>
           <div className="flex items-center gap-1">
