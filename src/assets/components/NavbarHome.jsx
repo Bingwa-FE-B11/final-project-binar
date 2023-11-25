@@ -21,12 +21,12 @@ export const NavbarHome = () => {
   };
 
   return (
-    <div className="flex bg-primary fixed top-0 justify-between items-center w-screen px-28 py-4 gap-20">
+    <div className="fixed top-0 z-50 flex items-center justify-between w-screen gap-20 py-4 bg-primary px-28">
       <div className="flex gap-10">
         <div className="flex gap-2">
           <img src={BrandLogo} alt="Brand Logo" className="w-[2.5rem]" />
           <div
-            className="text-white text-4xl font-bold font-sans gap-4"
+            className="gap-4 font-sans text-4xl font-bold text-white"
           >
             Bingwa
           </div>
@@ -41,11 +41,11 @@ export const NavbarHome = () => {
             onChange={handleInputChange}
             onKeyDown={handleEnterKeyPress}
           />
-          <BiSearchAlt size={30} className="absolute text-white bg-primary rounded inset-y-2 right-4 cursor-pointer p-1"/>
+          <BiSearchAlt size={30} className="absolute p-1 text-white rounded cursor-pointer bg-primary inset-y-2 right-4"/>
         </div>
       </div>
 
-      <div className="flex text-white gap-2 cursor-pointer font-bold" onClick={()=>{navigate("/Login")}}>
+      <div className="flex gap-2 font-bold text-white cursor-pointer" onClick={()=>{navigate("/Login")}}>
         <CgLogIn size={30} />
         <div className="text-xl">Masuk</div>
       </div>
