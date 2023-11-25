@@ -34,7 +34,7 @@ export const LoginPage = () => {
               <span
                 className="text-lg font-semibold cursor-pointer text-primary"
                 onClick={() => {
-                  navigate('/ResetPassword');
+                  navigate('/reset-password');
                 }}
               >
                 Lupa Kata Sandi
