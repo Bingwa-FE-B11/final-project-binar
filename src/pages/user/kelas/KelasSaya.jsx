@@ -31,16 +31,16 @@ export const KelasSaya = () => {
             {/* Filter */}
             <div className="flex px-4 pt-3 pb-4 text-xl font-bold">Filter</div>
             <div className="flex flex-col space-y-3 font-medium">
-              <div className="px-6">
-                <input type="checkbox" className="mr-2 cursor-pointer" />
+              <div className="flex items-center px-6">
+                <input type="checkbox" className="w-[20px] h-[20px] mr-2 cursor-pointer" />
                 Paling Baru
               </div>
-              <div className="px-6">
-                <input type="checkbox" className="mr-2 cursor-pointer" />
+              <div className="flex items-center px-6">
+                <input type="checkbox" className="w-[20px] h-[20px] mr-2 cursor-pointer" />
                 Paling Populer
               </div>
-              <div className="px-6">
-                <input type="checkbox" className="mr-2 cursor-pointer" />
+              <div className="flex items-center px-6">
+                <input type="checkbox" className="w-[20px] h-[20px] mr-2 cursor-pointer" />
                 Promo
               </div>
             </div>
@@ -48,24 +48,24 @@ export const KelasSaya = () => {
             {/* Kategori */}
             <div className="flex px-4 py-3 text-xl font-bold">Kategori</div>
             <div className="flex flex-col space-y-3 font-medium">
-              <div className="px-6">
-                <input type="checkbox" className="mr-2 cursor-pointer" />
+              <div className="flex items-center px-6">
+                <input type="checkbox" className="w-[20px] h-[20px] mr-2 cursor-pointer" />
                 UI/UX Design
               </div>
-              <div className="px-6">
-                <input type="checkbox" className="mr-2 cursor-pointer" />
+              <div className="flex items-center px-6">
+                <input type="checkbox" className="w-[20px] h-[20px] mr-2 cursor-pointer" />
                 Web Development
               </div>
-              <div className="px-6">
-                <input type="checkbox" className="mr-2 cursor-pointer" />
+              <div className="flex items-center px-6">
+                <input type="checkbox" className="w-[20px] h-[20px] mr-2 cursor-pointer" />
                 Android Development
               </div>
-              <div className="px-6">
-                <input type="checkbox" className="mr-2 cursor-pointer" />
+              <div className="flex items-center px-6">
+                <input type="checkbox" className="w-[20px] h-[20px] mr-2 cursor-pointer" />
                 Data Science
               </div>
-              <div className="px-6">
-                <input type="checkbox" className="mr-2 cursor-pointer" />
+              <div className="flex items-center px-6">
+                <input type="checkbox" className="w-[20px] h-[20px] mr-2 cursor-pointer" />
                 Business Intelligence
               </div>
             </div>
@@ -73,26 +73,26 @@ export const KelasSaya = () => {
             {/* Level Kesulitan */}
             <div className="flex px-4 py-3 text-xl font-bold">Level Kesulitan</div>
             <div className="flex flex-col space-y-3 font-medium">
-              <div className="px-6">
-                <input type="checkbox" className="mr-2 cursor-pointer" />
+              <div className="flex items-center px-6">
+                <input type="checkbox" className="w-[20px] h-[20px] mr-2 cursor-pointer" />
                 Semua Level
               </div>
-              <div className="px-6">
-                <input type="checkbox" className="mr-2 cursor-pointer" />
+              <div className="flex items-center px-6">
+                <input type="checkbox" className="w-[20px] h-[20px] mr-2 cursor-pointer" />
                 Beginner Level
               </div>
-              <div className="px-6">
-                <input type="checkbox" className="mr-2 cursor-pointer" />
+              <div className="flex items-center px-6">
+                <input type="checkbox" className="w-[20px] h-[20px] mr-2 cursor-pointer" />
                 Intermediate Level
               </div>
-              <div className="px-6">
-                <input type="checkbox" className="mr-2 cursor-pointer" />
+              <div className="flex items-center px-6">
+                <input type="checkbox" className="w-[20px] h-[20px] mr-2 cursor-pointer" />
                 Advanced Level
               </div>
             </div>
 
             {/* Hapus Filter */}
-            <button className="py-10 font-medium text-red-500">Hapus Filter</button>
+            <button className="py-10 font-medium text-red-600">Hapus Filter</button>
           </div>
 
           {/* Button */}
