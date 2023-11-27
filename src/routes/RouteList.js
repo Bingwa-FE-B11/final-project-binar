@@ -8,6 +8,9 @@ import { AdminLogin } from '../pages/admin/auth/AdminLogin';
 import { KelasSaya } from '../pages/user/kelas/KelasSaya';
 import { Otp } from '../pages/user/auth/Otp';
 import { Error404 } from '../pages/errors/Error404';
+import { PilihPremium } from '../pages/user/kelas/PilihPremium';
+import { PilihGratis } from '../pages/user/kelas/PilihGratis';
+import { PilihKelas } from '../pages/user/kelas/PilihKelas';
 
 export const RouteList = () => {
   return (
@@ -21,7 +24,12 @@ export const RouteList = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/otp" element={<Otp />} />
+
+        {/* Kelas User */}
         <Route path="/kelas-saya" element={<KelasSaya />} />
+        <Route path='/pilih-premium' element={<PilihPremium/>} />
+        <Route path='/pilih-gratis' element={<PilihGratis/>} />
+        <Route path='/pilih-kelas' element={<PilihKelas/>} />
 
         {/* Admin */}
         <Route path="/admin/login" element={<AdminLogin />} />
