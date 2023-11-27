@@ -3,7 +3,7 @@ import React from 'react';
 // Icons
 import { BiSearchAlt } from 'react-icons/bi';
 import { NavbarKelas } from '../../../assets/components/navbar/NavbarKelas';
-import { CardGlobal } from '../../../assets/components/cards/CardGlobal';
+import { CardPremium } from '../../../assets/components/cards/CardPremium';
 
 export const PilihPremium = () => {
   return (
@@ -112,7 +112,7 @@ export const PilihPremium = () => {
             {/* Main Content */}
             <div className="grid w-full grid-cols-2 gap-6 py-4">
               {/* Card Item */}
-              <CardGlobal
+              <CardPremium
                 category={'Web Development'}
                 rating={4.5}
                 title={'Belajar ReactJS untuk pemula'}
@@ -123,7 +123,7 @@ export const PilihPremium = () => {
                 kelas={'Premium'}
               />
               {/* Card Item */}
-              <CardGlobal
+              <CardPremium
                 category={'Web Development'}
                 rating={4.5}
                 title={'Belajar ReactJS untuk pemula'}
@@ -134,7 +134,7 @@ export const PilihPremium = () => {
                 kelas={'Premium'}
               />
               {/* Card Item */}
-              <CardGlobal
+              <CardPremium
                 category={'Web Development'}
                 rating={4.5}
                 title={'Belajar ReactJS untuk pemula'}
@@ -145,7 +145,7 @@ export const PilihPremium = () => {
                 kelas={'Premium'}
               />
               {/* Card Item */}
-              <CardGlobal
+              <CardPremium
                 category={'Web Development'}
                 rating={4.5}
                 title={'Belajar ReactJS untuk pemula'}
@@ -156,7 +156,7 @@ export const PilihPremium = () => {
                 kelas={'Premium'}
               />
               {/* Card Item */}
-              <CardGlobal
+              <CardPremium
                 category={'Web Development'}
                 rating={4.5}
                 title={'Belajar ReactJS untuk pemula'}
@@ -167,7 +167,18 @@ export const PilihPremium = () => {
                 kelas={'Premium'}
               />
               {/* Card Item */}
-              <CardGlobal
+              <CardPremium
+                category={'Web Development'}
+                rating={4.5}
+                title={'Belajar ReactJS untuk pemula'}
+                author={'Eren Saputra'}
+                level={'Basic'}
+                modul={10}
+                duration={120}
+                kelas={'Premium'}
+              />
+              {/* Card Item */}
+              <CardPremium
                 category={'Web Development'}
                 rating={4.5}
                 title={'Belajar ReactJS untuk pemula'}
