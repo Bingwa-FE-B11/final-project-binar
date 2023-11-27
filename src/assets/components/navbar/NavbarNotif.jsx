@@ -3,7 +3,7 @@ import { BiSearchAlt } from "react-icons/bi";
 import { IoIosNotificationsOutline, IoIosList } from "react-icons/io";
 import { LuUser } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
-import BrandLogo from "../img/brain.webp";
+import BrandLogo from "../../img/brain.webp";
 
 export const NavbarNotif = () => {
   const [search, setSearch] = useState("");
