@@ -8,6 +8,7 @@ import { AdminLogin } from '../pages/admin/auth/AdminLogin';
 import { KelasSaya } from '../pages/user/kelas/KelasSaya';
 import { Otp } from '../pages/user/auth/Otp';
 import { Error404 } from '../pages/errors/Error404';
+import { Notifikasi } from '../pages/Notifikasi';
 import { PilihPremium } from '../pages/user/kelas/PilihPremium';
 import { PilihGratis } from '../pages/user/kelas/PilihGratis';
 import { PilihKelas } from '../pages/user/kelas/PilihKelas';
@@ -34,8 +35,11 @@ export const RouteList = () => {
         {/* Admin */}
         <Route path="/admin/login" element={<AdminLogin />} />
 
+        <Route path="notif" element={<Notifikasi />} />
+
+
         {/* Error */}
-        <Route path="*" element={<Error404 />} />
+        <Route path="*" element={<Error404 />} />        
       </Routes>
     </BrowserRouter>
   );
