@@ -58,8 +58,8 @@ export const NavbarKelas = () => {
         </div>
 
         <div className="flex space-x-4">
-          <IoIosNotificationsOutline size={30} />
-          <LuUser size={30} />
+          <IoIosNotificationsOutline size={30} onClick={()=>{navigate("/notifikasi")}}/>
+          <LuUser size={30} onClick={()=>{navigate("/akun-profile")}} />
         </div>
       </div>
     </div>

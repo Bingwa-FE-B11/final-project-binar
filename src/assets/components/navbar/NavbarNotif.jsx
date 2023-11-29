@@ -48,12 +48,12 @@ export const NavbarNotif = () => {
       </div>
 
       <div className="flex items-center gap-2 gap-6 text-white cursor-pointer">
-        <IoIosList size={30} />
+        <IoIosList size={30} onClick={()=>{navigate("/kelas-saya")}} />
         <div className="flex gap-2 px-6 py-1 font-bold bg-blue-400 rounded-xl">
           <IoIosNotificationsOutline size={28} />
           <div className="text-lg">Notifikasi</div>
         </div>
-        <LuUser size={30} />
+        <LuUser size={30} onClick={()=>{navigate("/akun-profile")}} />
       </div>
     </div>
   );

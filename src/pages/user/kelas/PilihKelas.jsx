@@ -95,19 +95,23 @@ export const PilihKelas = () => {
 
           {/* Button */}
           <div className="flex flex-wrap items-center justify-between font-semibold w-[65%]">
-            <div className="px-16 py-2 bg-white cursor-pointer rounded-xl hover:bg-primary hover:text-white">
-              <button>All</button>
-            </div>
-            <div className="py-2 bg-white cursor-pointer px-28 rounded-xl hover:bg-primary hover:text-white">
-              <button>Kelas Premium</button>
-            </div>
-            <div className="px-20 py-2 bg-white cursor-pointer rounded-xl hover:bg-primary hover:text-white">
-              <button>Kelas Gratis</button>
+            <div className="flex w-full gap-4 text-center">
+              <div className="py-2 bg-white cursor-pointer w-[20%] rounded-xl hover:bg-primary hover:text-white">
+                <button>All</button>
+              </div>
+              <div className="w-[60%] py-2 bg-white cursor-pointer rounded-xl hover:bg-primary hover:text-white">
+                <button>Kelas Premium</button>
+              </div>
+              <div className="w-[20%] py-2 bg-white cursor-pointer rounded-xl hover:bg-primary hover:text-white">
+                <button>Kelas Gratis</button>
+              </div>
             </div>
             
-            <div>Menampilkan "Advanced Level"</div>
+            <div className='py-4'>Menampilkan 
+            <span className='text-primary font-bold'>"Advanced Level"</span>
+            </div>
             {/* Main Content */}
-            <div className="grid w-full grid-cols-2 gap-6 py-4">
+            <div className="grid w-full grid-cols-2 gap-6">
               {/* Card Item */}
               <CardGlobal
               category={'UAI UEX DISAIN'}
