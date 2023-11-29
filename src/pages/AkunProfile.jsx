@@ -45,7 +45,7 @@ export const AkunProfile = () => {
                 <div className="text-left">Nama</div>
                 <input
                   type="text"
-                  className="px-4 py-3 border-2 w-80 rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
+                  className="px-4 py-3 border-2 w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
                   placeholder="Bingwa"
                 />
               </div>
@@ -53,7 +53,7 @@ export const AkunProfile = () => {
                 <div className="text-left">Email</div>
                 <input
                   type="text"
-                  className="px-4 py-3 border-2 w-80 rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
+                  className="px-4 py-3 border-2 w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
                   placeholder="bingwa@gmail.com"
                 />
               </div>
@@ -61,7 +61,7 @@ export const AkunProfile = () => {
                 <div className="text-left">Nomor Telepon</div>
                 <input
                   type="text"
-                  className="px-4 py-3 border-2 w-80 rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
+                  className="px-4 py-3 border-2 w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
                   placeholder="08123456789"
                 />
               </div>
@@ -69,7 +69,7 @@ export const AkunProfile = () => {
                 <div className="text-left">Negara</div>
                 <input
                   type="text"
-                  className="px-4 py-3 border-2 w-80 rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
+                  className="px-4 py-3 border-2 w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
                   placeholder="Indonesia"
                 />
               </div>
@@ -77,11 +77,11 @@ export const AkunProfile = () => {
                 <div className="text-left">Kota</div>
                 <input
                   type="text"
-                  className="px-4 py-3 border-2 w-80 rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
+                  className="px-4 py-3 border-2 w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
                   placeholder="Jakarta"
                 />
               </div>
-              <button className="px-4 py-3 font-semibold text-white w-80 bg-primary rounded-2xl hover:bg-primary-hover">
+              <button className="px-4 py-3 font-semibold text-white w-[22rem] bg-primary rounded-2xl hover:bg-primary-hover">
                 Simpan Profil Saya
               </button>
             </div>
