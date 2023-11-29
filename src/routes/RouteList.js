@@ -8,9 +8,13 @@ import { AdminLogin } from '../pages/admin/auth/AdminLogin';
 import { KelasSaya } from '../pages/user/kelas/KelasSaya';
 import { Otp } from '../pages/user/auth/Otp';
 import { Error404 } from '../pages/errors/Error404';
+import { Notifikasi } from '../pages/Notifikasi';
 import { PilihPremium } from '../pages/user/kelas/PilihPremium';
 import { PilihGratis } from '../pages/user/kelas/PilihGratis';
 import { PilihKelas } from '../pages/user/kelas/PilihKelas';
+import { AkunProfile } from '../pages/AkunProfile';
+import { AkunPembayaran } from '../pages/AkunPembayaran';
+import { AkunPassword } from '../pages/AkunPassword';
 
 export const RouteList = () => {
   return (
@@ -34,8 +38,14 @@ export const RouteList = () => {
         {/* Admin */}
         <Route path="/admin/login" element={<AdminLogin />} />
 
+        {/* Data User */}
+        <Route path="notifikasi" element={<Notifikasi />} />
+        <Route path="akun-profile" element={<AkunProfile />} />
+        <Route path="akun-password" element={<AkunPassword />} />
+        <Route path="akun-pembayaran" element={<AkunPembayaran />} />
+
         {/* Error */}
-        <Route path="*" element={<Error404 />} />
+        <Route path="*" element={<Error404 />} />        
       </Routes>
     </BrowserRouter>
   );
