@@ -49,8 +49,8 @@ export const NavbarAkun = () => {
 
       <div className="flex items-center gap-2 gap-6 text-white cursor-pointer">
         <div className="flex space-x-4">
-          <IoIosList size={30} />
-          <IoIosNotificationsOutline size={30} />
+          <IoIosList size={30} onClick={()=>{navigate("/kelas-saya")}} />
+          <IoIosNotificationsOutline size={30} onClick={()=>{navigate("/notifikasi")}} />
         </div>
         <div className="flex gap-2 px-6 py-1 font-bold bg-blue-400 rounded-xl">
           <LuUser size={28} />
