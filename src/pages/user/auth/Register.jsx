@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+// Images
 import EyePassword from '../../../assets/img/fi_eye.webp';
 import BrandLogo from '../../../assets/img/brain.webp';
 

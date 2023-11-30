@@ -1,8 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+// Icons
 import { BiSearchAlt } from "react-icons/bi";
 import { IoIosNotificationsOutline, IoIosList } from "react-icons/io";
 import { LuUser } from "react-icons/lu";
-import { useNavigate } from "react-router-dom";
+
+// Images
 import BrandLogo from "../../img/brain.webp";
 
 export const NavbarNotif = () => {
@@ -47,7 +51,7 @@ export const NavbarNotif = () => {
         </div>
       </div>
 
-      <div className="flex items-center gap-2 gap-6 text-white cursor-pointer">
+      <div className="flex items-center gap-3 text-white cursor-pointer">
         <IoIosList size={30} onClick={()=>{navigate("/kelas-saya")}} />
         <div className="flex gap-2 px-6 py-1 font-bold bg-blue-400 rounded-xl">
           <IoIosNotificationsOutline size={28} />

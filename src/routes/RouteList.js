@@ -8,13 +8,13 @@ import { AdminLogin } from '../pages/admin/auth/AdminLogin';
 import { KelasSaya } from '../pages/user/kelas/KelasSaya';
 import { Otp } from '../pages/user/auth/Otp';
 import { Error404 } from '../pages/errors/Error404';
-import { Notifikasi } from '../pages/Notifikasi';
+import { Notifikasi } from '../pages/user/akun/Notifikasi';
 import { PilihPremium } from '../pages/user/kelas/PilihPremium';
 import { PilihGratis } from '../pages/user/kelas/PilihGratis';
 import { PilihKelas } from '../pages/user/kelas/PilihKelas';
-import { AkunProfile } from '../pages/AkunProfile';
-import { AkunPembayaran } from '../pages/AkunPembayaran';
-import { AkunPassword } from '../pages/AkunPassword';
+import { AkunProfile } from '../pages/user/akun/AkunProfile';
+import { AkunPembayaran } from '../pages/user/akun/AkunPembayaran';
+import { AkunPassword } from '../pages/user/akun/AkunPassword';
 
 export const RouteList = () => {
   return (

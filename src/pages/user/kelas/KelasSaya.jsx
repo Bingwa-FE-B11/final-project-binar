@@ -1,5 +1,9 @@
 import React from 'react';
+
+// Icons
 import { BiSearchAlt } from 'react-icons/bi';
+
+// Components
 import { NavbarKelas } from '../../../assets/components/navbar/NavbarKelas';
 import { CardKursus } from '../../../assets/components/cards/CardKursus';
 import { CardGlobal } from '../../../assets/components/cards/CardGlobal';
