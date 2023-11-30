@@ -100,8 +100,6 @@ export const AkunPembayaran = () => {
           </div>
         
         </div>
-          
-          
         </div>
       </div>
     </>
