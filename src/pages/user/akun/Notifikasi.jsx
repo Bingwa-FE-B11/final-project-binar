@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 // Components
-import { NavbarNotif } from "../assets/components/navbar/NavbarNotif";
+import { NavbarNotif } from "../../../assets/components/navbar/NavbarNotif";
 
 // Icons
 import { GoArrowLeft } from "react-icons/go";
@@ -13,14 +13,13 @@ export const Notifikasi = () => {
   const navigate = useNavigate();
   return (
     <>
-      <NavbarNotif />
       <div className="mt-[5rem] bg-secondary h-[10rem] px-80">
-        <div className="flex py-8 items-center gap-2 text-primary text-lg font-bold">
+        <div className="flex py-8 items-center gap-2 text-primary text-lg font-bold relative">
           <GoArrowLeft
             size={30}
-            className="cursor-pointer"
+            className="cursor-pointer absolute -inset-x-16"
             onClick={() => {
-              navigate("/");
+              navigate("/kelas-saya");
             }}
           />
           Kembali Ke Beranda
@@ -101,6 +100,7 @@ export const Notifikasi = () => {
           </div>
         </div>
       </div>
+      <NavbarNotif style={{ zIndex: 1 }}/>
     </>
   );
 };

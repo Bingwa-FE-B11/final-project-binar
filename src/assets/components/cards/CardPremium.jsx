@@ -27,7 +27,7 @@ export const CardPremium = ({category, rating, title, author, level, modul, dura
             <div className="font-bold">{rating}</div>
           </div>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col text-left">
           <div className="font-semibold text-slate-800">{title}</div>
           <div className="text-slate-500">by {author}</div>
         </div>

@@ -1,26 +1,25 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // Components
-import { NavbarAkun } from '../assets/components/navbar/NavbarAkun';
+import { NavbarAkun } from '../../../assets/components/navbar/NavbarAkun';
+import { SidebarAkun } from '../../../assets/components/sidebar/SidebarAkun';
 
 // Icons
 import { GoArrowLeft } from 'react-icons/go';
-import { useNavigate } from 'react-router-dom';
-import { SidebarAkun } from '../assets/components/sidebar/SidebarAkun';
 import { IoImageOutline } from 'react-icons/io5';
 
 export const AkunProfile = () => {
   const navigate = useNavigate();
   return (
     <>
-      <NavbarAkun />
       <div className="mt-[5rem] bg-secondary h-[10rem] px-80">
-        <div className="flex items-center gap-2 py-8 text-lg font-bold text-primary">
+        <div className="flex items-center gap-2 py-8 text-lg font-bold text-primary relative">
           <GoArrowLeft
             size={30}
-            className="cursor-pointer"
+            className="cursor-pointer absolute -inset-x-16"
             onClick={() => {
-              navigate('/');
+              navigate('/kelas-saya');
             }}
           />
           Kembali Ke Beranda
@@ -88,6 +87,7 @@ export const AkunProfile = () => {
           </div>
         </div>
       </div>
+      <NavbarAkun style={{ zIndex: 1 }} />
     </>
   );
 };

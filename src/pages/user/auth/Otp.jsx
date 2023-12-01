@@ -10,9 +10,9 @@ import { GoArrowLeft } from 'react-icons/go';
 export const Otp = () => {
   const navigate = useNavigate();
   return (
-    <div className="flex items-center justify-center h-screen">
-      <div className="w-3/5">
-        <div className="flex flex-col  w-[30rem] mx-auto">
+    <div className="flex items-center justify-center h-screen md:flex-row">
+      <div className="w-full rounded-lg md:mt-0 mx-auto md:max-w-md xl:p-0 p-6 ">
+        <div className="flex flex-col w-full mx-auto">
           <div className="absolute top-[120px] left-[108px] cursor-pointer">
             <GoArrowLeft
               size={25}
@@ -26,48 +26,49 @@ export const Otp = () => {
 
           {/* Masukkan Kode OTP */}
           <div className="flex flex-col gap-2">
-            <span className="pb-5 text-lg text-center">
-              Ketik 6 digit kode yang dikirim ke <span className='font-bold'>bingwa@gmail.com</span>
+            <span className="pb-5 pt-4 text-lg text-center">
+              Ketik 6 digit kode yang dikirim ke{" "}
+              <span className='font-bold'>bingwa@gmail.com</span>
             </span>
 
             {/* Lingkaran Otp */}
             <div className="flex items-center justify-center gap-4">
-              <div className="w-[42px] h-[42px] border-2 rounded-xl">
+            <div className="w-[50px] h-[50px] border-2 rounded-xl">
                 <input
                   placeholder=""
                   className="w-full h-full font-semibold text-center border rounded-xl border-primary"
                   type="text"
                 />
               </div>
-              <div className="w-[42px] h-[42px] border-2 rounded-xl">
+              <div className="w-[50px] h-[50px] border-2 rounded-xl">
                 <input
                   placeholder=""
                   className="w-full h-full font-semibold text-center border rounded-xl border-primary"
                   type="text"
                 />
               </div>
-              <div className="w-[42px] h-[42px] border-2 rounded-xl">
+              <div className="w-[50px] h-[50px] border-2 rounded-xl">
                 <input
                   placeholder=""
                   className="w-full h-full font-semibold text-center border rounded-xl border-primary"
                   type="text"
                 />
               </div>
-              <div className="w-[42px] h-[42px] border-2 rounded-xl">
+              <div className="w-[50px] h-[50px] border-2 rounded-xl">
                 <input
                   placeholder=""
                   className="w-full h-full font-semibold text-center border rounded-xl border-primary"
                   type="text"
                 />
               </div>
-              <div className="w-[42px] h-[42px] border-2 rounded-xl">
+              <div className="w-[50px] h-[50px] border-2 rounded-xl">
                 <input
                   placeholder=""
                   className="w-full h-full font-semibold text-center border rounded-xl border-primary"
                   type="text"
                 />
               </div>
-              <div className="w-[42px] h-[42px] border-2 rounded-xl">
+              <div className="w-[50px] h-[50px] border-2 rounded-xl">
                 <input
                   placeholder=""
                   className="w-full h-full font-semibold text-center border rounded-xl border-primary"

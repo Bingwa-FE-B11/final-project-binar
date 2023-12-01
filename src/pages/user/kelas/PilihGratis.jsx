@@ -1,10 +1,17 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
+
+// Icons
 import { BiSearchAlt } from 'react-icons/bi';
+
+// Component
 import { NavbarKelas } from '../../../assets/components/navbar/NavbarKelas';
 import { CardKursus } from '../../../assets/components/cards/CardKursus';
 import { CardGlobal } from '../../../assets/components/cards/CardGlobal';
 
 export const PilihGratis = () => {
+  const navigate = useNavigate()
+
   return (
  <div className="flex flex-col justify-between h-full bg-secondary">
       <div className="flex flex-col justify-center px-48 pt-28">
@@ -100,7 +107,8 @@ export const PilihGratis = () => {
               <div className="py-2 bg-white cursor-pointer w-[20%] rounded-xl hover:bg-primary hover:text-white">
                 <button>All</button>
               </div>
-              <div className="w-[60%] py-2 bg-white cursor-pointer rounded-xl hover:bg-primary hover:text-white">
+              <div className="w-[60%] py-2 bg-white cursor-pointer rounded-xl hover:bg-primary hover:text-white"
+              onClick={()=>{navigate("/pilih-premium")}}>
                 <button>Kelas Premium</button>
               </div>
               <div className="w-[20%] py-2 bg-white cursor-pointer rounded-xl hover:bg-primary hover:text-white">
