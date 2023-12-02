@@ -15,13 +15,11 @@ import { PilihKelas } from '../pages/user/kelas/PilihKelas';
 import { AkunProfile } from '../pages/user/akun/AkunProfile';
 import { AkunPembayaran } from '../pages/user/akun/AkunPembayaran';
 import { AkunPassword } from '../pages/user/akun/AkunPassword';
-import { TestingPage } from '../pages/TestingPage';
 
 export const RouteList = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/testing" element={<TestingPage />} />
 
         <Route path="/" element={<HomePage />} />
         <Route path="/homepage" element={<HomePage />} />
