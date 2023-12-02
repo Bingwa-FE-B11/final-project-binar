@@ -15,11 +15,14 @@ import { PilihKelas } from '../pages/user/kelas/PilihKelas';
 import { AkunProfile } from '../pages/user/akun/AkunProfile';
 import { AkunPembayaran } from '../pages/user/akun/AkunPembayaran';
 import { AkunPassword } from '../pages/user/akun/AkunPassword';
+import { TestingPage } from '../pages/TestingPage';
 
 export const RouteList = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/testing" element={<TestingPage />} />
+
         <Route path="/" element={<HomePage />} />
         <Route path="/homepage" element={<HomePage />} />
 
@@ -31,9 +34,9 @@ export const RouteList = () => {
 
         {/* Kelas User */}
         <Route path="/kelas-saya" element={<KelasSaya />} />
-        <Route path='/pilih-premium' element={<PilihPremium/>} />
-        <Route path='/pilih-gratis' element={<PilihGratis/>} />
-        <Route path='/pilih-kelas' element={<PilihKelas/>} />
+        <Route path="/pilih-premium" element={<PilihPremium />} />
+        <Route path="/pilih-gratis" element={<PilihGratis />} />
+        <Route path="/pilih-kelas" element={<PilihKelas />} />
 
         {/* Admin */}
         <Route path="/admin/login" element={<AdminLogin />} />
@@ -45,7 +48,7 @@ export const RouteList = () => {
         <Route path="akun-pembayaran" element={<AkunPembayaran />} />
 
         {/* Error */}
-        <Route path="*" element={<Error404 />} />        
+        <Route path="*" element={<Error404 />} />
       </Routes>
     </BrowserRouter>
   );
