@@ -1,18 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
 // Images
 import BrandLogo from "../../assets/img/brain.webp";
 import { useNavigate } from "react-router-dom";
 
-export const RequestReset = () => {
-  const navigate = useNavigate()
+// Function
+import { reduxForgetPass } from "../../services/user/auth/ForgetPass";
+import { setForget } from "../../redux/reducer/auth/Password";
+
+// Toast
+import toast from "react-hot-toast";
+
+export const ForgetPass = () => {
+  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handleForgetPass = () => {
+    reduxForgetPass(email)
+      .then((result) => {
+        dispatch(setForget(result.data.data));
+        toast.success("Tautan reset password terkirim");
+        setTimeout(() => {
+          navigate("/reset-password");
+        }, 1000);
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 404) {
+          toast.error(error.response.data.message);
+        }
+      });
+  };
 
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="w-3/5">
         <div className="flex flex-col w-[30rem] mx-auto">
           <span className="items-center pb-2 text-4xl font-bold text-primary">
-            Request Reset Password
+            Forget Password
           </span>
 
           {/* Konfirmasi Password Baru */}
@@ -22,6 +52,8 @@ export const RequestReset = () => {
             </div>
             <div className="relative flex flex-col">
               <input
+                value={email}
+                onChange={handleEmailChange}
                 placeholder="Masukkan Email"
                 className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
                 type="email"
@@ -34,7 +66,7 @@ export const RequestReset = () => {
             <button
               type="button"
               className="py-3 mt-2 text-lg font-semibold text-white bg-primary hover:bg-primary-hover rounded-xl"
-              onClick={()=>{navigate("/reset-password")}}
+              onClick={handleForgetPass}
             >
               Masuk
             </button>

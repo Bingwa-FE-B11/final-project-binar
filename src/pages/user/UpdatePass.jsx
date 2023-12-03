@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import EyePassword from '../../assets/img/fi_eye.webp';
 import BrandLogo from '../../assets/img/brain.webp';
 
-export const ResetPassword = () => {
+export const UpdatePass = () => {
   const [showPassword1, setShowPassword1] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
 
