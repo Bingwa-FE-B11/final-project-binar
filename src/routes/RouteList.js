@@ -15,6 +15,7 @@ import { PilihKelas } from '../pages/user/kelas/PilihKelas';
 import { AkunProfile } from '../pages/user/akun/AkunProfile';
 import { AkunPembayaran } from '../pages/user/akun/AkunPembayaran';
 import { AkunPassword } from '../pages/user/akun/AkunPassword';
+import { RequestReset } from '../pages/user/RequestReset';
 
 export const RouteList = () => {
   return (
@@ -28,6 +29,7 @@ export const RouteList = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<Register />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/request-reset-pass" element={<RequestReset />} />
         <Route path="/otp" element={<Otp />} />
 
         {/* Kelas User */}

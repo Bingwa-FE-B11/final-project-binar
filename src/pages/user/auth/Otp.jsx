@@ -92,7 +92,7 @@ export const Otp = () => {
         </div>
       </div>
 
-      <div className="flex items-center justify-center w-2/5 h-screen bg-primary">
+      <div className="lg:flex items-center justify-center w-2/5 h-screen bg-primary hidden">
         <div className="flex items-center justify-center gap-6">
           <img src={BrandLogo} alt="Brand Logo" className="w-[15%]" />
           <span className="font-sans text-6xl text-center text-white">Bingwa</span>
