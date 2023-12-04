@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux'
+import { LoginUser } from '../../../redux/actions/authLogin';
 
 // Images
 import EyePassword from '../../../assets/img/fi_eye.webp';
@@ -7,15 +9,43 @@ import BrandLogo from '../../../assets/img/brain.webp';
 
 export const LoginPage = () => {
   const navigate = useNavigate();
+  const [Password, setPassword] = useState("");
+  const [Email, setEmail] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+  
+  const dispatch = useDispatch();
+
+  const handleInput = (e) => {
+    if (e) {
+      if (e.target.id === "email") {
+        setEmail(e.target.value)
+      }
+      if (e.target.id === "password") {
+        setPassword(e.target.value)
+      }
+    }
+  }
+
+  const handleLoginUser = async() => {
+    console.log("handleLoginUser");
+    const checker = await dispatch(LoginUser(
+      {
+        "email": Email,
+        "password": Password
+      }
+    ))
+    if (checker){
+        navigate("/kelas-saya")
+    }
+  }
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <div className="w-3/5">
+      <div className="w-full rounded-lg md:mt-0 mx-auto md:max-w-md">
         <div className="flex flex-col  w-[30rem] mx-auto">
           <span className="items-center pb-10 text-4xl font-bold text-primary">Masuk</span>
 
@@ -23,9 +53,12 @@ export const LoginPage = () => {
           <div className="flex flex-col gap-2">
             <span className="text-lg text-left">Email/No Telepon</span>
             <input
+              onChange={handleInput} 
+              id="email"
               placeholder="bingwa@gmail.com"
               className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
               type="email"
+              value={Email}
             />
           </div>
 
@@ -44,7 +77,10 @@ export const LoginPage = () => {
             </div>
             <div className="relative flex flex-col">
               <input
+                onChange={handleInput} 
+                id="password"
                 placeholder="Masukkan Password"
+                value={Password}
                 className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
                 type={showPassword ? "text" : "password"}
               />
@@ -62,7 +98,7 @@ export const LoginPage = () => {
             <button
               type="button"
               className="py-3 mt-2 text-lg font-semibold text-white bg-primary hover:bg-primary-hover rounded-xl"
-              onClick={()=>{navigate("/kelas-saya")}}
+              onClick={handleLoginUser}
             >
               Masuk
             </button>
