@@ -1,17 +1,53 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { useDispatch } from 'react-redux';
 // Images
 import EyePassword from '../../../assets/img/fi_eye.webp';
 import BrandLogo from '../../../assets/img/brain.webp';
+import { RegisterUser } from '../../../redux/action/auth/authRegisterSlice';
 
 export const Register = () => {
   const navigate = useNavigate();
+  const [Nama, setNama] = useState("");
+  const [Email, setEmail] = useState("");
+  const [Telepon, setTelepon] = useState("");
+  const [Password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+
+  const handleInput = (e) => {
+    if (e) {
+      if (e.target.id === "nama") {
+        setNama(e.target.value);
+      }
+      if (e.target.id === "email") {
+        setEmail(e.target.value);
+      }
+      if (e.target.id === "telepon") {
+        setTelepon(e.target.value);
+      }
+      if (e.target.id === "password") {
+        setPassword(e.target.value);
+      }
+    }
+  };
+
+  const handleRegister = async () => {
+    const register = await dispatch(RegisterUser({
+      nama: Nama,
+      email: Email,
+      telepon: Telepon,
+      password: Password,
+    }));
+    if (register) {
+      navigate("/otp")
+    }
+  };
+
 
   return (
     <div className="flex items-center justify-center h-screen">
@@ -25,6 +61,7 @@ export const Register = () => {
               <span className="text-lg text-left">Nama</span>
               <input
                 placeholder="Nama Lengkap"
+                onChange={handleInput}
                 className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
                 type="text"
               />
@@ -35,6 +72,7 @@ export const Register = () => {
               <span className="text-lg text-left">Email</span>
               <input
                 placeholder="bingwa@gmail.com"
+                onChange={handleInput}
                 className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
                 type="email"
               />
@@ -45,6 +83,7 @@ export const Register = () => {
               <span className="text-lg text-left">Nomor Telepon</span>
               <input
                 placeholder="+62"
+                onChange={handleInput}
                 className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
                 type="tel"
               />
@@ -56,6 +95,7 @@ export const Register = () => {
               <div className="relative flex flex-col">
                 <input
                   placeholder="Masukkan Password"
+                  onChange={handleInput}
                   className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
                   type={showPassword ? "text" : "password"}
                 />
@@ -74,6 +114,7 @@ export const Register = () => {
                 type="button"
                 className="py-3 mt-2 text-lg font-semibold text-white bg-primary hover:bg-primary-hover rounded-xl"
                 onClick={() => {
+                  handleRegister()
                   navigate('/OTP');
                 }}
               >
