@@ -4,8 +4,13 @@ import { API_ENDPOINT } from "../../../utils/api-endpoint";
 
 export const reduxUpdatePass = async (token, data) => {
   try {
-    // Include token in the request
-    const response = await http2.put(`${API_ENDPOINT.UPDATE_PASS}?token=${token}`, data);
+    // Menggunakan header untuk menyertakan token
+    const response = await http2.put(API_ENDPOINT.UPDATE_PASS, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
     return response.data;
   } catch (error) {
     throw error;

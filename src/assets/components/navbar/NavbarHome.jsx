@@ -25,32 +25,30 @@ export const NavbarHome = () => {
   };
 
   return (
-    <div className="fixed top-0 z-50 flex items-center justify-between w-screen gap-20 py-4 bg-primary px-28">
+    <div className="fixed top-0 z-50 flex items-center justify-between w-screen py-4 bg-primary lg:px-28 px-6">
       <div className="flex gap-10">
-        <div className="flex gap-2">
+        <div className="lg:flex gap-2 hidden">
           <img src={BrandLogo} alt="Brand Logo" className="w-[2.5rem]" />
-          <div
-            className="gap-4 font-sans text-4xl font-bold text-white"
-          >
+          <div className="gap-4 font-sans text-4xl font-bold text-white">
             Bingwa
           </div>
         </div>
-  
+
         <div className="relative">
           <input
             type="text"
             placeholder="Cari kursus terbaik..."
-            className="w-[30rem] h-[3rem] px-3 py-2 rounded-xl bg-white cursor-pointer"
+            className="w-[15rem] lg:w-[30rem] h-[3rem] px-3 py-2 rounded-xl bg-white cursor-pointer"
             value={search}
             onChange={handleInputChange}
             onKeyDown={handleEnterKeyPress}
           />
-          <BiSearchAlt size={30} className="absolute p-1 text-white rounded cursor-pointer bg-primary inset-y-2 right-4"/>
+          <BiSearchAlt size={30} className="absolute p-1 text-white rounded cursor-pointer bg-primary inset-y-2 right-4" />
         </div>
       </div>
 
-      <div className="flex gap-2 font-bold text-white cursor-pointer" onClick={()=>{navigate("/Login")}}>
-        <CgLogIn size={30} />
+      <div className="flex gap-2 font-bold text-white cursor-pointer" onClick={() => { navigate("/Login") }}>
+        <CgLogIn size={30} className="lg:flex hidden" />
         <div className="text-xl">Masuk</div>
       </div>
     </div>

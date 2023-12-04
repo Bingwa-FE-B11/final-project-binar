@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     forget: [],
-    update: [],
+    update: null,
 }
 
 const password = createSlice({

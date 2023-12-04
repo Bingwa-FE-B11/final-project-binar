@@ -5,12 +5,15 @@ import { useDispatch } from "react-redux";
 import BrandLogo from "../../assets/img/brain.webp";
 import { useNavigate } from "react-router-dom";
 
-// Function
+// Redux
 import { reduxForgetPass } from "../../services/user/auth/ForgetPass";
 import { setForget } from "../../redux/reducer/auth/Password";
 
 // Toast
 import toast from "react-hot-toast";
+
+// Icons
+import { GoArrowLeft } from "react-icons/go";
 
 export const ForgetPass = () => {
   const [email, setEmail] = useState("");
@@ -39,8 +42,17 @@ export const ForgetPass = () => {
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <div className="w-3/5">
-        <div className="flex flex-col w-[30rem] mx-auto">
+      <div className="w-full rounded-lg md:mt-0 mx-auto md:max-w-md">
+        <div className="flex flex-col lg:w-[30rem] mx-auto w-[22rem]">
+          <div className="absolute lg:top-[120px] lg:left-[108px] cursor-pointer top-[100px]">
+              <GoArrowLeft
+                size={25}
+                className="items-center"
+                onClick={() => {
+                  navigate("/login");
+                }}
+              />
+            </div>
           <span className="items-center pb-2 text-4xl font-bold text-primary">
             Forget Password
           </span>
@@ -74,7 +86,7 @@ export const ForgetPass = () => {
         </div>
       </div>
 
-      <div className="flex items-center justify-center w-2/5 h-screen bg-primary">
+      <div className="lg:flex items-center justify-center w-2/5 h-screen bg-primary hidden">
         <div className="flex items-center justify-center gap-6">
           <img src={BrandLogo} alt="Brand Logo" className="w-[15%]" />
           <span className="font-sans text-6xl text-center text-white">

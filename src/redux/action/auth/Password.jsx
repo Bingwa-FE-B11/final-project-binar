@@ -11,11 +11,13 @@ export const getForgetPass = () => (dispatch) => {
     });
 }
 
-export const getUpdatePass = (query) => async (dispatch) => {
-    reduxUpdatePass(query).then((result) => {
-        dispatch(setUpdate(result.data.data))
-        return result
-    }).catch((err) => {
-        
-    });
-}
+export const getUpdatePass = (token, data) => async (dispatch) => {
+    try {
+      const result = await reduxUpdatePass(token, data);
+      dispatch(setUpdate(result.data.data));
+      return result;
+    } catch (error) {
+      // Tangani kesalahan jika diperlukan
+      console.error("Gagal mengupdate password:", error);
+    }
+  };
