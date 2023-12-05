@@ -4,5 +4,6 @@ import Login from "./auth/Login";
 
 export default combineReducers({
     auth : Login,
-    auth : Password
+    auth : Password,
+    
 })
