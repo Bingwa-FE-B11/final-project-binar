@@ -1,22 +1,58 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { useDispatch } from 'react-redux';
 // Images
 import EyePassword from '../../../assets/img/fi_eye.webp';
 import BrandLogo from '../../../assets/img/brain.webp';
+import { RegisterUser } from '../../../redux/action/auth/authRegisterSlice';
 
 export const Register = () => {
   const navigate = useNavigate();
+  const [Nama, setNama] = useState("");
+  const [Email, setEmail] = useState("");
+  const [Telepon, setTelepon] = useState("");
+  const [Password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
+  const handleInput = (e) => {
+    if (e) {
+      if (e.target.id === "nama") {
+        setNama(e.target.value);
+      }
+      if (e.target.id === "email") {
+        setEmail(e.target.value);
+      }
+      if (e.target.id === "telepon") {
+        setTelepon(e.target.value);
+      }
+      if (e.target.id === "password") {
+        setPassword(e.target.value);
+      }
+    }
+  };
+
+  const handleRegister = async () => {
+    const register = await dispatch(RegisterUser({
+      nama: Nama,
+      email: Email,
+      telepon: Telepon,
+      password: Password,
+    }));
+    if (register) {
+      navigate("/otp")
+    }
+  };
+
+
   return (
     <div className="flex items-center justify-center h-screen">
-      <div className="w-3/5">
-        <div className="flex flex-col w-[30rem] mx-auto">
+      <div className="w-full rounded-lg md:mt-0 mx-auto md:max-w-md">
+        <div className="flex flex-col lg:w-[30rem] mx-auto w-[22rem]">
           <span className="items-center pb-10 text-4xl font-bold text-primary">Daftar</span>
 
           {/* Nama */}
@@ -25,6 +61,7 @@ export const Register = () => {
               <span className="text-lg text-left">Nama</span>
               <input
                 placeholder="Nama Lengkap"
+                onChange={handleInput}
                 className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
                 type="text"
               />
@@ -35,6 +72,7 @@ export const Register = () => {
               <span className="text-lg text-left">Email</span>
               <input
                 placeholder="bingwa@gmail.com"
+                onChange={handleInput}
                 className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
                 type="email"
               />
@@ -45,6 +83,7 @@ export const Register = () => {
               <span className="text-lg text-left">Nomor Telepon</span>
               <input
                 placeholder="+62"
+                onChange={handleInput}
                 className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
                 type="tel"
               />
@@ -56,6 +95,7 @@ export const Register = () => {
               <div className="relative flex flex-col">
                 <input
                   placeholder="Masukkan Password"
+                  onChange={handleInput}
                   className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
                   type={showPassword ? "text" : "password"}
                 />
@@ -74,6 +114,7 @@ export const Register = () => {
                 type="button"
                 className="py-3 mt-2 text-lg font-semibold text-white bg-primary hover:bg-primary-hover rounded-xl"
                 onClick={() => {
+                  handleRegister()
                   navigate('/OTP');
                 }}
               >
@@ -98,7 +139,7 @@ export const Register = () => {
         </div>
       </div>
 
-      <div className="flex items-center justify-center w-2/5 h-screen bg-primary">
+      <div className="lg:flex items-center justify-center w-2/5 h-screen bg-primary hidden">
         <div className="flex items-center justify-center gap-6">
           <img src={BrandLogo} alt="Brand Logo" className="w-[15%]" />
           <span className="font-sans text-6xl text-center text-white">Bingwa</span>

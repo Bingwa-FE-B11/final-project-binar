@@ -13,11 +13,11 @@ export const AkunProfile = () => {
   const navigate = useNavigate();
   return (
     <>
-      <div className="mt-[5rem] bg-secondary h-[10rem] px-80">
-        <div className="flex items-center gap-2 py-8 text-lg font-bold text-primary relative">
+      <div className="mt-[5rem] bg-secondary h-[10rem] lg:px-80">
+        <div className="flex items-center py-8 lg:px-0 px-2 gap-2 text-lg font-bold text-primary lg:relative">
           <GoArrowLeft
             size={30}
-            className="cursor-pointer absolute -inset-x-16"
+            className="cursor-pointer lg:absolute lg:-inset-x-16"
             onClick={() => {
               navigate('/kelas-saya');
             }}

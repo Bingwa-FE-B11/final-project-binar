@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { HomePage } from '../pages/HomePage';
 import { LoginPage } from '../pages/user/auth/LoginPage';
 import { Register } from '../pages/user/auth/Register';
-import { ResetPassword } from '../pages/user/ResetPassword';
+import { UpdatePass } from '../pages/user/UpdatePass';
 import { AdminLogin } from '../pages/admin/auth/AdminLogin';
 import { KelasSaya } from '../pages/user/kelas/KelasSaya';
 import { Otp } from '../pages/user/auth/Otp';
@@ -16,6 +16,7 @@ import { AkunProfile } from '../pages/user/akun/AkunProfile';
 import { AkunPembayaran } from '../pages/user/akun/AkunPembayaran';
 import { AkunPassword } from '../pages/user/akun/AkunPassword';
 import { DetailKelas } from '../pages/user/kelas/DetailKelas';
+import { ForgetPass } from '../pages/user/ForgetPass';
 
 export const RouteList = () => {
   return (
@@ -28,7 +29,8 @@ export const RouteList = () => {
         {/* User */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/reset-password" element={<UpdatePass />} />
+        <Route path="/request-reset-pass" element={<ForgetPass />} />
         <Route path="/otp" element={<Otp />} />
 
         {/* Kelas User */}

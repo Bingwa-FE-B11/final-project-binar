@@ -14,19 +14,19 @@ export const AdminLogin = () => {
 
     return (
         <div className='flex'>
-            <div className="flex items-center justify-center w-2/5 h-screen bg-primary">
+            <div className="lg:flex items-center justify-center w-2/5 h-screen bg-primary hidden">
                 <div className="flex items-center justify-center gap-6">
                     <img src={BrandLogo} alt="Brand Logo" className="w-[15%]" />
                     <span className="font-sans text-6xl text-center text-white">Bingwa</span>
                 </div>
             </div>
             <div className="flex items-center justify-center h-screen">
-                <div className="w-3/5">
-                    <div className="flex flex-col w-[30rem] mx-auto">
+                <div className="w-full rounded-lg lg:w-2/6 text-center mx-4">
+                    <div className="flex flex-col lg:w-[30rem] mx-auto w-[22rem]">
                         <span className="pb-10 text-4xl font-bold text-primary">Login</span>
 
                         {/* ID Admin */}
-                        <div className="flex flex-col gap-2">
+                        <div className="flex flex-col gap-2 ">
                             <span className="text-lg text-left">ID Admin</span>
                             <input
                                 placeholder="ID Admin"
