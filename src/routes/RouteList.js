@@ -15,6 +15,7 @@ import { PilihKelas } from '../pages/user/kelas/PilihKelas';
 import { AkunProfile } from '../pages/user/akun/AkunProfile';
 import { AkunPembayaran } from '../pages/user/akun/AkunPembayaran';
 import { AkunPassword } from '../pages/user/akun/AkunPassword';
+import { DetailKelas } from '../pages/user/kelas/DetailKelas';
 
 export const RouteList = () => {
   return (
@@ -35,6 +36,7 @@ export const RouteList = () => {
         <Route path="/pilih-premium" element={<PilihPremium />} />
         <Route path="/pilih-gratis" element={<PilihGratis />} />
         <Route path="/pilih-kelas" element={<PilihKelas />} />
+        <Route path="/detail-kelas" element={<DetailKelas />} />
 
         {/* Admin */}
         <Route path="/admin/login" element={<AdminLogin />} />
