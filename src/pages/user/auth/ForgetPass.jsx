@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-
-// Images
-import BrandLogo from "../../assets/img/brain.webp";
 import { useNavigate } from "react-router-dom";
 
+// Images
+import BrandLogo from "../../../assets/img/brain.webp";
+
 // Redux
-import { reduxForgetPass } from "../../services/user/auth/ForgetPass";
-import { setForget } from "../../redux/reducer/auth/Password";
+import { getForgetPass } from "../../../redux/action/auth/Password";
 
 // Toast
 import toast from "react-hot-toast";
@@ -15,8 +14,9 @@ import toast from "react-hot-toast";
 // Icons
 import { GoArrowLeft } from "react-icons/go";
 
+
 export const ForgetPass = () => {
-  const [email, setEmail] = useState("");
+  const [Email, setEmail] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -24,21 +24,17 @@ export const ForgetPass = () => {
     setEmail(e.target.value);
   };
 
-  const handleForgetPass = () => {
-    reduxForgetPass(email)
-      .then((result) => {
-        dispatch(setForget(result.data.data));
-        toast.success("Tautan reset password terkirim");
-        setTimeout(() => {
-          navigate("/reset-password");
-        }, 1000);
-      })
-      .catch((error) => {
-        if (error.response && error.response.status === 404) {
-          toast.error(error.response.data.message);
-        }
-      });
-  };
+  const handleSave = async () => {
+    const forget = await dispatch(getForgetPass({
+      email: Email,
+    }));
+    if (forget) {
+      toast.success("Tautan reset password terkirim");
+      setTimeout(() => {
+        navigate("/update-password");
+      }, 1000);
+    }
+  }
 
   return (
     <div className="flex items-center justify-center h-screen">
@@ -64,7 +60,7 @@ export const ForgetPass = () => {
             </div>
             <div className="relative flex flex-col">
               <input
-                value={email}
+                value={Email}
                 onChange={handleEmailChange}
                 placeholder="Masukkan Email"
                 className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
@@ -78,7 +74,7 @@ export const ForgetPass = () => {
             <button
               type="button"
               className="py-3 mt-2 text-lg font-semibold text-white bg-primary hover:bg-primary-hover rounded-xl"
-              onClick={handleForgetPass}
+              onClick={handleSave}
             >
               Masuk
             </button>
