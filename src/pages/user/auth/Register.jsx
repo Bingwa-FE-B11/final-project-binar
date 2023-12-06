@@ -60,7 +60,7 @@ export const Register = () => {
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <div className="w-full rounded-lg md:mt-0 mx-auto md:max-w-md">
+      <div className="w-full mx-auto rounded-lg md:mt-0 md:max-w-md">
         <div className="flex flex-col lg:w-[30rem] mx-auto w-[22rem]">
           <span className="items-center pb-10 text-4xl font-bold text-primary">Daftar</span>
 
@@ -70,7 +70,7 @@ export const Register = () => {
               <span className="text-lg text-left">Nama</span>
               <input
                 placeholder="Nama Lengkap"
-                onChange={handleInput} id='fullName'
+                onChange={handleInput}
                 className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
                 type="text"
                 value={FullName}
@@ -83,7 +83,7 @@ export const Register = () => {
               <span className="text-lg text-left">Email</span>
               <input
                 placeholder="bingwa@gmail.com"
-                onChange={handleInput} id='email'
+                onChange={handleInput}
                 className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
                 type="email"
                 value={Email}
@@ -110,7 +110,7 @@ export const Register = () => {
               <div className="relative flex flex-col">
                 <input
                   placeholder="Masukkan Password"
-                  onChange={handleInput} id='password'
+                  onChange={handleInput}
                   className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
                   type={showPassword ? "text" : "password"}
                   value={Password}
@@ -155,7 +155,7 @@ export const Register = () => {
         </div>
       </div>
 
-      <div className="lg:flex items-center justify-center w-2/5 h-screen bg-primary hidden">
+      <div className="items-center justify-center hidden w-2/5 h-screen lg:flex bg-primary">
         <div className="flex items-center justify-center gap-6">
           <img src={BrandLogo} alt="Brand Logo" className="w-[15%]" />
           <span className="font-sans text-6xl text-center text-white">Bingwa</span>
