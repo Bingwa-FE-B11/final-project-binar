@@ -7,13 +7,14 @@ export const LoginUser = (input) => async (dispatch) => {
     return reduxLoginUser(input).then((result)=>{
       CookieStorage.set(CookiesKeys.AuthToken, result.data.data.token);
       dispatch(setToken(result.data.data.token))
-      toast.success("Login Berhasil!")
       return true
       }).catch((err)=>{
         if (err.response) {
-          if (err.response.status === 400 || err.response.status === 401) {
-              toast.error(err.response.data.message);
+          if (err.response.status >= 400 && err.response.status <= 500) {
+            toast.error(err.response.data.message);
+          } else {
+            console.error("unexpected Error", err)
           }
-      }
+        }
       })
   }

@@ -3,20 +3,23 @@ import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
 // Images
-import EyePassword from '../../assets/img/fi_eye.webp';
-import BrandLogo from '../../assets/img/brain.webp';
+import EyePassword from '../../../assets/img/fi_eye.webp';
+import BrandLogo from '../../../assets/img/brain.webp';
 
 // Redux
-import { getUpdatePass } from '../../redux/action/auth/Password';
+import { getUpdatePass } from '../../../redux/action/auth/Password';
+
+// Toast
+import toast from 'react-hot-toast';
 
 export const UpdatePass = () => {
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
   // const { token } = useParams();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [showPassword1, setShowPassword1] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
-  // const [newPassword, setNewPassword] = useState('');
-  // const [confirmPassword, setConfirmPassword] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordConfirmation, setpasswordConfirmation] = useState('');
 
   const handleShowPassword1 = () => {
     setShowPassword1(!showPassword1);
@@ -26,17 +29,29 @@ export const UpdatePass = () => {
     setShowPassword2(!showPassword2);
   };
 
-  // const handleSave = () => {
-  //   // Periksa apakah password baru dan konfirmasi password cocok
-  //   if (newPassword === confirmPassword) {
-  //     // Panggil aksi getUpdatePass untuk memperbarui password
-  //     dispatch(getUpdatePass(token, { newPassword }));
-  //     navigate("/kelas-saya")
-  //   } else {
-  //     // Tampilkan pesan bahwa password tidak cocok
-  //     console.error("Password tidak cocok");
-  //   }
-  // };
+  const handleInput = (e) => {
+    if (e) {
+      if (e.target.id === "newPassword") {
+        setPassword(e.target.value);
+      }
+      if (e.target.id === "confirmPassword") {
+        setpasswordConfirmation(e.target.value);
+      }
+    }
+  };
+
+const handleSave = async () => {
+  const updatepass = await dispatch(getUpdatePass({
+    password : password ,
+    passwordConfirmation: passwordConfirmation
+  }))
+  if (updatepass) {
+    toast.success("Upadate Password Berhasil");
+    setTimeout(() => {
+      navigate("/kelas-saya")
+    }, 1000);
+  }
+};
 
   return (
     <div className="flex items-center justify-center h-screen">
@@ -51,9 +66,12 @@ export const UpdatePass = () => {
             </div>
             <div className="relative flex flex-col">
               <input
+                onChange={handleInput}
                 placeholder="Password Baru"
                 className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
                 type={showPassword1 ? "text" : "password"}
+                value={password}
+                id="newPassword"
               />
               <img
                 src={EyePassword}
@@ -71,9 +89,12 @@ export const UpdatePass = () => {
             </div>
             <div className="relative flex flex-col">
               <input
+                onChange={handleInput}
                 placeholder="Ulangi Password Baru"
                 className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
                 type={showPassword2 ? "text" : "password"}
+                value={passwordConfirmation}
+                id="confirmPassword"
               />
               <img
                 src={EyePassword}
@@ -89,7 +110,7 @@ export const UpdatePass = () => {
             <button
               type="button"
               className="py-3 mt-2 text-lg font-semibold text-white bg-primary hover:bg-primary-hover rounded-xl"
-              // onClick={handleSave}
+              onClick={handleSave}
             >
               Simpan
             </button>
