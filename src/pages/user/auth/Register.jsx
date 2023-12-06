@@ -8,10 +8,10 @@ import { RegisterUser } from '../../../redux/action/auth/authRegisterSlice';
 
 export const Register = () => {
   const navigate = useNavigate();
-  const [Nama, setNama] = useState("");
-  const [Email, setEmail] = useState("");
-  const [Telepon, setTelepon] = useState("");
-  const [Password, setPassword] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
 
@@ -21,14 +21,14 @@ export const Register = () => {
 
   const handleInput = (e) => {
     if (e) {
-      if (e.target.id === "nama") {
-        setNama(e.target.value);
+      if (e.target.id === "fullName") {
+        setFullName(e.target.value);
       }
       if (e.target.id === "email") {
         setEmail(e.target.value);
       }
-      if (e.target.id === "telepon") {
-        setTelepon(e.target.value);
+      if (e.target.id === "phoneNumber") {
+        setPhoneNumber(e.target.value);
       }
       if (e.target.id === "password") {
         setPassword(e.target.value);
@@ -38,10 +38,10 @@ export const Register = () => {
 
   const handleRegister = async () => {
     const register = await dispatch(RegisterUser({
-      nama: Nama,
-      email: Email,
-      telepon: Telepon,
-      password: Password,
+      fullName: fullName,
+      email: email,
+      phoneNumber: phoneNumber,
+      password: password,
     }));
     if (register) {
       navigate("/otp")
@@ -61,7 +61,7 @@ export const Register = () => {
               <span className="text-lg text-left">Nama</span>
               <input
                 placeholder="Nama Lengkap"
-                onChange={handleInput}
+                onChange={handleInput} id='fullName'
                 className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
                 type="text"
               />
@@ -72,7 +72,7 @@ export const Register = () => {
               <span className="text-lg text-left">Email</span>
               <input
                 placeholder="bingwa@gmail.com"
-                onChange={handleInput}
+                onChange={handleInput} id='email'
                 className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
                 type="email"
               />
@@ -83,7 +83,7 @@ export const Register = () => {
               <span className="text-lg text-left">Nomor Telepon</span>
               <input
                 placeholder="+62"
-                onChange={handleInput}
+                onChange={handleInput} id='phoneNumber'
                 className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
                 type="tel"
               />
@@ -95,7 +95,7 @@ export const Register = () => {
               <div className="relative flex flex-col">
                 <input
                   placeholder="Masukkan Password"
-                  onChange={handleInput}
+                  onChange={handleInput} id='password'
                   className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
                   type={showPassword ? "text" : "password"}
                 />
