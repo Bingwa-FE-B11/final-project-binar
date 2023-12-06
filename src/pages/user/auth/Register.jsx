@@ -70,7 +70,7 @@ export const Register = () => {
               <span className="text-lg text-left">Nama</span>
               <input
                 placeholder="Nama Lengkap"
-                onChange={handleInput}
+                onChange={handleInput} id='fullName'
                 className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
                 type="text"
                 value={FullName}
@@ -83,7 +83,7 @@ export const Register = () => {
               <span className="text-lg text-left">Email</span>
               <input
                 placeholder="bingwa@gmail.com"
-                onChange={handleInput}
+                onChange={handleInput} id='email'
                 className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
                 type="email"
                 value={Email}
@@ -110,7 +110,7 @@ export const Register = () => {
               <div className="relative flex flex-col">
                 <input
                   placeholder="Masukkan Password"
-                  onChange={handleInput}
+                  onChange={handleInput} id='password'
                   className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
                   type={showPassword ? "text" : "password"}
                   value={Password}
