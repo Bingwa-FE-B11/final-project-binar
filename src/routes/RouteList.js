@@ -16,6 +16,9 @@ import { AkunProfile } from '../pages/user/akun/AkunProfile';
 import { AkunPembayaran } from '../pages/user/akun/AkunPembayaran';
 import { AkunPassword } from '../pages/user/akun/AkunPassword';
 import { DetailKelas } from '../pages/user/kelas/DetailKelas';
+import { ForgetPass } from '../pages/user/ForgetPass';
+import { Pembayaran } from '../pages/user/kelas/Pembayaran';
+import { PembayaranSukses } from '../pages/user/kelas/PembayaranSukses';
 import { ForgetPass } from '../pages/user/auth/ForgetPass';
 
 export const RouteList = () => {
@@ -39,6 +42,8 @@ export const RouteList = () => {
         <Route path="/pilih-gratis" element={<PilihGratis />} />
         <Route path="/pilih-kelas" element={<PilihKelas />} />
         <Route path="/detail-kelas" element={<DetailKelas />} />
+        <Route path="/pembayaran" element={<Pembayaran/>} />
+        <Route path="/pembayaran-sukses" element={<PembayaranSukses/>} />
 
         {/* Admin */}
         <Route path="/admin/login" element={<AdminLogin />} />
