@@ -70,7 +70,7 @@ export const Pembayaran = () => {
           </div>
 
           {/* Payment Detail*/}
-          <div className="flex flex-col px-4 w-full gap-4 ">
+          <div className="flex flex-col px-4 w-full gap-4 shadow-lg rounded-xl">
             {/* Payment Card Logo*/}
             <div className="flex items-center justify-between px-4 w-[40%] gap-3 mx-auto ">
               <div className="flex-1 items-center">
@@ -88,7 +88,7 @@ export const Pembayaran = () => {
             </div>
 
             {/* Detail Card Payment*/}
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 ">
               <div className="flex flex-col w-full justify-between px-4">
                 <div className="font-bold text-xl">Card Number</div>
                 <input
