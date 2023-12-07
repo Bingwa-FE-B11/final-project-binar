@@ -17,6 +17,8 @@ import { AkunPembayaran } from '../pages/user/akun/AkunPembayaran';
 import { AkunPassword } from '../pages/user/akun/AkunPassword';
 import { DetailKelas } from '../pages/user/kelas/DetailKelas';
 import { ForgetPass } from '../pages/user/ForgetPass';
+import { AdminDashboard } from '../pages/admin/AdminDashboard';
+import { AdminKelolaKelas } from '../pages/admin/auth/AdminKelolaKelas';
 
 export const RouteList = () => {
   return (
@@ -42,6 +44,8 @@ export const RouteList = () => {
 
         {/* Admin */}
         <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard/>} />
+        <Route path="/admin/kelola-kelas" element={<AdminKelolaKelas/>} />
 
         {/* Data User */}
         <Route path="notifikasi" element={<Notifikasi />} />
