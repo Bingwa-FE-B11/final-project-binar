@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { HomePage } from '../pages/HomePage';
 import { LoginPage } from '../pages/user/auth/LoginPage';
 import { Register } from '../pages/user/auth/Register';
-import { UpdatePass } from '../pages/user/UpdatePass';
+import { UpdatePass } from '../pages/user/auth/UpdatePass';
 import { AdminLogin } from '../pages/admin/auth/AdminLogin';
 import { KelasSaya } from '../pages/user/kelas/KelasSaya';
 import { Otp } from '../pages/user/auth/Otp';
@@ -19,6 +19,7 @@ import { DetailKelas } from '../pages/user/kelas/DetailKelas';
 import { ForgetPass } from '../pages/user/ForgetPass';
 import { Pembayaran } from '../pages/user/kelas/Pembayaran';
 import { PembayaranSukses } from '../pages/user/kelas/PembayaranSukses';
+import { ForgetPass } from '../pages/user/auth/ForgetPass';
 
 export const RouteList = () => {
   return (
@@ -31,8 +32,8 @@ export const RouteList = () => {
         {/* User */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/reset-password" element={<UpdatePass />} />
-        <Route path="/request-reset-pass" element={<ForgetPass />} />
+        <Route path="/update-password" element={<UpdatePass />} />
+        <Route path="/forget-password" element={<ForgetPass />} />
         <Route path="/otp" element={<Otp />} />
 
         {/* Kelas User */}

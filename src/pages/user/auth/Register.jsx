@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+
 // Images
 import EyePassword from '../../../assets/img/fi_eye.webp';
 import BrandLogo from '../../../assets/img/brain.webp';
+
+// Redux
 import { RegisterUser } from '../../../redux/action/auth/authRegisterSlice';
+
+// Toast
+import toast from 'react-hot-toast';
 
 export const Register = () => {
   const navigate = useNavigate();
-  const [Nama, setNama] = useState("");
+  const [FullName, setFullName] = useState("");
   const [Email, setEmail] = useState("");
-  const [Telepon, setTelepon] = useState("");
+  const [PhoneNumber, setPhoneNumber] = useState("");
   const [Password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
@@ -22,13 +28,13 @@ export const Register = () => {
   const handleInput = (e) => {
     if (e) {
       if (e.target.id === "nama") {
-        setNama(e.target.value);
+        setFullName(e.target.value);
       }
       if (e.target.id === "email") {
         setEmail(e.target.value);
       }
       if (e.target.id === "telepon") {
-        setTelepon(e.target.value);
+        setPhoneNumber(e.target.value);
       }
       if (e.target.id === "password") {
         setPassword(e.target.value);
@@ -38,20 +44,23 @@ export const Register = () => {
 
   const handleRegister = async () => {
     const register = await dispatch(RegisterUser({
-      nama: Nama,
+      fullName: FullName,
       email: Email,
-      telepon: Telepon,
+      phoneNumber: PhoneNumber,
       password: Password,
     }));
     if (register) {
-      navigate("/otp")
+      toast.success("Tautan Verifikasi telah dikirim!");
+      setTimeout(() => {
+        navigate(`/otp?email=${encodeURIComponent(Email)}`)
+      }, 1000);
     }
   };
 
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <div className="w-full rounded-lg md:mt-0 mx-auto md:max-w-md">
+      <div className="w-full mx-auto rounded-lg md:mt-0 md:max-w-md">
         <div className="flex flex-col lg:w-[30rem] mx-auto w-[22rem]">
           <span className="items-center pb-10 text-4xl font-bold text-primary">Daftar</span>
 
@@ -64,6 +73,8 @@ export const Register = () => {
                 onChange={handleInput}
                 className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
                 type="text"
+                value={FullName}
+                id="nama"
               />
             </div>
 
@@ -75,6 +86,8 @@ export const Register = () => {
                 onChange={handleInput}
                 className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
                 type="email"
+                value={Email}
+                id="email"
               />
             </div>
 
@@ -82,10 +95,12 @@ export const Register = () => {
             <div className="flex flex-col gap-2">
               <span className="text-lg text-left">Nomor Telepon</span>
               <input
-                placeholder="+62"
+                placeholder="08"
                 onChange={handleInput}
                 className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
                 type="tel"
+                value={PhoneNumber}
+                id="telepon"
               />
             </div>
 
@@ -98,6 +113,8 @@ export const Register = () => {
                   onChange={handleInput}
                   className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
                   type={showPassword ? "text" : "password"}
+                  value={Password}
+                  id="password"
                 />
                 <img
                   src={EyePassword}
@@ -115,7 +132,6 @@ export const Register = () => {
                 className="py-3 mt-2 text-lg font-semibold text-white bg-primary hover:bg-primary-hover rounded-xl"
                 onClick={() => {
                   handleRegister()
-                  navigate('/OTP');
                 }}
               >
                 Daftar
@@ -139,7 +155,7 @@ export const Register = () => {
         </div>
       </div>
 
-      <div className="lg:flex items-center justify-center w-2/5 h-screen bg-primary hidden">
+      <div className="items-center justify-center hidden w-2/5 h-screen lg:flex bg-primary">
         <div className="flex items-center justify-center gap-6">
           <img src={BrandLogo} alt="Brand Logo" className="w-[15%]" />
           <span className="font-sans text-6xl text-center text-white">Bingwa</span>

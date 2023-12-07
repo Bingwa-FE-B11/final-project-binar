@@ -9,6 +9,9 @@ import BrandLogo from '../../../assets/img/brain.webp';
 // Redux
 import { LoginUser } from '../../../redux/action/auth/Login';
 
+// Toast
+import toast from 'react-hot-toast';
+
 export const LoginPage = () => {
   const navigate = useNavigate();
   const [Password, setPassword] = useState("");
@@ -33,11 +36,14 @@ export const LoginPage = () => {
 
   const handleLogin = async () => {
     const login = await dispatch(LoginUser({
-      email: Email,
+      emailOrPhoneNumber: Email,
       password: Password,
     }));
     if (login) {
-      navigate("/kelas-saya")
+      toast.success("Login Berhasil!")
+      setTimeout(() => {
+        navigate("/kelas-saya");
+      }, 1000);
     }
   };
 
@@ -48,6 +54,7 @@ export const LoginPage = () => {
           <span className="items-center pb-10 text-4xl font-bold text-primary">Masuk</span>
 
           {/* Email atau No Telepon */}
+          <form>
           <div className="flex flex-col gap-2">
             <span className="text-lg text-left">Email/No Telepon</span>
             <input
@@ -67,7 +74,7 @@ export const LoginPage = () => {
               <span
                 className="text-lg font-semibold cursor-pointer text-primary"
                 onClick={() => {
-                  navigate('/request-reset-pass');
+                  navigate('/forget-password');
                 }}
               >
                 Lupa Kata Sandi
@@ -81,6 +88,7 @@ export const LoginPage = () => {
                 value={Password}
                 id="password"
                 type={showPassword ? "text" : "password"}
+                autoComplete='off'
               />
               <img
                 src={EyePassword}
@@ -115,6 +123,7 @@ export const LoginPage = () => {
               </span>
             </div>
           </div>
+          </form>
         </div>
       </div>
 
