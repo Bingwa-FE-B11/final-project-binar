@@ -12,7 +12,7 @@ import { GoArrowLeft } from "react-icons/go";
 import { getResendOtp, getVerifyOtp } from '../../../redux/action/auth/Otp';
 
 // Toast
-import toast from "react-hot-toast";
+import { showSuccessToast } from '../../../helper/ToastHelper';
 
 export const Otp = () => {
   const navigate = useNavigate();
@@ -62,7 +62,7 @@ export const Otp = () => {
       email: Email,
     }));
     if (resendData) {
-      toast.success("OTP berhasil dikirim ulang");
+      showSuccessToast("OTP berhasil dikirim ulang");
       setSeconds(60);
     }
   };
@@ -74,7 +74,7 @@ export const Otp = () => {
       otp: otpInputs.join(''),
     }))
     if (otpData) {
-      toast.success("Registrasi Berhasil");
+      showSuccessToast("Registrasi Berhasil");
       setTimeout(() => {
         navigate("/login")
       }, 1000);

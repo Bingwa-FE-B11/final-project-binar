@@ -10,7 +10,7 @@ import BrandLogo from '../../../assets/img/brain.webp';
 import { RegisterUser } from '../../../redux/action/auth/authRegisterSlice';
 
 // Toast
-import toast from 'react-hot-toast';
+import { showSuccessToast } from '../../../helper/ToastHelper';
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -50,13 +50,12 @@ export const Register = () => {
       password: Password,
     }));
     if (register) {
-      toast.success("Tautan Verifikasi telah dikirim!");
+      showSuccessToast("Tautan Verifikasi telah dikirim!");
       setTimeout(() => {
         navigate(`/otp?email=${encodeURIComponent(Email)}`)
       }, 1000);
     }
   };
-
 
   return (
     <div className="flex items-center justify-center h-screen">
