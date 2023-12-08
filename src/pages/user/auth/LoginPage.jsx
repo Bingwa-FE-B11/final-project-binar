@@ -10,7 +10,7 @@ import BrandLogo from '../../../assets/img/brain.webp';
 import { LoginUser } from '../../../redux/action/auth/Login';
 
 // Toast
-import toast from 'react-hot-toast';
+import { showSuccessToast } from '../../../helper/ToastHelper';
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -40,7 +40,7 @@ export const LoginPage = () => {
       password: Password,
     }));
     if (login) {
-      toast.success("Login Berhasil!")
+      showSuccessToast("Login Berhasil!")
       setTimeout(() => {
         navigate("/kelas-saya");
       }, 1000);

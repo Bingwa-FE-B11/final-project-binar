@@ -10,7 +10,7 @@ import BrandLogo from '../../../assets/img/brain.webp';
 import { RegisterUser } from '../../../redux/action/auth/authRegisterSlice';
 
 // Toast
-import toast from 'react-hot-toast';
+import { showSuccessToast } from '../../../helper/ToastHelper';
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -50,13 +50,12 @@ export const Register = () => {
       password: Password,
     }));
     if (register) {
-      toast.success("Tautan Verifikasi telah dikirim!");
+      showSuccessToast("Tautan Verifikasi telah dikirim!");
       setTimeout(() => {
         navigate(`/otp?email=${encodeURIComponent(Email)}`)
       }, 1000);
     }
   };
-
 
   return (
     <div className="flex items-center justify-center h-screen">
@@ -70,7 +69,7 @@ export const Register = () => {
               <span className="text-lg text-left">Nama</span>
               <input
                 placeholder="Nama Lengkap"
-                onChange={handleInput} id='fullName'
+                onChange={handleInput}
                 className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
                 type="text"
                 value={FullName}
@@ -83,7 +82,7 @@ export const Register = () => {
               <span className="text-lg text-left">Email</span>
               <input
                 placeholder="bingwa@gmail.com"
-                onChange={handleInput} id='email'
+                onChange={handleInput}
                 className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
                 type="email"
                 value={Email}
@@ -110,7 +109,7 @@ export const Register = () => {
               <div className="relative flex flex-col">
                 <input
                   placeholder="Masukkan Password"
-                  onChange={handleInput} id='password'
+                  onChange={handleInput}
                   className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
                   type={showPassword ? "text" : "password"}
                   value={Password}

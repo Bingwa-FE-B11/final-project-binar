@@ -9,11 +9,10 @@ import BrandLogo from "../../../assets/img/brain.webp";
 import { getForgetPass } from "../../../redux/action/auth/Password";
 
 // Toast
-import toast from "react-hot-toast";
+import { showSuccessToast } from '../../../helper/ToastHelper';
 
 // Icons
 import { GoArrowLeft } from "react-icons/go";
-
 
 export const ForgetPass = () => {
   const [Email, setEmail] = useState("");
@@ -29,10 +28,10 @@ export const ForgetPass = () => {
       email: Email,
     }));
     if (forget) {
-      toast.success("Tautan reset password terkirim");
+      showSuccessToast("Tautan reset password terkirim, Periksa Email Anda");
       setTimeout(() => {
-        navigate("/update-password");
-      }, 1000);
+      window.location.href = "https://mail.google.com"
+      }, 3000);
     }
   }
 

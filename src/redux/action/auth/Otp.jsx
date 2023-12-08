@@ -1,4 +1,4 @@
-import toast from "react-hot-toast";
+import { showErrorToast } from "../../../helper/ToastHelper";
 import { reduxOtpUser, reduxResendOtpUser } from "../../../services/user/auth/Otp";
 import { setResend, setVerify } from "../../reducer/auth/Otp";
 
@@ -9,7 +9,7 @@ export const getVerifyOtp = (email) => async (dispatch) => {
       }).catch((err) => {
         if (err.response) {
           if (err.response.status >= 400 && err.response.status <= 500) {
-            toast.error(err.response.data.message);
+            showErrorToast(err.response.data.message);
           } else {
             console.error("unexpected Error", err)
           }
@@ -24,7 +24,7 @@ export const getResendOtp = (email) => async (dispatch) => {
     }).catch((err) => {
       if (err.response) {
         if (err.response.status >= 400 && err.response.status <= 500) {
-          toast.error(err.response.data.message);
+          showErrorToast(err.response.data.message);
         } else {
           console.error("unexpected Error", err)
         }

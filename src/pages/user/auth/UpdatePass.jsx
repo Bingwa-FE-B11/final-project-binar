@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 // Images
 import EyePassword from '../../../assets/img/fi_eye.webp';
@@ -10,11 +10,14 @@ import BrandLogo from '../../../assets/img/brain.webp';
 import { getUpdatePass } from '../../../redux/action/auth/Password';
 
 // Toast
-import toast from 'react-hot-toast';
+import { showSuccessToast } from '../../../helper/ToastHelper';
 
 export const UpdatePass = () => {
-  const navigate = useNavigate()
-  // const { token } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const token = queryParams.get('token');
+
   const dispatch = useDispatch();
   const [showPassword1, setShowPassword1] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
@@ -40,17 +43,18 @@ export const UpdatePass = () => {
     }
   };
 
-const handleSave = async () => {
-  const updatepass = await dispatch(getUpdatePass({
-    password : password ,
-    passwordConfirmation: passwordConfirmation
-  }))
-  if (updatepass) {
-    toast.success("Upadate Password Berhasil");
+const handleSave = async () => {  
+  const updatepass = await dispatch(getUpdatePass(
+    {
+      password : password,
+      passwordConfirmation: passwordConfirmation
+    }, 
+    token
+  ))
+    showSuccessToast("Upadate Password Berhasil");
     setTimeout(() => {
-      navigate("/kelas-saya")
-    }, 1000);
-  }
+      navigate("/login")
+    }, 2000);
 };
 
   return (
