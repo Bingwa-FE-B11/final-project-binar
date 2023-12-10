@@ -12,7 +12,7 @@ import { CardKelasSaya } from '../../../assets/components/cards/CardKelasSaya';
 export const KelasSaya = () => {
   return (
     <div className="flex flex-col justify-between h-full bg-secondary">
-      <div className="flex flex-col justify-center px-48 pt-28">
+      <div className="flex flex-col justify-center px-24 pt-28">
         {/* Search */}
         <div className="flex items-center justify-between">
           <div className="px-4 py-6 text-3xl font-bold">Kelas Berjalan</div>
