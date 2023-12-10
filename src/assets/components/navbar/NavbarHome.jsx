@@ -25,11 +25,11 @@ export const NavbarHome = () => {
   };
 
   return (
-    <div className="fixed top-0 z-50 flex items-center justify-between w-screen py-4 bg-primary lg:px-28 px-6">
+    <div className="fixed top-0 z-50 flex items-center justify-between w-screen px-6 py-4 bg-primary lg:px-28">
       <div className="flex gap-10">
-        <div className="lg:flex gap-2 hidden">
+        <div className="items-center justify-center hidden gap-2 lg:flex">
           <img src={BrandLogo} alt="Brand Logo" className="w-[2.5rem]" />
-          <div className="gap-4 font-sans text-4xl font-bold text-white">
+          <div className="gap-4 text-3xl font-semibold text-white">
             Bingwa
           </div>
         </div>
@@ -48,7 +48,7 @@ export const NavbarHome = () => {
       </div>
 
       <div className="flex gap-2 font-bold text-white cursor-pointer" onClick={() => { navigate("/Login") }}>
-        <CgLogIn size={30} className="lg:flex hidden" />
+        <CgLogIn size={30} className="hidden lg:flex" />
         <div className="text-xl">Masuk</div>
       </div>
     </div>

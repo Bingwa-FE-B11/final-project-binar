@@ -1,19 +1,34 @@
-import React from 'react';
+import React, { useState } from "react";
 
 // Components
-import { NavbarKelas } from '../../../assets/components/navbar/NavbarKelas';
+import { NavbarKelas } from "../../../assets/components/navbar/NavbarKelas";
+import { CardKursus } from "../../../assets/components/cards/CardKursus";
 
 // Icons
-import { GoArrowLeft } from 'react-icons/go';
-import { FaStar } from 'react-icons/fa';
-import { RiShieldStarLine } from 'react-icons/ri';
-import { LiaBookSolid } from 'react-icons/lia';
-import { IoTime } from 'react-icons/io5';
-import { HiChatAlt2 } from 'react-icons/hi';
-import { FaCirclePlay } from 'react-icons/fa6';
-import { TbProgressCheck } from 'react-icons/tb';
+import { GoArrowLeft } from "react-icons/go";
+import { FaStar } from "react-icons/fa";
+import { RiShieldStarLine } from "react-icons/ri";
+import { LiaBookSolid } from "react-icons/lia";
+import { IoTime } from "react-icons/io5";
+import { HiChatAlt2 } from "react-icons/hi";
+import { FaCirclePlay } from "react-icons/fa6";
+import { TbProgressCheck } from "react-icons/tb";
+import { BiSolidLock } from "react-icons/bi";
+import { FaArrowCircleRight } from "react-icons/fa";
+
+// Material Tailwind Components
+import {
+  Dialog,
+  DialogBody,
+  DialogFooter,
+  DialogHeader,
+} from "@material-tailwind/react";
 
 export const DetailKelas = () => {
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const handleDialogOpen = () => setDialogOpen(!dialogOpen);
+
   return (
     <>
       <NavbarKelas />
@@ -21,9 +36,9 @@ export const DetailKelas = () => {
       {/* Parent Container */}
       <div className="z-20 flex min-h-screen px-20">
         {/* Left Container */}
-        <div className="flex flex-col w-2/3 gap-4 pr-16 mt-20">
+        <div className="mt-20 flex w-2/3 flex-col gap-4 pr-16">
           {/* Button Back */}
-          <div className="flex items-center w-full gap-2 pt-8 pb-5">
+          <div className="flex w-full items-center gap-2 pb-5 pt-8">
             <div>
               <GoArrowLeft />
             </div>
@@ -42,13 +57,17 @@ export const DetailKelas = () => {
               </div>
             </div>
             <div className="flex flex-col">
-              <div className="text-xl font-bold">Intro to Basic of User Interaction Design</div>
+              <div className="text-xl font-bold">
+                Intro to Basic of User Interaction Design
+              </div>
               <div className="text-lg">by Simon Doe</div>
             </div>
             <div className="flex gap-10">
               <div className="flex items-center gap-1">
                 <RiShieldStarLine size={20} color="#22c55e" />
-                <div className="text-sm font-semibold text-primary">Beginner Level</div>
+                <div className="text-sm font-semibold text-primary">
+                  Beginner Level
+                </div>
               </div>
               <div className="flex items-center gap-1">
                 <LiaBookSolid size={20} color="#22c55e" />
@@ -60,7 +79,7 @@ export const DetailKelas = () => {
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-2 px-6 py-2 text-white cursor-pointer w-fit bg-green rounded-xl">
+          <div className="flex w-fit cursor-pointer items-center gap-2 rounded-xl bg-green px-6 py-2 text-white">
             <div className="font-semibold">Join Grup Telegram</div>
             <div>
               <HiChatAlt2 size={20} />
@@ -69,9 +88,9 @@ export const DetailKelas = () => {
 
           {/* Section Detail Kelas */}
           <div className="flex flex-col">
-            <div className="flex items-center justify-center bg-slate-300 rounded-2xl h-[20rem] my-10">
-              <div className="text-primary">
-                <FaCirclePlay size={60} />
+            <div className="my-10 flex h-[20rem] items-center justify-center rounded-2xl bg-slate-300">
+              <div className="cursor-pointer text-primary">
+                <FaCirclePlay size={60} onClick={handleDialogOpen} />
               </div>
             </div>
 
@@ -80,27 +99,31 @@ export const DetailKelas = () => {
               <div className="flex flex-col gap-2">
                 <h1 className="text-xl font-bold">Tentang Kelas</h1>
                 <p className="text-slate-600">
-                  Design system adalah kumpulan komponen design, code, ataupun dokumentasi yang
-                  dapat digunakan sebagai panduan utama yang memunginkan designer serta developer
-                  memiliki lebih banyak kontrol atas berbagai platform. Dengan hadirnya design
-                  system, dapat menjaga konsistensi tampilan user interface dan meningkatkan user
-                  experience menjadi lebih baik. Disisi bisnis, design system sangat berguna dalam
-                  menghemat waktu dan biaya ketika mengembangkan suatu produk.
+                  Design system adalah kumpulan komponen design, code, ataupun
+                  dokumentasi yang dapat digunakan sebagai panduan utama yang
+                  memunginkan designer serta developer memiliki lebih banyak
+                  kontrol atas berbagai platform. Dengan hadirnya design system,
+                  dapat menjaga konsistensi tampilan user interface dan
+                  meningkatkan user experience menjadi lebih baik. Disisi
+                  bisnis, design system sangat berguna dalam menghemat waktu dan
+                  biaya ketika mengembangkan suatu produk.
                 </p>
                 <p className="text-slate-600">
-                  Design system adalah kumpulan komponen design, code, ataupun dokumentasi yang
-                  dapat digunakan sebagai panduan utama yang memunginkan designer serta developer
-                  memiliki lebih banyak kontrol atas berbagai platform. Dengan hadirnya design
-                  system, dapat menjaga konsistensi tampilan user interface dan meningkatkan user
-                  experience menjadi lebih baik. Disisi bisnis, design system sangat berguna dalam
-                  menghemat waktu dan biaya ketika mengembangkan suatu produk.
+                  Design system adalah kumpulan komponen design, code, ataupun
+                  dokumentasi yang dapat digunakan sebagai panduan utama yang
+                  memunginkan designer serta developer memiliki lebih banyak
+                  kontrol atas berbagai platform. Dengan hadirnya design system,
+                  dapat menjaga konsistensi tampilan user interface dan
+                  meningkatkan user experience menjadi lebih baik. Disisi
+                  bisnis, design system sangat berguna dalam menghemat waktu dan
+                  biaya ketika mengembangkan suatu produk.
                 </p>
               </div>
 
               {/* Kelas ini ditujukan untuk */}
               <div className="flex flex-col gap-2">
                 <h1 className="text-xl font-bold">Kelas Ini Ditujukan Untuk</h1>
-                <ol className="pl-4 list-decimal">
+                <ol className="list-decimal pl-4">
                   <li>Anda yang ingin memahami tentang Design System</li>
                   <li>Anda yang ingin memahami tentang Design System</li>
                   <li>Anda yang ingin memahami tentang Design System</li>
@@ -112,15 +135,15 @@ export const DetailKelas = () => {
         </div>
 
         {/* Right Container */}
-        <div className="flex flex-col w-1/3 mt-20">
+        <div className="mt-20 flex w-1/3 flex-col">
           {/* Sidebar */}
-          <div className="flex flex-col gap-6 p-6 mt-8 shadow-lg rounded-2xl">
+          <div className="mt-8 flex flex-col gap-6 rounded-2xl p-6 shadow-lg">
             {/* Materi Belajar */}
             <div className="flex justify-between">
               <h1 className="text-xl font-bold">Materi Belajar</h1>
-              <div className="flex items-center justify-between gap-2 w-fit rounded-3xl">
+              <div className="flex w-fit items-center justify-between gap-2 rounded-3xl">
                 <TbProgressCheck size={25} color="#22c55e" />
-                <div className="px-3 py-1 font-bold text-white rounded-3xl bg-primary">
+                <div className="rounded-3xl bg-primary px-3 py-1 font-bold text-white">
                   50% Completed
                 </div>
               </div>
@@ -129,16 +152,20 @@ export const DetailKelas = () => {
             {/* Chapter */}
             <div className="flex flex-col gap-4">
               <div className="flex justify-between">
-                <h2 className="font-bold text-primary">Chapter 1 - Pendahuluan</h2>
+                <h2 className="font-bold text-primary">
+                  Chapter 1 - Pendahuluan
+                </h2>
                 <h2 className="font-bold text-blue">60 Menit</h2>
               </div>
               {/* Chapter List */}
               <div className="flex items-center justify-between">
-                <div className="flex items-center w-full gap-2">
-                  <p className="flex items-center justify-center w-10 h-10 font-bold rounded-full bg-secondary">
+                <div className="flex w-full items-center gap-2">
+                  <p className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary font-bold">
                     1
                   </p>
-                  <p className="font-semibold">Tujuan Mengikuti Kelas Design System</p>
+                  <p className="font-semibold">
+                    Tujuan Mengikuti Kelas Design System
+                  </p>
                 </div>
                 <div className="text-green">
                   <FaCirclePlay size={25} />
@@ -146,11 +173,13 @@ export const DetailKelas = () => {
               </div>
               {/* Chapter List */}
               <div className="flex items-center justify-between">
-                <div className="flex items-center w-full gap-2">
-                  <p className="flex items-center justify-center w-10 h-10 font-bold rounded-full bg-secondary">
+                <div className="flex w-full items-center gap-2">
+                  <p className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary font-bold">
                     1
                   </p>
-                  <p className="font-semibold">Tujuan Mengikuti Kelas Design System</p>
+                  <p className="font-semibold">
+                    Tujuan Mengikuti Kelas Design System
+                  </p>
                 </div>
                 <div className="text-green">
                   <FaCirclePlay size={25} />
@@ -158,11 +187,13 @@ export const DetailKelas = () => {
               </div>
               {/* Chapter List */}
               <div className="flex items-center justify-between">
-                <div className="flex items-center w-full gap-2">
-                  <p className="flex items-center justify-center w-10 h-10 font-bold rounded-full bg-secondary">
+                <div className="flex w-full items-center gap-2">
+                  <p className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary font-bold">
                     1
                   </p>
-                  <p className="font-semibold">Tujuan Mengikuti Kelas Design System</p>
+                  <p className="font-semibold">
+                    Tujuan Mengikuti Kelas Design System
+                  </p>
                 </div>
                 <div className="text-green">
                   <FaCirclePlay size={25} />
@@ -173,49 +204,85 @@ export const DetailKelas = () => {
             {/* Chapter */}
             <div className="flex flex-col gap-4">
               <div className="flex justify-between">
-                <h2 className="font-bold text-primary">Chapter 1 - Pendahuluan</h2>
+                <h2 className="font-bold text-primary">
+                  Chapter 2 - Memulai Design
+                </h2>
                 <h2 className="font-bold text-blue">60 Menit</h2>
               </div>
               {/* Chapter List */}
               <div className="flex items-center justify-between">
-                <div className="flex items-center w-full gap-2">
-                  <p className="flex items-center justify-center w-10 h-10 font-bold rounded-full bg-secondary">
-                    1
+                <div className="flex w-full items-center gap-2">
+                  <p className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary font-bold">
+                    2
                   </p>
-                  <p className="font-semibold">Tujuan Mengikuti Kelas Design System</p>
+                  <p className="font-semibold">
+                    Tujuan Mengikuti Kelas Design System
+                  </p>
                 </div>
-                <div className="text-green">
-                  <FaCirclePlay size={25} />
+                <div className="text-slate-300">
+                  <BiSolidLock size={25} />
                 </div>
               </div>
               {/* Chapter List */}
               <div className="flex items-center justify-between">
-                <div className="flex items-center w-full gap-2">
-                  <p className="flex items-center justify-center w-10 h-10 font-bold rounded-full bg-secondary">
-                    1
+                <div className="flex w-full items-center gap-2">
+                  <p className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary font-bold">
+                    2
                   </p>
-                  <p className="font-semibold">Tujuan Mengikuti Kelas Design System</p>
+                  <p className="font-semibold">
+                    Tujuan Mengikuti Kelas Design System
+                  </p>
                 </div>
-                <div className="text-green">
-                  <FaCirclePlay size={25} />
+                <div className="text-slate-300">
+                  <BiSolidLock size={25} />
                 </div>
               </div>
               {/* Chapter List */}
               <div className="flex items-center justify-between">
-                <div className="flex items-center w-full gap-2">
-                  <p className="flex items-center justify-center w-10 h-10 font-bold rounded-full bg-secondary">
-                    1
+                <div className="flex w-full items-center gap-2">
+                  <p className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary font-bold">
+                    2
                   </p>
-                  <p className="font-semibold">Tujuan Mengikuti Kelas Design System</p>
+                  <p className="font-semibold">
+                    Tujuan Mengikuti Kelas Design System
+                  </p>
                 </div>
-                <div className="text-green">
-                  <FaCirclePlay size={25} />
+                <div className="text-slate-300">
+                  <BiSolidLock size={25} />
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Dialog */}
+      <Dialog open={dialogOpen} handler={handleDialogOpen} className="py-3">
+        <DialogHeader className="flex flex-col">
+          <h1 className="font-semibold text-slate-700">
+            Selangkah lagi menuju
+          </h1>
+          <h1 className="font-semibold text-primary">Kelas Premium</h1>
+        </DialogHeader>
+        <DialogBody className="px-12">
+          <CardKursus
+            category={"UI/UX DESIGN"}
+            rating={"5.0"}
+            title={"Intro to Basic of User Interaction Design"}
+            author={"Simon Doe"}
+            level={"Beginner"}
+            modul={5}
+            duration={4}
+            price={"349.000"}
+          />
+        </DialogBody>
+        <DialogFooter className="flex justify-center">
+          <div className="flex w-64 cursor-pointer items-center justify-center gap-3 rounded-full bg-primary py-2 transition-all hover:bg-primary-hover">
+            <div className="font-semibold text-white">Beli Sekarang</div>
+            <FaArrowCircleRight size={17} className="text-white" />
+          </div>
+        </DialogFooter>
+      </Dialog>
     </>
   );
 };

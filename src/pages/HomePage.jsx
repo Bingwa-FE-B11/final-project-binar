@@ -56,25 +56,25 @@ export const HomePage = () => {
 
           {/* Filter */}
           <div className="flex justify-between">
-            <div className="px-5 py-1 text-[14px] font-bold transition-all cursor-pointer rounded-xl bg-secondary hover:bg-primary hover:text-white">
+            <div className="px-5 py-1 text-[13px] font-semibold transition-all cursor-pointer rounded-xl bg-secondary hover:bg-primary hover:text-white">
               All
             </div>
-            <div className="px-5 py-1 text-[14px] font-bold transition-all cursor-pointer rounded-xl bg-secondary hover:bg-primary hover:text-white">
+            <div className="px-5 py-1 text-[13px] font-semibold transition-all cursor-pointer rounded-xl bg-secondary hover:bg-primary hover:text-white">
               Data Science
             </div>
-            <div className="px-5 py-1 text-[14px] font-bold transition-all cursor-pointer rounded-xl bg-secondary hover:bg-primary hover:text-white">
+            <div className="px-5 py-1 text-[13px] font-semibold transition-all cursor-pointer rounded-xl bg-secondary hover:bg-primary hover:text-white">
               UI/UX Design
             </div>
-            <div className="px-5 py-1 text-[14px] font-bold transition-all cursor-pointer rounded-xl bg-secondary hover:bg-primary hover:text-white">
+            <div className="px-5 py-1 text-[13px] font-semibold transition-all cursor-pointer rounded-xl bg-secondary hover:bg-primary hover:text-white">
               Android Development
             </div>
-            <div className="px-5 py-1 text-[14px] font-bold transition-all cursor-pointer rounded-xl bg-secondary hover:bg-primary hover:text-white">
+            <div className="px-5 py-1 text-[13px] font-semibold transition-all cursor-pointer rounded-xl bg-secondary hover:bg-primary hover:text-white">
               Web Development
             </div>
-            <div className="px-5 py-1 text-[14px] font-bold transition-all cursor-pointer rounded-xl bg-secondary hover:bg-primary hover:text-white">
+            <div className="px-5 py-1 text-[13px] font-semibold transition-all cursor-pointer rounded-xl bg-secondary hover:bg-primary hover:text-white">
               IOS Development
             </div>
-            <div className="px-5 py-1 text-[14px] font-bold transition-all cursor-pointer rounded-xl bg-secondary hover:bg-primary hover:text-white">
+            <div className="px-5 py-1 text-[13px] font-semibold transition-all cursor-pointer rounded-xl bg-secondary hover:bg-primary hover:text-white">
               Bussiness Intelligence
             </div>
           </div>

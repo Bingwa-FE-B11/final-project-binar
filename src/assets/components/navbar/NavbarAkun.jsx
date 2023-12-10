@@ -26,11 +26,11 @@ export const NavbarAkun = () => {
   };
 
   return (
-    <div className="fixed top-0 flex items-center justify-between w-screen py-4 bg-primary lg:px-28 px-2 gap-2">
+    <div className="fixed top-0 flex items-center justify-between w-screen gap-2 px-2 py-4 bg-primary lg:px-28">
       <div className="flex gap-10">
-        <div className="lg:flex gap-2 hidden">
+        <div className="items-center justify-center hidden gap-2 lg:flex">
           <img src={BrandLogo} alt="Brand Logo" className="w-[2.5rem]" />
-          <div className="gap-4 font-sans text-4xl font-bold text-white">
+          <div className="gap-4 text-3xl font-semibold text-white">
             Bingwa
           </div>
         </div>
@@ -51,12 +51,12 @@ export const NavbarAkun = () => {
         </div>
       </div>
 
-      <div className="flex items-center lg:gap-6 gap-1 text-white cursor-pointer">
-        <div className="flex lg:space-x-4 space-x-1">
+      <div className="flex items-center gap-1 text-white cursor-pointer lg:gap-6">
+        <div className="flex space-x-1 lg:space-x-4">
           <IoIosList size={30} onClick={()=>{navigate("/kelas-saya")}} />
           <IoIosNotificationsOutline size={30} onClick={()=>{navigate("/notifikasi")}} />
         </div>
-        <div className="flex lg:gap-2 lg:px-6 px-2 py-1 font-bold bg-blue-400 rounded-xl">
+        <div className="flex px-2 py-1 font-bold bg-blue-400 lg:gap-2 lg:px-6 rounded-xl">
           <LuUser size={28} />
           <div className="text-lg">Akun</div>
         </div>
