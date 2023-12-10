@@ -16,7 +16,6 @@ import { AkunProfile } from '../pages/user/akun/AkunProfile';
 import { AkunPembayaran } from '../pages/user/akun/AkunPembayaran';
 import { AkunPassword } from '../pages/user/akun/AkunPassword';
 import { DetailKelas } from '../pages/user/kelas/DetailKelas';
-import { ForgetPass } from '../pages/user/ForgetPass';
 import { AdminDashboard } from '../pages/admin/AdminDashboard';
 import { AdminKelolaKelas } from '../pages/admin/auth/AdminKelolaKelas';
 import { Pembayaran } from '../pages/user/kelas/Pembayaran';
@@ -27,7 +26,6 @@ export const RouteList = () => {
   return (
     <BrowserRouter>
       <Routes>
-
         <Route path="/" element={<HomePage />} />
         <Route path="/homepage" element={<HomePage />} />
 
@@ -44,13 +42,13 @@ export const RouteList = () => {
         <Route path="/pilih-gratis" element={<PilihGratis />} />
         <Route path="/pilih-kelas" element={<PilihKelas />} />
         <Route path="/detail-kelas" element={<DetailKelas />} />
-        <Route path="/pembayaran" element={<Pembayaran/>} />
-        <Route path="/pembayaran-sukses" element={<PembayaranSukses/>} />
+        <Route path="/pembayaran" element={<Pembayaran />} />
+        <Route path="/pembayaran-sukses" element={<PembayaranSukses />} />
 
         {/* Admin */}
         <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard/>} />
-        <Route path="/admin/kelola-kelas" element={<AdminKelolaKelas/>} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/kelola-kelas" element={<AdminKelolaKelas />} />
 
         {/* Data User */}
         <Route path="notifikasi" element={<Notifikasi />} />
