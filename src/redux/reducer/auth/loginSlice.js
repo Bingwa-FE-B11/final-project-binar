@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { CookieStorage, CookiesKeys } from "../../../utils/cookie";
 
 const initialState = {
-  token: CookieStorage.get(CookiesKeys.AuthToken) || undefined,
+  token: CookieStorage.get(CookiesKeys.AuthToken) || null,
   isLoggedIn: false,
   user: null,
 };
