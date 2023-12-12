@@ -9,7 +9,7 @@ import BrandLogo from "../../../assets/img/brain.webp";
 import { GoArrowLeft } from "react-icons/go";
 
 // Redux
-import { getResendOtp, getVerifyOtp } from '../../../redux/action/auth/Otp';
+import { getResendOtp, getVerifyOtpAction } from '../../../redux/action/auth/getVerifyOtpAction';
 
 // Toast
 import { showSuccessToast } from '../../../helper/ToastHelper';
@@ -69,7 +69,7 @@ export const Otp = () => {
 
   // Verify-Otp
   const handleSave = async () => {
-    const otpData = await dispatch(getVerifyOtp({
+    const otpData = await dispatch(getVerifyOtpAction({
       email: Email,
       otp: otpInputs.join(''),
     }))

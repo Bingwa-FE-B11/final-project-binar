@@ -1,24 +1,33 @@
 import toast from "react-hot-toast";
 
 const showSuccessToast = (message) => {
-  toast.success(message, {
+  return toast.success(message, {
     duration: 3000,
-    position: 'top-right',
+    position: "top-right",
+    onHover: (persist, toast) => {
+      persist();
+    },
   });
 };
 
 const showErrorToast = (message) => {
-  toast.error(message, {
+  return toast.error(message, {
     duration: 3000,
-    position: 'top-right',
+    position: "top-right",
+    onHover: (persist, toast) => {
+      persist();
+    },
   });
 };
 
 const showLoadingToast = (message) => {
-  toast.loading(message, {
+  return toast.loading(message, {
     duration: 3000,
-    position: 'top-right',
-  })
-}
+    position: "top-right",
+    onHover: (persist, toast) => {
+      persist();
+    },
+  });
+};
 
 export { showSuccessToast, showErrorToast, showLoadingToast };
