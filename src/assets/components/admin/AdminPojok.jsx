@@ -1,27 +1,42 @@
-import React from 'react';
-import BrandLogo from '../../../assets/img/brain.webp';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+
+// Images
+import BrandLogo from "../../../assets/img/brain.webp";
 
 export const AdminPojok = () => {
+  const navigate = useNavigate()
+
   return (
     <div className="flex">
-      <div className="lg:flex items-start justify-center w-1/5 h-screen bg-primary hidden">
-        <div className="flex flex-col items-center justify-center mt-4 ">
+      <div className="fixed hidden h-screen w-[15%] items-start justify-center bg-primary lg:flex">
+        <div className="flex flex-col py-4 items-center justify-center">
           <div className="flex items-center justify-center gap-4">
-            <img src={BrandLogo} alt="Brand Logo" className="w-[13%]" />
-            <span className="font-sans text-3xl text-center text-white">Bingwa</span>
+            <img src={BrandLogo} alt="Brand Logo" className="w-[2.5rem]" />
+            <span className="text-center font-sans text-3xl text-white">
+              Bingwa
+            </span>
           </div>
-          <div className='text-start mr-auto'>
-          <button className=' text-white text-1xl font-sans mt-11 ml-5'> Dashboard </button>
+          <div className="mr-auto text-start">
+            <button className="pt-[5rem] pb-[1rem] text-xl font-sans text-white"
+            onClick={()=>{navigate("/admin/dashboard")}}>
+              Dashboard
+            </button>
           </div>
-                    <div className='text-start mr-auto'>
-          <button className=' text-white text-1xl font-sans mt-5 ml-5'> Kelola Kelas </button>
+          <div className="mr-auto text-start">
+            <button className="py-4 text-xl font-sans text-white"
+            onClick={()=>{navigate("/admin/kelola-kelas")}}>
+              Kelola Kelas
+            </button>
           </div>
-          <div className='text-start mr-auto'>
-          <button className=' text-white text-1xl font-sans mt-5 ml-5'> Keluar </button>
-</div>
-
+          <div className="mr-auto text-start">
+            <button className="py-4 text-xl font-sans text-white"
+            onClick={()=>{navigate("/admin/login")}}>
+              Keluar
+            </button>
           </div>
-          </div>
-          </div>
+        </div>
+      </div>
+    </div>
   );
 };
