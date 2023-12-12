@@ -4,6 +4,7 @@ import registerSlice from "./auth/registerSlice";
 import passwordSlice from "./auth/passwordSlice";
 import otpSlice from "./auth/otpSlice";
 import loginSlice from "./auth/loginSlice";
+import ChangePassSlice from "./akun/ChangePassSlice";
 
 export default combineReducers({
   authLogin: loginSlice,
@@ -11,4 +12,5 @@ export default combineReducers({
   authPassword: passwordSlice,
   authOtp: otpSlice,
 //   authGetUserProfile: userProfileSlice,
+  changePass: ChangePassSlice,
 });
