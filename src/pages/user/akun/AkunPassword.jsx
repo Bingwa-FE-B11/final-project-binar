@@ -11,7 +11,8 @@ import EyePassword from '../../../assets/img/fi_eye.webp'
 import { GoArrowLeft } from "react-icons/go";
 
 // Toast
-import { showSuccessToast } from '../../../helper/ToastHelper';
+import { showLoadingToast, showSuccessToast } from '../../../helper/ToastHelper';
+import toast from 'react-hot-toast';
 
 // Redux
 import { changePass } from '../../../redux/action/akun/changePassAction';
@@ -56,6 +57,7 @@ export const AkunPassword = () => {
   };
 
   const handleSave = async () => {
+    // const loadingToastId = showLoadingToast("Loading...");
     const changePassword = await dispatch(
       changePass(
         {
@@ -66,9 +68,11 @@ export const AkunPassword = () => {
         token,
       ),
     );
-    if (changePassword) {
+    // toast.dismiss(loadingToastId);
       showSuccessToast("Ganti Password telah Berhasil");
-    }
+      setTimeout(() => {
+        navigate("/kelas-saya");
+      }, 2000);
   };
 
   return (
