@@ -5,11 +5,26 @@ import { useNavigate } from "react-router-dom";
 import { BiSearchAlt } from "react-icons/bi";
 import { IoIosNotificationsOutline, IoIosList } from "react-icons/io";
 import { LuUser } from "react-icons/lu";
+import { LuLogOut } from "react-icons/lu";
+import { FaUser } from "react-icons/fa6";
 
 // Images
 import BrandLogo from "../../img/brain.webp";
 
+// Components Material Tailwind
+import {
+  Button,
+  Menu,
+  MenuHandler,
+  MenuItem,
+  MenuList,
+} from "@material-tailwind/react";
+import { useDispatch } from "react-redux";
+import { logoutUserAction } from "../../../redux/action/auth/logoutUserAction";
+
 export const NavbarKelas = () => {
+  const dispatch = useDispatch();
+
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
@@ -25,41 +40,76 @@ export const NavbarKelas = () => {
     }
   };
 
+  const handleLogout = () => {
+    dispatch(logoutUserAction());
+  };
+
   return (
-    <div className="fixed top-0 flex items-center justify-between w-screen gap-2 px-2 py-4 bg-primary lg:px-28">
+    <div className="fixed top-0 flex w-screen items-center justify-between gap-2 bg-primary px-2 py-4 lg:px-28">
       <div className="flex gap-10">
-      <div className="items-center justify-center hidden gap-2 lg:flex">
-        <img src={BrandLogo} alt="Brand Logo" className="w-[2.5rem]" />
-        <div className="gap-4 text-3xl font-semibold text-white">
-          Bingwa
+        <div className="hidden items-center justify-center gap-2 lg:flex">
+          <img src={BrandLogo} alt="Brand Logo" className="w-[2.5rem]" />
+          <div className="gap-4 text-3xl font-semibold text-white">Bingwa</div>
+        </div>
+
+        <div className="relative">
+          <input
+            type="text"
+            placeholder="Cari kursus terbaik..."
+            className="h-[3rem] w-[13rem] cursor-pointer rounded-xl bg-white px-3 py-2 lg:w-[30rem]"
+            value={search}
+            onChange={handleInputChange}
+            onKeyDown={handleEnterKeyPress}
+          />
+          <BiSearchAlt
+            size={30}
+            className="absolute inset-y-2 right-4 cursor-pointer rounded bg-primary p-1 text-white"
+          />
         </div>
       </div>
 
-      <div className="relative">
-        <input
-          type="text"
-          placeholder="Cari kursus terbaik..."
-          className="w-[13rem] lg:w-[30rem] h-[3rem] px-3 py-2 rounded-xl bg-white cursor-pointer"
-          value={search}
-          onChange={handleInputChange}
-          onKeyDown={handleEnterKeyPress}
-        />
-        <BiSearchAlt
-          size={30}
-          className="absolute p-1 text-white rounded cursor-pointer bg-primary inset-y-2 right-4"
-        />
-        </div>
-      </div>
-
-      <div className="flex items-center gap-1 text-white cursor-pointer lg:gap-2 lg:space-x-4">
-        <div className="flex gap-2 px-2 py-1 font-bold bg-blue-400 lg:px-6 rounded-xl">
+      <div className="flex cursor-pointer items-center gap-1 text-white lg:gap-2 lg:space-x-4">
+        <div className="flex gap-2 rounded-xl bg-blue-400 px-2 py-1 font-bold lg:px-6">
           <IoIosList size={28} />
           <div className="text-lg">Kelas</div>
         </div>
 
         <div className="flex lg:space-x-4">
-          <IoIosNotificationsOutline size={30} onClick={()=>{navigate("/notifikasi")}}/>
-          <LuUser size={30} onClick={()=>{navigate("/akun-profile")}} />
+          <IoIosNotificationsOutline
+            size={30}
+            onClick={() => {
+              navigate("/notifikasi");
+            }}
+          />
+          <Menu>
+            <MenuHandler>
+              <Button
+                className="bg-primary p-0 shadow-none hover:shadow-none"
+                ripple={false}
+                size="sm"
+              >
+                <LuUser size={30} />
+              </Button>
+            </MenuHandler>
+            <MenuList>
+              <MenuItem
+                onClick={() => {
+                  navigate("/akun-profile");
+                }}
+              >
+                <div className="flex items-center gap-3">
+                  <FaUser size={17} />
+                  <span>Profile</span>
+                </div>
+              </MenuItem>
+              <MenuItem onClick={handleLogout}>
+                <div className="flex items-center gap-3">
+                  <LuLogOut size={17} />
+                  <span>Logout</span>
+                </div>
+              </MenuItem>
+            </MenuList>
+          </Menu>
         </div>
       </div>
     </div>

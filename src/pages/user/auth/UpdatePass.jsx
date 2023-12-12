@@ -1,28 +1,28 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 
 // Images
-import EyePassword from '../../../assets/img/fi_eye.webp';
-import BrandLogo from '../../../assets/img/brain.webp';
+import EyePassword from "../../../assets/img/fi_eye.webp";
+import BrandLogo from "../../../assets/img/brain.webp";
 
 // Redux
-import { getUpdatePass } from '../../../redux/action/auth/Password';
+import { getUpdatePass } from "../../../redux/action/auth/getPasswordAction";
 
 // Toast
-import { showSuccessToast } from '../../../helper/ToastHelper';
+import { showSuccessToast } from "../../../helper/ToastHelper";
 
 export const UpdatePass = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const token = queryParams.get('token');
+  const token = queryParams.get("token");
 
   const dispatch = useDispatch();
   const [showPassword1, setShowPassword1] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
-  const [password, setPassword] = useState('');
-  const [passwordConfirmation, setpasswordConfirmation] = useState('');
+  const [password, setPassword] = useState("");
+  const [passwordConfirmation, setpasswordConfirmation] = useState("");
 
   const handleShowPassword1 = () => {
     setShowPassword1(!showPassword1);
@@ -43,36 +43,40 @@ export const UpdatePass = () => {
     }
   };
 
-const handleSave = async () => {  
-  const updatepass = await dispatch(getUpdatePass(
-    {
-      password : password,
-      passwordConfirmation: passwordConfirmation
-    }, 
-    token
-  ))
+  const handleSave = async () => {
+    const updatepass = await dispatch(
+      getUpdatePass(
+        {
+          password: password,
+          passwordConfirmation: passwordConfirmation,
+        },
+        token,
+      ),
+    );
     showSuccessToast("Upadate Password Berhasil");
     setTimeout(() => {
-      navigate("/login")
+      navigate("/login");
     }, 2000);
-};
+  };
 
   return (
-    <div className="flex items-center justify-center h-screen">
-      <div className="w-full rounded-lg md:mt-0 mx-auto md:max-w-md">
-        <div className="flex flex-col lg:w-[30rem] mx-auto w-[22rem]">
-          <span className="items-center pb-2 text-4xl font-bold text-primary">Reset Password</span>
+    <div className="flex h-screen items-center justify-center">
+      <div className="mx-auto w-full rounded-lg md:mt-0 md:max-w-md">
+        <div className="mx-auto flex w-[22rem] flex-col lg:w-[30rem]">
+          <span className="items-center pb-2 text-4xl font-bold text-primary">
+            Reset Password
+          </span>
 
           {/* Password Baru */}
           <div className="flex flex-col gap-2 pt-8">
             <div className="flex justify-between">
-              <span className="text-lg text-left">Masukkan Password Baru</span>
+              <span className="text-left text-lg">Masukkan Password Baru</span>
             </div>
             <div className="relative flex flex-col">
               <input
                 onChange={handleInput}
                 placeholder="Password Baru"
-                className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
+                className="rounded-xl border-2 border-slate-300 px-4 py-3 focus:border-primary focus:outline-none"
                 type={showPassword1 ? "text" : "password"}
                 value={password}
                 id="newPassword"
@@ -80,7 +84,7 @@ const handleSave = async () => {
               <img
                 src={EyePassword}
                 alt="Icon Eye Password"
-                className="absolute w-8 text-black cursor-pointer inset-y-2.5 right-4"
+                className="absolute inset-y-2.5 right-4 w-8 cursor-pointer text-black"
                 onClick={handleShowPassword1}
               />
             </div>
@@ -89,13 +93,13 @@ const handleSave = async () => {
           {/* Konfirmasi Password Baru */}
           <div className="flex flex-col gap-2 pt-8">
             <div className="flex justify-between">
-              <span className="text-lg text-left">Ulangi Password Baru</span>
+              <span className="text-left text-lg">Ulangi Password Baru</span>
             </div>
             <div className="relative flex flex-col">
               <input
                 onChange={handleInput}
                 placeholder="Ulangi Password Baru"
-                className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
+                className="rounded-xl border-2 border-slate-300 px-4 py-3 focus:border-primary focus:outline-none"
                 type={showPassword2 ? "text" : "password"}
                 value={passwordConfirmation}
                 id="confirmPassword"
@@ -103,7 +107,7 @@ const handleSave = async () => {
               <img
                 src={EyePassword}
                 alt="Icon Eye Password"
-                className="absolute w-8 text-black cursor-pointer inset-y-2.5 right-4"
+                className="absolute inset-y-2.5 right-4 w-8 cursor-pointer text-black"
                 onClick={handleShowPassword2}
               />
             </div>
@@ -113,7 +117,7 @@ const handleSave = async () => {
           <div className="flex flex-col py-4">
             <button
               type="button"
-              className="py-3 mt-2 text-lg font-semibold text-white bg-primary hover:bg-primary-hover rounded-xl"
+              className="mt-2 rounded-xl bg-primary py-3 text-lg font-semibold text-white hover:bg-primary-hover"
               onClick={handleSave}
             >
               Simpan
@@ -122,10 +126,12 @@ const handleSave = async () => {
         </div>
       </div>
 
-      <div className="lg:flex items-center justify-center w-2/5 h-screen bg-primary hidden">
+      <div className="hidden h-screen w-2/5 items-center justify-center bg-primary lg:flex">
         <div className="flex items-center justify-center gap-6">
           <img src={BrandLogo} alt="Brand Logo" className="w-[15%]" />
-          <span className="font-sans text-6xl text-center text-white">Bingwa</span>
+          <span className="text-center font-sans text-6xl text-white">
+            Bingwa
+          </span>
         </div>
       </div>
     </div>

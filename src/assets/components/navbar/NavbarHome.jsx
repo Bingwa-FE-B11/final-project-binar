@@ -47,7 +47,7 @@ export const NavbarHome = () => {
         </div>
       </div>
 
-      <div className="flex gap-2 font-bold text-white cursor-pointer" onClick={() => { navigate("/Login") }}>
+      <div className="flex gap-2 font-semibold text-white cursor-pointer" onClick={() => { navigate("/Login") }}>
         <CgLogIn size={30} className="hidden lg:flex" />
         <div className="text-xl">Masuk</div>
       </div>

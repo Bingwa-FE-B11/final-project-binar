@@ -2,6 +2,6 @@
 import { API_ENDPOINT } from "../../../utils/api-endpoint";
 import http from "../../../utils/http";
 
-export const reduxLoginUser = async (input) => {
-  return await http.post(API_ENDPOINT.USER_LOGIN, input);
+export const reduxGetUser = async () => {
+  return await http.get(API_ENDPOINT.AUTH_USER);
 };

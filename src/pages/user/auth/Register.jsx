@@ -1,23 +1,28 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 // Images
-import EyePassword from '../../../assets/img/fi_eye.webp';
-import BrandLogo from '../../../assets/img/brain.webp';
+import BrandLogo from "../../../assets/img/brain.webp";
 
 // Redux
-import { RegisterUser } from '../../../redux/action/auth/authRegisterSlice';
+import { registerUserAction } from "../../../redux/action/auth/registerUserAction";
 
 // Toast
-import { showErrorToast, showSuccessToast } from '../../../helper/ToastHelper';
+import {
+  showErrorToast,
+  showLoadingToast,
+  showSuccessToast,
+} from "../../../helper/ToastHelper";
+import { FiEye, FiEyeOff } from "react-icons/fi";
+import toast from "react-hot-toast";
 
 export const Register = () => {
   const navigate = useNavigate();
-  const [FullName, setFullName] = useState('');
-  const [Email, setEmail] = useState('');
-  const [PhoneNumber, setPhoneNumber] = useState('');
-  const [Password, setPassword] = useState('');
+  const [FullName, setFullName] = useState("");
+  const [Email, setEmail] = useState("");
+  const [PhoneNumber, setPhoneNumber] = useState("");
+  const [Password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
 
@@ -27,61 +32,71 @@ export const Register = () => {
 
   const handleInput = (e) => {
     if (e) {
-      if (e.target.id === 'nama') {
+      if (e.target.id === "nama") {
         setFullName(e.target.value);
       }
-      if (e.target.id === 'email') {
+      if (e.target.id === "email") {
         setEmail(e.target.value);
       }
-      if (e.target.id === 'telepon') {
+      if (e.target.id === "telepon") {
         setPhoneNumber(e.target.value);
       }
-      if (e.target.id === 'password') {
+      if (e.target.id === "password") {
         setPassword(e.target.value);
       }
     }
   };
 
   const handleRegister = async () => {
+    const loadingToastId = showLoadingToast("Loading...");
+
     const register = await dispatch(
-      RegisterUser({
+      registerUserAction({
         fullName: FullName,
         email: Email,
         phoneNumber: PhoneNumber,
         password: Password,
-      })
+      }),
     );
+
+    toast.dismiss(loadingToastId);
+
     if (register) {
-      showSuccessToast('Tautan Verifikasi telah dikirim!');
+      showSuccessToast("Tautan Verifikasi telah dikirim!");
       setTimeout(() => {
-        navigate('/otp');
+        navigate("/otp");
       }, 2000);
     }
   };
 
-  function validateForm() {
-    // Check if the First Name is an Empty string or not.
-
+  const validateForm = () => {
     if (FullName.length === 0) {
-      return showErrorToast('Nama Lengkap harus di isi');
+      return showErrorToast("Nama Lengkap harus di isi");
     }
 
-    // Check if the Email is an Empty string or not.
+    if (FullName.length > 50) {
+      return showErrorToast("Nama Maksimal 50 karakter");
+    }
 
     if (Email.length === 0) {
-      return showErrorToast('Email Harus di isi');
+      return showErrorToast("Email harus di isi");
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(Email)) {
+      return showErrorToast("Format Email tidak valid");
     }
 
     if (PhoneNumber.length === 0) {
-      return showErrorToast('No Hp Harus di isi');
+      return showErrorToast("No Telepon harus di isi");
     }
 
-    // check if the password follows constraints or not.
-
-    // if password length is less than 8 characters, alert invalid form.
-
     if (Password.length < 8) {
-      return showErrorToast('Password kurang dari 8 karakter');
+      return showErrorToast("Password minimal 8 karakter");
+    }
+
+    if (Password.length > 12) {
+      return showErrorToast("Password maksimal 12 karakter");
     }
 
     // variable to count upper case characters in the password.
@@ -95,28 +110,28 @@ export const Register = () => {
 
     for (let i = 0; i < Password.length; i++) {
       const specialChars = [
-        '!',
-        '@',
-        '#',
-        '$',
-        '%',
-        '^',
-        '&',
-        '*',
-        '(',
-        ')',
-        '_',
-        '-',
-        '+',
-        '=',
-        '[',
-        '{',
-        ']',
-        '}',
-        ':',
-        ';',
-        '<',
-        '>',
+        "!",
+        "@",
+        "#",
+        "$",
+        "%",
+        "^",
+        "&",
+        "*",
+        "(",
+        ")",
+        "_",
+        "-",
+        "+",
+        "=",
+        "[",
+        "{",
+        "]",
+        "}",
+        ":",
+        ";",
+        "<",
+        ">",
       ];
 
       if (specialChars.includes(Password[i])) {
@@ -138,98 +153,97 @@ export const Register = () => {
     }
 
     if (countLowerCase === 0) {
-      // invalid form, 0 lowercase characters
-      return showErrorToast('Password harus terdapat lower case');
+      return showErrorToast("Password harus memiliki lower case");
     }
 
     if (countUpperCase === 0) {
-      // invalid form, 0 upper case characters
-      return showErrorToast('Password harus terdapat upper case');
+      return showErrorToast("Password harus memiliki upper case");
     }
 
     if (countDigit === 0) {
-      // invalid form, 0 digit characters
-      return showErrorToast('Password harus terdapat angka');
+      return showErrorToast("Password harus memiliki angka");
     }
 
     if (countSpecialCharacters === 0) {
-      // invalid form, 0 special characters characters
-      return showErrorToast('Passwsord harus terdapat Special Characters');
+      return showErrorToast("Passwsord harus memiliki simbol");
     }
 
-    // if all the conditions are valid, this means that the form is valid
-
     handleRegister();
-  }
+  };
 
   return (
-    <div className="flex items-center justify-center h-screen">
-      <div className="w-full mx-auto rounded-lg md:mt-0 md:max-w-md">
-        <div className="flex flex-col lg:w-[30rem] mx-auto w-[22rem]">
-          <span className="items-center pb-10 text-4xl font-bold text-primary">Daftar</span>
+    <div className="flex h-screen items-center justify-center">
+      <div className="mx-auto w-full rounded-lg md:mt-0 md:max-w-md">
+        <div className="mx-auto flex w-[22rem] flex-col lg:w-[30rem]">
+          <span className="items-center pb-10 text-4xl font-bold text-primary">
+            Daftar
+          </span>
 
           {/* Nama */}
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
-              <span className="text-lg text-left">Nama</span>
+              <span className="text-left text-lg">Nama</span>
               <input
                 placeholder="Nama Lengkap"
                 onChange={handleInput}
-                className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
+                className="rounded-xl border-2 border-slate-300 px-4 py-3 focus:border-primary focus:outline-none"
                 type="text"
                 value={FullName}
                 id="nama"
-                required
               />
             </div>
 
             {/* Email */}
             <div className="flex flex-col gap-2">
-              <span className="text-lg text-left">Email</span>
+              <span className="text-left text-lg">Email</span>
               <input
                 placeholder="bingwa@gmail.com"
                 onChange={handleInput}
-                className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
+                className="rounded-xl border-2 border-slate-300 px-4 py-3 focus:border-primary focus:outline-none"
                 type="email"
                 value={Email}
                 id="email"
-                required
               />
             </div>
 
             {/* Nomor Telepon */}
             <div className="flex flex-col gap-2">
-              <span className="text-lg text-left">Nomor Telepon</span>
+              <span className="text-left text-lg">Nomor Telepon</span>
               <input
                 placeholder="08"
                 onChange={handleInput}
-                className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
+                className="rounded-xl border-2 border-slate-300 px-4 py-3 focus:border-primary focus:outline-none"
                 type="tel"
                 value={PhoneNumber}
                 id="telepon"
-                required
               />
             </div>
 
             {/* Buat Password */}
             <div className="flex flex-col gap-2">
-              <span className="text-lg text-left">Buat Password</span>
+              <span className="text-left text-lg">Buat Password</span>
               <div className="relative flex flex-col">
                 <input
                   placeholder="Masukkan Password"
                   onChange={handleInput}
-                  className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
-                  type={showPassword ? 'text' : 'password'}
+                  className="rounded-xl border-2 border-slate-300 px-4 py-3 focus:border-primary focus:outline-none"
+                  type={showPassword ? "text" : "password"}
                   value={Password}
                   id="password"
-                  required
                 />
-                <img
-                  src={EyePassword}
-                  alt="Icon Eye Password"
-                  className="absolute w-8 text-black cursor-pointer inset-y-2.5 right-4"
-                  onClick={handleShowPassword}
-                />
+                {showPassword ? (
+                  <FiEye
+                    size={27}
+                    className="absolute inset-y-3 right-4 w-8 cursor-pointer text-slate-400"
+                    onClick={handleShowPassword}
+                  />
+                ) : (
+                  <FiEyeOff
+                    size={27}
+                    className="absolute inset-y-3 right-4 w-8 cursor-pointer text-slate-400"
+                    onClick={handleShowPassword}
+                  />
+                )}
               </div>
             </div>
 
@@ -237,10 +251,7 @@ export const Register = () => {
             <div className="flex flex-col">
               <button
                 type="button"
-                className="py-3 mt-2 text-lg font-semibold text-white bg-primary hover:bg-primary-hover rounded-xl"
-                // onClick={() => {
-                //   handleRegister();
-                // }}
+                className="mt-2 rounded-xl bg-primary py-3 text-lg font-semibold text-white hover:bg-primary-hover"
                 onClick={() => {
                   validateForm();
                 }}
@@ -253,9 +264,9 @@ export const Register = () => {
               <span className="items-center justify-center py-8 text-center text-black">
                 Sudah punya akun?
                 <span
-                  className="px-2 font-bold cursor-pointer text-primary"
+                  className="cursor-pointer px-2 font-bold text-primary"
                   onClick={() => {
-                    navigate('/Login');
+                    navigate("/Login");
                   }}
                 >
                   Masuk di sini
@@ -266,10 +277,12 @@ export const Register = () => {
         </div>
       </div>
 
-      <div className="items-center justify-center hidden w-2/5 h-screen lg:flex bg-primary">
+      <div className="hidden h-screen w-2/5 items-center justify-center bg-primary lg:flex">
         <div className="flex items-center justify-center gap-6">
           <img src={BrandLogo} alt="Brand Logo" className="w-[15%]" />
-          <span className="font-sans text-6xl text-center text-white">Bingwa</span>
+          <span className="text-center font-sans text-6xl text-white">
+            Bingwa
+          </span>
         </div>
       </div>
     </div>

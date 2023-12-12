@@ -6,10 +6,10 @@ import { useNavigate } from "react-router-dom";
 import BrandLogo from "../../../assets/img/brain.webp";
 
 // Redux
-import { getForgetPass } from "../../../redux/action/auth/Password";
+import { getForgetPassAction } from "../../../redux/action/auth/getPasswordAction";
 
 // Toast
-import { showSuccessToast } from '../../../helper/ToastHelper';
+import { showSuccessToast } from "../../../helper/ToastHelper";
 
 // Icons
 import { GoArrowLeft } from "react-icons/go";
@@ -24,30 +24,32 @@ export const ForgetPass = () => {
   };
 
   const handleSave = async () => {
-    const forget = await dispatch(getForgetPass({
-      email: Email,
-    }));
+    const forget = await dispatch(
+      getForgetPassAction({
+        email: Email,
+      }),
+    );
     if (forget) {
       showSuccessToast("Tautan reset password terkirim, Periksa Email Anda");
       setTimeout(() => {
-      window.location.href = "https://mail.google.com"
+        window.location.href = "https://mail.google.com";
       }, 3000);
     }
-  }
+  };
 
   return (
-    <div className="flex items-center justify-center h-screen">
-      <div className="w-full rounded-lg md:mt-0 mx-auto md:max-w-md">
-        <div className="flex flex-col lg:w-[30rem] mx-auto w-[22rem]">
-          <div className="absolute lg:top-[120px] lg:left-[108px] cursor-pointer top-[100px]">
-              <GoArrowLeft
-                size={25}
-                className="items-center"
-                onClick={() => {
-                  navigate("/login");
-                }}
-              />
-            </div>
+    <div className="flex h-screen items-center justify-center">
+      <div className="mx-auto w-full rounded-lg md:mt-0 md:max-w-md">
+        <div className="mx-auto flex w-[22rem] flex-col lg:w-[30rem]">
+          <div className="absolute top-[100px] cursor-pointer lg:left-[108px] lg:top-[120px]">
+            <GoArrowLeft
+              size={25}
+              className="items-center"
+              onClick={() => {
+                navigate("/login");
+              }}
+            />
+          </div>
           <span className="items-center pb-2 text-4xl font-bold text-primary">
             Forget Password
           </span>
@@ -55,14 +57,14 @@ export const ForgetPass = () => {
           {/* Konfirmasi Password Baru */}
           <div className="flex flex-col gap-2 pt-8">
             <div className="flex justify-between">
-              <span className="text-lg text-left">Email</span>
+              <span className="text-left text-lg">Email</span>
             </div>
             <div className="relative flex flex-col">
               <input
                 value={Email}
                 onChange={handleEmailChange}
                 placeholder="Masukkan Email"
-                className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
+                className="rounded-xl border-2 border-slate-300 px-4 py-3 focus:border-primary focus:outline-none"
                 type="email"
               />
             </div>
@@ -72,7 +74,7 @@ export const ForgetPass = () => {
           <div className="flex flex-col py-4">
             <button
               type="button"
-              className="py-3 mt-2 text-lg font-semibold text-white bg-primary hover:bg-primary-hover rounded-xl"
+              className="mt-2 rounded-xl bg-primary py-3 text-lg font-semibold text-white hover:bg-primary-hover"
               onClick={handleSave}
             >
               Masuk
@@ -81,10 +83,10 @@ export const ForgetPass = () => {
         </div>
       </div>
 
-      <div className="lg:flex items-center justify-center w-2/5 h-screen bg-primary hidden">
+      <div className="hidden h-screen w-2/5 items-center justify-center bg-primary lg:flex">
         <div className="flex items-center justify-center gap-6">
           <img src={BrandLogo} alt="Brand Logo" className="w-[15%]" />
-          <span className="font-sans text-6xl text-center text-white">
+          <span className="text-center font-sans text-6xl text-white">
             Bingwa
           </span>
         </div>

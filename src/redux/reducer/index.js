@@ -1,12 +1,14 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import Password from "./auth/Password";
-import Login from "./auth/Login";
-import Register from "./auth/authRegister";
-import Otp from "./auth/Otp";
+// import userProfileSlice from "./auth/userProfileSlice";
+import registerSlice from "./auth/registerSlice";
+import passwordSlice from "./auth/passwordSlice";
+import otpSlice from "./auth/otpSlice";
+import loginSlice from "./auth/loginSlice";
 
 export default combineReducers({
-    authLogin : Login,
-    authRegister : Register,
-    authPassword : Password,
-    authOtp : Otp,
-})
+  authLogin: loginSlice,
+  authRegister: registerSlice,
+  authPassword: passwordSlice,
+  authOtp: otpSlice,
+//   authGetUserProfile: userProfileSlice,
+});
