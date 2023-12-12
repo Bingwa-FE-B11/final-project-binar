@@ -11,9 +11,9 @@ import { IoTime } from 'react-icons/io5';
 
 export const CardGlobal = ({ category, rating, title, author, level, modul, duration }) => {
   return (
-    <div className="flex flex-col overflow-hidden bg-green-200 shadow-md rounded-2xl">
+    <div className="flex flex-col overflow-hidden shadow-md rounded-2xl bg-white">
       <div
-        className="h-32 scale-105 bg-indigo-400 bg-center bg-no-repeat min-w-fit"
+        className="h-32 scale-105 bg-center bg-no-repeat min-w-fit"
         style={{ backgroundImage: `url(${uiux})` }}
       ></div>
       {/* Container Desc Card Kelas */}
