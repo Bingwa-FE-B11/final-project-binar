@@ -23,8 +23,8 @@ export const KelasSaya = () => {
   }, [dispatch]);
 
   return (
-    <div className="flex h-full flex-col justify-between bg-secondary">
-      <div className="flex flex-col justify-center px-48 pt-28">
+    <div className="flex flex-col justify-between h-full bg-secondary">
+      <div className="flex flex-col justify-center px-24 pt-28">
         {/* Search */}
         <div className="flex items-center justify-between">
           <div className="px-4 py-6 text-3xl font-bold">Kelas Berjalan</div>
@@ -152,15 +152,17 @@ export const KelasSaya = () => {
           </div>
 
           {/* Button */}
-          <div className="flex w-[65%] flex-wrap items-center justify-between font-semibold">
-            <div className="cursor-pointer rounded-xl bg-white px-16 py-2 hover:bg-primary hover:text-white">
-              <button>All</button>
-            </div>
-            <div className="cursor-pointer rounded-xl bg-white px-28 py-2 hover:bg-primary hover:text-white">
-              <button>In Progress</button>
-            </div>
-            <div className="cursor-pointer rounded-xl bg-white px-20 py-2 hover:bg-primary hover:text-white">
-              <button>Selesai</button>
+          <div className="flex flex-wrap items-center justify-between font-semibold w-[65%]">
+            <div className="flex w-full gap-4 text-center">
+              <div className="w-[20%] py-2 bg-white cursor-pointer rounded-xl hover:bg-primary hover:text-white">
+                <button>All</button>
+              </div>
+              <div className="w-[60%] py-2 bg-white cursor-pointer rounded-xl hover:bg-primary hover:text-white">
+                <button>In Progress</button>
+              </div>
+              <div className="w-[20%] py-2 bg-white cursor-pointer rounded-xl hover:bg-primary hover:text-white">
+                <button>Selesai</button>
+              </div>
             </div>
 
             {/* Main Content */}
