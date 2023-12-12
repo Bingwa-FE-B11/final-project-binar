@@ -12,7 +12,7 @@ import { CardKelasSaya } from '../../../assets/components/cards/CardKelasSaya';
 export const KelasSaya = () => {
   return (
     <div className="flex flex-col justify-between h-full bg-secondary">
-      <div className="flex flex-col justify-center px-48 pt-28">
+      <div className="flex flex-col justify-center px-24 pt-28">
         {/* Search */}
         <div className="flex items-center justify-between">
           <div className="px-4 py-6 text-3xl font-bold">Kelas Berjalan</div>
@@ -101,14 +101,16 @@ export const KelasSaya = () => {
 
           {/* Button */}
           <div className="flex flex-wrap items-center justify-between font-semibold w-[65%]">
-            <div className="px-16 py-2 bg-white cursor-pointer rounded-xl hover:bg-primary hover:text-white">
-              <button>All</button>
-            </div>
-            <div className="py-2 bg-white cursor-pointer px-28 rounded-xl hover:bg-primary hover:text-white">
-              <button>In Progress</button>
-            </div>
-            <div className="px-20 py-2 bg-white cursor-pointer rounded-xl hover:bg-primary hover:text-white">
-              <button>Selesai</button>
+            <div className="flex w-full gap-4 text-center">
+              <div className="w-[20%] py-2 bg-white cursor-pointer rounded-xl hover:bg-primary hover:text-white">
+                <button>All</button>
+              </div>
+              <div className="w-[60%] py-2 bg-white cursor-pointer rounded-xl hover:bg-primary hover:text-white">
+                <button>In Progress</button>
+              </div>
+              <div className="w-[20%] py-2 bg-white cursor-pointer rounded-xl hover:bg-primary hover:text-white">
+                <button>Selesai</button>
+              </div>
             </div>
 
             {/* Main Content */}
