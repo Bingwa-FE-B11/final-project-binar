@@ -1,5 +1,8 @@
+import { showErrorToast } from "../../../helper/ToastHelper";
 import { reduxGetUser } from "../../../services/user/auth/GetUser";
+import { reduxUpdateProfile } from "../../../services/user/auth/UpdateProfile";
 import { setUser } from "../../reducer/auth/loginSlice";
+import { setCity, setCountry } from "../../reducer/akun/profileSlice";
 
 export const getUserProfileAction = () => (dispatch) => {
   reduxGetUser()
@@ -12,3 +15,57 @@ export const getUserProfileAction = () => (dispatch) => {
       console.error("reduxGetUser", err);
     });
 };
+
+export const PutUpdateProfile = (input, token) => async (dispatch) => {
+  reduxUpdateProfile(input, token)
+    .then((result) => {
+      console.log("result -> reduxUpdateProfile", result);
+      // dispatch((result.data.data));
+      return result;
+    })
+    .catch((err) => {
+      if (err.response) {
+        if (err.response.status >= 400 && err.response.status <= 500) {
+          showErrorToast(err.response.data.message);
+        } else {
+          console.error("unexpected Error", err);
+        }
+      }
+    });
+};
+
+// export const getUpdateCountry = (input, token) => async (dispatch) => {
+//   reduxUpdateProfile(input, token)
+//     .then((result) => {
+//       console.log("result -> reduxUpdateProfile", result);
+//       dispatch(setCountry(result.data.data));
+//       return result;
+//     })
+//     .catch((err) => {
+//       if (err.response) {
+//         if (err.response.status >= 400 && err.response.status <= 500) {
+//           showErrorToast(err.response.data.message);
+//         } else {
+//           console.error("unexpected Error", err);
+//         }
+//       }
+//     });
+// };
+
+// export const getUpdateCity = (input, token) => async (dispatch) => {
+//   reduxUpdateProfile(input, token)
+//     .then((result) => {
+//       console.log("result -> reduxUpdateProfile", result);
+//       dispatch(setCity(result.data.data));
+//       return result;
+//     })
+//     .catch((err) => {
+//       if (err.response) {
+//         if (err.response.status >= 400 && err.response.status <= 500) {
+//           showErrorToast(err.response.data.message);
+//         } else {
+//           console.error("unexpected Error", err);
+//         }
+//       }
+//     });
+// };
