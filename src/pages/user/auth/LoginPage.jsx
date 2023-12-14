@@ -57,7 +57,7 @@ export const LoginPage = () => {
     if (login) {
       showSuccessToast("Login Berhasil!");
       setTimeout(() => {
-        navigate("/kelas-saya");
+        navigate("/homepage");
       }, 2000);
     }
   };
