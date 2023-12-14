@@ -58,7 +58,7 @@ export const LoginPage = () => {
       localStorage.setItem("user", JSON.stringify(login));
       showSuccessToast("Login Berhasil!");
       setTimeout(() => {
-        navigate("/kelas-saya");
+        navigate("/homepage");
       }, 2000);
     }
   };
