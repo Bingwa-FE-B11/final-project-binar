@@ -55,6 +55,7 @@ export const LoginPage = () => {
     toast.dismiss(loadingToastId);
 
     if (login) {
+      localStorage.setItem("user", JSON.stringify(login));
       showSuccessToast("Login Berhasil!");
       setTimeout(() => {
         navigate("/homepage");
