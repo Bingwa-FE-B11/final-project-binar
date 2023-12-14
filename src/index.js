@@ -17,7 +17,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <SkeletonTheme baseColor="#cbd5e1" highlightColor="#f8fafc">
+      <SkeletonTheme baseColor="#cbd5e1" highlightColor="#f1f5f9">
         <ThemeProvider>
           <Toaster />
           <RouteList />
