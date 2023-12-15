@@ -11,15 +11,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllCategoriesAction } from "../redux/action/categories/getAllCategoriesAction";
 import CardKategorySkeleton from "../assets/components/skeleton/CardKategorySkeleton";
 import { NavbarKelas } from "../assets/components/navbar/NavbarKelas";
+import { getUserProfileAction } from "../redux/action/auth/getUserProfileAction";
 
 export const HomePage = () => {
   const dispatch = useDispatch();
+
+  const getUserProfile = () => {
+    dispatch(getUserProfileAction());
+  };
 
   const getCategories = () => {
     dispatch(getAllCategoriesAction());
   };
 
   useEffect(() => {
+    getUserProfile();
     getCategories();
   }, [dispatch]);
 

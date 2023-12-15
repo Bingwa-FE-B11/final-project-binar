@@ -47,7 +47,12 @@ export const NavbarKelas = () => {
   return (
     <div className="fixed top-0 flex w-screen items-center justify-between gap-2 bg-primary px-2 py-4 lg:px-28">
       <div className="flex gap-10">
-        <div className="hidden items-center justify-center gap-2 lg:flex">
+        <div
+          className="hidden cursor-pointer items-center justify-center gap-2 lg:flex"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
           <img src={BrandLogo} alt="Brand Logo" className="w-[2.5rem]" />
           <div className="gap-4 text-3xl font-semibold text-white">Bingwa</div>
         </div>

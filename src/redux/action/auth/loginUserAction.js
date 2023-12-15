@@ -3,6 +3,7 @@ import { reduxLoginUser } from "../../../services/user/auth/LoginUser";
 import {
   setIsLoggedIn,
   setToken,
+  setUser,
 } from "../../reducer/auth/loginSlice";
 import { showErrorToast } from "../../../helper/ToastHelper";
 
@@ -12,6 +13,7 @@ export const loginUserAction = (input) => async (dispatch) => {
       CookieStorage.set(CookiesKeys.AuthToken, result.data.data.token);
       dispatch(setToken(result.data.data.token));
       dispatch(setIsLoggedIn(true));
+      dispatch(setUser(result.data.data.user));
       return true;
     })
     .catch((err) => {

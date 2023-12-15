@@ -1,14 +1,16 @@
 import { showErrorToast } from "../../../helper/ToastHelper";
 import { reduxGetUser } from "../../../services/user/auth/GetUser";
 import { reduxUpdateProfile } from "../../../services/user/auth/UpdateProfile";
-import { setUser } from "../../reducer/auth/loginSlice";
-import { setCity, setCountry } from "../../reducer/akun/profileSlice";
+import { setUserProfile } from "../../reducer/auth/loginSlice";
 
 export const getUserProfileAction = () => (dispatch) => {
-  reduxGetUser()
+  return reduxGetUser()
     .then((result) => {
-      console.log("reduxGetUser", result);
-      dispatch(setUser(result.data.data.user));
+      console.log(
+        "result -> reduxGetUserProfile",
+        result.data.data.user.userProfile,
+      );
+      dispatch(setUserProfile(result.data.data.user.userProfile));
       return true;
     })
     .catch((err) => {
@@ -16,12 +18,12 @@ export const getUserProfileAction = () => (dispatch) => {
     });
 };
 
-export const PutUpdateProfile = (input, token) => async (dispatch) => {
-  reduxUpdateProfile(input, token)
+export const putUpdateProfile = (input) => async (dispatch) => {
+  return reduxUpdateProfile(input)
     .then((result) => {
       console.log("result -> reduxUpdateProfile", result);
-      // dispatch((result.data.data));
-      return result;
+      dispatch(setUserProfile(result.data.data.newUserProfile));
+      return true;
     })
     .catch((err) => {
       if (err.response) {

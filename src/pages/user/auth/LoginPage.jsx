@@ -43,7 +43,7 @@ export const LoginPage = () => {
   };
 
   const handleLogin = async () => {
-    const loadingToastId = showLoadingToast("Loading . . .");
+    const loadingToastId = showLoadingToast("Loading ...");
 
     const login = await dispatch(
       loginUserAction({

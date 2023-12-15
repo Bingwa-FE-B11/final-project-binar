@@ -1,71 +1,51 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 // Components
-import { NavbarAkun } from '../../../assets/components/navbar/NavbarAkun';
-import { SidebarAkun } from '../../../assets/components/sidebar/SidebarAkun';
+import { NavbarAkun } from "../../../assets/components/navbar/NavbarAkun";
+import { SidebarAkun } from "../../../assets/components/sidebar/SidebarAkun";
 
 // Icons
-import { GoArrowLeft } from 'react-icons/go';
-import { IoImageOutline } from 'react-icons/io5';
+import { GoArrowLeft } from "react-icons/go";
+import { IoImageOutline } from "react-icons/io5";
 
 // Redux Action
-import { PutUpdateProfile, getUpdateCountry } from '../../../redux/action/auth/getUserProfileAction';
-
-// Helper
-import { showSuccessToast } from '../../../helper/ToastHelper';
-
+import { putUpdateProfile } from "../../../redux/action/auth/getUserProfileAction";
+import {
+  showLoadingToast,
+  showSuccessToast,
+} from "../../../helper/ToastHelper";
+import toast from "react-hot-toast";
 
 export const AkunProfile = () => {
   const Data = useSelector((state) => state.authLogin);
+
   const navigate = useNavigate();
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const token = queryParams.get("token");
 
   const dispatch = useDispatch();
-  
+
   const [image, setImage] = useState("");
-  const [fullName, setfullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [country, setCountry] = useState("");
-  const [city, setCity] = useState("");
+  const [newFullName, setNewFullName] = useState(Data.userProfile?.fullName);
+  const [newPhoneNumber, setNewPhoneNumber] = useState(
+    Data.userProfile?.phoneNumber,
+  );
+  const [newCity, setNewCity] = useState(Data.userProfile?.city);
+  const [newCountry, setNewCountry] = useState(Data.userProfile?.country);
 
   const handleInputName = (e) => {
     if (e) {
       if (e.target.id === "name") {
-        setfullName(e.target.value);
+        setNewFullName(e.target.value);
       }
     }
   };
-  
-  const handleInputEmail = (e) => {
-    if (e) {
-      if (e.target.id === "email") {
-        setEmail(e.target.value);
-      }
-    }
-  };
-  
+
   const handleInputPhone = (e) => {
     if (e) {
       if (e.target.id === "phone") {
-        setPhoneNumber(e.target.value);
-      }
-    }
-  };
-  
-  const formData = new FormData()
-  formData.append("city", city)
-  formData.append("country", country)
-
-  const handleInputCountry = (e) => {
-    if (e) {
-      if (e.target.id === "country") {
-        setCountry(e.target.value);
+        setNewPhoneNumber(e.target.value);
       }
     }
   };
@@ -73,37 +53,40 @@ export const AkunProfile = () => {
   const handleInputCity = (e) => {
     if (e) {
       if (e.target.id === "city") {
-        setCity(e.target.value);
+        setNewCity(e.target.value);
       }
     }
   };
 
-  const handlSave = async () => {
-    const updateprofile = await dispatch(
-      PutUpdateProfile(
-        {
-          image : "image",
-          fullName : fullName,
-          phoneNumber : phoneNumber ,
-          country: country,
-          city: city,
-        },
-        token,
-      ),
-    );
-    console.log(updateprofile , "updateprofile");
-    showSuccessToast("Upadate Profile Berhasil");
+  const handleInputCountry = (e) => {
+    if (e) {
+      if (e.target.id === "country") {
+        setNewCountry(e.target.value);
+      }
+    }
   };
 
-  const [user, setUser] = useState({
-    image: "",
-    fullName: "",
-    phoneNumber: "",
-    country: "",
-    city: "",
-  });
-  
-  console.log("Data", Data)
+  const handleSave = async () => {
+    const loadingToastId = showLoadingToast("Loading . . .");
+
+    const update = await dispatch(
+      putUpdateProfile({
+        image: "image",
+        fullName: newFullName,
+        phoneNumber: newPhoneNumber,
+        city: newCity,
+        country: newCountry,
+      }),
+    );
+
+    toast.dismiss(loadingToastId);
+
+    if (update) {
+      showSuccessToast("Update Profil Berhasil!");
+    }
+  };
+
+  console.log("Data", Data);
 
   return (
     <>
@@ -142,7 +125,7 @@ export const AkunProfile = () => {
                   placeholder="Bingwa"
                   id="name"
                   onChange={handleInputName}
-                  value={fullName}
+                  value={newFullName}
                 />
               </div>
               <div className="flex flex-col gap-1">
@@ -151,9 +134,7 @@ export const AkunProfile = () => {
                   type="text"
                   className="w-[22rem] rounded-2xl border-2 border-slate-300 px-4 py-3 focus:border-primary focus:outline-none"
                   placeholder="bingwa@gmail.com"
-                  id="email"
-                  onChange={handleInputEmail}
-                  value={email}
+                  value={Data.user?.email}
                 />
               </div>
               <div className="flex flex-col gap-1">
@@ -164,18 +145,7 @@ export const AkunProfile = () => {
                   placeholder="08123456789"
                   id="phone"
                   onChange={handleInputPhone}
-                  value={phoneNumber}
-                />
-              </div>
-              <div className="flex flex-col gap-1">
-                <div className="text-left">Negara</div>
-                <input
-                  type="text"
-                  className="w-[22rem] rounded-2xl border-2 border-slate-300 px-4 py-3 focus:border-primary focus:outline-none"
-                  placeholder="Indonesia"
-                  id="country"
-                  onChange={handleInputCountry}
-                  value={country}
+                  value={newPhoneNumber}
                 />
               </div>
               <div className="flex flex-col gap-1">
@@ -186,11 +156,24 @@ export const AkunProfile = () => {
                   placeholder="Jakarta"
                   id="city"
                   onChange={handleInputCity}
-                  value={city}
+                  value={newCity}
                 />
               </div>
-              <button className="px-4 py-3 font-semibold text-white w-[22rem] bg-primary rounded-2xl hover:bg-primary-hover" 
-              onClick={handlSave}>
+              <div className="flex flex-col gap-1">
+                <div className="text-left">Negara</div>
+                <input
+                  type="text"
+                  className="w-[22rem] rounded-2xl border-2 border-slate-300 px-4 py-3 focus:border-primary focus:outline-none"
+                  placeholder="Indonesia"
+                  id="country"
+                  onChange={handleInputCountry}
+                  value={newCountry}
+                />
+              </div>
+              <button
+                className="w-[22rem] rounded-2xl bg-primary px-4 py-3 font-semibold text-white hover:bg-primary-hover"
+                onClick={handleSave}
+              >
                 Simpan Profil Saya
               </button>
             </div>

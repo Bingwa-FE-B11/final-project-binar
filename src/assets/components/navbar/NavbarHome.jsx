@@ -6,7 +6,7 @@ import { CgLogIn } from "react-icons/cg";
 import { BiSearchAlt } from "react-icons/bi";
 
 // Images
-import BrandLogo from '../../img/brain.webp';
+import BrandLogo from "../../img/brain.webp";
 
 export const NavbarHome = () => {
   const [search, setSearch] = useState("");
@@ -25,29 +25,40 @@ export const NavbarHome = () => {
   };
 
   return (
-    <div className="fixed top-0 z-50 flex items-center justify-between w-screen px-6 py-4 bg-primary lg:px-28">
+    <div className="fixed top-0 z-50 flex w-screen items-center justify-between bg-primary px-6 py-4 lg:px-28">
       <div className="flex gap-10">
-        <div className="items-center justify-center hidden gap-2 lg:flex">
+        <div
+          className="hidden cursor-pointer items-center justify-center gap-2 lg:flex"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
           <img src={BrandLogo} alt="Brand Logo" className="w-[2.5rem]" />
-          <div className="gap-4 text-3xl font-semibold text-white">
-            Bingwa
-          </div>
+          <div className="gap-4 text-3xl font-semibold text-white">Bingwa</div>
         </div>
 
         <div className="relative">
           <input
             type="text"
             placeholder="Cari kursus terbaik..."
-            className="w-[15rem] lg:w-[30rem] h-[3rem] px-3 py-2 rounded-xl bg-white cursor-pointer"
+            className="h-[3rem] w-[15rem] cursor-pointer rounded-xl bg-white px-3 py-2 lg:w-[30rem]"
             value={search}
             onChange={handleInputChange}
             onKeyDown={handleEnterKeyPress}
           />
-          <BiSearchAlt size={30} className="absolute p-1 text-white rounded cursor-pointer bg-primary inset-y-2 right-4" />
+          <BiSearchAlt
+            size={30}
+            className="absolute inset-y-2 right-4 cursor-pointer rounded bg-primary p-1 text-white"
+          />
         </div>
       </div>
 
-      <div className="flex gap-2 font-semibold text-white cursor-pointer" onClick={() => { navigate("/Login") }}>
+      <div
+        className="flex cursor-pointer gap-2 font-semibold text-white"
+        onClick={() => {
+          navigate("/Login");
+        }}
+      >
         <CgLogIn size={30} className="hidden lg:flex" />
         <div className="text-xl">Masuk</div>
       </div>

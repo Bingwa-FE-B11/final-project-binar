@@ -26,37 +26,50 @@ export const NavbarAkun = () => {
   };
 
   return (
-    <div className="fixed top-0 flex items-center justify-between w-screen gap-2 px-2 py-4 bg-primary lg:px-28">
+    <div className="fixed top-0 flex w-screen items-center justify-between gap-2 bg-primary px-2 py-4 lg:px-28">
       <div className="flex gap-10">
-        <div className="items-center justify-center hidden gap-2 lg:flex">
+        <div
+          className="hidden items-center justify-center gap-2 lg:flex cursor-pointer"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
           <img src={BrandLogo} alt="Brand Logo" className="w-[2.5rem]" />
-          <div className="gap-4 text-3xl font-semibold text-white">
-            Bingwa
-          </div>
+          <div className="gap-4 text-3xl font-semibold text-white">Bingwa</div>
         </div>
 
         <div className="relative">
           <input
             type="text"
             placeholder="Cari kursus terbaik..."
-            className="w-[13rem] lg:w-[30rem] h-[3rem] px-3 py-2 rounded-xl bg-white cursor-pointer"
+            className="h-[3rem] w-[13rem] cursor-pointer rounded-xl bg-white px-3 py-2 lg:w-[30rem]"
             value={search}
             onChange={handleInputChange}
             onKeyDown={handleEnterKeyPress}
           />
           <BiSearchAlt
             size={30}
-            className="absolute p-1 text-white rounded cursor-pointer bg-primary inset-y-2 right-4"
+            className="absolute inset-y-2 right-4 cursor-pointer rounded bg-primary p-1 text-white"
           />
         </div>
       </div>
 
-      <div className="flex items-center gap-1 text-white cursor-pointer lg:gap-6">
+      <div className="flex cursor-pointer items-center gap-1 text-white lg:gap-6">
         <div className="flex space-x-1 lg:space-x-4">
-          <IoIosList size={30} onClick={()=>{navigate("/kelas-saya")}} />
-          <IoIosNotificationsOutline size={30} onClick={()=>{navigate("/notifikasi")}} />
+          <IoIosList
+            size={30}
+            onClick={() => {
+              navigate("/kelas-saya");
+            }}
+          />
+          <IoIosNotificationsOutline
+            size={30}
+            onClick={() => {
+              navigate("/notifikasi");
+            }}
+          />
         </div>
-        <div className="flex px-2 py-1 font-bold bg-blue-400 lg:gap-2 lg:px-6 rounded-xl">
+        <div className="flex rounded-xl bg-blue-400 px-2 py-1 font-bold lg:gap-2 lg:px-6">
           <LuUser size={28} />
           <div className="text-lg">Akun</div>
         </div>
