@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 // Components
 import { NavbarAkun } from '../../../assets/components/navbar/NavbarAkun';
@@ -8,20 +10,26 @@ import { SidebarAkun } from '../../../assets/components/sidebar/SidebarAkun';
 // Icons
 import { GoArrowLeft } from 'react-icons/go';
 import { IoImageOutline } from 'react-icons/io5';
-import { useDispatch } from 'react-redux';
+
+// Redux Action
 import { PutUpdateProfile, getUpdateCountry } from '../../../redux/action/auth/getUserProfileAction';
 
+// Helper
 import { showSuccessToast } from '../../../helper/ToastHelper';
 
+
 export const AkunProfile = () => {
+  const Data = useSelector((state) => state.authLogin);
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const token = queryParams.get("token");
 
   const dispatch = useDispatch();
+  
   const [image, setImage] = useState("");
   const [fullName, setfullName] = useState("");
+  const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
@@ -34,6 +42,14 @@ export const AkunProfile = () => {
     }
   };
   
+  const handleInputEmail = (e) => {
+    if (e) {
+      if (e.target.id === "email") {
+        setEmail(e.target.value);
+      }
+    }
+  };
+  
   const handleInputPhone = (e) => {
     if (e) {
       if (e.target.id === "phone") {
@@ -41,6 +57,10 @@ export const AkunProfile = () => {
       }
     }
   };
+  
+  const formData = new FormData()
+  formData.append("city", city)
+  formData.append("country", country)
 
   const handleInputCountry = (e) => {
     if (e) {
@@ -49,10 +69,6 @@ export const AkunProfile = () => {
       }
     }
   };
-
-  const formData = new FormData()
-  formData.append("city", city)
-  formData.append("country", country)
 
   const handleInputCity = (e) => {
     if (e) {
@@ -79,32 +95,42 @@ export const AkunProfile = () => {
     showSuccessToast("Upadate Profile Berhasil");
   };
 
+  const [user, setUser] = useState({
+    image: "",
+    fullName: "",
+    phoneNumber: "",
+    country: "",
+    city: "",
+  });
+  
+  console.log("Data", Data)
+
   return (
     <>
-      <div className="mt-[5rem] bg-secondary h-[10rem] lg:px-80">
-        <div className="flex items-center py-8 lg:px-0 px-2 gap-2 text-lg font-bold text-primary lg:relative">
+      <div className="mt-[5rem] h-[10rem] bg-secondary lg:px-80">
+        <div className="flex items-center gap-2 px-2 py-8 text-lg font-bold text-primary lg:relative lg:px-0">
           <GoArrowLeft
             size={30}
             className="cursor-pointer lg:absolute lg:-inset-x-16"
             onClick={() => {
-              navigate('/kelas-saya');
+              navigate("/kelas-saya");
             }}
           />
           Kembali Ke Beranda
         </div>
 
         {/* Akun */}
-        <div className="border-2 border-primary rounded-xl">
-          <div className="py-4 text-xl font-semibold text-center text-white rounded-t-lg bg-primary">
+        <div className="rounded-xl border-2 border-primary">
+          <div className="rounded-t-lg bg-primary py-4 text-center text-xl font-semibold text-white">
             Akun
           </div>
 
           {/* Isi Akun */}
           <div className="flex py-4 text-center">
             <SidebarAkun />
-            <div className="flex flex-col items-center w-[60%] gap-4">
-              <div className="w-20 h-20 border-[3px] rounded-full border-primary relative">
-                <div className="absolute bottom-0 right-0 bg-white rounded-full text-primary w-fit">
+            <div className="flex w-[60%] flex-col items-center gap-4">
+              <div className="relative h-20 w-20 rounded-full border-[3px] border-primary">
+                <div className="absolute bottom-0 right-0 w-fit rounded-full bg-white text-primary">
                   <IoImageOutline size={25} />
                 </div>
               </div>
@@ -112,7 +138,7 @@ export const AkunProfile = () => {
                 <div className="text-left">Nama</div>
                 <input
                   type="text"
-                  className="px-4 py-3 border-2 w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
+                  className="w-[22rem] rounded-2xl border-2 border-slate-300 px-4 py-3 focus:border-primary focus:outline-none"
                   placeholder="Bingwa"
                   id="name"
                   onChange={handleInputName}
@@ -123,16 +149,18 @@ export const AkunProfile = () => {
                 <div className="text-left">Email</div>
                 <input
                   type="text"
-                  className="px-4 py-3 border-2 w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
+                  className="w-[22rem] rounded-2xl border-2 border-slate-300 px-4 py-3 focus:border-primary focus:outline-none"
                   placeholder="bingwa@gmail.com"
-                  
+                  id="email"
+                  onChange={handleInputEmail}
+                  value={email}
                 />
               </div>
               <div className="flex flex-col gap-1">
                 <div className="text-left">Nomor Telepon</div>
                 <input
                   type="text"
-                  className="px-4 py-3 border-2 w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
+                  className="w-[22rem] rounded-2xl border-2 border-slate-300 px-4 py-3 focus:border-primary focus:outline-none"
                   placeholder="08123456789"
                   id="phone"
                   onChange={handleInputPhone}
@@ -143,7 +171,7 @@ export const AkunProfile = () => {
                 <div className="text-left">Negara</div>
                 <input
                   type="text"
-                  className="px-4 py-3 border-2 w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
+                  className="w-[22rem] rounded-2xl border-2 border-slate-300 px-4 py-3 focus:border-primary focus:outline-none"
                   placeholder="Indonesia"
                   id="country"
                   onChange={handleInputCountry}
@@ -154,7 +182,7 @@ export const AkunProfile = () => {
                 <div className="text-left">Kota</div>
                 <input
                   type="text"
-                  className="px-4 py-3 border-2 w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
+                  className="w-[22rem] rounded-2xl border-2 border-slate-300 px-4 py-3 focus:border-primary focus:outline-none"
                   placeholder="Jakarta"
                   id="city"
                   onChange={handleInputCity}

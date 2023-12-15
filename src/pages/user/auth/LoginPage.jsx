@@ -43,7 +43,7 @@ export const LoginPage = () => {
   };
 
   const handleLogin = async () => {
-    const loadingToastId = showLoadingToast("Loading...");
+    const loadingToastId = showLoadingToast("Loading . . .");
 
     const login = await dispatch(
       loginUserAction({
@@ -57,7 +57,7 @@ export const LoginPage = () => {
     if (login) {
       showSuccessToast("Login Berhasil!");
       setTimeout(() => {
-        navigate("/kelas-saya");
+        navigate("/homepage");
       }, 2000);
     }
   };

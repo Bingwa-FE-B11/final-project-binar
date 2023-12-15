@@ -33,39 +33,3 @@ export const PutUpdateProfile = (input, token) => async (dispatch) => {
       }
     });
 };
-
-// export const getUpdateCountry = (input, token) => async (dispatch) => {
-//   reduxUpdateProfile(input, token)
-//     .then((result) => {
-//       console.log("result -> reduxUpdateProfile", result);
-//       dispatch(setCountry(result.data.data));
-//       return result;
-//     })
-//     .catch((err) => {
-//       if (err.response) {
-//         if (err.response.status >= 400 && err.response.status <= 500) {
-//           showErrorToast(err.response.data.message);
-//         } else {
-//           console.error("unexpected Error", err);
-//         }
-//       }
-//     });
-// };
-
-// export const getUpdateCity = (input, token) => async (dispatch) => {
-//   reduxUpdateProfile(input, token)
-//     .then((result) => {
-//       console.log("result -> reduxUpdateProfile", result);
-//       dispatch(setCity(result.data.data));
-//       return result;
-//     })
-//     .catch((err) => {
-//       if (err.response) {
-//         if (err.response.status >= 400 && err.response.status <= 500) {
-//           showErrorToast(err.response.data.message);
-//         } else {
-//           console.error("unexpected Error", err);
-//         }
-//       }
-//     });
-// };
