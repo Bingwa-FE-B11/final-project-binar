@@ -90,11 +90,11 @@ export const AkunProfile = () => {
 
   return (
     <>
-      <div className="mt-[5rem] h-[10rem] bg-secondary lg:px-80">
-        <div className="flex items-center gap-2 px-2 py-8 text-lg font-bold text-primary lg:relative lg:px-0">
+      <div className="mt-[2rem] px-9 lg:px-80 md:px-20 py-10 bg-secondary h-fit lg:h-fit md:h-screen">
+        <div className="flex items-center gap-2 py-8 text-lg font-bold text-primary relative">
           <GoArrowLeft
             size={30}
-            className="cursor-pointer lg:absolute lg:-inset-x-16"
+            className="cursor-pointer absolute -inset-x-8 lg:-inset-x-16 md:-inset-x-12"
             onClick={() => {
               navigate("/kelas-saya");
             }}
@@ -111,9 +111,9 @@ export const AkunProfile = () => {
           {/* Isi Akun */}
           <div className="flex py-4 text-center">
             <SidebarAkun />
-            <div className="flex w-[60%] flex-col items-center gap-4">
-              <div className="relative h-20 w-20 rounded-full border-[3px] border-primary">
-                <div className="absolute bottom-0 right-0 w-fit rounded-full bg-white text-primary">
+            <div className="flex flex-col items-center w-full lg:w-[60%] md:w-[60%] gap-4">
+              <div className="w-20 h-20 border-[3px] rounded-full border-primary relative">
+                <div className="absolute bottom-0 right-0 bg-white rounded-full text-primary w-fit">
                   <IoImageOutline size={25} />
                 </div>
               </div>
@@ -121,7 +121,7 @@ export const AkunProfile = () => {
                 <div className="text-left">Nama</div>
                 <input
                   type="text"
-                  className="w-[22rem] rounded-2xl border-2 border-slate-300 px-4 py-3 focus:border-primary focus:outline-none"
+                  className="px-4 py-3 border-2 w-[18rem] lg:w-[22rem] md:w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
                   placeholder="Bingwa"
                   id="name"
                   onChange={handleInputName}
@@ -132,7 +132,7 @@ export const AkunProfile = () => {
                 <div className="text-left">Email</div>
                 <input
                   type="text"
-                  className="w-[22rem] rounded-2xl border-2 border-slate-300 px-4 py-3 focus:border-primary focus:outline-none"
+                  className="px-4 py-3 border-2 w-[18rem] lg:w-[22rem] md:w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
                   placeholder="bingwa@gmail.com"
                   value={Data.user?.email}
                 />
@@ -141,7 +141,7 @@ export const AkunProfile = () => {
                 <div className="text-left">Nomor Telepon</div>
                 <input
                   type="text"
-                  className="w-[22rem] rounded-2xl border-2 border-slate-300 px-4 py-3 focus:border-primary focus:outline-none"
+                  className="px-4 py-3 border-2 w-[18rem] lg:w-[22rem] md:w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
                   placeholder="08123456789"
                   id="phone"
                   onChange={handleInputPhone}
@@ -152,7 +152,7 @@ export const AkunProfile = () => {
                 <div className="text-left">Kota</div>
                 <input
                   type="text"
-                  className="w-[22rem] rounded-2xl border-2 border-slate-300 px-4 py-3 focus:border-primary focus:outline-none"
+                  className="px-4 py-3 border-2 w-[18rem] lg:w-[22rem] md:w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
                   placeholder="Jakarta"
                   id="city"
                   onChange={handleInputCity}
@@ -163,15 +163,15 @@ export const AkunProfile = () => {
                 <div className="text-left">Negara</div>
                 <input
                   type="text"
-                  className="w-[22rem] rounded-2xl border-2 border-slate-300 px-4 py-3 focus:border-primary focus:outline-none"
+                  className="px-4 py-3 border-2 w-[18rem] lg:w-[22rem] md:w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
                   placeholder="Indonesia"
                   id="country"
                   onChange={handleInputCountry}
                   value={newCountry}
                 />
               </div>
-              <button
-                className="w-[22rem] rounded-2xl bg-primary px-4 py-3 font-semibold text-white hover:bg-primary-hover"
+              <button 
+                className="px-4 py-3 font-semibold text-white w-[18rem] lg:w-[22rem] md:w-[22rem] bg-primary rounded-2xl hover:bg-primary-hover"
                 onClick={handleSave}
               >
                 Simpan Profil Saya

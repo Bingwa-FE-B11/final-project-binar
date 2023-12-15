@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 // icons
 import { LuPenLine } from 'react-icons/lu';
@@ -7,12 +8,21 @@ import { IoSettingsOutline } from 'react-icons/io5';
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { LuLogOut } from "react-icons/lu";
 
+// Redux
+import { logoutUserAction } from '../../../redux/action/auth/logoutUserAction';
+
 export const SidebarAkun = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate()
+
+  // Handle Logout
+  const handleLogout = () => {
+    dispatch(logoutUserAction());
+  };
 
   return (
     // Sidebar Container
-    <div className="flex flex-col px-4 w-[40%]">
+    <div className="flex-col px-4 w-[40%] hidden lg:flex md:flex">
       {/* Sidebar Item */}
       <div className="flex items-center gap-3 py-4 border-b-2 cursor-pointer border-slate-300 hover:text-primary"
       onClick={()=>{navigate("/akun-profile")}}>
@@ -39,7 +49,7 @@ export const SidebarAkun = () => {
       </div>
       {/* Sidebar Item */}
       <div className="flex items-center gap-3 py-4 border-b-2 cursor-pointer border-slate-300 hover:text-primary"
-      onClick={()=>{navigate("/")}}>
+      onClick={handleLogout}>
         <div className="text-primary">
           <LuLogOut size={25} />
         </div>

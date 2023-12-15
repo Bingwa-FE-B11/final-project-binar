@@ -1,15 +1,30 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 // Icons
 import { BiSearchAlt } from "react-icons/bi";
 import { IoIosNotificationsOutline, IoIosList } from "react-icons/io";
-import { LuUser } from "react-icons/lu";
+import { LuLogOut, LuUser } from "react-icons/lu";
+import { FaUser } from "react-icons/fa";
 
 // Images
 import BrandLogo from "../../img/brain.webp";
 
+// Redux
+import { logoutUserAction } from "../../../redux/action/auth/logoutUserAction";
+
+// Components Material Tailwind
+import {
+  Button,
+  Menu,
+  MenuHandler,
+  MenuItem,
+  MenuList,
+} from "@material-tailwind/react";
+
 export const NavbarNotif = () => {
+  const dispatch = useDispatch();
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
@@ -25,11 +40,16 @@ export const NavbarNotif = () => {
     }
   };
 
+  // Handle Logout
+  const handleLogout = () => {
+    dispatch(logoutUserAction());
+  };
+
   return (
-    <div className="fixed top-0 flex w-screen items-center justify-between gap-2 bg-primary px-2 py-4 lg:px-28">
+    <div className="fixed top-0 flex w-screen items-center justify-between gap-2 bg-primary px-2 py-4 md:px-10 lg:px-28">
       <div className="flex gap-10">
-        <div
-          className="hidden cursor-pointer items-center justify-center gap-2 lg:flex"
+        <div 
+          className="hidden items-center justify-center gap-2 md:flex lg:flex"
           onClick={() => {
             navigate("/");
           }}
@@ -42,19 +62,19 @@ export const NavbarNotif = () => {
           <input
             type="text"
             placeholder="Cari kursus terbaik..."
-            className="h-[3rem] w-[13rem] cursor-pointer rounded-xl bg-white px-3 py-2 lg:w-[30rem]"
+            className="h-[3rem] w-[12rem] cursor-pointer rounded-xl bg-white px-3 py-2 md:w-[20rem] lg:w-[30rem]"
             value={search}
             onChange={handleInputChange}
             onKeyDown={handleEnterKeyPress}
           />
           <BiSearchAlt
             size={30}
-            className="absolute inset-y-2 right-4 cursor-pointer rounded bg-primary p-1 text-white"
+            className="absolute inset-y-2 right-4 hidden cursor-pointer rounded bg-primary p-1 text-white md:flex lg:flex"
           />
         </div>
       </div>
 
-      <div className="flex cursor-pointer items-center gap-1 text-white lg:gap-3">
+      <div className="flex cursor-pointer items-center gap-2 text-white md:gap-4 lg:gap-3">
         <IoIosList
           size={30}
           onClick={() => {
@@ -65,12 +85,40 @@ export const NavbarNotif = () => {
           <IoIosNotificationsOutline size={28} className="hidden lg:flex" />
           <div className="lg:text-lg">Notifikasi</div>
         </div>
-        <LuUser
-          size={30}
-          onClick={() => {
-            navigate("/akun-profile");
-          }}
-        />
+        <Menu>
+          <MenuHandler>
+            <Button
+              className="bg-primary p-0 shadow-none hover:shadow-none"
+              ripple={false}
+              size="sm"
+            >
+              <LuUser 
+                size={30} 
+                onClick={() => {
+                  navigate("/akun-profile");
+                }} 
+               />
+            </Button>
+          </MenuHandler>
+          <MenuList>
+            <MenuItem
+              onClick={() => {
+                navigate("/akun-profile");
+              }}
+            >
+              <div className="flex items-center gap-3">
+                <FaUser size={17} />
+                <span>Profile</span>
+              </div>
+            </MenuItem>
+            <MenuItem onClick={handleLogout}>
+              <div className="flex items-center gap-3">
+                <LuLogOut size={17} />
+                <span>Logout</span>
+              </div>
+            </MenuItem>
+          </MenuList>
+        </Menu>
       </div>
     </div>
   );

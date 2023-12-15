@@ -25,10 +25,10 @@ export const NavbarHome = () => {
   };
 
   return (
-    <div className="fixed top-0 z-50 flex w-screen items-center justify-between bg-primary px-6 py-4 lg:px-28">
+    <div className="fixed top-0 z-50 flex items-center justify-between w-screen px-6 py-4 bg-primary lg:px-28 md:px-14">
       <div className="flex gap-10">
-        <div
-          className="hidden cursor-pointer items-center justify-center gap-2 lg:flex"
+        <div 
+          className="items-center justify-center hidden gap-2 lg:flex md:flex"
           onClick={() => {
             navigate("/");
           }}
@@ -53,13 +53,8 @@ export const NavbarHome = () => {
         </div>
       </div>
 
-      <div
-        className="flex cursor-pointer gap-2 font-semibold text-white"
-        onClick={() => {
-          navigate("/Login");
-        }}
-      >
-        <CgLogIn size={30} className="hidden lg:flex" />
+      <div className="flex gap-2 font-semibold text-white cursor-pointer" onClick={() => { navigate("/Login") }}>
+        <CgLogIn size={30} className="hidden lg:flex md:flex" />
         <div className="text-xl">Masuk</div>
       </div>
     </div>

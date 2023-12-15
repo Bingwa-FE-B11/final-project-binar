@@ -64,7 +64,7 @@ export const Register = () => {
     if (register) {
       showSuccessToast("Tautan Verifikasi telah dikirim!");
       setTimeout(() => {
-        navigate("/otp");
+        navigate(`/otp?email=${encodeURIComponent(Email)}`);
       }, 2000);
     }
   };
@@ -175,7 +175,7 @@ export const Register = () => {
     <div className="flex h-screen items-center justify-center">
       <div className="mx-auto w-full rounded-lg md:mt-0 md:max-w-md">
         <div className="mx-auto flex w-[22rem] flex-col lg:w-[30rem]">
-          <span className="items-center pb-10 text-4xl font-bold text-primary">
+          <span className="items-center py-6 text-4xl font-bold text-primary">
             Daftar
           </span>
 
@@ -248,10 +248,10 @@ export const Register = () => {
             </div>
 
             {/* Button Daftar */}
-            <div className="flex flex-col">
+            <div className="flex flex-col py-2">
               <button
                 type="button"
-                className="mt-2 rounded-xl bg-primary py-3 text-lg font-semibold text-white hover:bg-primary-hover"
+                className="rounded-xl bg-primary py-3 text-lg font-semibold text-white hover:bg-primary-hover"
                 onClick={() => {
                   validateForm();
                 }}
@@ -261,7 +261,7 @@ export const Register = () => {
             </div>
 
             <div className="text-center">
-              <span className="items-center justify-center py-8 text-center text-black">
+              <span className="items-center justify-center py-6 text-center text-black">
                 Sudah punya akun?
                 <span
                   className="cursor-pointer px-2 font-bold text-primary"
@@ -277,7 +277,7 @@ export const Register = () => {
         </div>
       </div>
 
-      <div className="hidden h-screen w-2/5 items-center justify-center bg-primary lg:flex">
+      <div className="hidden h-screen w-2/5 items-center justify-center bg-primary lg:flex md:flex">
         <div className="flex items-center justify-center gap-6">
           <img src={BrandLogo} alt="Brand Logo" className="w-[15%]" />
           <span className="text-center font-sans text-6xl text-white">

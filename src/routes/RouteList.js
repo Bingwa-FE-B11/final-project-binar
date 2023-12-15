@@ -18,10 +18,11 @@ import { AkunPassword } from "../pages/user/akun/AkunPassword";
 import { DetailKelas } from "../pages/user/kelas/DetailKelas";
 import { AdminDashboard } from "../pages/admin/AdminDashboard";
 import { AdminKelolaKelas } from "../pages/admin/auth/AdminKelolaKelas";
-import { Pembayaran } from "../pages/user/kelas/Pembayaran";
-import { PembayaranSukses } from "../pages/user/kelas/PembayaranSukses";
+import { Pembayaran } from "../pages/user/payment/Pembayaran";
+import { PembayaranSukses } from "../pages/user/payment/PembayaranSukses";
 import { ForgetPass } from "../pages/user/auth/ForgetPass";
 import TokenProtected from "../assets/components/protected/TokenProtected";
+import { AllCourse } from "../pages/user/kelas/AllCourse";
 
 export const RouteList = () => {
   return (
@@ -51,6 +52,9 @@ export const RouteList = () => {
         <Route path="/pilih-gratis" element={<PilihGratis />} />
         <Route path="/pilih-kelas" element={<PilihKelas />} />
         <Route path="/detail-kelas" element={<DetailKelas />} />
+        <Route path="/all-kelas" element={<AllCourse />} />
+
+        {/* Payment */}
         <Route path="/pembayaran" element={<Pembayaran />} />
         <Route path="/pembayaran-sukses" element={<PembayaranSukses />} />
 

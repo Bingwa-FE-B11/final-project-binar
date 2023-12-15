@@ -34,13 +34,13 @@ export const DetailKelas = () => {
       <NavbarKelas />
 
       {/* Parent Container */}
-      <div className="z-20 flex min-h-screen px-20">
+      <div className="z-20 flex min-h-screen px-0 lg:px-20 md:px-4 py-6">
         {/* Left Container */}
-        <div className="mt-20 flex w-2/3 flex-col gap-4 pr-16">
+        <div className="mt-16 flex w-full lg:w-2/3 md:w-2/3 flex-col gap-4 px-8">
           {/* Button Back */}
-          <div className="flex w-full items-center gap-2 pb-5 pt-8">
+          <div className="flex w-full items-center gap-2 py-4">
             <div>
-              <GoArrowLeft />
+              <GoArrowLeft size={20}/>
             </div>
             <div className="font-semibold">Kelas Lainnya</div>
           </div>
@@ -62,7 +62,7 @@ export const DetailKelas = () => {
               </div>
               <div className="text-lg">by Simon Doe</div>
             </div>
-            <div className="flex gap-10">
+            <div className="flex gap-4 lg:gap-10 md:gap-10">
               <div className="flex items-center gap-1">
                 <RiShieldStarLine size={20} color="#22c55e" />
                 <div className="text-sm font-semibold text-primary">
@@ -88,7 +88,7 @@ export const DetailKelas = () => {
 
           {/* Section Detail Kelas */}
           <div className="flex flex-col">
-            <div className="my-10 flex h-[20rem] items-center justify-center rounded-2xl bg-slate-300">
+            <div className="my-4 flex h-[20rem] items-center justify-center rounded-2xl bg-slate-300">
               <div className="cursor-pointer text-primary">
                 <FaCirclePlay size={60} onClick={handleDialogOpen} />
               </div>
@@ -135,14 +135,14 @@ export const DetailKelas = () => {
         </div>
 
         {/* Right Container */}
-        <div className="mt-20 flex w-1/3 flex-col">
+        <div className="mt-20 w-1/3 flex-col hidden lg:flex md:flex">
           {/* Sidebar */}
           <div className="mt-8 flex flex-col gap-6 rounded-2xl p-6 shadow-lg">
             {/* Materi Belajar */}
             <div className="flex justify-between">
               <h1 className="text-xl font-bold">Materi Belajar</h1>
               <div className="flex w-fit items-center justify-between gap-2 rounded-3xl">
-                <TbProgressCheck size={25} color="#22c55e" />
+                <TbProgressCheck size={30} color="#22c55e" className="hidden lg:flex md:hidden"/>
                 <div className="rounded-3xl bg-primary px-3 py-1 font-bold text-white">
                   50% Completed
                 </div>

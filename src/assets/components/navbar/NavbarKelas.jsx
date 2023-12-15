@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 // Icons
 import { BiSearchAlt } from "react-icons/bi";
@@ -19,12 +20,12 @@ import {
   MenuItem,
   MenuList,
 } from "@material-tailwind/react";
-import { useDispatch } from "react-redux";
+
+// Redux
 import { logoutUserAction } from "../../../redux/action/auth/logoutUserAction";
 
 export const NavbarKelas = () => {
   const dispatch = useDispatch();
-
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
@@ -45,10 +46,10 @@ export const NavbarKelas = () => {
   };
 
   return (
-    <div className="fixed top-0 flex w-screen items-center justify-between gap-2 bg-primary px-2 py-4 lg:px-28">
+    <div className="fixed top-0 flex w-screen items-center justify-between gap-2 bg-primary px-2 py-4 lg:px-28 md:px-6">
       <div className="flex gap-10">
-        <div
-          className="hidden cursor-pointer items-center justify-center gap-2 lg:flex"
+        <div 
+          className="hidden items-center justify-center gap-2 lg:flex md:flex"
           onClick={() => {
             navigate("/");
           }}
@@ -61,25 +62,25 @@ export const NavbarKelas = () => {
           <input
             type="text"
             placeholder="Cari kursus terbaik..."
-            className="h-[3rem] w-[13rem] cursor-pointer rounded-xl bg-white px-3 py-2 lg:w-[30rem]"
+            className="h-[3rem] w-[12rem] cursor-pointer rounded-xl bg-white px-3 py-2 lg:w-[30rem] md:w-[20rem]"
             value={search}
             onChange={handleInputChange}
             onKeyDown={handleEnterKeyPress}
           />
           <BiSearchAlt
             size={30}
-            className="absolute inset-y-2 right-4 cursor-pointer rounded bg-primary p-1 text-white"
+            className="absolute inset-y-2 right-4 cursor-pointer rounded bg-primary p-1 text-white hidden lg:flex md:flex"
           />
         </div>
       </div>
 
-      <div className="flex cursor-pointer items-center gap-1 text-white lg:gap-2 lg:space-x-4">
+      <div className="flex cursor-pointer items-center gap-1 text-white lg:gap-2 space-x-2 lg:space-x-4 md:space-x-4">
         <div className="flex gap-2 rounded-xl bg-blue-400 px-2 py-1 font-bold lg:px-6">
           <IoIosList size={28} />
           <div className="text-lg">Kelas</div>
         </div>
 
-        <div className="flex lg:space-x-4">
+        <div className="flex space-x-2 lg:space-x-4 md:space-x-4">
           <IoIosNotificationsOutline
             size={30}
             onClick={() => {
