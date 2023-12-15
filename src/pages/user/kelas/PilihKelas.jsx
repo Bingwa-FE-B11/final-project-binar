@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 // Icons
 import { BiSearchAlt } from 'react-icons/bi';
@@ -8,16 +9,18 @@ import { NavbarKelas } from '../../../assets/components/navbar/NavbarKelas';
 import { CardGlobal } from '../../../assets/components/cards/CardGlobal';
 
 export const PilihKelas = () => {
+  const navigate = useNavigate() 
+
   return (
-    <div className="flex flex-col justify-between h-full bg-secondary">
-      <div className="flex flex-col justify-center px-24 pt-28">
+    <div className="flex flex-col justify-between bg-secondary h-fit lg:h-fit md:h-screen">
+      <div className="flex flex-col justify-center px-2 lg:px-24 md:px-4 pt-16 lg:pt-28 md:pt-20">
         {/* Search */}
         <div className="flex items-center justify-between">
           <div className="px-4 py-6 text-3xl font-bold">Topik Kelas</div>
           <div className="relative flex items-center">
             <input
               type="text"
-              className="px-4 py-2 border-2 cursor-pointer border-primary rounded-3xl"
+              className="cursor-pointer rounded-3xl border-2 border-primary px-1 lg:px-4 md:px-4 py-2"
               placeholder="Cari Kelas..."
             />
             <BiSearchAlt
@@ -28,10 +31,10 @@ export const PilihKelas = () => {
         </div>
 
         {/* Filter */}
-        <div className="flex items-start justify-between py-4 pl-4">
-          <div className="flex flex-col bg-white rounded-xl w-[30%]">
+        <div className="flex items-start justify-center lg:justify-between md:justify-between py-4">
+          <div className="w-[30%] flex-col rounded-xl bg-white hidden lg:flex md:flex">
             {/* Filter */}
-            <div className="flex px-4 pt-3 pb-4 text-xl font-bold">Filter</div>
+            <div className="flex px-4 py-4 text-xl font-bold">Filter</div>
             <div className="flex flex-col space-y-3 font-medium">
               <div className="flex items-center px-6">
                 <input type="checkbox" className="w-[20px] h-[20px] mr-2 cursor-pointer" />
@@ -100,13 +103,16 @@ export const PilihKelas = () => {
           {/* Button */}
           <div className="flex flex-wrap items-center justify-between font-semibold w-[65%]">
             <div className="flex w-full gap-4 text-center">
-              <div className="py-2 bg-white cursor-pointer w-[20%] rounded-xl hover:bg-primary hover:text-white">
+              <div className="py-2 bg-white cursor-pointer w-[20%] rounded-xl hover:bg-primary hover:text-white"
+              onClick={()=>{navigate("/all-kelas")}}>
                 <button>All</button>
               </div>
-              <div className="w-[60%] py-2 bg-white cursor-pointer rounded-xl hover:bg-primary hover:text-white">
+              <div className="w-[40%] lg:w-[60%] md:w-[50%] py-2 bg-white cursor-pointer rounded-xl hover:bg-primary hover:text-white"
+              onClick={()=>{navigate("/pilih-premium")}}>
                 <button>Kelas Premium</button>
               </div>
-              <div className="w-[20%] py-2 bg-white cursor-pointer rounded-xl hover:bg-primary hover:text-white">
+              <div className="w-[30%] lg:w-[30%] md:w-[40%] py-2 bg-white cursor-pointer rounded-xl hover:bg-primary hover:text-white"
+              onClick={()=>{navigate("/pilih-gratis")}}>
                 <button>Kelas Gratis</button>
               </div>
             </div>
@@ -115,7 +121,7 @@ export const PilihKelas = () => {
             <span className='text-primary font-bold'>"Advanced Level"</span>
             </div>
             {/* Main Content */}
-            <div className="grid w-full grid-cols-2 gap-6">
+            <div className="grid w-full grid-cols-2 lg:grid-cols-2 md:grid-cols-1 gap-6 py-2">
               {/* Card Item */}
               <CardGlobal
               category={'UAI UEX DISAIN'}

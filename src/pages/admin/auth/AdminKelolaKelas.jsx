@@ -224,60 +224,71 @@ export const AdminKelolaKelas = () => {
       {/* Dialog */}
       <Dialog open={dialogOpen} handler={handleDialogOpen}>
         <DialogHeader className="flex flex-col">
-          <div className="flex relative text-primary">
-            <h1 className="font-semibold ">Tambah Kelas</h1>
-            <IoCloseSharp size={30} className="absolute inset-x-80 cursor-pointer" onClick={handleDialogOpen}/>
+          <div className="relative flex text-primary">
+            <h1 className="font-semibold">Tambah Kelas</h1>
+            <IoCloseSharp
+              size={30}
+              className="absolute inset-x-80 cursor-pointer"
+              onClick={handleDialogOpen}
+            />
           </div>
         </DialogHeader>
-        <DialogBody className="space-y-2 px-20">
-          <div className="flex flex-col">
-            <span className="text-black">Nama Kelas</span>
-            <input
-              placeholder="Text"
-              className="flex rounded-xl border-2 px-4 py-2"
-            />
+        <DialogBody className="flex space-x-6 px-10 py-10 ">
+          {/* Left Column */}
+          <div className="flex-1 space-y-2 ">
+            <div className="flex flex-col ">
+              <span className="text-black ">Nama Kelas</span>
+              <input
+                placeholder="Text"
+                className="flex rounded-xl border px-4 py-2 border-primary"
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-black">Kategori</span>
+              <input
+                placeholder="Text"
+                className="flex rounded-xl border px-4 py-2 border-primary"
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-black">Kode Kelas</span>
+              <input
+                placeholder="Text"
+                className="flex rounded-xl border px-4 py-2 border-primary"
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-black">Tipe Kelas</span>
+              <input
+                placeholder="Text"
+                className="flex rounded-xl border px-4 py-2 border-primary"
+              />
+            </div>
           </div>
-          <div className="flex flex-col">
-            <span className="text-black">Kategori</span>
-            <input
-              placeholder="Text"
-              className="flex rounded-xl border-2 px-4 py-2"
-            />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-black">Kode Kelas</span>
-            <input
-              placeholder="Text"
-              className="flex rounded-xl border-2 px-4 py-2"
-            />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-black">Tipe Kelas</span>
-            <input
-              placeholder="Text"
-              className="flex rounded-xl border-2 px-4 py-2"
-            />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-black">Level</span>
-            <input
-              placeholder="Text"
-              className="flex rounded-xl border-2 px-4 py-2"
-            />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-black">Harga</span>
-            <input
-              placeholder="Text"
-              className="flex rounded-xl border-2 px-4 py-2"
-            />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-black">Materi</span>
-            <input
-              placeholder="Paragraph"
-              className="flex rounded-xl border-2 px-4 py-2"
-            />
+
+          {/* Right Column */}
+          <div className="flex-1 space-y-2">
+            <div className="flex flex-col">
+              <span className="text-black">Level</span>
+              <input
+                placeholder="Text"
+                className="flex rounded-xl border px-4 py-2 border-primary"
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-black">Harga</span>
+              <input
+                placeholder="Text"
+                className="flex rounded-xl border px-4 py-2 border-primary"
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-black">Materi</span>
+              <input
+                placeholder="Paragraph"
+                className="flex rounded-xl border px-4 py-2 h-[8rem] border-primary"
+              />
+            </div>
           </div>
         </DialogBody>
         <DialogFooter className="flex justify-center gap-4">

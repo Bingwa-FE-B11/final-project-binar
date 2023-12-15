@@ -10,6 +10,10 @@ export const API_ENDPOINT = {
   CHANGE_PASS: '/users/change-password', // [PUT] Change Password
   AUTH_USER: '/users/authenticate', // [GET] Get User by Authenticate
 
+  // GOOGLE
+  GOOGLE: '/users/google', // [GET] Login User With Google
+  GOOGLE_CALLBACK: '/users/google/callback', // [GET] Google Callback
+
   // USER PROFILE
   UPDATE_PROFILE: '/user-profiles/update-profile', // [PUT] Edit User by Authenticate
 

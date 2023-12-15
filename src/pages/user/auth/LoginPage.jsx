@@ -20,6 +20,9 @@ import {
 } from "../../../helper/ToastHelper";
 import toast from "react-hot-toast";
 
+// Google Login
+import GoogleLogin from "../../../assets/components/google/Google"; 
+
 export const LoginPage = () => {
   const navigate = useNavigate();
   const [Email, setEmail] = useState("");
@@ -168,7 +171,7 @@ export const LoginPage = () => {
     <div className="flex h-screen items-center justify-center">
       <div className="mx-auto w-full rounded-lg md:mt-0 md:max-w-md">
         <div className="mx-auto flex w-[22rem] flex-col lg:w-[30rem]">
-          <span className="items-center pb-10 text-4xl font-bold text-primary">
+          <span className="items-center py-8 text-4xl font-bold text-primary">
             Masuk
           </span>
 
@@ -187,7 +190,7 @@ export const LoginPage = () => {
             </div>
 
             {/* Password */}
-            <div className="flex flex-col gap-2 pt-8">
+            <div className="flex flex-col gap-2 py-6">
               <div className="flex justify-between">
                 <span className="text-left text-lg">Password</span>
                 <span
@@ -226,10 +229,10 @@ export const LoginPage = () => {
             </div>
 
             {/* Button Masuk */}
-            <div className="flex flex-col py-4">
+            <div className="flex flex-col py-2">
               <button
                 type="button"
-                className="mt-2 rounded-xl bg-primary py-3 text-lg font-semibold text-white hover:bg-primary-hover"
+                className="rounded-xl bg-primary py-3 text-lg font-semibold text-white hover:bg-primary-hover"
                 onClick={() => {
                   validateForm();
                 }}
@@ -237,7 +240,11 @@ export const LoginPage = () => {
                 Masuk
               </button>
 
-              <div className="pt-6 text-center">
+              <div className="flex justify-center items-center">
+                <GoogleLogin />
+              </div>
+
+              <div className="text-center">
                 <span className="items-center justify-center py-8 text-center text-black">
                   Belum punya akun?
                   <span
@@ -255,7 +262,7 @@ export const LoginPage = () => {
         </div>
       </div>
 
-      <div className="hidden h-screen w-2/5 items-center justify-center bg-primary lg:flex">
+      <div className="hidden h-screen w-2/5 items-center justify-center bg-primary lg:flex md:flex">
         <div className="flex items-center justify-center gap-6">
           <img src={BrandLogo} alt="Brand Logo" className="w-[15%]" />
           <span className="text-center font-sans text-6xl text-white">

@@ -13,11 +13,11 @@ export const AkunProfile = () => {
   const navigate = useNavigate();
   return (
     <>
-      <div className="mt-[5rem] bg-secondary h-[10rem] lg:px-80">
-        <div className="flex items-center py-8 lg:px-0 px-2 gap-2 text-lg font-bold text-primary lg:relative">
+      <div className="mt-[2rem] px-9 lg:px-80 md:px-20 py-10 bg-secondary h-fit lg:h-fit md:h-screen">
+        <div className="flex items-center gap-2 py-8 text-lg font-bold text-primary relative">
           <GoArrowLeft
             size={30}
-            className="cursor-pointer lg:absolute lg:-inset-x-16"
+            className="cursor-pointer absolute -inset-x-8 lg:-inset-x-16 md:-inset-x-12"
             onClick={() => {
               navigate('/kelas-saya');
             }}
@@ -34,7 +34,7 @@ export const AkunProfile = () => {
           {/* Isi Akun */}
           <div className="flex py-4 text-center">
             <SidebarAkun />
-            <div className="flex flex-col items-center w-[60%] gap-4">
+            <div className="flex flex-col items-center w-full lg:w-[60%] md:w-[60%] gap-4">
               <div className="w-20 h-20 border-[3px] rounded-full border-primary relative">
                 <div className="absolute bottom-0 right-0 bg-white rounded-full text-primary w-fit">
                   <IoImageOutline size={25} />
@@ -44,7 +44,7 @@ export const AkunProfile = () => {
                 <div className="text-left">Nama</div>
                 <input
                   type="text"
-                  className="px-4 py-3 border-2 w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
+                  className="px-4 py-3 border-2 w-[18rem] lg:w-[22rem] md:w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
                   placeholder="Bingwa"
                 />
               </div>
@@ -52,7 +52,7 @@ export const AkunProfile = () => {
                 <div className="text-left">Email</div>
                 <input
                   type="text"
-                  className="px-4 py-3 border-2 w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
+                  className="px-4 py-3 border-2 w-[18rem] lg:w-[22rem] md:w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
                   placeholder="bingwa@gmail.com"
                 />
               </div>
@@ -60,7 +60,7 @@ export const AkunProfile = () => {
                 <div className="text-left">Nomor Telepon</div>
                 <input
                   type="text"
-                  className="px-4 py-3 border-2 w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
+                  className="px-4 py-3 border-2 w-[18rem] lg:w-[22rem] md:w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
                   placeholder="08123456789"
                 />
               </div>
@@ -68,7 +68,7 @@ export const AkunProfile = () => {
                 <div className="text-left">Negara</div>
                 <input
                   type="text"
-                  className="px-4 py-3 border-2 w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
+                  className="px-4 py-3 border-2 w-[18rem] lg:w-[22rem] md:w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
                   placeholder="Indonesia"
                 />
               </div>
@@ -76,11 +76,11 @@ export const AkunProfile = () => {
                 <div className="text-left">Kota</div>
                 <input
                   type="text"
-                  className="px-4 py-3 border-2 w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
+                  className="px-4 py-3 border-2 w-[18rem] lg:w-[22rem] md:w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
                   placeholder="Jakarta"
                 />
               </div>
-              <button className="px-4 py-3 font-semibold text-white w-[22rem] bg-primary rounded-2xl hover:bg-primary-hover">
+              <button className="px-4 py-3 font-semibold text-white w-[18rem] lg:w-[22rem] md:w-[22rem] bg-primary rounded-2xl hover:bg-primary-hover">
                 Simpan Profil Saya
               </button>
             </div>

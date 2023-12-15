@@ -41,7 +41,7 @@ export const ForgetPass = () => {
     <div className="flex h-screen items-center justify-center">
       <div className="mx-auto w-full rounded-lg md:mt-0 md:max-w-md">
         <div className="mx-auto flex w-[22rem] flex-col lg:w-[30rem]">
-          <div className="absolute top-[100px] cursor-pointer lg:left-[108px] lg:top-[120px]">
+          <div className="absolute top-[120px] cursor-pointer lg:top-[150px] md:top-[350px]">
             <GoArrowLeft
               size={25}
               className="items-center"
@@ -50,12 +50,12 @@ export const ForgetPass = () => {
               }}
             />
           </div>
-          <span className="items-center pb-2 text-4xl font-bold text-primary">
+          <span className="items-center py-2 text-4xl font-bold text-primary">
             Forget Password
           </span>
 
           {/* Konfirmasi Password Baru */}
-          <div className="flex flex-col gap-2 pt-8">
+          <div className="flex flex-col gap-2 py-4">
             <div className="flex justify-between">
               <span className="text-left text-lg">Email</span>
             </div>
@@ -71,10 +71,10 @@ export const ForgetPass = () => {
           </div>
 
           {/* Button Simpan */}
-          <div className="flex flex-col py-4">
+          <div className="flex flex-col py-6">
             <button
               type="button"
-              className="mt-2 rounded-xl bg-primary py-3 text-lg font-semibold text-white hover:bg-primary-hover"
+              className="rounded-xl bg-primary py-3 text-lg font-semibold text-white hover:bg-primary-hover"
               onClick={handleSave}
             >
               Masuk
@@ -83,7 +83,7 @@ export const ForgetPass = () => {
         </div>
       </div>
 
-      <div className="hidden h-screen w-2/5 items-center justify-center bg-primary lg:flex">
+      <div className="hidden h-screen w-2/5 items-center justify-center bg-primary lg:flex md:flex">
         <div className="flex items-center justify-center gap-6">
           <img src={BrandLogo} alt="Brand Logo" className="w-[15%]" />
           <span className="text-center font-sans text-6xl text-white">

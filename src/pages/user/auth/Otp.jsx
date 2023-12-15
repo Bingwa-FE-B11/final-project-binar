@@ -85,7 +85,7 @@ export const Otp = () => {
     <div className="flex items-center justify-center h-screen">
       <div className="w-full rounded-lg md:mt-0 mx-auto md:max-w-md">
         <div className="flex flex-col lg:w-[30rem] mx-auto w-[22rem]">
-          <div className="absolute lg:top-[120px] lg:left-[108px] cursor-pointer top-[80px]">
+          <div className="absolute lg:top-[120px] md:top-[320px] cursor-pointer top-[100px]">
             <GoArrowLeft
               size={25}
               className="items-center"
@@ -94,13 +94,13 @@ export const Otp = () => {
               }}
             />
           </div>
-          <span className="items-center pb-10 text-3xl font-bold text-primary">
+          <span className="items-center py-4 text-3xl font-bold text-primary">
             Masukkan OTP
           </span>
 
           {/* Masukkan Kode OTP */}
           <div className="flex flex-col gap-2">
-            <span className="pb-5 pt-4 text-lg text-center">
+            <span className="py-6 text-lg text-center">
               Ketik 6 digit kode yang dikirim ke{" "}
               <span className="font-bold">{Email}</span>
             </span>
@@ -126,13 +126,13 @@ export const Otp = () => {
             </div>
 
             {seconds > 0 ? (
-              <span className="py-4 pb-5 text-lg text-center">
+              <span className="py-6 text-lg text-center">
                 Kirim ulang OTP dalam{" "}
                 <span className="text-primary font-bold">{seconds}</span> detik
               </span>
             ) : (
               <span
-                className="py-4 pb-5 text-xl text-center text-red-500 font-bold cursor-pointer"
+                className="py-6 text-xl text-center text-red-500 font-bold cursor-pointer"
                 onClick={handleResend}
               >
                 Kirim Ulang OTP
@@ -144,7 +144,7 @@ export const Otp = () => {
           <div className="flex flex-col py-4">
             <button
               type="button"
-              className="py-3 mt-2 text-lg font-semibold text-white bg-primary hover:bg-primary-hover rounded-xl"
+              className="py-3 text-lg font-semibold text-white bg-primary hover:bg-primary-hover rounded-xl"
               onClick={handleSave}
             >
               Simpan
@@ -153,7 +153,7 @@ export const Otp = () => {
         </div>
       </div>
 
-      <div className="lg:flex items-center justify-center w-2/5 h-screen bg-primary hidden">
+      <div className="lg:flex items-center justify-center w-2/5 h-screen bg-primary hidden md:flex">
         <div className="flex items-center justify-center gap-6">
           <img src={BrandLogo} alt="Brand Logo" className="w-[15%]" />
           <span className="font-sans text-6xl text-center text-white">

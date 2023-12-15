@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 // Icons
 import { BiSearchAlt } from "react-icons/bi";
@@ -6,13 +7,15 @@ import { BiSearchAlt } from "react-icons/bi";
 // Components
 import { NavbarKelas } from "../../../assets/components/navbar/NavbarKelas";
 import { CardKelasSaya } from "../../../assets/components/cards/CardKelasSaya";
-import { useDispatch, useSelector } from "react-redux";
+
+// Redux
 import { getUserProfileAction } from "../../../redux/action/auth/getUserProfileAction";
 
 export const KelasSaya = () => {
   const store = useSelector((state) => state.authLogin);
 
   const dispatch = useDispatch();
+  const [isFilterVisible, setFilterVisible] = useState(true);
 
   const getUser = () => {
     dispatch(getUserProfileAction());
@@ -22,16 +25,20 @@ export const KelasSaya = () => {
     getUser();
   }, [dispatch]);
 
+  const toggleFilter = () => {
+    setFilterVisible(!isFilterVisible);
+  };
+
   return (
     <div className="flex flex-col justify-between h-full bg-secondary">
-      <div className="flex flex-col justify-center px-24 pt-28">
+      <div className="flex flex-col justify-center px-2 lg:px-24 md:px-4 pt-16 lg:pt-28 md:pt-20">
         {/* Search */}
         <div className="flex items-center justify-between">
           <div className="px-4 py-6 text-3xl font-bold">Kelas Berjalan</div>
           <div className="relative flex items-center">
             <input
               type="text"
-              className="cursor-pointer rounded-3xl border-2 border-primary px-4 py-2"
+              className="cursor-pointer rounded-3xl border-2 border-primary px-1 lg:px-4 md:px-4 py-2"
               placeholder="Cari Kelas..."
             />
             <BiSearchAlt
@@ -42,10 +49,10 @@ export const KelasSaya = () => {
         </div>
 
         {/* Filter */}
-        <div className="flex items-start justify-between py-4 pl-4">
-          <div className="flex w-[30%] flex-col rounded-xl bg-white">
+        <div className="flex items-start justify-center lg:justify-between md:justify-between py-4">
+          <div className="w-[30%] flex-col rounded-xl bg-white hidden lg:flex md:flex">
             {/* Filter */}
-            <div className="flex px-4 pb-4 pt-3 text-xl font-bold">Filter</div>
+            <div className="flex px-4 py-4 text-xl font-bold">Filter</div>
             <div className="flex flex-col space-y-3 font-medium">
               <div className="flex items-center px-6">
                 <input
@@ -166,7 +173,7 @@ export const KelasSaya = () => {
             </div>
 
             {/* Main Content */}
-            <div className="grid w-full grid-cols-2 gap-6 py-4">
+            <div className="grid w-full grid-cols-2 lg:grid-cols-2 md:grid-cols-1 gap-6 py-4">
               {/* Card Item */}
               <CardKelasSaya
                 category={"UAI UEX DISAIN"}

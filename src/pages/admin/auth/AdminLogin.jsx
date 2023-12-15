@@ -21,8 +21,8 @@ export const AdminLogin = () => {
                 </div>
             </div>
             <div className="flex items-center justify-center h-screen">
-                <div className="w-full rounded-lg lg:w-2/6 text-center mx-4">
-                    <div className="flex flex-col lg:w-[30rem] mx-auto w-[22rem]">
+                <div className="w-full rounded-lg lg:w-2/6 md:w-3/6 text-center mx-4">
+                    <div className="flex flex-col lg:w-[30rem] md:w-[33rem] mx-auto w-[22rem]">
                         <span className="pb-10 text-4xl font-bold text-primary">Login</span>
 
                         {/* ID Admin */}
