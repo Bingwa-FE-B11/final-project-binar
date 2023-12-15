@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // Images
 import Header from "../assets/img/Header.webp";
@@ -7,11 +7,41 @@ import Header from "../assets/img/Header.webp";
 import { NavbarHome } from "../assets/components/navbar/NavbarHome";
 import { CardKursus } from "../assets/components/cards/CardKursus";
 import { CardKategory } from "../assets/components/cards/CardKategory";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllCategoriesAction } from "../redux/action/categories/getAllCategoriesAction";
+import CardKategorySkeleton from "../assets/components/skeleton/CardKategorySkeleton";
+import { NavbarKelas } from "../assets/components/navbar/NavbarKelas";
+import { getUserProfileAction } from "../redux/action/auth/getUserProfileAction";
 
 export const HomePage = () => {
+  const dispatch = useDispatch();
+
+  const getUserProfile = () => {
+    dispatch(getUserProfileAction());
+  };
+
+  const getCategories = () => {
+    dispatch(getAllCategoriesAction());
+  };
+
+  useEffect(() => {
+    getUserProfile();
+    getCategories();
+  }, [dispatch]);
+
+  const storeCategories = useSelector(
+    (state) => state.dataCategories.categories,
+  );
+
+  const storeAuthUser = useSelector((state) => state.authLogin);
+
+  console.log("storeCategories", storeCategories);
+
+  console.log("storeAuthUser", storeAuthUser);
+
   return (
     <>
-      <NavbarHome />
+      {storeAuthUser.token === null ? <NavbarHome /> : <NavbarKelas />}
       <div className="mt-[5rem] flex flex-col">
         {/* Hero Section */}
         <div className="flex">
@@ -43,12 +73,17 @@ export const HomePage = () => {
             </div>
           </div>
           <div className="grid grid-cols-6 gap-4">
-            <CardKategory category={"UI/UX Design"} />
-            <CardKategory category={"UI/UX Design"} />
-            <CardKategory category={"UI/UX Design"} />
-            <CardKategory category={"Product Management"} />
-            <CardKategory category={"Web Development"} />
-            <CardKategory category={"Android Development"} />
+            {storeCategories == null ? (
+              <CardKategorySkeleton />
+            ) : (
+              storeCategories.map((value) => (
+                <CardKategory
+                  key={value.id}
+                  category={value.categoryName}
+                  thumbnail={value.categoryImg}
+                />
+              ))
+            )}
           </div>
         </div>
         {/* End Kategori Belajar Section */}

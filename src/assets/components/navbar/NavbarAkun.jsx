@@ -28,11 +28,14 @@ export const NavbarAkun = () => {
   return (
     <div className="fixed top-0 flex items-center justify-between w-screen gap-2 px-4 py-4 bg-primary lg:px-28 md:px-6">
       <div className="flex gap-10">
-        <div className="items-center justify-center hidden gap-2 lg:flex md:flex">
+        <div 
+          className="items-center justify-center hidden gap-2 lg:flex md:flex"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
           <img src={BrandLogo} alt="Brand Logo" className="w-[2.5rem]" />
-          <div className="gap-4 text-3xl font-semibold text-white">
-            Bingwa
-          </div>
+          <div className="gap-4 text-3xl font-semibold text-white">Bingwa</div>
         </div>
 
         <div className="relative">
@@ -56,7 +59,7 @@ export const NavbarAkun = () => {
           <IoIosList size={30} onClick={()=>{navigate("/kelas-saya")}} />
           <IoIosNotificationsOutline size={30} onClick={()=>{navigate("/notifikasi")}} />
         </div>
-        <div className="flex px-2 py-1 font-bold bg-blue-400 lg:gap-2 lg:px-6 rounded-xl">
+        <div className="flex rounded-xl bg-blue-400 px-2 py-1 font-bold lg:gap-2 lg:px-6">
           <LuUser size={28} />
           <div className="text-lg">Akun</div>
         </div>

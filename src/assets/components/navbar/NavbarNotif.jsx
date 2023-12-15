@@ -48,7 +48,12 @@ export const NavbarNotif = () => {
   return (
     <div className="fixed top-0 flex w-screen items-center justify-between gap-2 bg-primary px-2 py-4 md:px-10 lg:px-28">
       <div className="flex gap-10">
-        <div className="hidden items-center justify-center gap-2 md:flex lg:flex">
+        <div 
+          className="hidden items-center justify-center gap-2 md:flex lg:flex"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
           <img src={BrandLogo} alt="Brand Logo" className="w-[2.5rem]" />
           <div className="gap-4 text-3xl font-semibold text-white">Bingwa</div>
         </div>
@@ -87,7 +92,12 @@ export const NavbarNotif = () => {
               ripple={false}
               size="sm"
             >
-              <LuUser size={30} />
+              <LuUser 
+                size={30} 
+                onClick={() => {
+                  navigate("/akun-profile");
+                }} 
+               />
             </Button>
           </MenuHandler>
           <MenuList>
