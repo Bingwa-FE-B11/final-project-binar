@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 
 // Images
 import Header from "../assets/img/Header.webp";
@@ -7,14 +9,17 @@ import Header from "../assets/img/Header.webp";
 import { NavbarHome } from "../assets/components/navbar/NavbarHome";
 import { CardKursus } from "../assets/components/cards/CardKursus";
 import { CardKategory } from "../assets/components/cards/CardKategory";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllCategoriesAction } from "../redux/action/categories/getAllCategoriesAction";
 import CardKategorySkeleton from "../assets/components/skeleton/CardKategorySkeleton";
 import { NavbarKelas } from "../assets/components/navbar/NavbarKelas";
+
+// Redux
 import { getUserProfileAction } from "../redux/action/auth/getUserProfileAction";
+import { getAllCategoriesAction } from "../redux/action/categories/getAllCategoriesAction";
+import { getAllCoursesAction } from "../redux/action/courses/getAllCoursesAction";
 
 export const HomePage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const getUserProfile = () => {
     dispatch(getUserProfileAction());
@@ -24,16 +29,23 @@ export const HomePage = () => {
     dispatch(getAllCategoriesAction());
   };
 
+  const getCourses = () => {
+    dispatch(getAllCoursesAction());
+  };
+
   useEffect(() => {
     getUserProfile();
     getCategories();
+    getCourses();
   }, [dispatch]);
 
-  const storeCategories = useSelector(
-    (state) => state.dataCategories.categories,
-  );
-
+  const storeCategories = useSelector((state) => state.dataCategories.categories);
+  const storeCourses = useSelector((state) => state.dataCourses.courses);
   const storeAuthUser = useSelector((state) => state.authLogin);
+  
+  const displayedCourses = storeCourses ? storeCourses.slice(0, 3) : [];
+
+  console.log("storeCourses", storeCourses);
 
   console.log("storeCategories", storeCategories);
 
@@ -68,7 +80,8 @@ export const HomePage = () => {
         <div className="flex flex-col gap-5 bg-secondary px-28 py-12">
           <div className="flex items-center justify-between">
             <div className="text-2xl font-semibold">Kategori Belajar</div>
-            <div className="cursor-pointer text-lg font-semibold text-primary">
+            <div className="cursor-pointer text-lg font-semibold text-primary"
+            onClick={()=>{navigate("/all-kelas")}}>
               Lihat Semua
             </div>
           </div>
@@ -124,41 +137,20 @@ export const HomePage = () => {
 
           {/* Container Card Kelas */}
           <div className="grid grid-cols-3 gap-5">
-            {/* Card Item */}
-            <CardKursus
-              category={"UI/UX Design"}
-              rating={4.7}
-              title={"Belajar Web Design dengan Figma"}
-              author={"Angela Doe"}
-              level={"Intermediate"}
-              modul={10}
-              duration={120}
-              price={"249.000"}
-            />
-
-            {/* Card Item */}
-            <CardKursus
-              category={"UI/UX Design"}
-              rating={4.7}
-              title={"Belajar Web Design dengan Figma"}
-              author={"Angela Doe"}
-              level={"Intermediate"}
-              modul={10}
-              duration={120}
-              price={"249.000"}
-            />
-
-            {/* Card Item */}
-            <CardKursus
-              category={"UI/UX Design"}
-              rating={4.7}
-              title={"Belajar Web Design dengan Figma"}
-              author={"Angela Doe"}
-              level={"Intermediate"}
-              modul={10}
-              duration={120}
-              price={"249.000"}
-            />
+            {displayedCourses.map((value) => (
+              <CardKursus
+                key={value.id}
+                image={value.courseImg}
+                category={value.category.categoryName}
+                rating={value.averageRating}
+                title={value.courseName}
+                author={value.mentor}
+                level={value.level}
+                modul={value.modul}
+                duration={value.duration}
+                price={value.price}
+              />
+            ))}
           </div>
         </div>
         {/* End Kursus Populer */}

@@ -27,7 +27,7 @@ export const NavbarPembayaran = () => {
     <div className="fixed top-0 z-50 flex items-center justify-between w-screen px-20 py-4 bg-primary lg:px-28 md:px-60">
       <div className="flex gap-10">
         <div
-          className="hidden cursor-pointer items-center justify-center gap-2  lg:flex"
+          className="hidden cursor-pointer items-center justify-center gap-2 lg:flex"
           onClick={() => {
             navigate("/");
           }}

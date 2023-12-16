@@ -82,7 +82,7 @@ export const AkunPassword = () => {
             size={30}
             className="cursor-pointer absolute -inset-x-8 lg:-inset-x-16 md:-inset-x-12"
             onClick={() => {
-              navigate("/kelas-saya");
+              navigate("/");
             }}
           />
           Kembali Ke Beranda
