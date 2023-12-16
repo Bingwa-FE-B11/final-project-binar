@@ -29,7 +29,7 @@ export const NavbarAkun = () => {
     <div className="fixed top-0 flex items-center justify-between w-screen gap-2 px-4 py-4 bg-primary lg:px-28 md:px-6">
       <div className="flex gap-10">
         <div 
-          className="items-center justify-center hidden gap-2 lg:flex md:flex"
+          className="items-center justify-center hidden gap-2 lg:flex md:flex cursor-pointer"
           onClick={() => {
             navigate("/");
           }}

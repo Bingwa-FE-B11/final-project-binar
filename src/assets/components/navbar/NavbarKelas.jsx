@@ -49,7 +49,7 @@ export const NavbarKelas = () => {
     <div className="fixed top-0 flex w-screen items-center justify-between gap-2 bg-primary px-2 py-4 lg:px-28 md:px-6">
       <div className="flex gap-10">
         <div 
-          className="hidden items-center justify-center gap-2 lg:flex md:flex"
+          className="hidden items-center justify-center gap-2 lg:flex md:flex cursor-pointer"
           onClick={() => {
             navigate("/");
           }}
@@ -75,7 +75,7 @@ export const NavbarKelas = () => {
       </div>
 
       <div className="flex cursor-pointer items-center gap-1 text-white lg:gap-2 space-x-2 lg:space-x-4 md:space-x-4">
-        <div className="flex gap-2 rounded-xl bg-blue-400 px-2 py-1 font-bold lg:px-6">
+        <div className="flex gap-2 rounded-xl bg-blue-400 px-2 py-1 font-bold lg:px-6" onClick={()=>{navigate("/kelas-saya")}}>
           <IoIosList size={28} />
           <div className="text-lg">Kelas</div>
         </div>

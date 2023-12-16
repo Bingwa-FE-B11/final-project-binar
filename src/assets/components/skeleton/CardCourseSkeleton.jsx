@@ -1,7 +1,7 @@
 import Skeleton from "react-loading-skeleton";
 
-const CardKategorySkeleton = () => {
-  const loadCards = Array(7).fill(null);
+const CardCoursesSkeleton = () => {
+  const loadCards = Array(14).fill(null);
 
   return loadCards.map((_, i) => (
     <div className="flex flex-col gap-2" key={i}>
@@ -10,4 +10,4 @@ const CardKategorySkeleton = () => {
     </div>
   ));
 };
-export default CardKategorySkeleton;
+export default CardCoursesSkeleton;

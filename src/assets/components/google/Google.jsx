@@ -19,7 +19,7 @@ function GoogleLogin() {
         });
   
         let config = {
-          method: "get",
+          method: "post",
           maxBodyLength: Infinity,
           url: `${process.env.REACT_APP_SERVER}/users/google`,
           headers: {
@@ -53,7 +53,7 @@ function GoogleLogin() {
   
     return (
       <button 
-        className=" text-black font-bold py-2 px-4"
+        className=" text-black font-bold py-6 px-4"
         onClick={() => loginWithGoogle()}>
           <div className="gap-4 px-2 py-2 text-black flex items-center rounded border-4 shadow-xl">
           <FcGoogle size={30} className="bg-white rounded"/> Sign in with Google

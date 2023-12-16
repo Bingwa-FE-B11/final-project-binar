@@ -49,7 +49,7 @@ export const NavbarNotif = () => {
     <div className="fixed top-0 flex w-screen items-center justify-between gap-2 bg-primary px-2 py-4 md:px-10 lg:px-28">
       <div className="flex gap-10">
         <div 
-          className="hidden items-center justify-center gap-2 md:flex lg:flex"
+          className="hidden items-center justify-center gap-2 md:flex lg:flex cursor-pointer"
           onClick={() => {
             navigate("/");
           }}
@@ -94,9 +94,6 @@ export const NavbarNotif = () => {
             >
               <LuUser 
                 size={30} 
-                onClick={() => {
-                  navigate("/akun-profile");
-                }} 
                />
             </Button>
           </MenuHandler>

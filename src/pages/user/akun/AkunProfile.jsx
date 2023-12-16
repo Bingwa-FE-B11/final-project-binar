@@ -26,8 +26,9 @@ export const AkunProfile = () => {
 
   const dispatch = useDispatch();
 
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
   const [newFullName, setNewFullName] = useState(Data.userProfile?.fullName);
+  const [email, setEmail] = useState(Data.user?.email);
   const [newPhoneNumber, setNewPhoneNumber] = useState(
     Data.userProfile?.phoneNumber,
   );
@@ -38,6 +39,14 @@ export const AkunProfile = () => {
     if (e) {
       if (e.target.id === "name") {
         setNewFullName(e.target.value);
+      }
+    }
+  };
+
+  const handleInputEmail = (e) => {
+    if (e) {
+      if (e.target.id === "email") {
+        setEmail(e.target.value);
       }
     }
   };
@@ -66,13 +75,28 @@ export const AkunProfile = () => {
     }
   };
 
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        setImage(reader.result);
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleSave = async () => {
     const loadingToastId = showLoadingToast("Loading . . .");
 
     const update = await dispatch(
       putUpdateProfile({
-        image: "image",
+        image: image,
         fullName: newFullName,
+        email: email,
         phoneNumber: newPhoneNumber,
         city: newCity,
         country: newCountry,
@@ -96,7 +120,7 @@ export const AkunProfile = () => {
             size={30}
             className="cursor-pointer absolute -inset-x-8 lg:-inset-x-16 md:-inset-x-12"
             onClick={() => {
-              navigate("/kelas-saya");
+              navigate("/");
             }}
           />
           Kembali Ke Beranda
@@ -113,6 +137,18 @@ export const AkunProfile = () => {
             <SidebarAkun />
             <div className="flex flex-col items-center w-full lg:w-[60%] md:w-[60%] gap-4">
               <div className="w-20 h-20 border-[3px] rounded-full border-primary relative">
+              <input
+                  type="file"
+                  id="image"
+                  accept="image/*"
+                  className="absolute w-20 h-20 opacity-0 cursor-pointer inset-x-0 rounded-full"
+                  onChange={(e) => handleImageUpload(e)}
+                />
+                <img
+                  src={image || Data.userProfile?.image}
+                  alt="profile"
+                  className="w-20 h-20 object-cover rounded-full cursor-pointer"
+                />
                 <div className="absolute bottom-0 right-0 bg-white rounded-full text-primary w-fit">
                   <IoImageOutline size={25} />
                 </div>
@@ -134,7 +170,9 @@ export const AkunProfile = () => {
                   type="text"
                   className="px-4 py-3 border-2 w-[18rem] lg:w-[22rem] md:w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
                   placeholder="bingwa@gmail.com"
-                  value={Data.user?.email}
+                  id="email"
+                  onChange={handleInputEmail}
+                  value={email}
                 />
               </div>
               <div className="flex flex-col gap-1">
