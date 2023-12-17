@@ -12,8 +12,10 @@ import { getAllCategoriesAction } from "../redux/action/categories/getAllCategor
 import CardKategorySkeleton from "../assets/components/skeleton/CardKategorySkeleton";
 import { NavbarKelas } from "../assets/components/navbar/NavbarKelas";
 import { getUserProfileAction } from "../redux/action/auth/getUserProfileAction";
+import { useNavigate } from "react-router-dom";
 
 export const HomePage = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const getUserProfile = () => {
@@ -92,10 +94,14 @@ export const HomePage = () => {
         <div className="flex flex-col gap-5 px-28 py-12">
           <div className="flex items-center justify-between">
             <div className="text-2xl font-semibold">Kursus Populer</div>
-            <div className="cursor-pointer text-lg font-semibold text-primary">
+            <div className="cursor-pointer text-lg font-semibold text-primary" onClick={() => {
+                    navigate("/all-kelas");
+                  }}>
               Lihat Semua
             </div>
           </div>
+
+          <div className="grid grid-cols-3 gap-4"></div>
 
           {/* Filter */}
           <div className="flex justify-between">

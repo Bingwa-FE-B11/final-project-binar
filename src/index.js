@@ -26,8 +26,8 @@ root.render(
             <Toaster />
             <RouteList />
           </ThemeProvider>
+          </SkeletonTheme>
         </GoogleOAuthProvider>
-        </SkeletonTheme>
     </Provider>
   </React.StrictMode>,
 );
