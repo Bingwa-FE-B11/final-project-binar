@@ -8,13 +8,19 @@ import { FaStar } from 'react-icons/fa';
 import { IoDiamond, IoTime } from 'react-icons/io5';
 import { LiaBookSolid } from 'react-icons/lia';
 import { RiShieldStarLine } from 'react-icons/ri';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
-export const CardPremium = ({category, rating, title, author, level, modul, duration, kelas}) => {
+export const CardPremium = ({
+  image, category, rating, title, author, level, modul, duration, isPremium,}) => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
   return (
     <div className="flex flex-col overflow-hidden shadow-md rounded-2xl bg-white">
       <div
         className="h-32 scale-105 bg-center bg-no-repeat min-w-fit"
-        style={{ backgroundImage: `url(${uiux})` }}
+        style={{ backgroundImage: `url(${image})` }}
       ></div>
       {/* Container Desc Card Kelas */}
       <div className="flex flex-col gap-4 px-4 py-3 bg-white">
@@ -34,7 +40,7 @@ export const CardPremium = ({category, rating, title, author, level, modul, dura
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1">
             <RiShieldStarLine size={20} color="#22c55e" />
-            <div className="text-sm font-semibold text-primary">{level} Level</div>
+            <div className="text-sm font-semibold text-primary">{level}</div>
           </div>
           <div className="flex items-center gap-1">
             <LiaBookSolid size={20} color="#22c55e" />
@@ -42,15 +48,18 @@ export const CardPremium = ({category, rating, title, author, level, modul, dura
           </div>
           <div className="flex items-center gap-1">
             <IoTime size={20} color="#22c55e" />
-            <div className="text-sm font-semibold text-primary">{duration} Menit</div>
+            <div className="text-sm font-semibold text-primary">{duration} </div>
           </div>
         </div>
-        <div className="flex justify-between px-4 py-1 transition-all cursor-pointer w-fit rounded-3xl bg-blue hover:bg-blue-hover">
+        {isPremium? (
+          <div className="flex justify-between px-4 py-1 transition-all cursor-pointer w-fit rounded-3xl bg-blue hover:bg-blue-hover">
           <div className="flex items-center gap-2">
             <IoDiamond size={20} color="white" />
-            <div className="font-bold text-white">{kelas}</div>
+            <div className="font-bold text-white">{isPremium}</div>
           </div>
         </div>
+        ): null}
+        
       </div>
     </div>
   );
