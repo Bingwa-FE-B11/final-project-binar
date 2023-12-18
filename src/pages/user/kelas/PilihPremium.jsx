@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // Icons
 import { BiSearchAlt } from "react-icons/bi";
@@ -9,10 +9,27 @@ import { BiSearchAlt } from "react-icons/bi";
 import { NavbarKelas } from "../../../assets/components/navbar/NavbarKelas";
 import { CardPremium } from "../../../assets/components/cards/CardPremium";
 import { NavbarHome } from "../../../assets/components/navbar/NavbarHome";
+import { getAllCoursesAction } from "../../../redux/action/courses/getAllCoursesAction";
+import CardKategorySkeleton from "../../../assets/components/skeleton/CardKategorySkeleton";
+
+// Redux
 
 export const PilihPremium = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const storeAuthUser = useSelector((state) => state.authLogin);
+
+  const getCourses = () => {
+    dispatch(getAllCoursesAction());
+  };
+
+  useEffect(() => {
+    getCourses();
+  }, [dispatch]);
+
+  const storeCourses = useSelector((state) => state.dataCourses.courses);
+
+  console.log("storeCourses", storeCourses);
 
   return (
     <>
@@ -176,87 +193,30 @@ export const PilihPremium = () => {
 
               {/* Main Content */}
               <div className="grid w-full grid-cols-2 gap-6 py-4 md:grid-cols-1 lg:grid-cols-2">
-                {/* Card Item */}
-                <CardPremium
-                  category={"Web Development"}
-                  rating={4.5}
-                  title={"Belajar ReactJS untuk pemula"}
-                  author={"Eren Saputra"}
-                  level={"Basic"}
-                  modul={10}
-                  duration={120}
-                  kelas={"Premium"}
-                />
-                {/* Card Item */}
-                <CardPremium
-                  category={"Web Development"}
-                  rating={4.5}
-                  title={"Belajar ReactJS untuk pemula"}
-                  author={"Eren Saputra"}
-                  level={"Basic"}
-                  modul={10}
-                  duration={120}
-                  kelas={"Premium"}
-                />
-                {/* Card Item */}
-                <CardPremium
-                  category={"Web Development"}
-                  rating={4.5}
-                  title={"Belajar ReactJS untuk pemula"}
-                  author={"Eren Saputra"}
-                  level={"Basic"}
-                  modul={10}
-                  duration={120}
-                  kelas={"Premium"}
-                />
-                {/* Card Item */}
-                <CardPremium
-                  category={"Web Development"}
-                  rating={4.5}
-                  title={"Belajar ReactJS untuk pemula"}
-                  author={"Eren Saputra"}
-                  level={"Basic"}
-                  modul={10}
-                  duration={120}
-                  kelas={"Premium"}
-                />
-                {/* Card Item */}
-                <CardPremium
-                  category={"Web Development"}
-                  rating={4.5}
-                  title={"Belajar ReactJS untuk pemula"}
-                  author={"Eren Saputra"}
-                  level={"Basic"}
-                  modul={10}
-                  duration={120}
-                  kelas={"Premium"}
-                />
-                {/* Card Item */}
-                <CardPremium
-                  category={"Web Development"}
-                  rating={4.5}
-                  title={"Belajar ReactJS untuk pemula"}
-                  author={"Eren Saputra"}
-                  level={"Basic"}
-                  modul={10}
-                  duration={120}
-                  kelas={"Premium"}
-                />
-                {/* Card Item */}
-                <CardPremium
-                  category={"Web Development"}
-                  rating={4.5}
-                  title={"Belajar ReactJS untuk pemula"}
-                  author={"Eren Saputra"}
-                  level={"Basic"}
-                  modul={10}
-                  duration={120}
-                  kelas={"Premium"}
-                />
+                {storeCourses == null ? (
+                  <CardKategorySkeleton />
+                ) : (
+                  storeCourses.filter((value) => value.isPremium)
+                  .map((value) => (
+                    <CardPremium
+                      key={value.id}
+                      image={value.courseImg}
+                      category={value.category.categoryName}
+                      rating={value.averageRating}
+                      title={value.courseName}
+                      author={value.mentor}
+                      level={value.level}
+                      modul={value.modul}
+                      duration={value.duration}
+                      isPremium={"Premium"}
+                    />
+                  ))
+                )}
               </div>
             </div>
           </div>
         </div>
+
         <NavbarKelas style={{ zIndex: 1 }} />
       </div>
     </>
