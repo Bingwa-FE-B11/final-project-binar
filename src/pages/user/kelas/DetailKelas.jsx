@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 // Components
 import { NavbarKelas } from "../../../assets/components/navbar/NavbarKelas";
 import { CardKursus } from "../../../assets/components/cards/CardKursus";
+import { NavbarHome } from "../../../assets/components/navbar/NavbarHome";
 
 // Icons
 import { GoArrowLeft } from "react-icons/go";
@@ -24,14 +26,35 @@ import {
   DialogHeader,
 } from "@material-tailwind/react";
 
+// Redux
+import { getDetailCoursesAction } from "../../../redux/action/courses/getDetailCourseAction";
+
 export const DetailKelas = () => {
+  const dispatch = useDispatch();
+  const storeAuthUser = useSelector((state) => state.authLogin);
+  const storeCourses = useSelector((state) => state.dataCourses.courses);
+  const storeDetailCourses = useSelector((state) => state.dataCourses.detail);
   const [dialogOpen, setDialogOpen] = useState(false);
+
+  const getDetailCourses = () => {
+    dispatch(getDetailCoursesAction());
+  };
 
   const handleDialogOpen = () => setDialogOpen(!dialogOpen);
 
+  const handleClickBack = () => {
+    window.history.back()
+  };
+
+  useEffect(() => {
+    getDetailCourses();
+  }, [dispatch]);
+
+  console.log("data detail",storeDetailCourses);
+
   return (
     <>
-      <NavbarKelas />
+      {storeAuthUser.token === null ? <NavbarHome /> : <NavbarKelas />}
 
       {/* Parent Container */}
       <div className="z-20 flex min-h-screen px-0 lg:px-20 md:px-4 py-6">
@@ -39,8 +62,8 @@ export const DetailKelas = () => {
         <div className="mt-16 flex w-full lg:w-2/3 md:w-2/3 flex-col gap-4 px-8">
           {/* Button Back */}
           <div className="flex w-full items-center gap-2 py-4">
-            <div>
-              <GoArrowLeft size={20}/>
+            <div className="cursor-pointer" onClick={handleClickBack}>
+              <GoArrowLeft size={30}/>
             </div>
             <div className="font-semibold">Kelas Lainnya</div>
           </div>
@@ -48,38 +71,39 @@ export const DetailKelas = () => {
           {/* Container Desc Kelas */}
           <div className="flex flex-col gap-3">
             <div className="flex justify-between">
-              <div className="text-xl font-bold text-primary">UI/UX DESIGN</div>
+              <div className="text-xl font-bold text-primary">{storeDetailCourses.category.categoryName}</div>
               <div className="flex items-center gap-1">
                 <div className="text-yellow-500">
                   <FaStar />
                 </div>
-                <div className="text-lg font-bold">5.0</div>
+                <div className="text-lg font-bold">{storeDetailCourses?.averageRating}</div>
               </div>
             </div>
             <div className="flex flex-col">
               <div className="text-xl font-bold">
-                Intro to Basic of User Interaction Design
+                {storeDetailCourses?.courseName}
               </div>
-              <div className="text-lg">by Simon Doe</div>
+              <div className="text-lg">{storeDetailCourses?.mentor}</div>
             </div>
             <div className="flex gap-4 lg:gap-10 md:gap-10">
               <div className="flex items-center gap-1">
                 <RiShieldStarLine size={20} color="#22c55e" />
                 <div className="text-sm font-semibold text-primary">
-                  Beginner Level
+                  {storeDetailCourses?.level}
                 </div>
               </div>
               <div className="flex items-center gap-1">
                 <LiaBookSolid size={20} color="#22c55e" />
-                <div className="text-sm font-semibold">5 Modul</div>
+                <div className="text-sm font-semibold">{storeDetailCourses?.modul}</div>
               </div>
               <div className="flex items-center gap-1">
                 <IoTime size={20} color="#22c55e" />
-                <div className="text-sm font-semibold">45 Menit</div>
+                <div className="text-sm font-semibold">{storeDetailCourses?.duration}</div>
               </div>
             </div>
           </div>
-          <div className="flex w-fit cursor-pointer items-center gap-2 rounded-xl bg-green px-6 py-2 text-white">
+          <div className="flex w-fit cursor-pointer items-center gap-2 rounded-xl bg-green px-6 py-2 text-white"
+          onClick={()=> window.open(storeDetailCourses?.forumURL, "_blank")}>
             <div className="font-semibold">Join Grup Telegram</div>
             <div>
               <HiChatAlt2 size={20} />
@@ -99,24 +123,7 @@ export const DetailKelas = () => {
               <div className="flex flex-col gap-2">
                 <h1 className="text-xl font-bold">Tentang Kelas</h1>
                 <p className="text-slate-600">
-                  Design system adalah kumpulan komponen design, code, ataupun
-                  dokumentasi yang dapat digunakan sebagai panduan utama yang
-                  memunginkan designer serta developer memiliki lebih banyak
-                  kontrol atas berbagai platform. Dengan hadirnya design system,
-                  dapat menjaga konsistensi tampilan user interface dan
-                  meningkatkan user experience menjadi lebih baik. Disisi
-                  bisnis, design system sangat berguna dalam menghemat waktu dan
-                  biaya ketika mengembangkan suatu produk.
-                </p>
-                <p className="text-slate-600">
-                  Design system adalah kumpulan komponen design, code, ataupun
-                  dokumentasi yang dapat digunakan sebagai panduan utama yang
-                  memunginkan designer serta developer memiliki lebih banyak
-                  kontrol atas berbagai platform. Dengan hadirnya design system,
-                  dapat menjaga konsistensi tampilan user interface dan
-                  meningkatkan user experience menjadi lebih baik. Disisi
-                  bisnis, design system sangat berguna dalam menghemat waktu dan
-                  biaya ketika mengembangkan suatu produk.
+                {storeDetailCourses?.aboutCourse}
                 </p>
               </div>
 
@@ -124,10 +131,7 @@ export const DetailKelas = () => {
               <div className="flex flex-col gap-2">
                 <h1 className="text-xl font-bold">Kelas Ini Ditujukan Untuk</h1>
                 <ol className="list-decimal pl-4">
-                  <li>Anda yang ingin memahami tentang Design System</li>
-                  <li>Anda yang ingin memahami tentang Design System</li>
-                  <li>Anda yang ingin memahami tentang Design System</li>
-                  <li>Anda yang ingin memahami tentang Design System</li>
+                  <li>{storeDetailCourses?.targetAudience}</li>
                 </ol>
               </div>
             </div>

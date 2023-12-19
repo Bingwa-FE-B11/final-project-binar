@@ -1,8 +1,5 @@
 import React from 'react';
 
-// Images
-import uiux from '../../img/uiux.webp';
-
 // Icons
 import { FaStar } from 'react-icons/fa';
 import { RiShieldStarLine } from 'react-icons/ri';
@@ -11,6 +8,7 @@ import { IoTime } from 'react-icons/io5';
 import { TbProgressCheck } from 'react-icons/tb';
 
 export const CardKelasSaya = ({
+  image,
   category,
   rating,
   title,
@@ -24,17 +22,17 @@ export const CardKelasSaya = ({
     <div className="flex flex-col overflow-hidden shadow-md rounded-2xl bg-white">
       <div
         className="h-32 scale-105 bg-center bg-no-repeat min-w-fit"
-        style={{ backgroundImage: `url(${uiux})` }}
+        style={{ backgroundImage: `url(${image})`, backgroundSize: 'cover', objectFit: 'cover' }}
       ></div>
       {/* Container Desc Card Kelas */}
       <div className="flex flex-col gap-4 px-4 py-3 bg-white">
         <div className="flex justify-between">
           <div className="text-lg font-bold text-primary">{category}</div>
           <div className="flex items-center gap-1">
-            <div className="text-yellow-400">
+            <div className="text-yellow-700">
               <FaStar />
             </div>
-            <div className="font-bold">{rating}</div>
+            <div className="font-bold">{rating}4.9</div>
           </div>
         </div>
         <div className="flex flex-col">

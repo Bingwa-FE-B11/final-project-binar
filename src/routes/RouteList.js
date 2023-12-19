@@ -51,7 +51,7 @@ export const RouteList = () => {
         <Route path="/pilih-premium" element={<PilihPremium />} />
         <Route path="/pilih-gratis" element={<PilihGratis />} />
         <Route path="/pilih-kelas" element={<PilihKelas />} />
-        <Route path="/detail-kelas" element={<DetailKelas />} />
+        <Route path="/detail-kelas/:courseId" element={<DetailKelas />} />
         <Route path="/all-kelas" element={<AllCourse />} />
 
         {/* Payment */}
