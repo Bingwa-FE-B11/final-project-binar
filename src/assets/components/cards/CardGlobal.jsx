@@ -7,17 +7,36 @@ import uiux from '../../img/uiux.webp';
 import { FaStar } from 'react-icons/fa';
 import { RiShieldStarLine } from 'react-icons/ri';
 import { LiaBookSolid } from 'react-icons/lia';
-import { IoTime } from 'react-icons/io5';
+import { IoDiamond, IoTime,iconDiamond } from 'react-icons/io5';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
-export const CardGlobal = ({ image, category, rating, title, author, level, modul, duration }) => {
+
+//Redux
+
+export const CardGlobal = ({
+  image,
+  category,
+  rating,
+  title,
+  author,
+  level,
+  modul,
+  duration,
+  categoryId,
+  isPremium,
+}) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   return (
-    <div className="flex flex-col overflow-hidden shadow-md rounded-2xl bg-white">
+    <div className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-md">
       <div
-        className="h-32 scale-105 bg-center bg-no-repeat min-w-fit"
+        className="h-32 min-w-fit scale-105 bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${image})` }}
       ></div>
       {/* Container Desc Card Kelas */}
-      <div className="flex flex-col gap-4 px-4 py-3 bg-white">
+      <div className="flex flex-col gap-4 bg-white px-4 py-3">
         <div className="flex justify-between">
           <div className="text-lg font-bold text-primary">{category}</div>
           <div className="flex items-center gap-1">
@@ -38,19 +57,27 @@ export const CardGlobal = ({ image, category, rating, title, author, level, modu
           </div>
           <div className="flex items-center gap-1">
             <LiaBookSolid size={20} color="#22c55e" />
-            <div className="text-sm font-semibold text-primary">{modul} Modul</div>
+            <div className="text-sm font-semibold text-primary">
+              {modul} Modul
+            </div>
           </div>
           <div className="flex items-center gap-1">
             <IoTime size={20} color="#22c55e" />
             <div className="text-sm font-semibold text-primary">{duration}</div>
           </div>
         </div>
-        <div
-          className="flex justify-between px-4 py-1 transition-all cursor-pointer w-fit rounded-3xl bg-blue hover:bg-blue-hover">
+        {isPremium ? (
+          <div className="flex w-fit cursor-pointer justify-between rounded-3xl bg-blue px-4 py-1 transition-all hover:bg-blue-hover">
             <div className="flex items-center gap-2">
-            <div className="font-bold text-white">Mulai Kelas</div>
+              <IoDiamond size={20} color="white" />
+              <div className="font-bold text-white">Premium</div>
+            </div>
           </div>
+        ) : (
+          <div className="w-fit cursor-pointer rounded-3xl bg-green px-4 py-1 text-white transition-all hover:bg-blue-hover">
+            Mulai Kelas
           </div>
+        )}
       </div>
     </div>
   );

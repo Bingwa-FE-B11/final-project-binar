@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // Icons
 import { BiSearchAlt } from "react-icons/bi";
@@ -9,10 +9,21 @@ import { BiSearchAlt } from "react-icons/bi";
 import { NavbarKelas } from "../../../assets/components/navbar/NavbarKelas";
 import { CardGlobal } from "../../../assets/components/cards/CardGlobal";
 import { NavbarHome } from "../../../assets/components/navbar/NavbarHome";
-
+import { getAllCoursesAction } from "../../../redux/action/courses/getAllCoursesAction";
+import CardCoursesSkeleton from "../../../assets/components/skeleton/CardCourseSkeleton";
 export const PilihGratis = () => {
   const navigate = useNavigate();
   const storeAuthUser = useSelector((state) => state.authLogin);
+  const dispatch = useDispatch()
+  const storeCourses = useSelector((state) => state.dataCourses.courses);
+ const displayedCourses = storeCourses ? storeCourses.slice(0, 3) : [];
+  const getCourses = () => {
+    dispatch(getAllCoursesAction());
+  };
+
+  useEffect(() => {
+    getCourses();
+  }, [dispatch]);
 
   return (
     <>
@@ -176,8 +187,28 @@ export const PilihGratis = () => {
 
               {/* Main Content */}
               <div className="grid w-full grid-cols-2 gap-6 py-4 md:grid-cols-1 lg:grid-cols-2">
-                {/* Card Item */}
+                {storeCourses == null ? (
+                  <CardCoursesSkeleton/>
+                ) : (
+              storeCourses.filter((value) => !value.isPremium)
+              .map((value) => (
                 <CardGlobal
+                  key={value.id}
+                  image={value.courseImg}
+                  category={value.category.categoryName}
+                  rating={value.averageRating}
+                  title={value.courseName}
+                  author={value.mentor}
+                  level={value.level}
+                  modul={value.modul}
+                  duration={value.duration}
+                  categoryId={value.id}
+                  isPremium={value.isPremium}
+                />
+              ))
+            )}
+                {/* Card Item */}
+                {/* <CardGlobal
                   category={"UI/UX Design"}
                   rating={5}
                   title={"Into to Basic of User Interaction Design Figma"}
@@ -186,10 +217,10 @@ export const PilihGratis = () => {
                   modul={5}
                   duration={45}
                   kelas={"Mulai Kelas"}
-                />
+                /> */}
 
                 {/* Card Item */}
-                <CardGlobal
+                {/* <CardGlobal
                   category={"UI/UX Design"}
                   rating={4.8}
                   title={"Menguasai Figma dengan Modern UI Dashboard Login"}
@@ -198,10 +229,10 @@ export const PilihGratis = () => {
                   modul={5}
                   duration={60}
                   kelas={"Mulai Kelas"}
-                />
+                /> */}
 
                 {/* Card Item */}
-                <CardGlobal
+                {/* <CardGlobal
                   category={"UI/UX Desain"}
                   rating={4.8}
                   title={"Menguasai Figma dengan AutoFlow"}
@@ -210,10 +241,10 @@ export const PilihGratis = () => {
                   modul={5}
                   duration={60}
                   kelas={"Mulai Kelas"}
-                />
+                /> */}
 
                 {/* Card Item */}
-                <CardGlobal
+                {/* <CardGlobal
                   category={"UI/UX Desain"}
                   rating={4.9}
                   title={"Membuat Grid System dengan Figam"}
@@ -222,7 +253,7 @@ export const PilihGratis = () => {
                   modul={10}
                   duration={100}
                   kelas={"Mulai Kelas"}
-                />
+                /> */}
               </div>
             </div>
           </div>
