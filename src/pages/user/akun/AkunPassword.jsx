@@ -1,26 +1,30 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
+import { useMediaQuery } from "react-responsive";
 
 // Components
 import { NavbarAkun } from "../../../assets/components/navbar/NavbarAkun";
-import { SidebarAkun } from '../../../assets/components/sidebar/SidebarAkun';
+import { SidebarAkun } from "../../../assets/components/sidebar/SidebarAkun";
 
 // Images
-import EyePassword from '../../../assets/img/fi_eye.webp'
+import EyePassword from "../../../assets/img/fi_eye.webp";
 
 // Icons
 import { GoArrowLeft } from "react-icons/go";
 
 // Toast
-import { showSuccessToast } from '../../../helper/ToastHelper';
+import { showSuccessToast } from "../../../helper/ToastHelper";
 
 // Redux
-import { changePass } from '../../../redux/action/akun/changePassAction';
+import { changePass } from "../../../redux/action/akun/changePassAction";
+import { NavbarMobile } from "../../../assets/components/navbar/NavbarMobile";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 export const AkunPassword = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const isMobile = useMediaQuery({ maxWidth: 767 });
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const token = queryParams.get("token");
@@ -42,7 +46,7 @@ export const AkunPassword = () => {
   const handleShowPassword3 = () => {
     setShowPassword3(!showPassword3);
   };
-  
+
   const handleInput = (e) => {
     if (e) {
       if (e.target.id === "old pass") {
@@ -68,99 +72,120 @@ export const AkunPassword = () => {
         token,
       ),
     );
-      setTimeout(() => {
-        showSuccessToast("Ganti Password telah Berhasil");
-        navigate("/kelas-saya");
-      }, 2000);
+    setTimeout(() => {
+      showSuccessToast("Ganti Password telah Berhasil");
+      navigate("/kelas-saya");
+    }, 2000);
   };
 
   return (
     <>
-      <div className="mt-[2rem] px-9 lg:px-80 md:px-20 py-10 bg-secondary h-fit lg:h-fit md:h-screen">
-        <div className="flex items-center gap-2 py-8 text-lg font-bold text-primary relative">
+      <div className="h-fit bg-secondary px-9 py-20 pt-2 md:h-screen md:px-20 lg:h-fit lg:px-80 lg:pt-[5rem]">
+        <div className="relative flex items-center gap-2 py-8 text-lg font-bold text-primary">
           <GoArrowLeft
             size={30}
-            className="cursor-pointer absolute -inset-x-8 lg:-inset-x-16 md:-inset-x-12"
+            className="absolute -inset-x-1 cursor-pointer md:-inset-x-12 lg:-inset-x-16"
             onClick={() => {
               navigate("/");
             }}
           />
-          Kembali Ke Beranda
+          <span className="hidden lg:block">Kembali Ke Beranda</span>
         </div>
 
         {/* Akun */}
-        <div className="border-2 border-primary rounded-xl">
-          <div className="py-4 text-xl font-semibold text-center text-white rounded-t-lg bg-primary">
+        <div className="rounded-xl border-2 border-primary">
+          <div className="rounded-t-lg bg-primary py-4 text-center text-xl font-semibold text-white">
             Akun
           </div>
 
           {/* Isi Akun*/}
           <div className="flex py-4 text-center">
             <SidebarAkun />
-            <div className="flex flex-col items-center w-full lg:w-[60%] md:w-[60%] gap-10">              
-              <div className="font-bold text-2xl py-2">
-                Ubah Password
-              </div>
-              <div className="flex flex-col gap-1 relative">
+            <div className="flex w-full flex-col items-center gap-10 md:w-[60%] lg:w-[60%]">
+              <div className="py-2 text-2xl font-bold">Ubah Password</div>
+              <div className="relative flex flex-col gap-1">
                 <div className="text-left">Masukkan Password Lama</div>
                 <input
                   onChange={handleInput}
                   type={showPassword1 ? "text" : "password"}
-                  className="px-4 py-3 border-2 w-[18rem] lg:w-[22rem] md:w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
-                  placeholder="*******"
+                  className="relative w-[18rem] rounded-2xl border-2 border-slate-300 px-4 py-3 focus:border-primary focus:outline-none md:w-[22rem] lg:w-[22rem]"
+                  placeholder="**********"
                   value={oldPassword}
                   id="old pass"
                 />
-                <img
-                src={EyePassword}
-                alt="Icon Eye Password"
-                className="absolute w-8 text-black cursor-pointer inset-y-10 right-4"
-                onClick={handleShowPassword1}
-                />
+                {showPassword1 ? (
+                  <FiEye
+                    size={27}
+                    className="absolute inset-y-10 right-4 w-8 cursor-pointer text-slate-400"
+                    onClick={handleShowPassword1}
+                  />
+                ) : (
+                  <FiEyeOff
+                    size={27}
+                    className="absolute inset-y-10 right-4 w-8 cursor-pointer text-slate-400"
+                    onClick={handleShowPassword1}
+                  />
+                )}
               </div>
-              <div className="flex flex-col gap-1 relative">
+              <div className="relative flex flex-col gap-1">
                 <div className="text-left">Masukkan Password Baru</div>
                 <input
                   onChange={handleInput}
                   type={showPassword2 ? "text" : "password"}
-                  className="px-4 py-3 border-2 w-[18rem] lg:w-[22rem] md:w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
-                  placeholder="*******"
+                  className="w-[18rem] rounded-2xl border-2 border-slate-300 px-4 py-3 focus:border-primary focus:outline-none md:w-[22rem] lg:w-[22rem]"
+                  placeholder="**********"
                   value={newPassword}
                   id="new pass"
                 />
-                <img
-                src={EyePassword}
-                alt="Icon Eye Password"
-                className="absolute w-8 text-black cursor-pointer inset-y-10 right-4"
-                onClick={handleShowPassword2}
-                />
+                {showPassword2 ? (
+                  <FiEye
+                    size={27}
+                    className="absolute inset-y-10 right-4 w-8 cursor-pointer text-slate-400"
+                    onClick={handleShowPassword2}
+                  />
+                ) : (
+                  <FiEyeOff
+                    size={27}
+                    className="absolute inset-y-10 right-4 w-8 cursor-pointer text-slate-400"
+                    onClick={handleShowPassword2}
+                  />
+                )}
               </div>
-              <div className="flex flex-col gap-1 relative">
+              <div className="relative flex flex-col gap-1">
                 <div className="text-left">Ulangi Password Baru</div>
                 <input
                   onChange={handleInput}
                   type={showPassword3 ? "text" : "password"}
-                  className="px-4 py-3 border-2 w-[18rem] lg:w-[22rem] md:w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
-                  placeholder="*******"
+                  className="w-[18rem] rounded-2xl border-2 border-slate-300 px-4 py-3 focus:border-primary focus:outline-none md:w-[22rem] lg:w-[22rem]"
+                  placeholder="**********"
                   value={confirmPassword}
                   id="confirm pass"
                 />
-                <img
-                src={EyePassword}
-                alt="Icon Eye Password"
-                className="absolute w-8 text-black cursor-pointer inset-y-10 right-4"
-                onClick={handleShowPassword3}
-                />
+                {showPassword3 ? (
+                  <FiEye
+                    size={27}
+                    className="absolute inset-y-10 right-4 w-8 cursor-pointer text-slate-400"
+                    onClick={handleShowPassword3}
+                  />
+                ) : (
+                  <FiEyeOff
+                    size={27}
+                    className="absolute inset-y-10 right-4 w-8 cursor-pointer text-slate-400"
+                    onClick={handleShowPassword3}
+                  />
+                )}
               </div>
-              <button className="px-4 py-3 font-semibold text-white w-[18rem] lg:w-[22rem] md:w-[22rem] bg-primary rounded-2xl hover:bg-primary-hover"
-              onClick={handleSave}>
+              <button
+                className="w-[18rem] rounded-2xl bg-primary px-4 py-3 font-semibold text-white hover:bg-primary-hover md:w-[22rem] lg:w-[22rem]"
+                onClick={handleSave}
+              >
                 Ubah Password
               </button>
             </div>
           </div>
         </div>
       </div>
-      <NavbarAkun style={{ zIndex: 1 }} />
+      {isMobile ? <NavbarMobile /> : <NavbarAkun style={{ zIndex: 1 }} />}
     </>
-  )
-}
+  );
+};

@@ -1,74 +1,238 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // Images
-import EyePassword from '../../../assets/img/fi_eye.webp';
-import BrandLogo from '../../../assets/img/brain.webp';
+import BrandLogo from "../../../assets/img/brain.webp";
+
+// Icons
+import { FiEye, FiEyeOff } from "react-icons/fi";
+import { useDispatch } from "react-redux";
+import {
+  showErrorToast,
+  showLoadingToast,
+  showSuccessToast,
+} from "../../../helper/ToastHelper";
+import { loginAdminAction } from "../../../redux/action/admin/auth/loginAdminAction";
+import toast from "react-hot-toast";
+
 export const AdminLogin = () => {
-    const navigate = useNavigate();
-    const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState(false);
 
-    const handleShowPassword = () => {
-        setShowPassword(!showPassword);
-    };
+  const [Email, setEmail] = useState("");
+  const [Password, setPassword] = useState("");
 
-    return (
-        <div className='flex'>
-            <div className="lg:flex items-center justify-center w-2/5 h-screen bg-primary hidden">
-                <div className="flex items-center justify-center gap-6">
-                    <img src={BrandLogo} alt="Brand Logo" className="w-[15%]" />
-                    <span className="font-sans text-6xl text-center text-white">Bingwa</span>
-                </div>
-            </div>
-            <div className="flex items-center justify-center h-screen">
-                <div className="w-full rounded-lg lg:w-2/6 md:w-3/6 text-center mx-4">
-                    <div className="flex flex-col lg:w-[30rem] md:w-[33rem] mx-auto w-[22rem]">
-                        <span className="pb-10 text-4xl font-bold text-primary">Login</span>
+  const handleInput = (e) => {
+    if (e) {
+      if (e.target.id === "email") {
+        setEmail(e.target.value);
+      }
+      if (e.target.id === "password") {
+        setPassword(e.target.value);
+      }
+    }
+  };
 
-                        {/* ID Admin */}
-                        <div className="flex flex-col gap-2 ">
-                            <span className="text-lg text-left">ID Admin</span>
-                            <input
-                                placeholder="ID Admin"
-                                className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
-                            />
-                        </div>
+  const handleLogin = async () => {
+    const loadingToastId = showLoadingToast("Loading ...");
 
-                        {/* Password */}
-                        <div className="flex flex-col gap-2 pt-8">
-                            <div className="flex justify-between">
-                                <span className="text-lg text-left">Password</span>
-                                <span className="text-lg font-semibold cursor-pointer text-primary">
-                                    Lupa Kata Sandi
-                                </span>
-                            </div>
-                            <div className="relative flex flex-col">
-                                <input
-                                    placeholder="Masukkan Password"
-                                    className="px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-primary"
-                                    type={showPassword ? "text" : "password"}
-                                />
-                                <img
-                                    src={EyePassword}
-                                    alt="Icon Eye Password"
-                                    className="absolute w-8 text-black cursor-pointer inset-y-2.5 right-4"
-                                    onClick={handleShowPassword}
-                                />
-                            </div>
-                        </div>
-
-                        {/* Button Masuk */}
-                        <div className="flex flex-col py-4">
-                            <button
-                                type="button"
-                                className="w-full py-3 mt-2 text-lg font-semibold text-white bg-primary hover:bg-primary-hover rounded-xl"
-                            >
-                                Masuk
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    const login = await dispatch(
+      loginAdminAction({
+        emailOrPhoneNumber: Email,
+        password: Password,
+      }),
     );
+
+    toast.dismiss(loadingToastId);
+
+    if (login) {
+      showSuccessToast("Login Berhasil!");
+      setTimeout(() => {
+        navigate("/admin/dashboard");
+      }, 2000);
+    }
+  };
+
+  const validateForm = () => {
+    // Check if the Email is an Empty string or not.
+
+    if (Email.length === 0) {
+      return showErrorToast("Email harus di isi");
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(Email)) {
+      return showErrorToast("Format Email tidak valid");
+    }
+
+    // check if the password follows constraints or not.
+
+    // if password length is less than 8 characters, alert invalid form.
+
+    if (Password.length < 8) {
+      return showErrorToast("Password minimal 8 karakter");
+    }
+
+    if (Password.length > 12) {
+      return showErrorToast("Password maksimal 12 karakter");
+    }
+
+    // variable to count upper case characters in the password.
+    let countUpperCase = 0;
+    // variable to count lowercase characters in the password.
+    let countLowerCase = 0;
+    // variable to count digit characters in the password.
+    let countDigit = 0;
+    // variable to count special characters in the password.
+    let countSpecialCharacters = 0;
+
+    for (let i = 0; i < Password.length; i++) {
+      const specialChars = [
+        "!",
+        "@",
+        "#",
+        "$",
+        "%",
+        "^",
+        "&",
+        "*",
+        "(",
+        ")",
+        "_",
+        "-",
+        "+",
+        "=",
+        "[",
+        "{",
+        "]",
+        "}",
+        ":",
+        ";",
+        "<",
+        ">",
+      ];
+
+      if (specialChars.includes(Password[i])) {
+        // this means that the character is special, so increment countSpecialCharacters
+        countSpecialCharacters++;
+      } else if (!isNaN(Password[i] * 1)) {
+        // this means that the character is a digit, so increment countDigit
+        countDigit++;
+      } else {
+        if (Password[i] === Password[i].toUpperCase()) {
+          // this means that the character is an upper case character, so increment countUpperCase
+          countUpperCase++;
+        }
+        if (Password[i] === Password[i].toLowerCase()) {
+          // this means that the character is lowercase, so increment countUpperCase
+          countLowerCase++;
+        }
+      }
+    }
+
+    if (countLowerCase === 0) {
+      // invalid form, 0 lowercase characters
+      return showErrorToast("Password harus memiliki lower case");
+    }
+
+    if (countUpperCase === 0) {
+      // invalid form, 0 upper case characters
+      return showErrorToast("Password harus memiliki upper case");
+    }
+
+    if (countDigit === 0) {
+      // invalid form, 0 digit characters
+      return showErrorToast("Password harus memiliki angka");
+    }
+
+    if (countSpecialCharacters === 0) {
+      // invalid form, 0 special characters characters
+      return showErrorToast("Passwsord harus memiliki simbol");
+    }
+
+    // if all the conditions are valid, this means that the form is valid
+
+    handleLogin();
+  };
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  return (
+    <div className="flex">
+      <div className="hidden h-screen w-2/5 items-center justify-center bg-primary lg:flex">
+        <div className="flex items-center justify-center gap-6">
+          <img src={BrandLogo} alt="Brand Logo" className="w-[15%]" />
+          <span className="text-center font-sans text-6xl text-white">
+            Bingwa
+          </span>
+        </div>
+      </div>
+      <div className="flex h-screen items-center justify-center">
+        <div className="mx-4 w-full rounded-lg text-center md:w-3/6 lg:w-2/6">
+          <div className="mx-auto flex w-[22rem] flex-col md:w-[33rem] lg:w-[30rem]">
+            <span className="pb-10 text-4xl font-bold text-primary">Admin Login</span>
+
+            {/* Email */}
+            <div className="flex flex-col gap-2 ">
+              <span className="text-left text-lg">Email</span>
+              <input
+                onChange={handleInput}
+                id="email"
+                placeholder="bingwa@gmail.com"
+                className="rounded-xl border-[3px] border-slate-300 px-4 py-3 focus:border-primary focus:outline-none"
+              />
+            </div>
+
+            {/* Password */}
+            <div className="flex flex-col gap-2 pt-8">
+              <div className="flex justify-between">
+                <span className="text-left text-lg">Password</span>
+                <span className="cursor-pointer text-lg font-semibold text-primary">
+                  Lupa Kata Sandi
+                </span>
+              </div>
+              <div className="relative flex flex-col">
+                <input
+                  onChange={handleInput}
+                  id="password"
+                  placeholder="**********"
+                  className="rounded-xl border-[3px] border-slate-300 px-4 py-3 focus:border-primary focus:outline-none"
+                  type={showPassword ? "text" : "password"}
+                />
+                {showPassword ? (
+                  <FiEye
+                    size={27}
+                    className="absolute inset-y-3 right-4 w-8 cursor-pointer text-slate-400"
+                    onClick={handleShowPassword}
+                  />
+                ) : (
+                  <FiEyeOff
+                    size={27}
+                    className="absolute inset-y-3 right-4 w-8 cursor-pointer text-slate-400"
+                    onClick={handleShowPassword}
+                  />
+                )}
+              </div>
+            </div>
+
+            {/* Button Masuk */}
+            <div className="flex flex-col py-4">
+              <button
+                type="button"
+                className="mt-2 w-full rounded-xl bg-primary py-3 text-lg font-semibold text-white hover:bg-primary-hover"
+                onClick={() => {
+                  validateForm();
+                }}
+              >
+                Masuk
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };

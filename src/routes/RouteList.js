@@ -23,6 +23,7 @@ import { PembayaranSukses } from "../pages/user/payment/PembayaranSukses";
 import { ForgetPass } from "../pages/user/auth/ForgetPass";
 import TokenProtected from "../assets/components/protected/TokenProtected";
 import { AllCourse } from "../pages/user/kelas/AllCourse";
+import AdminTokenProtected from "../assets/components/protected/AdminTokenProtected";
 
 export const RouteList = () => {
   return (
@@ -60,14 +61,42 @@ export const RouteList = () => {
 
         {/* Admin */}
         <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route
+          path="/admin/dashboard"
+          element={
+            <AdminTokenProtected>
+              <AdminDashboard />
+            </AdminTokenProtected>
+          }
+        />
         <Route path="/admin/kelola-kelas" element={<AdminKelolaKelas />} />
 
         {/* Data User */}
         <Route path="notifikasi" element={<Notifikasi />} />
-        <Route path="akun-profile" element={<AkunProfile />} />
-        <Route path="akun-password" element={<AkunPassword />} />
-        <Route path="akun-pembayaran" element={<AkunPembayaran />} />
+        <Route
+          path="akun-profile"
+          element={
+            <TokenProtected>
+              <AkunProfile />
+            </TokenProtected>
+          }
+        />
+        <Route
+          path="akun-password"
+          element={
+            <TokenProtected>
+              <AkunPassword />
+            </TokenProtected>
+          }
+        />
+        <Route
+          path="akun-pembayaran"
+          element={
+            <TokenProtected>
+              <AkunPembayaran />
+            </TokenProtected>
+          }
+        />
 
         {/* Error */}
         <Route path="*" element={<Error404 />} />
