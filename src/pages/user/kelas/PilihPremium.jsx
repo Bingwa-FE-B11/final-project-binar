@@ -9,15 +9,26 @@ import { BiSearchAlt } from "react-icons/bi";
 import { NavbarKelas } from "../../../assets/components/navbar/NavbarKelas";
 import { CardPremium } from "../../../assets/components/cards/CardPremium";
 import { NavbarHome } from "../../../assets/components/navbar/NavbarHome";
-import { getAllCoursesAction } from "../../../redux/action/courses/getAllCoursesAction";
-import CardKategorySkeleton from "../../../assets/components/skeleton/CardKategorySkeleton";
+import { SidebarKelas } from "../../../assets/components/sidebar/SidebarKelas";
+import CardCoursesSkeleton from "../../../assets/components/skeleton/CardCourseSkeleton";
 
-// Redux
+// Redux 
+import { getAllCoursesAction } from "../../../redux/action/courses/getAllCoursesAction";
 
 export const PilihPremium = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const storeAuthUser = useSelector((state) => state.authLogin);
+  const storeCourses = useSelector((state) => state.dataCourses.courses);
+
+  const getCourses = () => {
+    dispatch(getAllCoursesAction());
+  };
+
+  useEffect(() => {
+    getCourses();
+  }, [dispatch]);
 
   const getCourses = () => {
     dispatch(getAllCoursesAction());
@@ -52,115 +63,9 @@ export const PilihPremium = () => {
             </div>
           </div>
 
-          {/* Filter */}
           <div className="flex items-start justify-center py-4 md:justify-between lg:justify-between">
-            <div className="hidden w-[30%] flex-col rounded-xl bg-white md:flex lg:flex">
-              {/* Filter */}
-              <div className="flex px-4 py-4 text-xl font-bold">Filter</div>
-              <div className="flex flex-col space-y-3 font-medium">
-                <div className="flex items-center px-6">
-                  <input
-                    type="checkbox"
-                    className="mr-2 h-[20px] w-[20px] cursor-pointer"
-                  />
-                  Paling Baru
-                </div>
-                <div className="flex items-center px-6">
-                  <input
-                    type="checkbox"
-                    className="mr-2 h-[20px] w-[20px] cursor-pointer"
-                  />
-                  Paling Populer
-                </div>
-                <div className="flex items-center px-6">
-                  <input
-                    type="checkbox"
-                    className="mr-2 h-[20px] w-[20px] cursor-pointer"
-                  />
-                  Promo
-                </div>
-              </div>
-
-              {/* Kategori */}
-              <div className="flex px-4 py-3 text-xl font-bold">Kategori</div>
-              <div className="flex flex-col space-y-3 font-medium">
-                <div className="flex items-center px-6">
-                  <input
-                    type="checkbox"
-                    className="mr-2 h-[20px] w-[20px] cursor-pointer"
-                  />
-                  UI/UX Design
-                </div>
-                <div className="flex items-center px-6">
-                  <input
-                    type="checkbox"
-                    className="mr-2 h-[20px] w-[20px] cursor-pointer"
-                  />
-                  Web Development
-                </div>
-                <div className="flex items-center px-6">
-                  <input
-                    type="checkbox"
-                    className="mr-2 h-[20px] w-[20px] cursor-pointer"
-                  />
-                  Android Development
-                </div>
-                <div className="flex items-center px-6">
-                  <input
-                    type="checkbox"
-                    className="mr-2 h-[20px] w-[20px] cursor-pointer"
-                  />
-                  Data Science
-                </div>
-                <div className="flex items-center px-6">
-                  <input
-                    type="checkbox"
-                    className="mr-2 h-[20px] w-[20px] cursor-pointer"
-                  />
-                  Business Intelligence
-                </div>
-              </div>
-
-              {/* Level Kesulitan */}
-              <div className="flex px-4 py-3 text-xl font-bold">
-                Level Kesulitan
-              </div>
-              <div className="flex flex-col space-y-3 font-medium">
-                <div className="flex items-center px-6">
-                  <input
-                    type="checkbox"
-                    className="mr-2 h-[20px] w-[20px] cursor-pointer"
-                  />
-                  Semua Level
-                </div>
-                <div className="flex items-center px-6">
-                  <input
-                    type="checkbox"
-                    className="mr-2 h-[20px] w-[20px] cursor-pointer"
-                  />
-                  Beginner Level
-                </div>
-                <div className="flex items-center px-6">
-                  <input
-                    type="checkbox"
-                    className="mr-2 h-[20px] w-[20px] cursor-pointer"
-                  />
-                  Intermediate Level
-                </div>
-                <div className="flex items-center px-6">
-                  <input
-                    type="checkbox"
-                    className="mr-2 h-[20px] w-[20px] cursor-pointer"
-                  />
-                  Advanced Level
-                </div>
-              </div>
-
-              {/* Hapus Filter */}
-              <button className="py-10 font-medium text-red-600">
-                Hapus Filter
-              </button>
-            </div>
+          {/* Filter */}            
+            <SidebarKelas/>
 
             {/* Button */}
             <div className="flex w-[65%] flex-wrap items-center justify-between font-semibold">
@@ -193,25 +98,26 @@ export const PilihPremium = () => {
 
               {/* Main Content */}
               <div className="grid w-full grid-cols-2 gap-6 py-4 md:grid-cols-1 lg:grid-cols-2">
-                {storeCourses == null ? (
-                  <CardKategorySkeleton />
-                ) : (
-                  storeCourses.filter((value) => value.isPremium)
-                  .map((value) => (
-                    <CardPremium
-                      key={value.id}
-                      image={value.courseImg}
-                      category={value.category.categoryName}
-                      rating={value.averageRating}
-                      title={value.courseName}
-                      author={value.mentor}
-                      level={value.level}
-                      modul={value.modul}
-                      duration={value.duration}
-                      isPremium={"Premium"}
-                    />
+              {storeCourses == null ? (
+              <CardCoursesSkeleton />
+              ) : (
+                storeCourses.filter((value) => value.isPremium)
+                .map((value) => (
+                  <CardPremium
+                    key={value.id}
+                    image={value.courseImg}
+                    category={value.category.categoryName}
+                    rating={value.averageRating}
+                    title={value.courseName}
+                    author={value.mentor}
+                    level={value.level}
+                    modul={value.modul}
+                    duration={value.duration}
+                    categoryId={value.id}
+                    isPremium={"Premium"}
+                  />
                   ))
-                )}
+              )}
               </div>
             </div>
           </div>

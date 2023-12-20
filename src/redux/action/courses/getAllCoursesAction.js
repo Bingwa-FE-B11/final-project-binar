@@ -9,6 +9,6 @@ export const getAllCoursesAction = () => (dispatch) => {
       return true;
     })
     .catch((err) => {
-      console.error("reduxGetUser", err);
+      console.error("reduxAllCourse", err);
     });
 };

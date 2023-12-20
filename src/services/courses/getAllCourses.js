@@ -6,6 +6,7 @@ import http from "../../utils/http";
 export const reduxGetAllCourses = async () => {
   return await http.get(`${API_ENDPOINT.GET_ALL_COURSES}?limit=50`);
 };
-export const reduxGetDetailCoursesId = async () => {
-  return await http.get(API_ENDPOINT.GET_COURSE);
-}
+
+export const reduxGetDetailCoursesId = async (categoryId) => {
+  return await http.get(`${API_ENDPOINT.GET_COURSE}/${categoryId}`);
+};

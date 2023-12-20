@@ -27,7 +27,7 @@ export const API_ENDPOINT = {
   CREATE_COURSE: "/courses", // [POST] Create Course
   GET_ALL_COURSES: "/courses", // [GET] Get All Courses
   UPDATE_COURSE: "/courses/{courseId}", // [PUT] Update Course by ID
-  GET_COURSE: "/courses/{courseId}", // [GET] Get Course by ID
+  GET_COURSE: "/courses", // [GET] Get Course by ID
   DELETE_COURSE: "/courses/{courseId}", // [DELETE] Delete Course by ID
 
   // CHAPTERS

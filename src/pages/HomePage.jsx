@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
@@ -9,8 +9,8 @@ import Header from "../assets/img/Header.webp";
 import { NavbarHome } from "../assets/components/navbar/NavbarHome";
 import { CardKursus } from "../assets/components/cards/CardKursus";
 import { CardKategory } from "../assets/components/cards/CardKategory";
-import CardKategorySkeleton from "../assets/components/skeleton/CardKategorySkeleton";
 import { NavbarKelas } from "../assets/components/navbar/NavbarKelas";
+import CardKategorySkeleton from "../assets/components/skeleton/CardKategorySkeleton"
 
 // Redux
 import { getUserProfileAction } from "../redux/action/auth/getUserProfileAction";
@@ -20,6 +20,7 @@ import { getAllCoursesAction } from "../redux/action/courses/getAllCoursesAction
 export const HomePage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [showAllCourses, setShowAllCourses] = useState(false);
 
   const getUserProfile = () => {
     dispatch(getUserProfileAction());
@@ -39,13 +40,18 @@ export const HomePage = () => {
     getCourses();
   }, [dispatch]);
 
-  const storeCategories = useSelector(
-    (state) => state.dataCategories.categories,
-  );
+  const toggleShowAllCourses = () => {
+    setShowAllCourses(!showAllCourses);
+  };
+
+  const storeCategories = useSelector((state) => state.dataCategories.categories);
   const storeCourses = useSelector((state) => state.dataCourses.courses);
   const storeAuthUser = useSelector((state) => state.authLogin);
-
+  // const detailCourses = useSelector((state) => state.dataCourses.detail)
   const displayedCourses = storeCourses ? storeCourses.slice(0, 3) : [];
+  const displayedCategories = storeCategories ? storeCategories.slice(0, 6) : [];
+
+  // console.log("detailCourses", detailCourses);
 
   console.log("storeCourses", storeCourses);
 
@@ -93,16 +99,15 @@ export const HomePage = () => {
           </div>
           <div className="grid grid-cols-6 gap-4">
             {storeCategories == null ? (
-              <CardKategorySkeleton />
+              <CardKategorySkeleton/>
             ) : (
-              storeCategories.map((value) => (
+              displayedCategories.map((value) => (
                 <CardKategory
                   key={value.id}
                   category={value.categoryName}
                   thumbnail={value.categoryImg}
                 />
-              ))
-            )}
+            )))}
           </div>
         </div>
         {/* End Kategori Belajar Section */}
@@ -111,8 +116,9 @@ export const HomePage = () => {
         <div className="flex flex-col gap-5 px-28 py-12">
           <div className="flex items-center justify-between">
             <div className="text-2xl font-semibold">Kursus Populer</div>
-            <div className="cursor-pointer text-lg font-semibold text-primary">
-              Lihat Semua
+            <div className="cursor-pointer text-lg font-semibold text-primary"
+            onClick={toggleShowAllCourses}>
+              {showAllCourses ? "Tampilkan Sedikit" : "Lihat Semua"}
             </div>
           </div>
 
@@ -142,21 +148,40 @@ export const HomePage = () => {
           </div>
 
           {/* Container Card Kelas */}
-          <div className="grid grid-cols-3 gap-5">
-            {displayedCourses.map((value) => (
-              <CardKursus
-                key={value.id}
-                image={value.courseImg}
-                category={value.category.categoryName}
-                rating={value.averageRating}
-                title={value.courseName}
-                author={value.mentor}
-                level={value.level}
-                modul={value.modul}
-                duration={value.duration}
-                price={value.price}
-              />
-            ))}
+          <div className="grid grid-cols-3 gap-6">
+          {showAllCourses
+            ? storeCourses.map((value) => (
+                <CardKursus
+                  key={value.id}
+                  image={value.courseImg}
+                  category={value.category.categoryName}
+                  rating={value.averageRating}
+                  title={value.courseName}
+                  author={value.mentor}
+                  level={value.level}
+                  modul={value.modul}
+                  duration={value.duration}
+                  price={value.price}
+                  categoryId={value.id}
+                  isPremium={value.isPremium}
+                />
+              ))
+            : displayedCourses.map((value) => (
+                <CardKursus
+                  key={value.id}
+                  image={value.courseImg}
+                  category={value.category.categoryName}
+                  rating={value.averageRating}
+                  title={value.courseName}
+                  author={value.mentor}
+                  level={value.level}
+                  modul={value.modul}
+                  duration={value.duration}
+                  price={value.price}
+                  categoryId={value.id}
+                  isPremium={value.isPremium}
+                />
+              ))}
           </div>
         </div>
         {/* End Kursus Populer */}

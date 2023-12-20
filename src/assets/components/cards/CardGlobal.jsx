@@ -1,18 +1,15 @@
-import React from 'react';
-
-// Images
-import uiux from '../../img/uiux.webp';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 // Icons
-import { FaStar } from 'react-icons/fa';
-import { RiShieldStarLine } from 'react-icons/ri';
-import { LiaBookSolid } from 'react-icons/lia';
-import { IoDiamond, IoTime,iconDiamond } from 'react-icons/io5';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { FaStar } from "react-icons/fa";
+import { RiShieldStarLine } from "react-icons/ri";
+import { LiaBookSolid } from "react-icons/lia";
+import { IoDiamond, IoTime } from "react-icons/io5";
 
-
-//Redux
+// Redux
+import { getDetailCoursesAction } from "../../../redux/action/courses/getDetailCourseAction";
 
 export const CardGlobal = ({
   image,
@@ -29,21 +26,27 @@ export const CardGlobal = ({
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const handleCardClick = () => {
+    dispatch(getDetailCoursesAction(categoryId));
+    navigate(`/detail-kelas/${categoryId}`);
+  };
+
   return (
     <div className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-md">
       <div
-        className="h-32 min-w-fit scale-105 bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${image})` }}
+        className="h-32 min-w-fit scale-105 cursor-pointer bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${image})`, backgroundSize: 'cover', objectFit: 'cover' }}
+        onClick={handleCardClick}
       ></div>
       {/* Container Desc Card Kelas */}
       <div className="flex flex-col gap-4 bg-white px-4 py-3">
         <div className="flex justify-between">
           <div className="text-lg font-bold text-primary">{category}</div>
           <div className="flex items-center gap-1">
-            <div className="text-yellow-400">
+            <div className="text-yellow-700">
               <FaStar />
             </div>
-            <div className="font-bold">{rating}</div>
+            <div className="font-bold">{rating}4.9</div>
           </div>
         </div>
         <div className="flex flex-col">
@@ -74,7 +77,7 @@ export const CardGlobal = ({
             </div>
           </div>
         ) : (
-          <div className="w-fit cursor-pointer rounded-3xl bg-green px-4 py-1 text-white transition-all hover:bg-blue-hover">
+          <div className="w-fit cursor-pointer rounded-3xl text-white bg-green px-4 py-1 transition-all hover:bg-blue-hover">
             Mulai Kelas
           </div>
         )}

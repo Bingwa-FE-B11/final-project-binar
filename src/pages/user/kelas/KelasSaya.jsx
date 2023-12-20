@@ -7,6 +7,7 @@ import { BiSearchAlt } from "react-icons/bi";
 // Components
 import { NavbarKelas } from "../../../assets/components/navbar/NavbarKelas";
 import { CardKelasSaya } from "../../../assets/components/cards/CardKelasSaya";
+import { SidebarKelas } from "../../../assets/components/sidebar/SidebarKelas";
 
 // Redux
 import { getUserProfileAction } from "../../../redux/action/auth/getUserProfileAction";
@@ -48,115 +49,9 @@ export const KelasSaya = () => {
           </div>
         </div>
 
+        <div className="flex items-start justify-center lg:justify-between md:justify-between py-4">
         {/* Filter */}
-        <div className="flex items-start justify-center py-4 md:justify-between lg:justify-between">
-          <div className="hidden w-[30%] flex-col rounded-xl bg-white md:flex lg:flex">
-            {/* Filter */}
-            <div className="flex px-4 py-4 text-xl font-bold">Filter</div>
-            <div className="flex flex-col space-y-3 font-medium">
-              <div className="flex items-center px-6">
-                <input
-                  type="checkbox"
-                  className="mr-2 h-[20px] w-[20px] cursor-pointer"
-                />
-                Paling Baru
-              </div>
-              <div className="flex items-center px-6">
-                <input
-                  type="checkbox"
-                  className="mr-2 h-[20px] w-[20px] cursor-pointer"
-                />
-                Paling Populer
-              </div>
-              <div className="flex items-center px-6">
-                <input
-                  type="checkbox"
-                  className="mr-2 h-[20px] w-[20px] cursor-pointer"
-                />
-                Promo
-              </div>
-            </div>
-
-            {/* Kategori */}
-            <div className="flex px-4 py-3 text-xl font-bold">Kategori</div>
-            <div className="flex flex-col space-y-3 font-medium">
-              <div className="flex items-center px-6">
-                <input
-                  type="checkbox"
-                  className="mr-2 h-[20px] w-[20px] cursor-pointer"
-                />
-                UI/UX Design
-              </div>
-              <div className="flex items-center px-6">
-                <input
-                  type="checkbox"
-                  className="mr-2 h-[20px] w-[20px] cursor-pointer"
-                />
-                Web Development
-              </div>
-              <div className="flex items-center px-6">
-                <input
-                  type="checkbox"
-                  className="mr-2 h-[20px] w-[20px] cursor-pointer"
-                />
-                Android Development
-              </div>
-              <div className="flex items-center px-6">
-                <input
-                  type="checkbox"
-                  className="mr-2 h-[20px] w-[20px] cursor-pointer"
-                />
-                Data Science
-              </div>
-              <div className="flex items-center px-6">
-                <input
-                  type="checkbox"
-                  className="mr-2 h-[20px] w-[20px] cursor-pointer"
-                />
-                Business Intelligence
-              </div>
-            </div>
-
-            {/* Level Kesulitan */}
-            <div className="flex px-4 py-3 text-xl font-bold">
-              Level Kesulitan
-            </div>
-            <div className="flex flex-col space-y-3 font-medium">
-              <div className="flex items-center px-6">
-                <input
-                  type="checkbox"
-                  className="mr-2 h-[20px] w-[20px] cursor-pointer"
-                />
-                Semua Level
-              </div>
-              <div className="flex items-center px-6">
-                <input
-                  type="checkbox"
-                  className="mr-2 h-[20px] w-[20px] cursor-pointer"
-                />
-                Beginner Level
-              </div>
-              <div className="flex items-center px-6">
-                <input
-                  type="checkbox"
-                  className="mr-2 h-[20px] w-[20px] cursor-pointer"
-                />
-                Intermediate Level
-              </div>
-              <div className="flex items-center px-6">
-                <input
-                  type="checkbox"
-                  className="mr-2 h-[20px] w-[20px] cursor-pointer"
-                />
-                Advanced Level
-              </div>
-            </div>
-
-            {/* Hapus Filter */}
-            <button className="py-10 font-medium text-red-600">
-              Hapus Filter
-            </button>
-          </div>
+          <SidebarKelas/>
 
           {/* Button */}
           <div className="flex w-[65%] flex-wrap items-center justify-between font-semibold">
