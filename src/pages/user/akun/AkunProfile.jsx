@@ -15,6 +15,7 @@ import {
 
 // Icons
 import { GoArrowLeft } from "react-icons/go";
+import { IoImageOutline } from "react-icons/io5";
 
 // Redux Action
 import {
@@ -124,7 +125,7 @@ export const AkunProfile = () => {
     <>
       <div className="h-fit bg-secondary px-9 py-20 pt-2 md:h-screen md:px-20 lg:h-fit lg:px-80 lg:pt-[5rem]">
         <div
-          className="relative flex items-center gap-2 py-8 text-lg font-bold text-primary cursor-pointer"
+          className="relative flex cursor-pointer items-center gap-2 py-8 text-lg font-bold text-primary"
           onClick={() => {
             navigate("/");
           }}
@@ -160,9 +161,16 @@ export const AkunProfile = () => {
                       ? URL.createObjectURL(image)
                       : Data.userProfile?.profilePicture
                   }
-                  alt=""
+                  alt="Profile"
                   className="h-full w-full cursor-pointer rounded-full object-cover"
                 />
+                {Data?.userProfile.profilePicture ? (
+                  <></>
+                ) : (
+                  <div className="absolute bottom-0 right-0 rounded-full bg-slate-100 p-1 text-primary">
+                    <IoImageOutline size={30} />
+                  </div>
+                )}
               </div>
               <div className="flex flex-col gap-1">
                 <div className="text-left">Nama</div>
