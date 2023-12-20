@@ -46,7 +46,7 @@ export const NavbarKelas = () => {
   };
 
   return (
-    <div className="fixed top-0 flex w-screen items-center justify-between gap-2 bg-primary px-2 py-4 lg:px-28 md:px-6">
+    <div className="fixed top-0 flex w-screen items-center justify-between gap-2 px-2 py-4 bg-primary lg:px-28 md:px-6 z-20">
       <div className="flex gap-10">
         <div 
           className="hidden items-center justify-center gap-2 lg:flex md:flex cursor-pointer"

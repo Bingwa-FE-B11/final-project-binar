@@ -12,13 +12,12 @@ import { NavbarHome } from "../../../assets/components/navbar/NavbarHome";
 import { SidebarKelas } from "../../../assets/components/sidebar/SidebarKelas";
 import CardCoursesSkeleton from "../../../assets/components/skeleton/CardCourseSkeleton";
 
-// Redux 
+// Redux
 import { getAllCoursesAction } from "../../../redux/action/courses/getAllCoursesAction";
 
 export const PilihPremium = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const storeAuthUser = useSelector((state) => state.authLogin);
   const storeCourses = useSelector((state) => state.dataCourses.courses);
 
@@ -30,15 +29,9 @@ export const PilihPremium = () => {
     getCourses();
   }, [dispatch]);
 
-  const getCourses = () => {
-    dispatch(getAllCoursesAction());
-  };
-
   useEffect(() => {
     getCourses();
   }, [dispatch]);
-
-  const storeCourses = useSelector((state) => state.dataCourses.courses);
 
   console.log("storeCourses", storeCourses);
 
@@ -64,8 +57,8 @@ export const PilihPremium = () => {
           </div>
 
           <div className="flex items-start justify-center py-4 md:justify-between lg:justify-between">
-          {/* Filter */}            
-            <SidebarKelas/>
+            {/* Filter */}
+            <SidebarKelas />
 
             {/* Button */}
             <div className="flex w-[65%] flex-wrap items-center justify-between font-semibold">
@@ -98,26 +91,27 @@ export const PilihPremium = () => {
 
               {/* Main Content */}
               <div className="grid w-full grid-cols-2 gap-6 py-4 md:grid-cols-1 lg:grid-cols-2">
-              {storeCourses == null ? (
-              <CardCoursesSkeleton />
-              ) : (
-                storeCourses.filter((value) => value.isPremium)
-                .map((value) => (
-                  <CardPremium
-                    key={value.id}
-                    image={value.courseImg}
-                    category={value.category.categoryName}
-                    rating={value.averageRating}
-                    title={value.courseName}
-                    author={value.mentor}
-                    level={value.level}
-                    modul={value.modul}
-                    duration={value.duration}
-                    categoryId={value.id}
-                    isPremium={"Premium"}
-                  />
-                  ))
-              )}
+                {storeCourses == null ? (
+                  <CardCoursesSkeleton />
+                ) : (
+                  storeCourses
+                    .filter((value) => value.isPremium)
+                    .map((value) => (
+                      <CardPremium
+                        key={value.id}
+                        image={value.courseImg}
+                        category={value.category.categoryName}
+                        rating={value.averageRating}
+                        title={value.courseName}
+                        author={value.mentor}
+                        level={value.level}
+                        modul={value.modul}
+                        duration={value.duration}
+                        categoryId={value.id}
+                        isPremium={"Premium"}
+                      />
+                    ))
+                )}
               </div>
             </div>
           </div>

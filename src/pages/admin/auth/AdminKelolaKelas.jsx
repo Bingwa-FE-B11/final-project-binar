@@ -69,7 +69,7 @@ export const AdminKelolaKelas = () => {
                 </div>
                 <div className="flex w-full flex-shrink-0 flex-col items-stretch justify-end space-y-2 md:w-auto md:flex-row md:items-center md:space-x-3 md:space-y-0">
                   <div className="flex w-full items-center space-x-3 md:w-auto">
-                    <button className="flex h-10 items-center justify-center gap-2 rounded-full bg-primary px-4 text-white transition-all hover:bg-primary-hover">
+                    <button className="flex h-10 items-center justify-center gap-2 rounded-full bg-primary px-4 text-white transition-all hover:bg-primary-hover" onClick={handleDialogOpen}>
                       <FiPlusCircle size={30} />
                       <span className="font-semibold">Tambah</span>
                     </button>
