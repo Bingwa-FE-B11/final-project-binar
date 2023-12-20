@@ -18,8 +18,8 @@ export const getUserProfileAction = () => (dispatch) => {
     });
 };
 
-export const putUpdateProfile = (input) => async (dispatch) => {
-  return reduxUpdateProfile(input)
+export const putUpdateProfile = (formData) => async (dispatch) => {
+  return reduxUpdateProfile(formData)
     .then((result) => {
       console.log("result -> reduxUpdateProfile", result);
       dispatch(setUserProfile(result.data.data.newUserProfile));

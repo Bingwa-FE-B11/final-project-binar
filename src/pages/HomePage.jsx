@@ -88,8 +88,12 @@ export const HomePage = () => {
         <div className="flex flex-col gap-5 bg-secondary px-28 py-12">
           <div className="flex items-center justify-between">
             <div className="text-2xl font-semibold">Kategori Belajar</div>
-            <div className="cursor-pointer text-lg font-semibold text-primary"
-            onClick={()=>{navigate("/all-kelas")}}>
+            <div
+              className="cursor-pointer text-lg font-semibold text-primary"
+              onClick={() => {
+                navigate("/all-kelas");
+              }}
+            >
               Lihat Semua
             </div>
           </div>

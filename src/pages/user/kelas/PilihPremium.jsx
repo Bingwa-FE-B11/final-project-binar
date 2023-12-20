@@ -16,6 +16,7 @@ import CardCoursesSkeleton from "../../../assets/components/skeleton/CardCourseS
 import { getAllCoursesAction } from "../../../redux/action/courses/getAllCoursesAction";
 
 export const PilihPremium = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const storeAuthUser = useSelector((state) => state.authLogin);
@@ -28,6 +29,18 @@ export const PilihPremium = () => {
   useEffect(() => {
     getCourses();
   }, [dispatch]);
+
+  const getCourses = () => {
+    dispatch(getAllCoursesAction());
+  };
+
+  useEffect(() => {
+    getCourses();
+  }, [dispatch]);
+
+  const storeCourses = useSelector((state) => state.dataCourses.courses);
+
+  console.log("storeCourses", storeCourses);
 
   return (
     <>
@@ -87,28 +100,29 @@ export const PilihPremium = () => {
               <div className="grid w-full grid-cols-2 gap-6 py-4 md:grid-cols-1 lg:grid-cols-2">
               {storeCourses == null ? (
               <CardCoursesSkeleton />
-            ) : (
-              storeCourses.filter((value) => value.isPremium)
-              .map((value) => (
-                <CardPremium
-                  key={value.id}
-                  image={value.courseImg}
-                  category={value.category.categoryName}
-                  rating={value.averageRating}
-                  title={value.courseName}
-                  author={value.mentor}
-                  level={value.level}
-                  modul={value.modul}
-                  duration={value.duration}
-                  categoryId={value.id}
-                  isPremium={"Premium"}
-                />
-                ))
-            )}
+              ) : (
+                storeCourses.filter((value) => value.isPremium)
+                .map((value) => (
+                  <CardPremium
+                    key={value.id}
+                    image={value.courseImg}
+                    category={value.category.categoryName}
+                    rating={value.averageRating}
+                    title={value.courseName}
+                    author={value.mentor}
+                    level={value.level}
+                    modul={value.modul}
+                    duration={value.duration}
+                    categoryId={value.id}
+                    isPremium={"Premium"}
+                  />
+                  ))
+              )}
               </div>
             </div>
           </div>
         </div>
+
         <NavbarKelas style={{ zIndex: 1 }} />
       </div>
     </>

@@ -87,24 +87,24 @@ export const PilihGratis = () => {
               <div className="grid w-full grid-cols-2 gap-6 py-4 md:grid-cols-1 lg:grid-cols-2">
               {storeCourses == null ? (
               <CardCoursesSkeleton />
-            ) : (
-              storeCourses.filter((value) => !value.isPremium)
-              .map((value) => (
-                <CardGlobal
-                key={value.id}
-                image={value.courseImg}
-                category={value.category.categoryName}
-                rating={value.averageRating}
-                title={value.courseName}
-                author={value.mentor}
-                level={value.level}
-                modul={value.modul}
-                duration={value.duration}
-                categoryId={value.id}
-                isPremium={value.isPremium}
-                />
-                ))
-                )}
+              ) : (
+                storeCourses.filter((value) => !value.isPremium)
+                .map((value) => (
+                  <CardGlobal
+                  key={value.id}
+                  image={value.courseImg}
+                  category={value.category.categoryName}
+                  rating={value.averageRating}
+                  title={value.courseName}
+                  author={value.mentor}
+                  level={value.level}
+                  modul={value.modul}
+                  duration={value.duration}
+                  categoryId={value.id}
+                  isPremium={value.isPremium}
+                  />
+                  ))
+                  )}
               </div>
             </div>
           </div>

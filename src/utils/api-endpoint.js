@@ -11,8 +11,8 @@ export const API_ENDPOINT = {
   AUTH_USER: "/users/authenticate", // [GET] Get User by Authenticate
 
   // GOOGLE
-  GOOGLE: '/users/google', // [GET] Login User With Google
-  GOOGLE_CALLBACK: '/users/google/callback', // [GET] Google Callback
+  GOOGLE: "/users/google", // [GET] Login User With Google
+  GOOGLE_CALLBACK: "/users/google/callback", // [GET] Google Callback
 
   // USER PROFILE
   UPDATE_PROFILE: "/user-profiles/update-profile", // [PUT] Edit User by Authenticate
@@ -72,4 +72,7 @@ export const API_ENDPOINT = {
   GET_HISTORY_PAYMENTS: "/payments/history", // [GET] Get All Payment by Authentication
   GET_PAYMENT_BY_COURSE: "/payments/{courseId}/course", // [GET] Get Payment by Course ID
   CREATE_PAYMENT: "/payments/{courseId}/course", // [POST] Create Payment
+
+  // ADMIN
+  GET_ADMIN_ALL: "/admin/all", // [GET] Get All Data From Admin
 };

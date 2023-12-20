@@ -21,7 +21,7 @@ import {
 import toast from "react-hot-toast";
 
 // Google Login
-import GoogleLogin from "../../../assets/components/google/Google"; 
+import GoogleLogin from "../../../assets/components/google/Google";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -204,7 +204,7 @@ export const LoginPage = () => {
               </div>
               <div className="relative flex flex-col">
                 <input
-                  placeholder="Masukkan Password"
+                  placeholder="**********"
                   onChange={handleInput}
                   className="rounded-xl border-2 border-slate-300 px-4 py-3 focus:border-primary focus:outline-none"
                   value={Password}
@@ -240,7 +240,7 @@ export const LoginPage = () => {
                 Masuk
               </button>
 
-              <div className="flex justify-center items-center">
+              <div className="flex items-center justify-center">
                 <GoogleLogin />
               </div>
 
@@ -262,7 +262,7 @@ export const LoginPage = () => {
         </div>
       </div>
 
-      <div className="hidden h-screen w-2/5 items-center justify-center bg-primary lg:flex md:flex">
+      <div className="hidden h-screen w-2/5 items-center justify-center bg-primary md:flex lg:flex">
         <div className="flex items-center justify-center gap-6">
           <img src={BrandLogo} alt="Brand Logo" className="w-[15%]" />
           <span className="text-center font-sans text-6xl text-white">
