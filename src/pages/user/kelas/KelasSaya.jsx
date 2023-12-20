@@ -30,15 +30,15 @@ export const KelasSaya = () => {
   };
 
   return (
-    <div className="flex flex-col justify-between h-full bg-secondary">
-      <div className="flex flex-col justify-center px-2 lg:px-24 md:px-4 pt-16 lg:pt-28 md:pt-20">
+    <div className="flex h-full flex-col justify-between bg-secondary">
+      <div className="flex flex-col justify-center px-2 pt-16 md:px-4 md:pt-20 lg:px-24 lg:pt-28">
         {/* Search */}
         <div className="flex items-center justify-between">
           <div className="px-4 py-6 text-3xl font-bold">Kelas Berjalan</div>
           <div className="relative flex items-center">
             <input
               type="text"
-              className="cursor-pointer rounded-3xl border-2 border-primary px-1 lg:px-4 md:px-4 py-2"
+              className="cursor-pointer rounded-3xl border-2 border-primary px-1 py-2 md:px-4 lg:px-4"
               placeholder="Cari Kelas..."
             />
             <BiSearchAlt
@@ -49,8 +49,8 @@ export const KelasSaya = () => {
         </div>
 
         {/* Filter */}
-        <div className="flex items-start justify-center lg:justify-between md:justify-between py-4">
-          <div className="w-[30%] flex-col rounded-xl bg-white hidden lg:flex md:flex">
+        <div className="flex items-start justify-center py-4 md:justify-between lg:justify-between">
+          <div className="hidden w-[30%] flex-col rounded-xl bg-white md:flex lg:flex">
             {/* Filter */}
             <div className="flex px-4 py-4 text-xl font-bold">Filter</div>
             <div className="flex flex-col space-y-3 font-medium">
@@ -159,21 +159,21 @@ export const KelasSaya = () => {
           </div>
 
           {/* Button */}
-          <div className="flex flex-wrap items-center justify-between font-semibold w-[65%]">
+          <div className="flex w-[65%] flex-wrap items-center justify-between font-semibold">
             <div className="flex w-full gap-4 text-center">
-              <div className="w-[20%] py-2 bg-white cursor-pointer rounded-xl hover:bg-primary hover:text-white">
+              <div className="w-[20%] cursor-pointer rounded-xl bg-white py-2 hover:bg-primary hover:text-white">
                 <button>All</button>
               </div>
-              <div className="w-[60%] py-2 bg-white cursor-pointer rounded-xl hover:bg-primary hover:text-white">
+              <div className="w-[60%] cursor-pointer rounded-xl bg-white py-2 hover:bg-primary hover:text-white">
                 <button>In Progress</button>
               </div>
-              <div className="w-[20%] py-2 bg-white cursor-pointer rounded-xl hover:bg-primary hover:text-white">
+              <div className="w-[20%] cursor-pointer rounded-xl bg-white py-2 hover:bg-primary hover:text-white">
                 <button>Selesai</button>
               </div>
             </div>
 
             {/* Main Content */}
-            <div className="grid w-full grid-cols-2 lg:grid-cols-2 md:grid-cols-1 gap-6 py-4">
+            <div className="grid w-full grid-cols-2 gap-6 py-4 md:grid-cols-1 lg:grid-cols-2">
               {/* Card Item */}
               <CardKelasSaya
                 category={"UAI UEX DISAIN"}

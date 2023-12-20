@@ -1,30 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { useMediaQuery } from "react-responsive";
+import toast from "react-hot-toast";
 
 // Components
 import { NavbarAkun } from "../../../assets/components/navbar/NavbarAkun";
 import { SidebarAkun } from "../../../assets/components/sidebar/SidebarAkun";
-
-// Icons
-import { GoArrowLeft } from "react-icons/go";
-import { IoImageOutline } from "react-icons/io5";
-
-// Redux Action
-import { putUpdateProfile } from "../../../redux/action/auth/getUserProfileAction";
 import {
   showLoadingToast,
   showSuccessToast,
 } from "../../../helper/ToastHelper";
-import toast from "react-hot-toast";
+
+// Icons
+import { GoArrowLeft } from "react-icons/go";
+
+// Redux Action
+import {
+  getUserProfileAction,
+  putUpdateProfile,
+} from "../../../redux/action/auth/getUserProfileAction";
+import { NavbarMobile } from "../../../assets/components/navbar/NavbarMobile";
 
 export const AkunProfile = () => {
-  const Data = useSelector((state) => state.authLogin);
+  const isMobile = useMediaQuery({ maxWidth: 767 });
 
+  const Data = useSelector((state) => state.authLogin);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const dispatch = useDispatch();
+  const getUserProfile = () => {
+    dispatch(getUserProfileAction());
+  };
+
+  useEffect(() => {
+    getUserProfile();
+  }, [dispatch]);
 
   const [image, setImage] = useState(null);
   const [newFullName, setNewFullName] = useState(Data.userProfile?.fullName);
@@ -79,28 +91,26 @@ export const AkunProfile = () => {
     const file = e.target.files[0];
 
     if (file) {
-      const reader = new FileReader();
-
-      reader.onloadend = () => {
-        setImage(reader.result);
-      };
-
-      reader.readAsDataURL(file);
+      setImage(file);
     }
   };
 
   const handleSave = async () => {
-    const loadingToastId = showLoadingToast("Loading . . .");
+    const loadingToastId = showLoadingToast("Loading...");
 
-    const update = await dispatch(
-      putUpdateProfile({
-        image: image,
-        fullName: newFullName,
-        email: email,
-        phoneNumber: newPhoneNumber,
-        city: newCity,
-        country: newCountry,
-      }),
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("fullName", newFullName);
+    formData.append("email", email);
+    formData.append("phoneNumber", newPhoneNumber);
+    formData.append("city", newCity);
+    formData.append("country", newCountry);
+
+    const update = await dispatch(putUpdateProfile(formData));
+
+    console.log(
+      "🚀 ~ file: AkunProfile.jsx:90 ~ handleSave ~ formData:",
+      formData,
     );
 
     toast.dismiss(loadingToastId);
@@ -110,20 +120,20 @@ export const AkunProfile = () => {
     }
   };
 
-  console.log("Data", Data);
-
   return (
     <>
-      <div className="mt-[2rem] px-9 lg:px-80 md:px-20 py-10 bg-secondary h-fit lg:h-fit md:h-screen">
-        <div className="flex items-center gap-2 py-8 text-lg font-bold text-primary relative">
+      <div className="h-fit bg-secondary px-9 py-20 pt-2 md:h-screen md:px-20 lg:h-fit lg:px-80 lg:pt-[5rem]">
+        <div
+          className="relative flex items-center gap-2 py-8 text-lg font-bold text-primary cursor-pointer"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
           <GoArrowLeft
             size={30}
-            className="cursor-pointer absolute -inset-x-8 lg:-inset-x-16 md:-inset-x-12"
-            onClick={() => {
-              navigate("/");
-            }}
+            className="absolute -inset-x-1 cursor-pointer md:-inset-x-12 lg:-inset-x-12"
           />
-          Kembali Ke Beranda
+          <span className="hidden lg:flex">Kembali Ke Beranda</span>
         </div>
 
         {/* Akun */}
@@ -135,29 +145,30 @@ export const AkunProfile = () => {
           {/* Isi Akun */}
           <div className="flex py-4 text-center">
             <SidebarAkun />
-            <div className="flex flex-col items-center w-full lg:w-[60%] md:w-[60%] gap-4">
-              <div className="w-20 h-20 border-[3px] rounded-full border-primary relative">
-              <input
+            <div className="flex w-full flex-col items-center gap-4 md:w-[60%] lg:w-[60%]">
+              <div className="relative h-28 w-28 cursor-pointer rounded-full border-[3px] border-primary">
+                <input
                   type="file"
                   id="image"
                   accept="image/*"
-                  className="absolute w-20 h-20 opacity-0 cursor-pointer inset-x-0 rounded-full"
+                  className="absolute inset-x-0 h-full w-full cursor-pointer rounded-full opacity-0"
                   onChange={(e) => handleImageUpload(e)}
                 />
                 <img
-                  src={image || Data.userProfile?.image}
-                  alt="profile"
-                  className="w-20 h-20 object-cover rounded-full cursor-pointer"
+                  src={
+                    image
+                      ? URL.createObjectURL(image)
+                      : Data.userProfile?.profilePicture
+                  }
+                  alt=""
+                  className="h-full w-full cursor-pointer rounded-full object-cover"
                 />
-                <div className="absolute bottom-0 right-0 bg-white rounded-full text-primary w-fit">
-                  <IoImageOutline size={25} />
-                </div>
               </div>
               <div className="flex flex-col gap-1">
                 <div className="text-left">Nama</div>
                 <input
                   type="text"
-                  className="px-4 py-3 border-2 w-[18rem] lg:w-[22rem] md:w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
+                  className="w-[18rem] rounded-2xl border-2 border-slate-300 px-4 py-3 focus:border-primary focus:outline-none md:w-[22rem] lg:w-[22rem]"
                   placeholder="Bingwa"
                   id="name"
                   onChange={handleInputName}
@@ -168,7 +179,7 @@ export const AkunProfile = () => {
                 <div className="text-left">Email</div>
                 <input
                   type="text"
-                  className="px-4 py-3 border-2 w-[18rem] lg:w-[22rem] md:w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
+                  className="w-[18rem] rounded-2xl border-2 border-slate-300 px-4 py-3 focus:border-primary focus:outline-none md:w-[22rem] lg:w-[22rem]"
                   placeholder="bingwa@gmail.com"
                   id="email"
                   onChange={handleInputEmail}
@@ -179,7 +190,7 @@ export const AkunProfile = () => {
                 <div className="text-left">Nomor Telepon</div>
                 <input
                   type="text"
-                  className="px-4 py-3 border-2 w-[18rem] lg:w-[22rem] md:w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
+                  className="w-[18rem] rounded-2xl border-2 border-slate-300 px-4 py-3 focus:border-primary focus:outline-none md:w-[22rem] lg:w-[22rem]"
                   placeholder="08123456789"
                   id="phone"
                   onChange={handleInputPhone}
@@ -190,7 +201,7 @@ export const AkunProfile = () => {
                 <div className="text-left">Kota</div>
                 <input
                   type="text"
-                  className="px-4 py-3 border-2 w-[18rem] lg:w-[22rem] md:w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
+                  className="w-[18rem] rounded-2xl border-2 border-slate-300 px-4 py-3 focus:border-primary focus:outline-none md:w-[22rem] lg:w-[22rem]"
                   placeholder="Jakarta"
                   id="city"
                   onChange={handleInputCity}
@@ -201,15 +212,15 @@ export const AkunProfile = () => {
                 <div className="text-left">Negara</div>
                 <input
                   type="text"
-                  className="px-4 py-3 border-2 w-[18rem] lg:w-[22rem] md:w-[22rem] rounded-2xl border-slate-300 focus:outline-none focus:border-primary"
+                  className="w-[18rem] rounded-2xl border-2 border-slate-300 px-4 py-3 focus:border-primary focus:outline-none md:w-[22rem] lg:w-[22rem]"
                   placeholder="Indonesia"
                   id="country"
                   onChange={handleInputCountry}
                   value={newCountry}
                 />
               </div>
-              <button 
-                className="px-4 py-3 font-semibold text-white w-[18rem] lg:w-[22rem] md:w-[22rem] bg-primary rounded-2xl hover:bg-primary-hover"
+              <button
+                className="w-[18rem] rounded-2xl bg-primary px-4 py-3 font-semibold text-white hover:bg-primary-hover md:w-[22rem] lg:w-[22rem]"
                 onClick={handleSave}
               >
                 Simpan Profil Saya
@@ -218,7 +229,7 @@ export const AkunProfile = () => {
           </div>
         </div>
       </div>
-      <NavbarAkun style={{ zIndex: 1 }} />
+      {isMobile ? <NavbarMobile /> : <NavbarAkun style={{ zIndex: 1 }} />}
     </>
   );
 };

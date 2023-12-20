@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // Material Tailwind Components
 import {
@@ -12,213 +12,250 @@ import { Card, Typography } from "@material-tailwind/react";
 // Components
 import { AdminNavbar } from "../../../assets/components/admin/adminNavbar";
 import { AdminPojok } from "../../../assets/components/admin/AdminPojok";
+import { AdminCard } from "../../../assets/components/admin/AdminCard";
 
 // Icons
-import { LuUsers2 } from "react-icons/lu";
-import { CiFilter } from "react-icons/ci";
-import { FaSearch } from "react-icons/fa";
-import { CiCirclePlus } from "react-icons/ci";
 import { IoCloseSharp } from "react-icons/io5";
+import { FiPlusCircle } from "react-icons/fi";
+import { FiFilter } from "react-icons/fi";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllDataAction } from "../../../redux/action/admin/data/getAllDataAction";
 
 export const AdminKelolaKelas = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
+  const dispatch = useDispatch();
+  const adminData = useSelector((state) => state.allAdminData);
+
+  const getAdminData = () => {
+    dispatch(getAllDataAction());
+  };
+
+  useEffect(() => {
+    getAdminData();
+  }, [dispatch]);
+
   const handleDialogOpen = () => setDialogOpen(!dialogOpen);
 
-  const TABLE_HEAD = [
-    "Kode Kelas",
-    "Kategori",
-    "Nama Kelas",
-    "Tipe Kelas",
-    "Level",
-    "Harga Kelas",
-    "Aksi",
-  ];
-
-  const TABLE_ROWS = [
-    {
-      kode: "UIUX0123",
-      kategori: "UI/UX Design",
-      kelas: "Belajar Web Designer dengan Figma",
-      tipe: "GRATIS",
-      level: "Beginner",
-      harga: "Rp 0",
-      aksi: "",
-    },
-    {
-      kode: "DS0233",
-      kategori: "Data Science",
-      kelas: "Data Cleaning untuk pemula",
-      tipe: "GRATIS",
-      level: "Beginner",
-      harga: "Rp 0",
-      aksi: "",
-    },
-    {
-      kode: "DS0323",
-      kategori: "Data Science",
-      kelas: "Data Cleaning untuk pemula",
-      tipe: "PREMIUM",
-      level: "Advanced",
-      harga: "Rp 199,000",
-      aksi: "",
-    },
-    {
-      kode: "PM0123",
-      kategori: "Product Management",
-      kelas: "Scrum dalam tim kompleks",
-      tipe: "PREMIUM",
-      level: "Intermediate",
-      harga: "Rp 299,000",
-      aksi: "",
-    },
-    {
-      kode: "PM0223",
-      kategori: "Product Management",
-      kelas: "Scrum dalam tim kompleks",
-      tipe: "PREMIUM",
-      level: "Advanced",
-      harga: "Rp 349,000",
-      aksi: "",
-    },
-  ];
   return (
-    <>
-      <AdminNavbar />
-      <AdminPojok />
-      {/* Button */}
-      <div className="fixed right-0 top-6 flex w-[85%] justify-center gap-28 py-32">
-        <div className="flex max-w-[300px] flex-1 items-center gap-2 rounded-xl bg-blue-400 px-4 py-6">
-          <div className="rounded-full bg-white p-2 text-3xl font-semibold text-primary">
-            <LuUsers2 />
-          </div>
-          <div className="px-4 text-lg text-white">
-            <h1>450</h1>
-            <h1>Active Users</h1>
-          </div>
-        </div>
-        <div className="flex max-w-[300px] flex-1 items-center gap-2 rounded-xl bg-green px-4 py-6">
-          <div className="rounded-full bg-white p-2 text-3xl font-semibold text-primary">
-            <LuUsers2 />
-          </div>
-          <div className="px-4 text-lg text-white">
-            <h1>25</h1>
-            <h1>Active Class</h1>
-          </div>
-        </div>
-        <div className="flex max-w-[300px] flex-1 items-center gap-2 rounded-xl bg-primary px-4 py-6">
-          <div className="rounded-full bg-white p-2 text-3xl font-semibold text-primary">
-            <LuUsers2 />
-          </div>
-          <div className="px-4 text-lg text-white">
-            <h1>20</h1>
-            <h1>Premium Class</h1>
-          </div>
-        </div>
+    <div className="flex">
+      <div className="w-1/6">
+        <AdminPojok />
       </div>
-
-      {/* Table Section */}
-      <div className="fixed right-0 top-40 flex w-[85%] justify-between px-10 py-32">
-        <div className="flex w-full items-center justify-between rounded-xl px-12 py-4">
-          <div className="text-xl font-bold">Kelola Kelas</div>
-          <div className="flex items-center gap-4 font-semibold text-primary">
-            <div
-              className="flex cursor-pointer gap-1 rounded-3xl bg-primary px-2 py-1 text-white"
-              onClick={handleDialogOpen}
-            >
-              <CiCirclePlus size={25} />
-              <button> Tambah </button>
-            </div>
-            <div className="flex cursor-pointer rounded-3xl border-2 border-primary px-2">
-              <CiFilter size={30} />
-              <button> Filter </button>
-            </div>
-            <FaSearch size={25} className="cursor-pointer" />
-          </div>
+      <div className="flex w-5/6 flex-col">
+        <AdminNavbar />
+        {/* Card */}
+        <div className="flex w-full justify-between gap-10 px-14 py-10">
+          <AdminCard title={"Active Users"} count={adminData.countUser} />
+          <AdminCard
+            title={"Active Class"}
+            count={adminData.allCourse}
+            cardColor={"bg-green"}
+          />
+          <AdminCard
+            title={"Premium Class"}
+            count={adminData.coursePremium}
+            cardColor={"bg-primary"}
+          />
         </div>
-      </div>
 
-      {/* Table Card */}
-      <div className="absolute right-20 top-[22.5rem] w-[75%] px-4">
-        <Card className="h-full w-full">
-          <table className="w-full min-w-max table-auto text-center">
-            <thead>
-              <tr>
-                {TABLE_HEAD.map((head) => (
-                  <th key={head} className="bg-secondary p-4 text-center">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal leading-none opacity-70"
-                    >
-                      {head}
-                    </Typography>
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {TABLE_ROWS.map(
-                (
-                  { kode, kategori, kelas, tipe, level, harga, aksi },
-                  index,
-                ) => {
-                  const isLast = index === TABLE_ROWS.length - 1;
-                  const classes = isLast ? "p-40" : "p-40";
-                  const tipeColor =
-                    tipe === "GRATIS" ? "text-green" : "text-primary";
-
-                  return (
-                    <tr className={classes}>
-                      <td className="py-6">
-                        <Typography variant="small" color="blue-gray">
-                          {kode}
-                        </Typography>
-                      </td>
-                      <td>
-                        <Typography variant="small" color="blue-gray">
-                          {kategori}
-                        </Typography>
-                      </td>
-                      <td>
-                        <Typography variant="small" color="blue-gray">
-                          {kelas}
-                        </Typography>
-                      </td>
-                      <td>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className={`font-bold ${tipeColor}`}
-                        >
-                          {tipe}
-                        </Typography>
-                      </td>
-                      <td>
-                        <Typography variant="small" color="blue-gray">
-                          {level}
-                        </Typography>
-                      </td>
-                      <td>
-                        <Typography variant="small" color="blue-gray">
-                          {harga}
-                        </Typography>
-                      </td>
-                      <td className="flex gap-4 py-4">
-                        <Typography className="cursor-pointer rounded-3xl bg-primary px-2 py-2 text-white">
-                          Ubah
-                        </Typography>
-                        <Typography className="cursor-pointer rounded-3xl bg-red-500 px-2 py-2 text-white">
+        {/* Table */}
+        <section className="bg-white dark:bg-gray-900">
+          <div className="mx-auto px-4 lg:px-12">
+            <div className="relative overflow-hidden bg-white shadow-md dark:bg-gray-800 sm:rounded-lg">
+              <div className="flex flex-col items-center justify-between space-y-3 p-4 md:flex-row md:space-x-4 md:space-y-0">
+                <div className="w-full md:w-1/2">
+                  <h2 className="text-xl font-semibold">Kelola Kelas</h2>
+                </div>
+                <div className="flex w-full flex-shrink-0 flex-col items-stretch justify-end space-y-2 md:w-auto md:flex-row md:items-center md:space-x-3 md:space-y-0">
+                  <div className="flex w-full items-center space-x-3 md:w-auto">
+                    <button className="flex h-10 items-center justify-center gap-2 rounded-full bg-primary px-4 text-white transition-all hover:bg-primary-hover">
+                      <FiPlusCircle size={30} />
+                      <span className="font-semibold">Tambah</span>
+                    </button>
+                    <button className="flex h-10 items-center justify-center gap-2 rounded-full border-2 border-primary bg-white px-4 text-primary transition-all hover:bg-primary-hover hover:text-white">
+                      <FiFilter size={25} />
+                      <span className="font-semibold">Filter</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-gray-500 dark:text-gray-400">
+                  <thead className="text-md bg-gray-50 text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                      <th scope="col" className="px-4 py-3">
+                        Kode Kelas
+                      </th>
+                      <th scope="col" className="px-4 py-3">
+                        Kategori
+                      </th>
+                      <th scope="col" className="px-4 py-3">
+                        Nama Kelas
+                      </th>
+                      <th scope="col" className="px-4 py-3">
+                        Tipe Kelas
+                      </th>
+                      <th scope="col" className="px-4 py-3">
+                        Level
+                      </th>
+                      <th scope="col" className="px-4 py-3">
+                        Harga Kelas
+                      </th>
+                      <th scope="col" className="px-4 py-3">
+                        Aksi
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="border-b dark:border-gray-700">
+                      <th
+                        scope="row"
+                        className="whitespace-nowrap px-4 py-3 font-medium text-gray-900 dark:text-white"
+                      >
+                        Apple iMac 27"
+                      </th>
+                      <td className="px-4 py-3">PC</td>
+                      <td className="px-4 py-3">Apple</td>
+                      <td className="px-4 py-3">300</td>
+                      <td className="px-4 py-3">$2999</td>
+                      <td className="px-4 py-3">$2999</td>
+                      <td className="flex gap-2 text-sm font-semibold text-white">
+                        <button className="rounded-full bg-primary px-3 py-1">
+                          Edit
+                        </button>
+                        <button className="rounded-full bg-red-400 px-3 py-1">
                           Hapus
-                        </Typography>
+                        </button>
                       </td>
                     </tr>
-                  );
-                },
-              )}
-            </tbody>
-          </table>
-        </Card>
+                    <tr className="border-b dark:border-gray-700">
+                      <th
+                        scope="row"
+                        className="whitespace-nowrap px-4 py-3 font-medium text-gray-900 dark:text-white"
+                      >
+                        Apple iMac 20"
+                      </th>
+                      <td className="px-4 py-3">PC</td>
+                      <td className="px-4 py-3">Apple</td>
+                      <td className="px-4 py-3">200</td>
+                      <td className="px-4 py-3">$1499</td>
+                      <td className="px-4 py-3">$1499</td>
+                      <td className="flex gap-2 text-sm font-semibold text-white">
+                        <button className="rounded-full bg-primary px-3 py-1">
+                          Edit
+                        </button>
+                        <button className="rounded-full bg-red-400 px-3 py-1">
+                          Hapus
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <nav
+                className="flex flex-col items-start justify-between space-y-3 p-4 md:flex-row md:items-center md:space-y-0"
+                aria-label="Table navigation"
+              >
+                <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
+                  Showing
+                  <span className="font-semibold text-gray-900 dark:text-white">
+                    1-10
+                  </span>
+                  of
+                  <span className="font-semibold text-gray-900 dark:text-white">
+                    1000
+                  </span>
+                </span>
+                <ul className="inline-flex items-stretch -space-x-px">
+                  <li>
+                    <a
+                      href="#"
+                      className="ml-0 flex h-full items-center justify-center rounded-l-lg border border-gray-300 bg-white px-3 py-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    >
+                      <span className="sr-only">Previous</span>
+                      <svg
+                        className="h-5 w-5"
+                        aria-hidden="true"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="flex items-center justify-center border border-gray-300 bg-white px-3 py-2 text-sm leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    >
+                      1
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="flex items-center justify-center border border-gray-300 bg-white px-3 py-2 text-sm leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    >
+                      2
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      aria-current="page"
+                      className="text-primary-600 bg-primary-50 border-primary-300 hover:bg-primary-100 hover:text-primary-700 z-10 flex items-center justify-center border px-3 py-2 text-sm leading-tight dark:border-gray-700 dark:bg-gray-700 dark:text-white"
+                    >
+                      3
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="flex items-center justify-center border border-gray-300 bg-white px-3 py-2 text-sm leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    >
+                      ...
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="flex items-center justify-center border border-gray-300 bg-white px-3 py-2 text-sm leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    >
+                      100
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="flex h-full items-center justify-center rounded-r-lg border border-gray-300 bg-white px-3 py-1.5 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    >
+                      <span className="sr-only">Next</span>
+                      <svg
+                        className="h-5 w-5"
+                        aria-hidden="true"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </section>
       </div>
 
       {/* Dialog */}
@@ -240,28 +277,28 @@ export const AdminKelolaKelas = () => {
               <span className="text-black ">Nama Kelas</span>
               <input
                 placeholder="Text"
-                className="flex rounded-xl border px-4 py-2 border-primary"
+                className="flex rounded-xl border border-primary px-4 py-2"
               />
             </div>
             <div className="flex flex-col">
               <span className="text-black">Kategori</span>
               <input
                 placeholder="Text"
-                className="flex rounded-xl border px-4 py-2 border-primary"
+                className="flex rounded-xl border border-primary px-4 py-2"
               />
             </div>
             <div className="flex flex-col">
               <span className="text-black">Kode Kelas</span>
               <input
                 placeholder="Text"
-                className="flex rounded-xl border px-4 py-2 border-primary"
+                className="flex rounded-xl border border-primary px-4 py-2"
               />
             </div>
             <div className="flex flex-col">
               <span className="text-black">Tipe Kelas</span>
               <input
                 placeholder="Text"
-                className="flex rounded-xl border px-4 py-2 border-primary"
+                className="flex rounded-xl border border-primary px-4 py-2"
               />
             </div>
           </div>
@@ -272,21 +309,21 @@ export const AdminKelolaKelas = () => {
               <span className="text-black">Level</span>
               <input
                 placeholder="Text"
-                className="flex rounded-xl border px-4 py-2 border-primary"
+                className="flex rounded-xl border border-primary px-4 py-2"
               />
             </div>
             <div className="flex flex-col">
               <span className="text-black">Harga</span>
               <input
                 placeholder="Text"
-                className="flex rounded-xl border px-4 py-2 border-primary"
+                className="flex rounded-xl border border-primary px-4 py-2"
               />
             </div>
             <div className="flex flex-col">
               <span className="text-black">Materi</span>
               <input
                 placeholder="Paragraph"
-                className="flex rounded-xl border px-4 py-2 h-[8rem] border-primary"
+                className="flex h-[8rem] rounded-xl border border-primary px-4 py-2"
               />
             </div>
           </div>
@@ -302,6 +339,6 @@ export const AdminKelolaKelas = () => {
           </div>
         </DialogFooter>
       </Dialog>
-    </>
+    </div>
   );
 };
