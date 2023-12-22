@@ -10,6 +10,8 @@ import getAllCategoriesSlice from "./categories/getAllCategoriesSlice";
 import getAllCoursesSlice from "./courses/getAllCoursesSlice";
 import adminLoginSlice from "./admin/auth/adminLoginSlice";
 import allDataSlice from "./admin/data/allDataSlice";
+import EnrollmentsSlice from "./enrollments/EnrollmentsSlice";
+import PaymentSlice from "./payment/PaymentSlice";
 
 export default combineReducers({
   // User
@@ -25,6 +27,12 @@ export default combineReducers({
 
   // Courses
   dataCourses: getAllCoursesSlice,
+
+  // Enrollments
+  enrollments: EnrollmentsSlice,
+
+  // Payment
+  payment: PaymentSlice,
 
   // Admin
   adminAuthLogin: adminLoginSlice,

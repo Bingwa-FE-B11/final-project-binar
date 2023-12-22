@@ -13,10 +13,9 @@ import { SidebarKelas } from "../../../assets/components/sidebar/SidebarKelas";
 import { getUserProfileAction } from "../../../redux/action/auth/getUserProfileAction";
 
 export const KelasSaya = () => {
-  const store = useSelector((state) => state.authLogin);
-
+  const storeAuthUser = useSelector((state) => state.authLogin);
+  const storeEnrollments = useSelector((state) => state.enrollments.course);
   const dispatch = useDispatch();
-  const [isFilterVisible, setFilterVisible] = useState(true);
 
   const getUser = () => {
     dispatch(getUserProfileAction());
@@ -26,10 +25,7 @@ export const KelasSaya = () => {
     getUser();
   }, [dispatch]);
 
-  const toggleFilter = () => {
-    setFilterVisible(!isFilterVisible);
-  };
-
+console.log("storeEnrollments", storeEnrollments)
   return (
     <div className="flex h-full flex-col justify-between bg-secondary">
       <div className="flex flex-col justify-center px-2 pt-16 md:px-4 md:pt-20 lg:px-24 lg:pt-28">
@@ -82,44 +78,27 @@ export const KelasSaya = () => {
                 progress={60}
               />
 
-              {/* Card Item */}
-              <CardKelasSaya
-                category={"Bingwa Nih Bosshht"}
-                rating={4.5}
-                title={"Mari Belajar UIUX"}
-                author={"Paijo"}
-                level={"Basic"}
-                modul={10}
-                duration={120}
-                kelas={"Premium"}
-                progress={60}
-              />
-
-              {/* Card Item */}
-              <CardKelasSaya
-                category={"UAI UEX DISAIN"}
-                rating={4.5}
-                title={"Mari Belajar UIUX"}
-                author={"Paijo"}
-                level={"Basic"}
-                modul={10}
-                duration={120}
-                kelas={"Premium"}
-                progress={60}
-              />
-
-              {/* Card Item */}
-              <CardKelasSaya
-                category={"UAI UEX DISAIN"}
-                rating={4.5}
-                title={"Mari Belajar UIUX"}
-                author={"Paijo"}
-                level={"Basic"}
-                modul={10}
-                duration={120}
-                kelas={"Premium"}
-                progress={60}
-              />
+{/* {storeCourses == null ? (
+                  <CardCoursesSkeleton />
+                ) : (
+                  storeCourses
+                    .filter((value) => value.isPremium)
+                    .map((value) => (
+                      <CardPremium
+                        key={value.id}
+                        image={value.courseImg}
+                        category={value.category.categoryName}
+                        rating={value.averageRating}
+                        title={value.courseName}
+                        author={value.mentor}
+                        level={value.level}
+                        modul={value.modul}
+                        duration={value.duration}
+                        categoryId={value.id}
+                        isPremium={"Premium"}
+                      />
+                    ))
+                )} */}
             </div>
           </div>
         </div>
