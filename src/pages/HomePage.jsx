@@ -10,7 +10,7 @@ import { NavbarHome } from "../assets/components/navbar/NavbarHome";
 import { CardKursus } from "../assets/components/cards/CardKursus";
 import { CardKategory } from "../assets/components/cards/CardKategory";
 import { NavbarKelas } from "../assets/components/navbar/NavbarKelas";
-import CardKategorySkeleton from "../assets/components/skeleton/CardKategorySkeleton"
+import CardKategorySkeleton from "../assets/components/skeleton/CardKategorySkeleton";
 
 // Redux
 import { getUserProfileAction } from "../redux/action/auth/getUserProfileAction";
@@ -44,12 +44,27 @@ export const HomePage = () => {
     setShowAllCourses(!showAllCourses);
   };
 
-  const storeCategories = useSelector((state) => state.dataCategories.categories);
+  const storeCategories = useSelector(
+    (state) => state.dataCategories.categories,
+  );
   const storeCourses = useSelector((state) => state.dataCourses.courses);
   const storeAuthUser = useSelector((state) => state.authLogin);
   // const detailCourses = useSelector((state) => state.dataCourses.detail)
   const displayedCourses = storeCourses ? storeCourses.slice(0, 3) : [];
-  const displayedCategories = storeCategories ? storeCategories.slice(0, 6) : [];
+  const displayedCategories = storeCategories
+    ? storeCategories.slice(0, 6)
+    : [];
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+  const handleCategoryFilter = (category) => {
+    setSelectedCategory(category);
+  };
+
+  const filteredCourses = selectedCategory
+    ? storeCourses.filter(
+      (course) => course.category.categoryName === selectedCategory,
+    )
+    : displayedCourses;
 
   // console.log("detailCourses", detailCourses);
 
@@ -99,7 +114,7 @@ export const HomePage = () => {
           </div>
           <div className="grid grid-cols-6 gap-4">
             {storeCategories == null ? (
-              <CardKategorySkeleton/>
+              <CardKategorySkeleton />
             ) : (
               displayedCategories.map((value) => (
                 <CardKategory
@@ -107,7 +122,8 @@ export const HomePage = () => {
                   category={value.categoryName}
                   thumbnail={value.categoryImg}
                 />
-            )))}
+              ))
+            )}
           </div>
         </div>
         {/* End Kategori Belajar Section */}
@@ -116,76 +132,78 @@ export const HomePage = () => {
         <div className="flex flex-col gap-5 px-28 py-12">
           <div className="flex items-center justify-between">
             <div className="text-2xl font-semibold">Kursus Populer</div>
-            <div className="cursor-pointer text-lg font-semibold text-primary"
-            onClick={toggleShowAllCourses}>
+            <div
+              className="cursor-pointer text-lg font-semibold text-primary"
+              onClick={toggleShowAllCourses}
+            >
               {showAllCourses ? "Tampilkan Sedikit" : "Lihat Semua"}
             </div>
           </div>
 
           {/* Filter */}
           <div className="flex justify-between">
-            <div className="cursor-pointer rounded-xl bg-secondary px-5 py-1 text-base font-semibold transition-all hover:bg-primary hover:text-white">
+            <div
+              className={`cursor-pointer rounded-xl ${selectedCategory === null ? "bg-primary" : "bg-secondary"
+                } mr-11 px-5 py-1 text-base font-semibold transition-all hover:bg-primary hover:text-white`}
+              onClick={() => handleCategoryFilter(null)}
+            >
               All
             </div>
-            <div className="cursor-pointer rounded-xl bg-secondary px-5 py-1 text-base font-semibold transition-all hover:bg-primary hover:text-white">
-              Data Science
-            </div>
-            <div className="cursor-pointer rounded-xl bg-secondary px-5 py-1 text-base font-semibold transition-all hover:bg-primary hover:text-white">
-              UI/UX Design
-            </div>
-            <div className="cursor-pointer rounded-xl bg-secondary px-5 py-1 text-base font-semibold transition-all hover:bg-primary hover:text-white">
-              Android Development
-            </div>
-            <div className="cursor-pointer rounded-xl bg-secondary px-5 py-1 text-base font-semibold transition-all hover:bg-primary hover:text-white">
-              Web Development
-            </div>
-            <div className="cursor-pointer rounded-xl bg-secondary px-5 py-1 text-base font-semibold transition-all hover:bg-primary hover:text-white">
-              IOS Development
-            </div>
-            <div className="cursor-pointer rounded-xl bg-secondary px-5 py-1 text-base font-semibold transition-all hover:bg-primary hover:text-white">
-              Bussiness Intelligence
-            </div>
-          </div>
 
-          {/* Container Card Kelas */}
-          <div className="grid grid-cols-3 gap-6">
-          {showAllCourses
-            ? storeCourses.map((value) => (
-                <CardKursus
+            {storeCategories &&
+              storeCategories.map((value) => (
+                <div
                   key={value.id}
-                  image={value.courseImg}
-                  category={value.category.categoryName}
-                  rating={value.averageRating}
-                  title={value.courseName}
-                  author={value.mentor}
-                  level={value.level}
-                  modul={value.modul}
-                  duration={value.duration}
-                  price={value.price}
-                  categoryId={value.id}
-                  isPremium={value.isPremium}
-                />
-              ))
-            : displayedCourses.map((value) => (
-                <CardKursus
-                  key={value.id}
-                  image={value.courseImg}
-                  category={value.category.categoryName}
-                  rating={value.averageRating}
-                  title={value.courseName}
-                  author={value.mentor}
-                  level={value.level}
-                  modul={value.modul}
-                  duration={value.duration}
-                  price={value.price}
-                  categoryId={value.id}
-                  isPremium={value.isPremium}
-                />
+                  className={`cursor-pointer rounded-xl ${selectedCategory === value.categoryName
+                      ? "bg-primary"
+                      : "bg-secondary"
+                    } mr-11 px-5 py-1 text-base font-semibold transition-all hover:bg-primary hover:text-white`}
+                  onClick={() => handleCategoryFilter(value.categoryName)}
+                >
+                  {value.categoryName}
+                </div>
               ))}
           </div>
         </div>
-        {/* End Kursus Populer */}
+
+        {/* Container Card Kelas */}
+        <div className="mx-6 grid grid-cols-3 gap-6 sm:mx-12 lg:mx-24 xl:mx-24">
+          {showAllCourses
+            ? storeCourses.map((value) => (
+              <CardKursus
+                key={value.id}
+                image={value.courseImg}
+                category={value.category.categoryName}
+                rating={value.averageRating}
+                title={value.courseName}
+                author={value.mentor}
+                level={value.level}
+                modul={value.modul}
+                duration={value.duration}
+                price={value.price}
+                categoryId={value.id}
+                isPremium={value.isPremium}
+              />
+            ))
+            : filteredCourses.map((value) => (
+              <CardKursus
+                key={value.id}
+                image={value.courseImg}
+                category={value.category.categoryName}
+                rating={value.averageRating}
+                title={value.courseName}
+                author={value.mentor}
+                level={value.level}
+                modul={value.modul}
+                duration={value.duration}
+                price={value.price}
+                categoryId={value.id}
+                isPremium={value.isPremium}
+              />
+            ))}
+        </div>
       </div>
+      {/* End Kursus Populer */}
     </>
   );
 };
