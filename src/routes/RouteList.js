@@ -56,7 +56,7 @@ export const RouteList = () => {
         <Route path="/all-kelas" element={<AllCourse />} />
 
         {/* Payment */}
-        <Route path="/pembayaran" element={<Pembayaran />} />
+        <Route path="/pembayaran/:courseId" element={<Pembayaran />} />
         <Route path="/pembayaran-sukses" element={<PembayaranSukses />} />
 
         {/* Admin */}

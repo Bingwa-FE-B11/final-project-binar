@@ -32,7 +32,7 @@ export const CardGlobal = ({
   };
 
   return (
-    <div className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-md">
+    <div className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-md hover:scale-95">
       <div
         className="h-32 min-w-fit scale-105 cursor-pointer bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${image})`, backgroundSize: 'cover', objectFit: 'cover' }}

@@ -1,23 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 // Components
 import { NavbarKelas } from "../../../assets/components/navbar/NavbarKelas";
-import { CardKursus } from "../../../assets/components/cards/CardKursus";
 import { NavbarHome } from "../../../assets/components/navbar/NavbarHome";
 import CardCoursesSkeleton from "../../../assets/components/skeleton/CardCourseSkeleton";
+import { CardDetail } from "../../../assets/components/cards/CardDetail";
+import { showErrorToast, showSuccessToast } from "../../../helper/ToastHelper"
 
 // Icons
 import { GoArrowLeft } from "react-icons/go";
 import { FaStar } from "react-icons/fa";
 import { RiShieldStarLine } from "react-icons/ri";
 import { LiaBookSolid } from "react-icons/lia";
-import { IoTime } from "react-icons/io5";
+import { IoCloseSharp, IoTime } from "react-icons/io5";
 import { HiChatAlt2 } from "react-icons/hi";
 import { FaCirclePlay } from "react-icons/fa6";
 import { TbProgressCheck } from "react-icons/tb";
 import { BiSolidLock } from "react-icons/bi";
 import { FaArrowCircleRight } from "react-icons/fa";
+
+// Redux
+import { postEnrollmentsAction } from "../../../redux/action/enrollments/EnrollmentsAction"
 
 // Material Tailwind Components
 import {
@@ -27,31 +32,49 @@ import {
   DialogHeader,
 } from "@material-tailwind/react";
 
-// Redux
-import { getDetailCoursesAction } from "../../../redux/action/courses/getDetailCourseAction";
-
 export const DetailKelas = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const storeAuthUser = useSelector((state) => state.authLogin);
-  const storeCourses = useSelector((state) => state.dataCourses.courses);
   const storeDetailCourses = useSelector((state) => state.dataCourses.detail);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [paymentCourseId, setPaymentCourseId] = useState(null);
 
-  const getDetailCourses = () => {
-    dispatch(getDetailCoursesAction());
+  const handleDetail = () => {
+    handleDialogOpen();
+    setDialogOpen(false);
   };
 
-  const handleDialogOpen = () => setDialogOpen(!dialogOpen);
-
-  const handleClickBack = () => {
-    window.history.back();
+  const handleDialogOpen = () => {
+    setPaymentCourseId(storeDetailCourses?.id);
+    setDialogOpen(true);
   };
 
-  useEffect(() => {
-    getDetailCourses();
-  }, [dispatch]);
+  const handleEnrollCourse = async () => {
+    try {
+      if (storeAuthUser.token !== null) {
+        const isPremium = storeDetailCourses?.isPremium;
+    
+        if (isPremium) {
+          navigate(`/pembayaran/${paymentCourseId}`);
+        } 
+        
+        if (!isPremium) {
+          await dispatch(postEnrollmentsAction(paymentCourseId));
+            showSuccessToast("Berhasil Enrollments Course");
+            navigate("/kelas-saya");  
+        }
+      }
+      
+      if (storeAuthUser.token === null) {
+        showErrorToast("Anda harus login terlebih dahulu");
+      }
 
-  console.log("data detail", storeDetailCourses);
+    } catch (err) {
+      console.error("Error during enrollment:", err);
+      showErrorToast("Pendaftaran gagal. Silakan coba lagi.");
+    }
+  };
 
   return (
     <>
@@ -63,7 +86,7 @@ export const DetailKelas = () => {
         <div className="mt-16 flex w-full flex-col gap-4 px-8 md:w-2/3 lg:w-2/3">
           {/* Button Back */}
           <div className="flex w-full items-center gap-2 py-4">
-            <div className="cursor-pointer" onClick={handleClickBack}>
+            <div className="cursor-pointer" onClick={()=>{navigate(window.history.back())}}>
               <GoArrowLeft size={30} />
             </div>
             <div className="font-semibold">Kelas Lainnya</div>
@@ -277,17 +300,22 @@ export const DetailKelas = () => {
 
       {/* Dialog */}
       <Dialog open={dialogOpen} handler={handleDialogOpen} className="py-3">
-        <DialogHeader className="flex flex-col">
-          <h1 className="font-semibold text-slate-700">
+        <DialogHeader className="flex flex-col items-center relative">
+          <IoCloseSharp
+              size={30}
+              className="absolute top-5 right-10 cursor-pointer text-primary"
+              onClick={handleDetail}
+          />
+          <h1 className="font-semibold text-slate-700 mb-2">
             Selangkah lagi menuju
           </h1>
-          <h1 className="font-semibold text-primary">Kelas Premium</h1>
+          <h1 className="font-semibold text-primary">Course Kebanggan Anda</h1>
         </DialogHeader>
         <DialogBody className="px-12">
           {storeDetailCourses === null ? (
             <CardCoursesSkeleton />
           ) : (
-              <CardKursus
+              <CardDetail
                 image={storeDetailCourses?.courseImg}
                 category={storeDetailCourses?.category?.categoryName}
                 rating={storeDetailCourses?.averageRating}
@@ -302,7 +330,10 @@ export const DetailKelas = () => {
           )}
         </DialogBody>
         <DialogFooter className="flex justify-center">
-          <div className="flex w-64 cursor-pointer items-center justify-center gap-3 rounded-full bg-primary py-2 transition-all hover:bg-primary-hover">
+          <div 
+            className="flex w-64 cursor-pointer items-center justify-center gap-3 rounded-full bg-primary py-2 transition-all hover:bg-primary-hover"
+          onClick={handleEnrollCourse}
+          >
             <div className="font-semibold text-white">Beli Sekarang</div>
             <FaArrowCircleRight size={17} className="text-white" />
           </div>

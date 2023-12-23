@@ -7,6 +7,6 @@ export const reduxGetAllCourses = async () => {
   return await http.get(`${API_ENDPOINT.GET_ALL_COURSES}?limit=50`);
 };
 
-export const reduxGetDetailCoursesId = async (categoryId) => {
-  return await http.get(`${API_ENDPOINT.GET_COURSE}/${categoryId}`);
+export const reduxGetDetailCoursesId = async (courseId) => {
+  return await http.get(`${API_ENDPOINT.GET_COURSE}/${courseId}`);
 };

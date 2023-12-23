@@ -27,8 +27,6 @@ export const AllCourse = () => {
     getCourses();
   }, [dispatch]);
 
-  // console.log("storeCourses", storeCourses);
-  // console.log("storeAuthUser", storeAuthUser);
   return (
     <>
       {storeAuthUser.token === null ? <NavbarHome /> : <NavbarKelas />}

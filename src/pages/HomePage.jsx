@@ -49,7 +49,6 @@ export const HomePage = () => {
   );
   const storeCourses = useSelector((state) => state.dataCourses.courses);
   const storeAuthUser = useSelector((state) => state.authLogin);
-  // const detailCourses = useSelector((state) => state.dataCourses.detail)
   const displayedCourses = storeCourses ? storeCourses.slice(0, 3) : [];
   const displayedCategories = storeCategories
     ? storeCategories.slice(0, 6)
@@ -65,14 +64,6 @@ export const HomePage = () => {
       (course) => course.category.categoryName === selectedCategory,
     )
     : displayedCourses;
-
-  // console.log("detailCourses", detailCourses);
-
-  console.log("storeCourses", storeCourses);
-
-  console.log("storeCategories", storeCategories);
-
-  console.log("storeAuthUser", storeAuthUser);
 
   return (
     <>
@@ -154,14 +145,34 @@ export const HomePage = () => {
               storeCategories.map((value) => (
                 <div
                   key={value.id}
-                  className={`cursor-pointer rounded-xl ${selectedCategory === value.categoryName
-                      ? "bg-primary"
-                      : "bg-secondary"
-                    } mr-11 px-5 py-1 text-base font-semibold transition-all hover:bg-primary hover:text-white`}
-                  onClick={() => handleCategoryFilter(value.categoryName)}
-                >
-                  {value.categoryName}
-                </div>
+                  image={value.courseImg}
+                  category={value.category.categoryName}
+                  rating={value.averageRating}
+                  title={value.courseName}
+                  author={value.mentor}
+                  level={value.level}
+                  modul={value.modul}
+                  duration={value.duration}
+                  price={value.price}
+                  courseId={value.id}
+                  isPremium={value.isPremium}
+                />
+              ))
+            : displayedCourses.map((value) => (
+                <CardKursus
+                  key={value.id}
+                  image={value.courseImg}
+                  category={value.category.categoryName}
+                  rating={value.averageRating}
+                  title={value.courseName}
+                  author={value.mentor}
+                  level={value.level}
+                  modul={value.modul}
+                  duration={value.duration}
+                  price={value.price}
+                  courseId={value.id}
+                  isPremium={value.isPremium}
+                />
               ))}
           </div>
         </div>

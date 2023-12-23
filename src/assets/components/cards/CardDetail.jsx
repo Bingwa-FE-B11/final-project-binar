@@ -1,6 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 
 // Icons
 import { FaStar } from "react-icons/fa";
@@ -8,10 +6,7 @@ import { IoDiamond, IoTime } from "react-icons/io5";
 import { LiaBookSolid } from "react-icons/lia";
 import { RiShieldStarLine } from "react-icons/ri";
 
-// Redux
-import { getDetailCoursesAction } from "../../../redux/action/courses/getDetailCourseAction";
-
-export const CardKursus = ({
+export const CardDetail = ({
   image,
   category,
   rating,
@@ -21,27 +16,14 @@ export const CardKursus = ({
   modul,
   duration,
   price,
-  isPremium,
-  courseId,
+  isPremium
 }) => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const handleCardClick = () => {
-    dispatch(getDetailCoursesAction(courseId));
-    navigate(`/detail-kelas/${courseId}`);
-  };
 
   return (
-    <div className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-md hover:scale-95">
+    <div className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-md">
       <div
-        className="h-32 min-w-fit scale-105 cursor-pointer bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url(${image})`,
-          backgroundSize: "cover",
-          objectFit: "cover",
-        }}
-        onClick={handleCardClick}
+        className="h-32 min-w-fit scale-105 bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${image})`, backgroundSize: 'cover', objectFit: 'cover' }}
       ></div>
       <div className="flex flex-col gap-4 bg-white px-4 py-3">
         <div className="flex justify-between">
@@ -74,7 +56,7 @@ export const CardKursus = ({
           </div>
         </div>
         {isPremium ? (
-          <div className="flex w-fit justify-between rounded-3xl bg-blue px-4 py-1 transition-all hover:bg-blue-hover">
+          <div className="flex w-fit justify-between rounded-3xl bg-blue px-4 py-1 transition-all">
             <div className="flex items-center gap-1">
               <IoDiamond size={20} color="white" />
               <div className="font-bold text-white">Beli</div>
