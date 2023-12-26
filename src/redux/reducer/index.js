@@ -7,9 +7,9 @@ import loginSlice from "./auth/loginSlice";
 import profileSlice from "./akun/profileSlice";
 import ChangePassSlice from "./akun/ChangePassSlice";
 import getAllCategoriesSlice from "./categories/getAllCategoriesSlice";
-import getAllCoursesSlice from "./courses/getAllCoursesSlice";
 import adminLoginSlice from "./admin/auth/adminLoginSlice";
 import allDataSlice from "./admin/data/allDataSlice";
+import courseSlice from "./courses/courseSlice";
 
 export default combineReducers({
   // User
@@ -24,7 +24,7 @@ export default combineReducers({
   dataCategories: getAllCategoriesSlice,
 
   // Courses
-  dataCourses: getAllCoursesSlice,
+  dataCourses: courseSlice,
 
   // Admin
   adminAuthLogin: adminLoginSlice,

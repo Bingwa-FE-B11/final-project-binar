@@ -287,18 +287,18 @@ export const DetailKelas = () => {
           {storeDetailCourses === null ? (
             <CardCoursesSkeleton />
           ) : (
-              <CardKursus
-                image={storeDetailCourses?.courseImg}
-                category={storeDetailCourses?.category?.categoryName}
-                rating={storeDetailCourses?.averageRating}
-                title={storeDetailCourses?.courseName}
-                author={storeDetailCourses?.mentor}
-                level={storeDetailCourses?.level}
-                modul={storeDetailCourses?.modul}
-                duration={storeDetailCourses?.duration}
-                price={storeDetailCourses?.price}
-                isPremium={storeDetailCourses?.isPremium}
-              />
+            <CardKursus
+              image={storeDetailCourses?.courseImg}
+              category={storeDetailCourses?.category?.categoryName}
+              rating={storeDetailCourses?.averageRating}
+              title={storeDetailCourses?.courseName}
+              author={storeDetailCourses?.mentor}
+              level={storeDetailCourses?.level}
+              modul={storeDetailCourses?.modul}
+              duration={storeDetailCourses?.duration}
+              price={storeDetailCourses?.price}
+              isPremium={storeDetailCourses?.isPremium}
+            />
           )}
         </DialogBody>
         <DialogFooter className="flex justify-center">

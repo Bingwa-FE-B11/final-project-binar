@@ -29,10 +29,6 @@ export const PilihPremium = () => {
     getCourses();
   }, [dispatch]);
 
-  useEffect(() => {
-    getCourses();
-  }, [dispatch]);
-
   console.log("storeCourses", storeCourses);
 
   return (
