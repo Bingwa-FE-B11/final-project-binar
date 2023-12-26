@@ -206,6 +206,7 @@ export const LoginPage = () => {
                 <input
                   placeholder="**********"
                   onChange={handleInput}
+                  onKeyDown={(e) => (e.key === "Enter" ? validateForm() : "")}
                   className="rounded-xl border-2 border-slate-300 px-4 py-3 focus:border-primary focus:outline-none"
                   value={Password}
                   id="password"

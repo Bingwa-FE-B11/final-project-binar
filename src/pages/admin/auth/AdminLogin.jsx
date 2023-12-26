@@ -173,7 +173,9 @@ export const AdminLogin = () => {
       <div className="flex h-screen items-center justify-center">
         <div className="mx-4 w-full rounded-lg text-center md:w-3/6 lg:w-2/6">
           <div className="mx-auto flex w-[22rem] flex-col md:w-[33rem] lg:w-[30rem]">
-            <span className="pb-10 text-4xl font-bold text-primary">Admin Login</span>
+            <span className="pb-10 text-4xl font-bold text-primary">
+              Admin Login
+            </span>
 
             {/* Email */}
             <div className="flex flex-col gap-2 ">
@@ -197,6 +199,7 @@ export const AdminLogin = () => {
               <div className="relative flex flex-col">
                 <input
                   onChange={handleInput}
+                  onKeyDown={(e) => (e.key === "Enter" ? validateForm() : "")}
                   id="password"
                   placeholder="**********"
                   className="rounded-xl border-[3px] border-slate-300 px-4 py-3 focus:border-primary focus:outline-none"

@@ -23,14 +23,15 @@ import { getDetailCoursesAction } from "../../../redux/action/courses/getDetailC
 import { createCourseAction } from "../../../redux/action/admin/course/createCourseAction";
 import { showSuccessToast } from "../../../helper/ToastHelper";
 import { getAllCoursesAction } from "../../../redux/action/courses/getAllCoursesAction";
-import { deleteCourseAction } from "../../../redux/action/courses/deleteCourseAction";
+import { deleteCourseAction } from "../../../redux/action/admin/course/deleteCourseAction";
+import { editCourseAction } from "../../../redux/action/admin/course/editCourseAction";
 
 export const AdminKelolaKelas = () => {
   const dispatch = useDispatch();
 
   // Redux Store
   const adminData = useSelector((state) => state.allAdminData);
-  const allCourse = useSelector((state) => state.dataCourses?.courses);
+  const storeAllCourse = useSelector((state) => state.dataCourses.courses);
   const storeDetailCourse = useSelector((state) => state.dataCourses.detail);
 
   const [dialogTambah, setDialogTambah] = useState(false);
@@ -78,6 +79,7 @@ export const AdminKelolaKelas = () => {
   const [newCategoryId, setNewCategoryId] = useState("");
   const [newPromotionId, setNewPromotionId] = useState("");
 
+  // New Course
   const handleNewCourse = async () => {
     const newCourse = await dispatch(
       createCourseAction({
@@ -124,27 +126,116 @@ export const AdminKelolaKelas = () => {
   };
 
   // Edit Course
-  // const [courseName, setCourseName] = useState(storeDetailCourse.courseName);
-  // const [price, setPrice] = useState(storeDetailCourse.price);
-  // const [level, setLevel] = useState(storeDetailCourse.level);
-  // const [aboutCourse, setAboutCourse] = useState(storeDetailCourse.aboutCourse);
-  // const [targetAudience, setTargetAudience] = useState(
-  //   storeDetailCourse.targetAudience,
-  // );
-  // const [learningMaterial, setLearningMaterial] = useState(
-  //   storeDetailCourse.learningMaterial,
-  // );
-  // const [mentor, setMentor] = useState(storeDetailCourse.mentor);
-  // const [videoUrl, setVideoUrl] = useState(storeDetailCourse.videoUrl);
-  // const [forumUrl, setForumUrl] = useState(storeDetailCourse.forumUrl);
-  // const [duration, setDuration] = useState(storeDetailCourse.duration);
-  // const [courseImg, setCourseImg] = useState(storeDetailCourse.courseImg);
-  // const [categoryId, setCategoryId] = useState(storeDetailCourse.categoryId);
-  // const [promotionId, setPromotionId] = useState(storeDetailCourse.promotionId);
+  const [editingCourseId, setEditingCourseId] = useState(null);
 
-  // const handleEditCourse = () => {
+  const [updateCourseName, setUpdateCourseName] = useState(
+    storeDetailCourse?.courseName || "",
+  );
+  const [updatePrice, setUpdatePrice] = useState(
+    storeDetailCourse?.price || "",
+  );
+  const [updateLevel, setUpdateLevel] = useState(
+    storeDetailCourse?.level || "",
+  );
+  const [updateAboutCourse, setUpdateAboutCourse] = useState(
+    storeDetailCourse?.aboutCourse || "",
+  );
+  const [updateTargetAudience, setUpdateTargetAudience] = useState(
+    storeDetailCourse?.targetAudience || "",
+  );
+  const [updateLearningMaterial, setUpdateLearningMaterial] = useState(
+    storeDetailCourse?.learningMaterial || "",
+  );
+  const [updateMentor, setUpdateMentor] = useState(
+    storeDetailCourse?.mentor || "",
+  );
+  const [updateVideoUrl, setUpdateVideoUrl] = useState(
+    storeDetailCourse?.videoURL || "",
+  );
+  const [updateForumUrl, setUpdateForumUrl] = useState(
+    storeDetailCourse?.forumURL || "",
+  );
+  const [updateDuration, setUpdateDuration] = useState(
+    storeDetailCourse?.duration || "",
+  );
+  const [updateCourseImg, setUpdateCourseImg] = useState(
+    storeDetailCourse?.courseImg || "",
+  );
+  const [updateCategoryId, setUpdateCategoryId] = useState(
+    storeDetailCourse?.categoryId || "",
+  );
+  const [updatePromotionId, setUpdatePromotionId] = useState(
+    storeDetailCourse?.promotionId || "",
+  );
 
-  // }
+  const handleEditCourse = (courseId) => {
+    const courseToEdit = storeAllCourse.find(
+      (course) => course.id === courseId,
+    );
+
+    setEditingCourseId(courseId);
+    setUpdateCourseName(courseToEdit.courseName);
+    setUpdatePrice(courseToEdit.price);
+    setUpdateLevel(courseToEdit.level);
+    setUpdateAboutCourse(courseToEdit.aboutCourse);
+    setUpdateTargetAudience(courseToEdit.targetAudience);
+    setUpdateLearningMaterial(courseToEdit.learningMaterial);
+    setUpdateMentor(courseToEdit.mentor);
+    setUpdateVideoUrl(courseToEdit.videoURL);
+    setUpdateForumUrl(courseToEdit.forumURL);
+    setUpdateDuration(courseToEdit.duration);
+    setUpdateCourseImg(courseToEdit.courseImg);
+    setUpdateCategoryId(courseToEdit.categoryId);
+    setUpdatePromotionId(courseToEdit.promotionId);
+
+    setDialogEdit(true);
+  };
+
+  const handleUpdateCourse = async () => {
+    const updatedCourse = await dispatch(
+      editCourseAction(
+        {
+          courseName: updateCourseName,
+          price: Number(updatePrice),
+          level: updateLevel,
+          aboutCourse: updateAboutCourse,
+          targetAudience: updateTargetAudience,
+          learningMaterial: updateLearningMaterial,
+          mentor: updateMentor,
+          videoURL: updateVideoUrl,
+          forumURL: updateForumUrl,
+          duration: updateDuration,
+          courseImg: updateCourseImg,
+          categoryId: updateCategoryId,
+          promotionId: updatePromotionId,
+        },
+        editingCourseId,
+      ),
+    );
+
+    if (updatedCourse) {
+      showSuccessToast("Course berhasil diupdate!");
+      setDialogEdit(false);
+
+      // Clear state variables
+      setEditingCourseId(null);
+      setUpdateCourseName("");
+      setUpdatePrice("");
+      setUpdateLevel("");
+      setUpdateAboutCourse("");
+      setUpdateTargetAudience("");
+      setUpdateLearningMaterial("");
+      setUpdateMentor("");
+      setUpdateVideoUrl("");
+      setUpdateForumUrl("");
+      setUpdateDuration("");
+      setUpdateCourseImg("");
+      setUpdateCategoryId("");
+      setUpdatePromotionId("");
+
+      renderAllState(); // Refresh course data
+    }
+  };
 
   // Delete Course
   const handleDeleteCourse = async (courseId) => {
@@ -233,8 +324,8 @@ export const AdminKelolaKelas = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {allCourse &&
-                      allCourse?.map((value, index) => (
+                    {storeAllCourse &&
+                      storeAllCourse?.map((value, index) => (
                         <tr
                           className="border-b dark:border-gray-700"
                           key={value.id}
@@ -267,10 +358,7 @@ export const AdminKelolaKelas = () => {
                           <td className="flex gap-1 py-3 text-sm font-semibold text-white">
                             <button
                               className="rounded-full bg-primary px-3 py-1"
-                              onClick={() => {
-                                getDetailCourse(value.id);
-                                handleDialogEdit();
-                              }}
+                              onClick={() => handleEditCourse(value.id)}
                             >
                               Edit
                             </button>
@@ -462,7 +550,9 @@ export const AdminKelolaKelas = () => {
             <IoCloseSharp
               size={30}
               className="cursor-pointer"
-              onClick={handleDialogEdit}
+              onClick={() => {
+                handleDialogEdit();
+              }}
             />
           </div>
         </DialogHeader>
@@ -473,7 +563,8 @@ export const AdminKelolaKelas = () => {
               <span className="text-slate-700">Nama Kelas</span>
               <input
                 type="text"
-                // value={courseName}
+                value={updateCourseName}
+                onChange={(e) => setUpdateCourseName(e.target.value)}
                 placeholder="Masukkan Nama Kelas"
                 className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
               />
@@ -482,7 +573,8 @@ export const AdminKelolaKelas = () => {
               <span className="text-slate-700 ">Harga</span>
               <input
                 type="number"
-                // value={price}
+                value={updatePrice}
+                onChange={(e) => setUpdatePrice(e.target.value)}
                 placeholder="Rp"
                 className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
               />
@@ -491,7 +583,8 @@ export const AdminKelolaKelas = () => {
               <span className="text-slate-700">Level</span>
               <input
                 type="text"
-                // value={level}
+                value={updateLevel}
+                onChange={(e) => setUpdateLevel(e.target.value)}
                 placeholder="Masukkan Level"
                 className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
               />
@@ -500,7 +593,8 @@ export const AdminKelolaKelas = () => {
               <span className="text-slate-700">Tentang Course</span>
               <input
                 type="text"
-                // value={aboutCourse}
+                value={updateAboutCourse}
+                onChange={(e) => setUpdateAboutCourse(e.target.value)}
                 placeholder="Masukkan Tentang Course"
                 className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
               />
@@ -509,7 +603,8 @@ export const AdminKelolaKelas = () => {
               <span className="text-slate-700">Target User</span>
               <input
                 type="text"
-                // value={targetAudience}
+                value={updateTargetAudience}
+                onChange={(e) => setUpdateTargetAudience(e.target.value)}
                 placeholder="MAsukkan Target User"
                 className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
               />
@@ -518,7 +613,8 @@ export const AdminKelolaKelas = () => {
               <span className="text-slate-700">Materi Pembelajaran</span>
               <input
                 type="text"
-                // value={learningMaterial}
+                value={updateLearningMaterial}
+                onChange={(e) => setUpdateLearningMaterial(e.target.value)}
                 placeholder="Masukkan Materi Pembelajaran"
                 className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
               />
@@ -531,7 +627,8 @@ export const AdminKelolaKelas = () => {
               <span className="text-slate-700">Mentor</span>
               <input
                 type="text"
-                // value={mentor}
+                value={updateMentor}
+                onChange={(e) => setUpdateMentor(e.target.value)}
                 placeholder="Masukkan Mentor"
                 className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
               />
@@ -540,7 +637,8 @@ export const AdminKelolaKelas = () => {
               <span className="text-slate-700">Link Video</span>
               <input
                 type="text"
-                // value={videoUrl}
+                value={updateVideoUrl}
+                onChange={(e) => setUpdateVideoUrl(e.target.value)}
                 placeholder="Masukkan Link Video"
                 className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
               />
@@ -549,7 +647,8 @@ export const AdminKelolaKelas = () => {
               <span className="text-slate-700">Link Telegram</span>
               <input
                 type="text"
-                // value={forumUrl}
+                value={updateForumUrl}
+                onChange={(e) => setUpdateForumUrl(e.target.value)}
                 placeholder="Masukkan Link Telegram"
                 className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
               />
@@ -558,7 +657,8 @@ export const AdminKelolaKelas = () => {
               <span className="text-slate-700">Link Thumbnail</span>
               <input
                 type="text"
-                // value={courseImg}
+                value={updateCourseImg}
+                onChange={(e) => setUpdateCourseImg(e.target.value)}
                 placeholder="Masukkan Link Thumbnail"
                 className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
               />
@@ -567,7 +667,8 @@ export const AdminKelolaKelas = () => {
               <span className="text-slate-700">Durasi</span>
               <input
                 type="text"
-                // value={duration}
+                value={updateDuration}
+                onChange={(e) => setUpdateDuration(e.target.value)}
                 placeholder="Masukkan Durasi"
                 className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
               />
@@ -576,7 +677,8 @@ export const AdminKelolaKelas = () => {
               <span className="text-slate-700">Kategori ID</span>
               <input
                 type="number"
-                // value={categoryId}
+                value={updateCategoryId}
+                onChange={(e) => setUpdateCategoryId(e.target.value)}
                 placeholder="Masukkan Kategori ID"
                 className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
               />
@@ -585,7 +687,8 @@ export const AdminKelolaKelas = () => {
               <span className="text-slate-700">Promotion ID</span>
               <input
                 type="number"
-                // value={promotionId}
+                value={updatePromotionId}
+                onChange={(e) => setUpdatePromotionId(e.target.value)}
                 placeholder="Masukkan Promotion ID"
                 className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
               />
@@ -594,8 +697,8 @@ export const AdminKelolaKelas = () => {
         </DialogBody>
         <DialogFooter className="flex justify-center gap-4">
           <div
-            // onClick={() => handleDialogEdit()}
             className="flex cursor-pointer rounded-full bg-primary px-10 py-2 transition-all hover:bg-primary-hover"
+            onClick={handleUpdateCourse}
           >
             <button className="flex font-semibold text-white">Edit</button>
           </div>
