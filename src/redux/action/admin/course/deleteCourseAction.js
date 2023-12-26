@@ -1,5 +1,5 @@
-import { reduxDeleteCourse } from "../../../services/courses/deleteCourse";
-import { deleteCourse } from "../../reducer/courses/courseSlice";
+import { reduxDeleteCourse } from "../../../../services/courses/deleteCourse";
+import { deleteCourse } from "../../../reducer/courses/courseSlice";
 
 export const deleteCourseAction = (courseId) => async (dispatch) => {
   return reduxDeleteCourse(courseId)
