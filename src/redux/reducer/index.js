@@ -12,6 +12,7 @@ import adminLoginSlice from "./admin/auth/adminLoginSlice";
 import allDataSlice from "./admin/data/allDataSlice";
 import EnrollmentsSlice from "./enrollments/EnrollmentsSlice";
 import PaymentSlice from "./payment/PaymentSlice";
+import getNotificationsSlice from "./notifications/getNotificationsSlice";
 
 export default combineReducers({
   // User
@@ -33,6 +34,9 @@ export default combineReducers({
 
   // Payment
   payment: PaymentSlice,
+
+  // seNotifications
+  notifications: getNotificationsSlice, 
 
   // Admin
   adminAuthLogin: adminLoginSlice,

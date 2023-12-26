@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 // Components
 import { NavbarNotif } from "../../../assets/components/navbar/NavbarNotif";
+
+// Redux
+import { getNotificationsAction } from "../../../redux/action/notifications/getNotificationsAction";
+import { putNotificationsAction } from "../../../redux/action/notifications/putNotificationsAction"
 
 // Icons
 import { GoArrowLeft } from "react-icons/go";
@@ -11,118 +16,64 @@ import { FaCircle } from "react-icons/fa";
 
 export const Notifikasi = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const storeNotif = useSelector((state) => state.notifications.notifications);
+  const storeStatus = useSelector((state) => state.notifications.status);
+
+  useEffect(() => {
+    dispatch(getNotificationsAction());
+    dispatch(putNotificationsAction());
+  }, [dispatch]);
+
   return (
     <>
-      <div className="mt-[2rem] px-9 lg:px-80 md:px-20 py-10 bg-secondary">
-        <div className="flex py-8 items-center gap-2 text-primary text-lg font-bold relative">
-          <GoArrowLeft
-            size={30}
-            className="cursor-pointer absolute -inset-x-8 lg:-inset-x-16 md:-inset-x-12"
-            onClick={() => {
-              navigate("/");
-            }}
-          />
-          Kembali Ke Beranda
-        </div>
+      <div className="mt-[2rem] h-full bg-secondary px-9 py-10 md:px-20 lg:px-80 ">
+          <div className="relative flex items-center gap-2 py-8 text-lg font-semibold text-black">
+            <GoArrowLeft
+              size={30}
+              className="absolute -inset-x-8 cursor-pointer md:-inset-x-12 lg:-inset-x-16"
+              onClick={() => {
+                navigate("/");
+              }}
+            />
+            Kembali Ke Beranda
+            <div className="flex ml-auto cursor-pointer text-base text-primary">Sudah Dibaca</div>
+          </div>
 
         {/* Notifikasi */}
-        <div className="border-2 border-primary rounded-xl">
-          <div className="py-4 text-center text-xl font-semibold text-white bg-primary rounded-t-lg">
+        <div className="rounded-xl border-2 border-primary">
+          <div className="rounded-t-lg bg-primary py-4 text-center text-xl font-semibold text-white">
             Notifikasi
           </div>
 
           {/* Isi Notifikasi */}
-          <div className="h-fit">
-            <div className="flex justify-evenly py-6">
+          {storeNotif.map((notification) => (
+            <div key={notification.id} className="flex justify-between items-center py-6 px-10">
               <div className="flex flex-col space-y-2">
-                <div className="flex text-primary text-lg font-semibold gap-4">
+                <div className="flex gap-4 text-lg font-semibold text-primary">
                   <IoNotificationsCircleSharp size={30} />
-                  Promosi
+                  {notification.title}
                 </div>
-                <div className="flex font-semibold px-11">
-                  Dapatkan Potongan 50% selama Bulan Maret!
-                </div>
-                <div className="flex font-thin px-11">
-                  Syarat dan Ketentuan berlaku!
+                <div className="flex px-11 font-semibold">
+                  {notification.message}
                 </div>
               </div>
 
               {/* Tanggal */}
-              <div className="flex font-thin gap-2">
-                2 Maret, 12:00
-                <FaCircle size={25} className="text-center py-1.5 text-green" />
-              </div>
-            </div>
-
-            {/* Isi Notifikasi */}
-            <div className="flex justify-evenly py-6">
-              <div className="flex flex-col space-y-2">
-                <div className="flex text-primary text-lg font-semibold gap-4">
-                  <IoNotificationsCircleSharp size={30} />
-                  Notifikasi
-                </div>
-                <div className="flex font-semibold px-11">
-                  Password berhasil diubah
-                </div>
-              </div>
-
-              {/* Tanggal */}
-              <div className="flex font-thin gap-2">
-                1 Maret, 10:00
+              <div className="flex gap-2 font-thin">
+                {notification.createdAt}
                 <FaCircle
                   size={25}
-                  className="text-center py-1.5 text-red-500"
+                  className={`py-1.5 text-center ${
+                    notification.isRead ? "text-green" : "text-red-500"
+                  }`}
                 />
               </div>
             </div>
-
-            {/* Isi Notifikasi */}
-            <div className="flex justify-evenly py-6">
-              <div className="flex flex-col space-y-2">
-                <div className="flex text-primary text-lg font-semibold gap-4">
-                  <IoNotificationsCircleSharp size={30} />
-                  Promosi
-                </div>
-                <div className="flex font-semibold px-11">
-                  Dapatkan Potongan 50% selama Bulan Maret!
-                </div>
-                <div className="flex font-thin px-11">
-                  Syarat dan Ketentuan berlaku!
-                </div>
-              </div>
-
-              {/* Tanggal */}
-              <div className="flex font-thin gap-2">
-                1 Maret, 09:00
-                <FaCircle size={25} className="text-center py-1.5 text-green" />
-              </div>
-            </div>
-
-            {/* Isi Notifikasi */}
-            <div className="flex justify-evenly py-6">
-              <div className="flex flex-col space-y-2">
-                <div className="flex text-primary text-lg font-semibold gap-4">
-                  <IoNotificationsCircleSharp size={30} />
-                  Notifikasi
-                </div>
-                <div className="flex font-semibold px-11">
-                  Password berhasil diubah
-                </div>
-              </div>
-
-              {/* Tanggal */}
-              <div className="flex font-thin gap-2">
-                1 Maret, 10:00
-                <FaCircle
-                  size={25}
-                  className="text-center py-1.5 text-red-500"
-                />
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
-      <NavbarNotif style={{ zIndex: 1 }}/>
+      <NavbarNotif style={{ zIndex: 1 }} />
     </>
   );
 };

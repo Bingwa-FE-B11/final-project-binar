@@ -86,7 +86,8 @@ export const PembayaranSukses = () => {
           <p className="text-slate-600">Belajar di tempat yang nyaman</p>
         </DialogBody>
         <DialogFooter className="flex justify-center">
-          <div className="flex w-64 cursor-pointer items-center justify-center gap-3 rounded-full bg-primary py-2 transition-all hover:bg-primary-hover">
+          <div className="flex w-64 cursor-pointer items-center justify-center gap-3 rounded-full bg-primary py-2 transition-all hover:bg-primary-hover"
+          onClick={()=>{navigate("/kelas-saya")}}>
             <div className="font-semibold text-white">Ikuti Kelas</div>
           </div>
         </DialogFooter>

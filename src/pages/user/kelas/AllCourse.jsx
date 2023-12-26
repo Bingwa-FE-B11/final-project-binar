@@ -55,18 +55,18 @@ export const AllCourse = () => {
             {/* Button */}
             <div className="flex w-[65%] flex-wrap items-center justify-between font-semibold">
               <div className="flex w-full gap-4 text-center">
-                <div className="w-[20%] cursor-pointer rounded-xl bg-primary py-2 text-white hover:bg-white hover:text-black">
+                <div className="w-[20%] cursor-pointer rounded-xl bg-primary py-2 text-white">
                   <button>All</button>
                 </div>
                 <div
-                  className="w-[40%] cursor-pointer rounded-xl bg-white py-2 hover:bg-primary hover:text-white md:w-[50%] lg:w-[60%]"
+                  className="w-[40%] cursor-pointer rounded-xl bg-white py-2 md:w-[50%] lg:w-[60%]"
                   onClick={() => {
                     navigate("/pilih-premium");
                   }}
                 >
                   <button>Kelas Premium</button>
                 </div>
-                <div className="w-[30%] cursor-pointer rounded-xl bg-white py-2 hover:bg-primary hover:text-white md:w-[40%] lg:w-[30%]"
+                <div className="w-[30%] cursor-pointer rounded-xl bg-white py-2 md:w-[40%] lg:w-[30%]"
                 onClick={()=>{navigate("/pilih-gratis")}}>
                   <button>Kelas Gratis</button>
                 </div>
@@ -88,7 +88,7 @@ export const AllCourse = () => {
                   level={value.level}
                   modul={value.modul}
                   duration={value.duration}
-                  categoryId={value.id}
+                  courseId={value.id}
                   isPremium={value.isPremium}
                 />
               ))

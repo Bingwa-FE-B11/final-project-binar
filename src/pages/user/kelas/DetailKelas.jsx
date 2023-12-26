@@ -23,6 +23,7 @@ import { FaArrowCircleRight } from "react-icons/fa";
 
 // Redux
 import { postEnrollmentsAction } from "../../../redux/action/enrollments/EnrollmentsAction"
+import { getDetailLessonAction } from "../../../redux/action/courses/getDetailLesson"
 
 // Material Tailwind Components
 import {
@@ -37,8 +38,12 @@ export const DetailKelas = () => {
   const dispatch = useDispatch();
   const storeAuthUser = useSelector((state) => state.authLogin);
   const storeDetailCourses = useSelector((state) => state.dataCourses.detail);
+  const storeEnrollments = useSelector((state) => state.enrollments.course);
+  const storeLesson = useSelector((state) => state.dataCourses.me);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [paymentCourseId, setPaymentCourseId] = useState(null);
+  const [isEnrolled, setIsEnrolled] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleDetail = () => {
     handleDialogOpen();
@@ -76,6 +81,22 @@ export const DetailKelas = () => {
     }
   };
 
+//   useEffect(() => {
+//     // Periksa apakah pengguna telah login
+//     if (storeAuthUser.token) {
+//       setIsLoggedIn(true);
+
+//       // Periksa apakah pengguna telah enroll ke kelas
+//       const courseId = storeDetailCourses?.id;
+//       if (courseId && storeEnrollments) {
+//         const isUserEnrolled = storeEnrollments.some(enrollment => enrollment.courseId === courseId);
+//         setIsEnrolled(isUserEnrolled);
+//         dispatch(getDetailLessonAction())
+//       }
+//     }
+//   }, [storeAuthUser, storeDetailCourses, storeEnrollments, getDetailLessonAction]);
+ 
+// console.log("storeLesson", storeLesson)
   return (
     <>
       {storeAuthUser.token === null ? <NavbarHome /> : <NavbarKelas />}
@@ -99,7 +120,7 @@ export const DetailKelas = () => {
                 {storeDetailCourses?.category?.categoryName}
               </div>
               <div className="flex items-center gap-1">
-                <div className="text-yellow-500">
+                <div className="text-yellow-700">
                   <FaStar />
                 </div>
                 <div className="text-lg font-bold">
@@ -322,7 +343,7 @@ export const DetailKelas = () => {
                 title={storeDetailCourses?.courseName}
                 author={storeDetailCourses?.mentor}
                 level={storeDetailCourses?.level}
-                modul={storeDetailCourses?.modul}
+                modul={storeDetailCourses?.modul} 
                 duration={storeDetailCourses?.duration}
                 price={storeDetailCourses?.price}
                 isPremium={storeDetailCourses?.isPremium}

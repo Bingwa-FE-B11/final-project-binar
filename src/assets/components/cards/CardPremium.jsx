@@ -17,16 +17,16 @@ export const CardPremium = ({
   level,
   modul,
   duration,
-  categoryId,
   image,
   isPremium,
+  courseId,
 }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleCardClick = () => {
-    dispatch(getDetailCoursesAction(categoryId));
-    navigate(`/detail-kelas/${categoryId}`);
+    dispatch(getDetailCoursesAction(courseId));
+    navigate(`/detail-kelas/${courseId}`);
   };
 
   return (
