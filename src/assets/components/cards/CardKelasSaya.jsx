@@ -19,7 +19,7 @@ export const CardKelasSaya = ({
   progress,
 }) => {
   return (
-    <div className="flex flex-col overflow-hidden shadow-md rounded-2xl bg-white">
+    <div className="flex flex-col overflow-hidden shadow-md rounded-2xl bg-white hover:scale-95">
       <div
         className="h-32 scale-105 bg-center bg-no-repeat min-w-fit"
         style={{ backgroundImage: `url(${image})`, backgroundSize: 'cover', objectFit: 'cover' }}

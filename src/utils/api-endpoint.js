@@ -24,9 +24,11 @@ export const API_ENDPOINT = {
   DELETE_CATEGORY: "/categories/{categoryId}", // [DELETE] Delete Category by ID
 
   // COURSES
-  CREATE_COURSE: "/courses", // [POST] Create Course
   GET_ALL_COURSES: "/courses", // [GET] Get All Courses
   UPDATE_COURSE: "/courses", // [PUT] Update Course by ID
+  CREATE_COURSE: "/courses", // [POST] Create Course
+  GET_COURSE_ME: "/courses/me", // [GET] Get All Course Me
+  GET_COURSE_ME_ID: "/courses/{courseId}/me", // [GET] Get Detail Course Me By ID 
   GET_COURSE: "/courses", // [GET] Get Course by ID
   DELETE_COURSE: "/courses", // [DELETE] Delete Course by ID
 
@@ -40,7 +42,7 @@ export const API_ENDPOINT = {
   // LESSONS
   GET_ALL_LESSONS: "/lessons", // [GET] Get All Lessons
   CREATE_LESSON: "/lessons", // [POST] Create Lesson
-  SEARCH_LESSON: "/lessons/search", // [GET] Search Lesson
+  SEARCH_LESSON: "/lessons/filter", // [GET] Search Lesson
   GET_LESSON: "/lessons/{lessonId}", // [GET] Get Lesson by ID
   UPDATE_LESSON: "/lessons/{lesssonId}", // [PUT] Update Lesson by ID
   DELETE_LESSON: "/lessons/{lesssonId}", // [DELETE] Delete Lesson by ID
@@ -49,8 +51,10 @@ export const API_ENDPOINT = {
   // ENROLLMENTS
   GET_ALL_ENROLLMENTS: "/enrollments", // [GET] Get All Enrollments
   GET_ENROLMENT: "/enrollments/{enrollmentId}", // [GET] Get Enrollments by ID
-  UPDATE_ENROLLMENT: "/enrollments/{courseId}", // [PUT] Update Enrollments by ID
-  CREATE_ENROLLMENT: "/enrollments/{courseId}/course", // [POST] Create Enrollment by Course ID
+  CREATE_ENROLLMENT: "/enrollments", // [POST] Create Enrollment by Course ID
+
+  // REVIEWS
+  CREATE_REVIEW: "/reviews/{courseId}", // [POST] Create Review
 
   // PROMOTIONS
   GET_ALL_PROMOTIONS: "/promotions", // [GET] Get All Promotions
@@ -70,8 +74,9 @@ export const API_ENDPOINT = {
   // PAYMENTS
   GET_ALL_PAYMENTS: "/payments", // [GET] Get All Payment
   GET_HISTORY_PAYMENTS: "/payments/history", // [GET] Get All Payment by Authentication
-  GET_PAYMENT_BY_COURSE: "/payments/{courseId}/course", // [GET] Get Payment by Course ID
-  CREATE_PAYMENT: "/payments/{courseId}/course", // [POST] Create Payment
+  GET_PAYMENT_BY_COURSE: "/payments/{courseId}", // [GET] Get Payment by Course ID
+  CREATE_PAYMENT: "/payments", // [POST] Create Payment
+  CREATE_MIDTRANS_PAYMENT: "/payment/midtrans", // [POST] Create Payment Midtrans
 
   // ADMIN
   GET_ADMIN_ALL: "/admin/all", // [GET] Get All Data From Admin

@@ -1,8 +1,8 @@
 import { reduxGetDetailCoursesId } from "../../../services/courses/getAllCourses";
 import { setDetailCourse } from "../../reducer/courses/courseSlice";
 
-export const getDetailCoursesAction = (categoryId) => async (dispatch) => {
-  await reduxGetDetailCoursesId(categoryId)
+export const getDetailCoursesAction = (courseId) => async (dispatch) => {
+  await reduxGetDetailCoursesId(courseId)
     .then((result) => {
       console.log("getDetailCoursesId:", result);
       dispatch(setDetailCourse(result.data.data.course));

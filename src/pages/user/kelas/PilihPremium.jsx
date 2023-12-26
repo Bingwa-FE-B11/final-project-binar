@@ -29,8 +29,9 @@ export const PilihPremium = () => {
     getCourses();
   }, [dispatch]);
 
-  console.log("storeCourses", storeCourses);
 
+  console.log("storeCourses", storeCourses);
+  
   return (
     <>
       {storeAuthUser.token === null ? <NavbarHome /> : <NavbarKelas />}
