@@ -78,15 +78,15 @@ export const HomePage = () => {
         {/* Hero Section */}
         <div className="flex">
           <div className="relative -z-10 w-2/3">
-            <img src={Header} alt="Header" className="w-full " />
+            <img src={Header} alt="Header" className="w-full h-full" />
             <div className="absolute inset-0 bg-gradient-to-l from-primary"></div>
           </div>
-          <div className="flex w-1/3 items-center justify-center bg-primary">
+          <div className="flex w-full lg:w-1/3 md:w-1/3 items-center justify-center bg-primary">
             <div className="flex flex-col gap-2">
-              <div className="text-3xl font-semibold tracking-wide text-white">
+              <div className="text-lg lg:text-3xl md:text-2xl font-semibold tracking-wide text-white">
                 Belajar
               </div>
-              <div className="text-3xl font-semibold tracking-wide text-white">
+              <div className="text-lg lg:text-3xl md:text-2xl font-semibold tracking-wide text-white">
                 dari Praktisi Terbaik!
               </div>
               <div
@@ -102,11 +102,11 @@ export const HomePage = () => {
         </div>
 
         {/* Start Kategori Belajar Section */}
-        <div className="flex flex-col gap-5 bg-secondary px-28 py-12">
+        <div className="flex flex-col gap-5 bg-secondary px-4 lg:px-28 md:px-20 py-12">
           <div className="flex items-center">
             <div className="text-2xl font-semibold">Kategori Belajar</div>
           </div>
-          <div className="grid grid-cols-6 gap-4 text-center">
+          <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-4 gap-4 text-center">
             {storeCategories == null ? (
               <CardKategorySkeleton/>
             ) : (
@@ -122,17 +122,14 @@ export const HomePage = () => {
         {/* End Kategori Belajar Section */}
 
         {/* Start Kursus Populer Section */}
-        <div className="flex flex-col gap-8 px-28 py-12">
+        <div className="flex flex-col gap-8 px-2 lg:px-28 md:px-20 py-12">
           <div className="flex items-center justify-between">
-            <div className="text-2xl font-semibold">Kursus Populer</div>
-            <div className="cursor-pointer text-lg font-semibold text-primary"
-            onClick={toggleShowAllCourses}>
-            <div className="text-2xl font-semibold">Kursus Pembelajaran</div>
+            <div className="text-xl lg:text:2xl md:text-2xl font-semibold">Kursus Pembelajaran</div>
             <div
               className="cursor-pointer text-lg font-semibold text-primary"
               onClick={toggleShowAllCourses}
             >
-              {showAllCourses ? "Tampilkan Sedikit" : "Lihat Semua"}
+              {showAllCourses ? "Lebih Sedikit" : "Lihat Semua"}
             </div>
           </div>
 
@@ -228,7 +225,7 @@ export const HomePage = () => {
           </div>
 
           {/* Container Card Kelas */}
-          <div className="grid grid-cols-3 gap-6">
+          <div className="grid lg:grid-cols-3 grid-cols-1 gap-6">
             {showAllCourses ? (
               storeCourses.filter(
                 (value) =>

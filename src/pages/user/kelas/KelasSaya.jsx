@@ -32,16 +32,13 @@ export const KelasSaya = () => {
     getUser();
   }, []);
 
-  // useEffect(() => {
-  //   getEnroll();
-  // }, [dispatch]);
   console.log("storeEnrollments", storeEnrollments);
   return (
     <div className="flex h-full flex-col justify-between bg-secondary">
       <div className="flex flex-col justify-center px-2 pt-16 md:px-4 md:pt-20 lg:px-24 lg:pt-28">
         {/* Search */}
-        <div className="flex items-center justify-between">
-          <div className="px-4 py-6 text-3xl font-bold">Kelas Berjalan</div>
+        <div className="flex items-center justify-between py-4">
+          <div className="px-4 py-6 text-xl lg:text-3xl md:text-3xl font-bold">Kelas Berjalan</div>
           <div className="relative flex items-center">
             <input
               type="text"
@@ -60,7 +57,7 @@ export const KelasSaya = () => {
           <SidebarKelas />
 
           {/* Button */}
-          <div className="flex w-[65%] flex-wrap items-center justify-between font-semibold">
+          <div className="flex w-full lg:w-[65%] md:w-[65%] flex-wrap items-center justify-between font-semibold">
             <div className="flex w-full gap-4 text-center">
               <div className="w-[20%] cursor-pointer rounded-xl bg-white py-2 hover:bg-primary hover:text-white">
                 <button>All</button>
@@ -74,59 +71,25 @@ export const KelasSaya = () => {
             </div>
 
             {/* Main Content */}
-            <div className="grid w-full grid-cols-2 gap-6 py-4 md:grid-cols-1 lg:grid-cols-2">
-              {storeEnrollments.length === 0 ? (
+            <div className="grid w-full grid-cols-1 gap-6 py-4 md:grid-cols-1 lg:grid-cols-2">
+              {/* Card Item */}
+              {storeEnrollments === null ? (
                 <CardCoursesSkeleton />
               ) : (
                 storeEnrollments?.map((value) => (
                   <CardKelasSaya
-                  key={value.id}
-                  image={value.course.courseImg}
-                  category={value.course.categoryName}
-                  rating={value.course.averageRating}
-                  title={value.course.courseName}
-                  author={value.course.mentor}
-                  level={value.course.level}
-                  modul={value.course.modul}
-                  duration={value.course.duration}
-                  progress ={value.progres}/>
+                    key={value.id}
+                    courseId={value.courseId}
+                    image={value.course.courseImg}
+                    category={value.course.category.categoryName}
+                    title={value.course.courseName}
+                    author={value.course.mentor}
+                    level={value.course.level}
+                    modul={value.course.modul}
+                    duration={value.course.duration}
+                    progress={value.progres}
+                  />
                 ))
-
-                //   <CardKelasSaya
-                //   image = {value.courseImg}
-                //   category={"UAI UEX DISAIN"}
-                //   rating={4.5}
-                //   title={"Mari Belajar UIUX"}
-                //   author={"Paijo"}
-                //   level={"Basic"}
-                //   modul={10}
-                //   duration={120}
-                //   kelas={"Premium"}
-                //   progress={60}
-                // />
-              )}
-
-              {/* {storeCourses == null ? (
-                  <CardCoursesSkeleton />
-                ) : (
-                  storeCourses
-                    .filter((value) => value.isPremium)
-                    .map((value) => (
-                      <CardPremium
-                        key={value.id}
-                        image={value.courseImg}
-                        category={value.category.categoryName}
-                        rating={value.averageRating}
-                        title={value.courseName}
-                        author={value.mentor}
-                        level={value.level}
-                        modul={value.modul}
-                        duration={value.duration}
-                        categoryId={value.id}
-                        isPremium={"Premium"}
-                      />
-                    ))
-                )} */}
             </div>
           </div>
         </div>
