@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   payment: null,
   paymentMidtrans: null,
-  history: null,
+  history: [],
 };
 
 const postPaymentSlice = createSlice({
@@ -22,6 +22,7 @@ const postPaymentSlice = createSlice({
   },
 });
 
-export const { setPayment, setPaymentMidtrans, setHistory } = postPaymentSlice.actions;
+export const { setPayment, setPaymentMidtrans, setHistory } =
+  postPaymentSlice.actions;
 
 export default postPaymentSlice.reducer;

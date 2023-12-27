@@ -51,14 +51,14 @@ export const PilihGratis = () => {
           </div>
 
           <div className="flex items-start justify-center py-4 md:justify-between lg:justify-between">
-          {/* Filter */}
-            <SidebarKelas/>
+            {/* Filter */}
+            <SidebarKelas />
 
             {/* Button */}
             <div className="flex w-[65%] flex-wrap items-center justify-between font-semibold">
               <div className="flex w-full gap-4 text-center">
                 <div
-                  className="w-[20%] cursor-pointer rounded-xl bg-white py-2 hover:bg-primary hover:text-white"
+                  className="w-[20%] cursor-pointer rounded-xl bg-white py-2"
                   onClick={() => {
                     navigate("/all-kelas");
                   }}
@@ -66,7 +66,7 @@ export const PilihGratis = () => {
                   <button>All</button>
                 </div>
                 <div
-                  className="w-[40%] cursor-pointer rounded-xl bg-white py-2 hover:bg-primary hover:text-white md:w-[50%] lg:w-[60%]"
+                  className="w-[40%] cursor-pointer rounded-xl bg-white py-2 md:w-[50%] lg:w-[60%]"
                   onClick={() => {
                     navigate("/pilih-premium");
                   }}
@@ -74,7 +74,7 @@ export const PilihGratis = () => {
                   <button>Kelas Premium</button>
                 </div>
                 <div
-                  className="w-[30%] cursor-pointer rounded-xl bg-primary py-2 text-white hover:bg-white hover:text-black md:w-[40%] lg:w-[30%]"
+                  className="w-[30%] cursor-pointer rounded-xl bg-primary py-2 text-white md:w-[40%] lg:w-[30%]"
                   onClick={() => {
                     navigate("/pilih-gratis");
                   }}
@@ -85,26 +85,27 @@ export const PilihGratis = () => {
 
               {/* Main Content */}
               <div className="grid w-full grid-cols-2 gap-6 py-4 md:grid-cols-1 lg:grid-cols-2">
-              {storeCourses == null ? (
-              <CardCoursesSkeleton />
-              ) : (
-                storeCourses.filter((value) => !value.isPremium)
-                .map((value) => (
-                  <CardGlobal
-                  key={value.id}
-                  image={value.courseImg}
-                  category={value.category.categoryName}
-                  rating={value.averageRating}
-                  title={value.courseName}
-                  author={value.mentor}
-                  level={value.level}
-                  modul={value.modul}
-                  duration={value.duration}
-                  categoryId={value.id}
-                  isPremium={value.isPremium}
-                  />
-                  ))
-                  )}
+                {storeCourses == null ? (
+                  <CardCoursesSkeleton />
+                ) : (
+                  storeCourses
+                    .filter((value) => !value.isPremium)
+                    .map((value) => (
+                      <CardGlobal
+                        key={value.id}
+                        image={value.courseImg}
+                        category={value.category.categoryName}
+                        rating={value.averageRating}
+                        title={value.courseName}
+                        author={value.mentor}
+                        level={value.level}
+                        modul={value.modul}
+                        duration={value.duration}
+                        courseId={value.id}
+                        isPremium={value.isPremium}
+                      />
+                    ))
+                )}
               </div>
             </div>
           </div>

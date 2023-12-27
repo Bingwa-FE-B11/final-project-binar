@@ -8,3 +8,7 @@ export const reduxGetAllCourses = async () => {
 export const reduxGetDetailCoursesId = async (courseId) => {
   return await http.get(`${API_ENDPOINT.GET_COURSE}/${courseId}`);
 };
+
+export const reduxGetDetailCoursesMe = async (courseId) => {
+  return await http.get(`${API_ENDPOINT.GET_COURSE}/${courseId}/me`);
+};

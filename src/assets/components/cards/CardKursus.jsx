@@ -33,7 +33,7 @@ export const CardKursus = ({
   };
 
   return (
-    <div className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-md hover:scale-95">
+    <div className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-md transition-all hover:scale-95">
       <div
         className="h-32 min-w-fit scale-105 cursor-pointer bg-center bg-no-repeat"
         style={{
@@ -82,9 +82,7 @@ export const CardKursus = ({
             </div>
           </div>
         ) : (
-          <div
-            className="w-fit rounded-3xl bg-green px-4 py-1 text-center text-base font-bold text-white transition-all"
-          >
+          <div className="w-fit rounded-3xl bg-green px-4 py-1 text-center text-base font-bold text-white transition-all">
             Gratis
           </div>
         )}

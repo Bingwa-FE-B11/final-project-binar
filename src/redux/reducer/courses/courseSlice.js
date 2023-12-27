@@ -3,6 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   courses: [],
   detail: [],
+  me: [],
+  loading: false,
 };
 
 const courseSlice = createSlice({
@@ -34,6 +36,18 @@ const courseSlice = createSlice({
     setDetailCourse: (state, action) => {
       state.detail = action.payload;
     },
+
+    setMe: (state, action) => {
+      state.me = action.payload;
+    },
+
+    startLoading: (state) => {
+      state.loading = true;
+    },
+
+    endLoading: (state) => {
+      state.loading = false;
+    },
   },
 });
 
@@ -43,6 +57,9 @@ export const {
   updateCourse,
   deleteCourse,
   setDetailCourse,
+  setMe,
+  startLoading,
+  endLoading,
 } = courseSlice.actions;
 
 export default courseSlice.reducer;

@@ -20,19 +20,19 @@ export const CardGlobal = ({
   level,
   modul,
   duration,
-  categoryId,
+  courseId,
   isPremium,
 }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleCardClick = () => {
-    dispatch(getDetailCoursesAction(categoryId));
-    navigate(`/detail-kelas/${categoryId}`);
+    dispatch(getDetailCoursesAction(courseId));
+    navigate(`/detail-kelas/${courseId}`);
   };
 
   return (
-    <div className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-md hover:scale-95">
+    <div className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-md hover:scale-95 transition-all">
       <div
         className="h-32 min-w-fit scale-105 cursor-pointer bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${image})`, backgroundSize: 'cover', objectFit: 'cover' }}

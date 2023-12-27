@@ -7,7 +7,7 @@ import { NavbarKelas } from "../../../assets/components/navbar/NavbarKelas";
 import { NavbarHome } from "../../../assets/components/navbar/NavbarHome";
 import CardCoursesSkeleton from "../../../assets/components/skeleton/CardCourseSkeleton";
 import { CardDetail } from "../../../assets/components/cards/CardDetail";
-import { showErrorToast, showSuccessToast } from "../../../helper/ToastHelper"
+import { showErrorToast, showSuccessToast } from "../../../helper/ToastHelper";
 
 // Icons
 import { GoArrowLeft } from "react-icons/go";
@@ -22,7 +22,8 @@ import { BiSolidLock } from "react-icons/bi";
 import { FaArrowCircleRight } from "react-icons/fa";
 
 // Redux
-import { postEnrollmentsAction } from "../../../redux/action/enrollments/EnrollmentsAction"
+import { postEnrollmentsAction } from "../../../redux/action/enrollments/EnrollmentsAction";
+import { getDetailLessonAction } from "../../../redux/action/courses/getDetailLesson";
 
 // Material Tailwind Components
 import {
@@ -31,15 +32,29 @@ import {
   DialogFooter,
   DialogHeader,
 } from "@material-tailwind/react";
-import { CardKursus } from "../../../assets/components/cards/CardKursus";
+import LoadingSpinner from "../../../assets/components/loading/loadingSpinner";
 
 export const DetailKelas = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const storeAuthUser = useSelector((state) => state.authLogin);
   const storeDetailCourses = useSelector((state) => state.dataCourses.detail);
+  const storeEnrollments = useSelector((state) => state.enrollments.course);
+  const storeLesson = useSelector((state) => state.dataCourses.me);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [paymentCourseId, setPaymentCourseId] = useState(null);
+  const [isEnrolled, setIsEnrolled] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const isLoading = useSelector((state) => state.dataCourses.loading);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
 
   const handleDetail = () => {
     handleDialogOpen();
@@ -55,28 +70,43 @@ export const DetailKelas = () => {
     try {
       if (storeAuthUser.token !== null) {
         const isPremium = storeDetailCourses?.isPremium;
-    
+
         if (isPremium) {
           navigate(`/pembayaran/${paymentCourseId}`);
-        } 
-        
+        }
+
         if (!isPremium) {
           await dispatch(postEnrollmentsAction(paymentCourseId));
-            showSuccessToast("Berhasil Enrollments Course");
-            navigate("/kelas-saya");  
+          showSuccessToast("Berhasil Enrollments Course");
+          navigate("/kelas-saya");
         }
       }
-      
+
       if (storeAuthUser.token === null) {
         showErrorToast("Anda harus login terlebih dahulu");
       }
-
     } catch (err) {
       console.error("Error during enrollment:", err);
       showErrorToast("Pendaftaran gagal. Silakan coba lagi.");
     }
   };
 
+  //   useEffect(() => {
+  //     // Periksa apakah pengguna telah login
+  //     if (storeAuthUser.token) {
+  //       setIsLoggedIn(true);
+
+  //       // Periksa apakah pengguna telah enroll ke kelas
+  //       const courseId = storeDetailCourses?.id;
+  //       if (courseId && storeEnrollments) {
+  //         const isUserEnrolled = storeEnrollments.some(enrollment => enrollment.courseId === courseId);
+  //         setIsEnrolled(isUserEnrolled);
+  //         dispatch(getDetailLessonAction())
+  //       }
+  //     }
+  //   }, [storeAuthUser, storeDetailCourses, storeEnrollments, getDetailLessonAction]);
+
+  // console.log("storeLesson", storeLesson)
   return (
     <>
       {storeAuthUser.token === null ? <NavbarHome /> : <NavbarKelas />}
@@ -87,7 +117,12 @@ export const DetailKelas = () => {
         <div className="mt-16 flex w-full flex-col gap-4 px-8 md:w-2/3 lg:w-2/3">
           {/* Button Back */}
           <div className="flex w-full items-center gap-2 py-4">
-            <div className="cursor-pointer" onClick={()=>{navigate(window.history.back())}}>
+            <div
+              className="cursor-pointer"
+              onClick={() => {
+                navigate(window.history.back());
+              }}
+            >
               <GoArrowLeft size={30} />
             </div>
             <div className="font-semibold">Kelas Lainnya</div>
@@ -100,7 +135,7 @@ export const DetailKelas = () => {
                 {storeDetailCourses?.category?.categoryName}
               </div>
               <div className="flex items-center gap-1">
-                <div className="text-yellow-500">
+                <div className="text-yellow-700">
                   <FaStar />
                 </div>
                 <div className="text-lg font-bold">
@@ -301,13 +336,13 @@ export const DetailKelas = () => {
 
       {/* Dialog */}
       <Dialog open={dialogOpen} handler={handleDialogOpen} className="py-3">
-        <DialogHeader className="flex flex-col items-center relative">
+        <DialogHeader className="relative flex flex-col items-center">
           <IoCloseSharp
-              size={30}
-              className="absolute top-5 right-10 cursor-pointer text-primary"
-              onClick={handleDetail}
+            size={30}
+            className="absolute right-10 top-5 cursor-pointer text-primary"
+            onClick={handleDetail}
           />
-          <h1 className="font-semibold text-slate-700 mb-2">
+          <h1 className="mb-2 font-semibold text-slate-700">
             Selangkah lagi menuju
           </h1>
           <h1 className="font-semibold text-primary">Course Kebanggan Anda</h1>
@@ -316,24 +351,24 @@ export const DetailKelas = () => {
           {storeDetailCourses === null ? (
             <CardCoursesSkeleton />
           ) : (
-              <CardKursus
-                image={storeDetailCourses?.courseImg}
-                category={storeDetailCourses?.category?.categoryName}
-                rating={storeDetailCourses?.averageRating}
-                title={storeDetailCourses?.courseName}
-                author={storeDetailCourses?.mentor}
-                level={storeDetailCourses?.level}
-                modul={storeDetailCourses?.modul}
-                duration={storeDetailCourses?.duration}
-                price={storeDetailCourses?.price}
-                isPremium={storeDetailCourses?.isPremium}
-              />
+            <CardDetail
+              image={storeDetailCourses?.courseImg}
+              category={storeDetailCourses?.category?.categoryName}
+              rating={storeDetailCourses?.averageRating}
+              title={storeDetailCourses?.courseName}
+              author={storeDetailCourses?.mentor}
+              level={storeDetailCourses?.level}
+              modul={storeDetailCourses?.modul}
+              duration={storeDetailCourses?.duration}
+              price={storeDetailCourses?.price}
+              isPremium={storeDetailCourses?.isPremium}
+            />
           )}
         </DialogBody>
         <DialogFooter className="flex justify-center">
-          <div 
+          <div
             className="flex w-64 cursor-pointer items-center justify-center gap-3 rounded-full bg-primary py-2 transition-all hover:bg-primary-hover"
-          onClick={handleEnrollCourse}
+            onClick={handleEnrollCourse}
           >
             <div className="font-semibold text-white">Beli Sekarang</div>
             <FaArrowCircleRight size={17} className="text-white" />
