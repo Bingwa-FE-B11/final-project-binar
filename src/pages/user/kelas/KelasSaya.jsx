@@ -13,15 +13,24 @@ import CardCoursesSkeleton from "../../../assets/components/skeleton/CardCourseS
 // Redux
 import { getUserProfileAction } from "../../../redux/action/auth/getUserProfileAction";
 import { getAllEnrollmentsAction } from "../../../redux/action/enrollments/getAllEnrollmentsAction";
+import CardCoursesSkeleton from "../../../assets/components/skeleton/CardCourseSkeleton";
 
 export const KelasSaya = () => {
   const storeEnrollments = useSelector((state) => state.enrollments.course);
   const dispatch = useDispatch();
 
+  const getEnroll = async() => {
+    await dispatch(getAllEnrollmentsAction());
+  };
+
+  const getUser =async () => {
+    await dispatch(getUserProfileAction());
+  };
+
   useEffect(() => {
-    dispatch(getUserProfileAction());
-    dispatch(getAllEnrollmentsAction());
-  }, [dispatch]);
+    getEnroll();
+    getUser();
+  }, []);
 
   console.log("storeEnrollments", storeEnrollments);
   return (
@@ -67,7 +76,7 @@ export const KelasSaya = () => {
               {storeEnrollments === null ? (
                 <CardCoursesSkeleton />
               ) : (
-                storeEnrollments.map((value) => (
+                storeEnrollments?.map((value) => (
                   <CardKelasSaya
                     key={value.id}
                     courseId={value.courseId}
@@ -81,7 +90,6 @@ export const KelasSaya = () => {
                     progress={value.progres}
                   />
                 ))
-              )}
             </div>
           </div>
         </div>
