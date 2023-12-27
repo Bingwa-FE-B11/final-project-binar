@@ -2,7 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   course: [],
+<<<<<<< HEAD
   enrollments: null,
+=======
+  enrollments: [],
+>>>>>>> 92726baaaee76f75cd6417339035f55030755fc1
 };
 
 const postEnrollmentSlice = createSlice({

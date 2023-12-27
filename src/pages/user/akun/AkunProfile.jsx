@@ -132,7 +132,7 @@ export const AkunProfile = () => {
         >
           <GoArrowLeft
             size={30}
-            className="absolute -inset-x-1 cursor-pointer md:-inset-x-12 lg:-inset-x-12"
+            className="absolute -inset-x-1 cursor-pointer md:-inset-x-12 lg:-inset-x-16"
           />
           <span className="hidden lg:flex">Kembali Ke Beranda</span>
         </div>

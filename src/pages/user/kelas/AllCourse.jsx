@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -12,10 +12,11 @@ import { CardGlobal } from "../../../assets/components/cards/CardGlobal";
 import CardCoursesSkeleton from "../../../assets/components/skeleton/CardCourseSkeleton";
 import { getAllCoursesAction } from "../../../redux/action/courses/getAllCoursesAction";
 import { SidebarKelas } from "../../../assets/components/sidebar/SidebarKelas";
+import { searchCourseAction } from "../../../redux/action/courses/searchCourseAction";
 
 export const AllCourse = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const storeAuthUser = useSelector((state) => state.authLogin);
   const storeCourses = useSelector((state) => state.dataCourses.courses);
 
@@ -24,8 +25,23 @@ export const AllCourse = () => {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     getCourses();
   }, [dispatch]);
+
+  // Search Feature
+  const [searchInput, setSearchInput] = useState("");
+
+  const handleSearchCourse = (searchInput) => {
+    const search = dispatch(searchCourseAction(searchInput));
+
+    if (search) {
+      navigate(`/pilih-kelas?search=${searchInput}`);
+    }
+  };
 
   return (
     <>
@@ -38,61 +54,73 @@ export const AllCourse = () => {
             <div className="relative flex items-center">
               <input
                 type="text"
-                className="cursor-pointer rounded-3xl border-2 border-primary px-1 py-2 md:px-4 lg:px-4"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                onKeyDown={(e) =>
+                  e.key === "Enter" ? handleSearchCourse(searchInput) : ""
+                }
+                className="cursor-pointer rounded-3xl border-2 border-primary px-1 py-2 outline-none md:px-4 lg:px-4"
                 placeholder="Cari Kelas..."
               />
               <BiSearchAlt
                 size={25}
                 className="absolute inset-y-2 right-4 cursor-pointer rounded-lg bg-primary p-1 text-white"
+                onClick={() => {
+                  handleSearchCourse(searchInput);
+                }}
               />
             </div>
           </div>
 
           <div className="flex items-start justify-center py-4 md:justify-between lg:justify-between">
-          {/* Filter */}            
-            <SidebarKelas/>
+            {/* Filter */}
+            <SidebarKelas />
 
             {/* Button */}
             <div className="flex w-[65%] flex-wrap items-center justify-between font-semibold">
               <div className="flex w-full gap-4 text-center">
-                <div className="w-[20%] cursor-pointer rounded-xl bg-primary py-2 text-white hover:bg-white hover:text-black">
+                <div className="w-[20%] cursor-pointer rounded-xl bg-primary py-2 text-white">
                   <button>All</button>
                 </div>
                 <div
-                  className="w-[40%] cursor-pointer rounded-xl bg-white py-2 hover:bg-primary hover:text-white md:w-[50%] lg:w-[60%]"
+                  className="w-[40%] cursor-pointer rounded-xl bg-white py-2 md:w-[50%] lg:w-[60%]"
                   onClick={() => {
                     navigate("/pilih-premium");
                   }}
                 >
                   <button>Kelas Premium</button>
                 </div>
-                <div className="w-[30%] cursor-pointer rounded-xl bg-white py-2 hover:bg-primary hover:text-white md:w-[40%] lg:w-[30%]"
-                onClick={()=>{navigate("/pilih-gratis")}}>
+                <div
+                  className="w-[30%] cursor-pointer rounded-xl bg-white py-2 md:w-[40%] lg:w-[30%]"
+                  onClick={() => {
+                    navigate("/pilih-gratis");
+                  }}
+                >
                   <button>Kelas Gratis</button>
                 </div>
               </div>
 
               {/* Main Content */}
               <div className="grid w-full grid-cols-2 gap-6 py-4 md:grid-cols-1 lg:grid-cols-2">
-              {storeCourses == null ? (
-              <CardCoursesSkeleton />
-            ) : (
-              storeCourses.map((value) => (
-                <CardGlobal
-                  key={value.id}
-                  image={value.courseImg}
-                  category={value.category.categoryName}
-                  rating={value.averageRating}
-                  title={value.courseName}
-                  author={value.mentor}
-                  level={value.level}
-                  modul={value.modul}
-                  duration={value.duration}
-                  categoryId={value.id}
-                  isPremium={value.isPremium}
-                />
-              ))
-            )}
+                {storeCourses == null ? (
+                  <CardCoursesSkeleton />
+                ) : (
+                  storeCourses.map((value) => (
+                    <CardGlobal
+                      key={value.id}
+                      image={value.courseImg}
+                      category={value.category.categoryName}
+                      rating={value.averageRating}
+                      title={value.courseName}
+                      author={value.mentor}
+                      level={value.level}
+                      modul={value.modul}
+                      duration={value.duration}
+                      courseId={value.id}
+                      isPremium={value.isPremium}
+                    />
+                  ))
+                )}
               </div>
             </div>
           </div>

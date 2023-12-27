@@ -7,7 +7,6 @@ import {
   DialogFooter,
   DialogHeader,
 } from "@material-tailwind/react";
-import { Card, Typography } from "@material-tailwind/react";
 
 // Components
 import { AdminNavbar } from "../../../assets/components/admin/adminNavbar";
@@ -20,29 +19,243 @@ import { FiPlusCircle } from "react-icons/fi";
 import { FiFilter } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllDataAction } from "../../../redux/action/admin/data/getAllDataAction";
+import { getDetailCoursesAction } from "../../../redux/action/courses/getDetailCourseAction";
+import { createCourseAction } from "../../../redux/action/admin/course/createCourseAction";
+import { showSuccessToast } from "../../../helper/ToastHelper";
+import { getAllCoursesAction } from "../../../redux/action/courses/getAllCoursesAction";
+import { deleteCourseAction } from "../../../redux/action/admin/course/deleteCourseAction";
+import { editCourseAction } from "../../../redux/action/admin/course/editCourseAction";
 
 export const AdminKelolaKelas = () => {
-  const [dialogOpen, setDialogOpen] = useState(false);
-
   const dispatch = useDispatch();
+
+  // Redux Store
   const adminData = useSelector((state) => state.allAdminData);
+  const storeAllCourse = useSelector((state) => state.dataCourses.courses);
+  const storeDetailCourse = useSelector((state) => state.dataCourses.detail);
+
+  const [dialogTambah, setDialogTambah] = useState(false);
+  const [dialogEdit, setDialogEdit] = useState(false);
 
   const getAdminData = () => {
     dispatch(getAllDataAction());
   };
 
-  useEffect(() => {
+  const getAllCourse = () => {
+    dispatch(getAllCoursesAction());
+  };
+
+  const getDetailCourse = (categoryId) => {
+    dispatch(getDetailCoursesAction(categoryId));
+  };
+
+  const renderAllState = () => {
+    getAllCourse();
     getAdminData();
+    getDetailCourse();
+  };
+
+  useEffect(() => {
+    renderAllState();
   }, [dispatch]);
 
-  const handleDialogOpen = () => setDialogOpen(!dialogOpen);
+  console.log("store detail course:", storeDetailCourse);
+
+  const handleDialogTambah = () => setDialogTambah(!dialogTambah);
+  const handleDialogEdit = () => setDialogEdit(!dialogEdit);
+
+  // Tambah Course
+  const [newCourseName, setNewCourseName] = useState("");
+  const [newPrice, setNewPrice] = useState("");
+  const [newLevel, setNewLevel] = useState("");
+  const [newAboutCourse, setNewAboutCourse] = useState("");
+  const [newTargetAudience, setNewTargetAudience] = useState("");
+  const [newLearningMaterial, setNewLearningMaterial] = useState("");
+  const [newMentor, setNewMentor] = useState("");
+  const [newVideoUrl, setNewVideoUrl] = useState("");
+  const [newForumUrl, setNewForumUrl] = useState("");
+  const [newDuration, setNewDuration] = useState("");
+  const [newCourseImg, setNewCourseImg] = useState("");
+  const [newCategoryId, setNewCategoryId] = useState("");
+  const [newPromotionId, setNewPromotionId] = useState("");
+
+  // New Course
+  const handleNewCourse = async () => {
+    const newCourse = await dispatch(
+      createCourseAction({
+        courseName: newCourseName,
+        price: Number(newPrice),
+        level: newLevel,
+        aboutCourse: newAboutCourse,
+        targetAudience: newTargetAudience,
+        learningMaterial: newLearningMaterial,
+        mentor: newMentor,
+        videoURL: newVideoUrl,
+        forumURL: newForumUrl,
+        duration: newDuration,
+        courseImg: newCourseImg,
+        categoryId: Number(newCategoryId),
+        promotionId: newPromotionId ? Number(newPromotionId) : null,
+      }),
+    );
+
+    if (!newCourse) {
+      setDialogTambah(false);
+    }
+
+    if (newCourse) {
+      showSuccessToast("Course berhasil tambahkan!");
+      setDialogTambah(false);
+
+      setNewCourseName("");
+      setNewPrice("");
+      setNewLevel("");
+      setNewAboutCourse("");
+      setNewTargetAudience("");
+      setNewLearningMaterial("");
+      setNewMentor("");
+      setNewVideoUrl("");
+      setNewForumUrl("");
+      setNewDuration("");
+      setNewCourseImg("");
+      setNewCategoryId("");
+      setNewPromotionId("");
+
+      renderAllState();
+    }
+  };
+
+  // Edit Course
+  const [editingCourseId, setEditingCourseId] = useState(null);
+
+  const [updateCourseName, setUpdateCourseName] = useState(
+    storeDetailCourse?.courseName || "",
+  );
+  const [updatePrice, setUpdatePrice] = useState(
+    storeDetailCourse?.price || "",
+  );
+  const [updateLevel, setUpdateLevel] = useState(
+    storeDetailCourse?.level || "",
+  );
+  const [updateAboutCourse, setUpdateAboutCourse] = useState(
+    storeDetailCourse?.aboutCourse || "",
+  );
+  const [updateTargetAudience, setUpdateTargetAudience] = useState(
+    storeDetailCourse?.targetAudience || "",
+  );
+  const [updateLearningMaterial, setUpdateLearningMaterial] = useState(
+    storeDetailCourse?.learningMaterial || "",
+  );
+  const [updateMentor, setUpdateMentor] = useState(
+    storeDetailCourse?.mentor || "",
+  );
+  const [updateVideoUrl, setUpdateVideoUrl] = useState(
+    storeDetailCourse?.videoURL || "",
+  );
+  const [updateForumUrl, setUpdateForumUrl] = useState(
+    storeDetailCourse?.forumURL || "",
+  );
+  const [updateDuration, setUpdateDuration] = useState(
+    storeDetailCourse?.duration || "",
+  );
+  const [updateCourseImg, setUpdateCourseImg] = useState(
+    storeDetailCourse?.courseImg || "",
+  );
+  const [updateCategoryId, setUpdateCategoryId] = useState(
+    storeDetailCourse?.categoryId || "",
+  );
+  const [updatePromotionId, setUpdatePromotionId] = useState(
+    storeDetailCourse?.promotionId || "",
+  );
+
+  const handleEditCourse = (courseId) => {
+    const courseToEdit = storeAllCourse.find(
+      (course) => course.id === courseId,
+    );
+
+    setEditingCourseId(courseId);
+    setUpdateCourseName(courseToEdit.courseName);
+    setUpdatePrice(courseToEdit.price);
+    setUpdateLevel(courseToEdit.level);
+    setUpdateAboutCourse(courseToEdit.aboutCourse);
+    setUpdateTargetAudience(courseToEdit.targetAudience);
+    setUpdateLearningMaterial(courseToEdit.learningMaterial);
+    setUpdateMentor(courseToEdit.mentor);
+    setUpdateVideoUrl(courseToEdit.videoURL);
+    setUpdateForumUrl(courseToEdit.forumURL);
+    setUpdateDuration(courseToEdit.duration);
+    setUpdateCourseImg(courseToEdit.courseImg);
+    setUpdateCategoryId(courseToEdit.categoryId);
+    setUpdatePromotionId(courseToEdit.promotionId);
+
+    setDialogEdit(true);
+  };
+
+  const handleUpdateCourse = async () => {
+    const updatedCourse = await dispatch(
+      editCourseAction(
+        {
+          courseName: updateCourseName,
+          price: Number(updatePrice),
+          level: updateLevel,
+          aboutCourse: updateAboutCourse,
+          targetAudience: updateTargetAudience,
+          learningMaterial: updateLearningMaterial,
+          mentor: updateMentor,
+          videoURL: updateVideoUrl,
+          forumURL: updateForumUrl,
+          duration: updateDuration,
+          courseImg: updateCourseImg,
+          categoryId: updateCategoryId,
+          promotionId: updatePromotionId,
+        },
+        editingCourseId,
+      ),
+    );
+
+    if (updatedCourse) {
+      showSuccessToast("Course berhasil diupdate!");
+      setDialogEdit(false);
+
+      // Clear state variables
+      setEditingCourseId(null);
+      setUpdateCourseName("");
+      setUpdatePrice("");
+      setUpdateLevel("");
+      setUpdateAboutCourse("");
+      setUpdateTargetAudience("");
+      setUpdateLearningMaterial("");
+      setUpdateMentor("");
+      setUpdateVideoUrl("");
+      setUpdateForumUrl("");
+      setUpdateDuration("");
+      setUpdateCourseImg("");
+      setUpdateCategoryId("");
+      setUpdatePromotionId("");
+
+      renderAllState(); // Refresh course data
+    }
+  };
+
+  // Delete Course
+  const handleDeleteCourse = async (courseId) => {
+    const deleteCourse = await dispatch(deleteCourseAction(courseId));
+
+    if (deleteCourse) {
+      showSuccessToast("Course berhasil dihapus");
+
+      window.scrollTo(0, 0);
+
+      renderAllState();
+    }
+  };
 
   return (
     <div className="flex">
       <div className="w-1/6">
         <AdminPojok />
       </div>
-      <div className="flex w-5/6 flex-col">
+      <div className="flex w-5/6 flex-col pb-20">
         <AdminNavbar />
         {/* Card */}
         <div className="flex w-full justify-between gap-10 px-14 py-10">
@@ -69,7 +282,10 @@ export const AdminKelolaKelas = () => {
                 </div>
                 <div className="flex w-full flex-shrink-0 flex-col items-stretch justify-end space-y-2 md:w-auto md:flex-row md:items-center md:space-x-3 md:space-y-0">
                   <div className="flex w-full items-center space-x-3 md:w-auto">
-                    <button className="flex h-10 items-center justify-center gap-2 rounded-full bg-primary px-4 text-white transition-all hover:bg-primary-hover" onClick={handleDialogOpen}>
+                    <button
+                      className="flex h-10 items-center justify-center gap-2 rounded-full bg-primary px-2 text-white transition-all hover:bg-primary-hover"
+                      onClick={handleDialogTambah}
+                    >
                       <FiPlusCircle size={30} />
                       <span className="font-semibold">Tambah</span>
                     </button>
@@ -81,11 +297,11 @@ export const AdminKelolaKelas = () => {
                 </div>
               </div>
               <div className="overflow-x-auto">
-                <table className="w-full text-left text-gray-500 dark:text-gray-400">
+                <table className="w-full text-left text-sm text-gray-500 dark:text-gray-400">
                   <thead className="text-md bg-gray-50 text-gray-700 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                       <th scope="col" className="px-4 py-3">
-                        Kode Kelas
+                        No
                       </th>
                       <th scope="col" className="px-4 py-3">
                         Kategori
@@ -108,197 +324,136 @@ export const AdminKelolaKelas = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className="border-b dark:border-gray-700">
-                      <th
-                        scope="row"
-                        className="whitespace-nowrap px-4 py-3 font-medium text-gray-900 dark:text-white"
-                      >
-                        Apple iMac 27"
-                      </th>
-                      <td className="px-4 py-3">PC</td>
-                      <td className="px-4 py-3">Apple</td>
-                      <td className="px-4 py-3">300</td>
-                      <td className="px-4 py-3">$2999</td>
-                      <td className="px-4 py-3">$2999</td>
-                      <td className="flex gap-2 text-sm font-semibold text-white">
-                        <button className="rounded-full bg-primary px-3 py-1">
-                          Edit
-                        </button>
-                        <button className="rounded-full bg-red-400 px-3 py-1">
-                          Hapus
-                        </button>
-                      </td>
-                    </tr>
-                    <tr className="border-b dark:border-gray-700">
-                      <th
-                        scope="row"
-                        className="whitespace-nowrap px-4 py-3 font-medium text-gray-900 dark:text-white"
-                      >
-                        Apple iMac 20"
-                      </th>
-                      <td className="px-4 py-3">PC</td>
-                      <td className="px-4 py-3">Apple</td>
-                      <td className="px-4 py-3">200</td>
-                      <td className="px-4 py-3">$1499</td>
-                      <td className="px-4 py-3">$1499</td>
-                      <td className="flex gap-2 text-sm font-semibold text-white">
-                        <button className="rounded-full bg-primary px-3 py-1">
-                          Edit
-                        </button>
-                        <button className="rounded-full bg-red-400 px-3 py-1">
-                          Hapus
-                        </button>
-                      </td>
-                    </tr>
+                    {storeAllCourse &&
+                      storeAllCourse?.map((value, index) => (
+                        <tr
+                          className="border-b dark:border-gray-700"
+                          key={value.id}
+                        >
+                          <th
+                            scope="row"
+                            className="whitespace-nowrap px-4 py-3 font-medium text-gray-900 dark:text-white"
+                          >
+                            {index + 1}
+                          </th>
+                          <td className="px-4 py-3">
+                            {value.category?.categoryName}
+                          </td>
+                          <td className="px-4 py-3">{value.courseName}</td>
+                          <td className="px-4 py-3">
+                            {value.isPremium ? (
+                              <span className="font-semibold text-primary">
+                                Premium
+                              </span>
+                            ) : (
+                              <span className="font-semibold text-green">
+                                Gratis
+                              </span>
+                            )}
+                          </td>
+                          <td className="px-4 py-3">
+                            {value.level.split(" ")[0]}
+                          </td>
+                          <td className="px-4 py-3">Rp {value.price}</td>
+                          <td className="flex gap-1 py-3 text-sm font-semibold text-white">
+                            <button
+                              className="rounded-full bg-primary px-3 py-1"
+                              onClick={() => handleEditCourse(value.id)}
+                            >
+                              Edit
+                            </button>
+                            <button
+                              className="rounded-full bg-red-400 px-3 py-1"
+                              onClick={() => {
+                                handleDeleteCourse(value.id);
+                              }}
+                            >
+                              Hapus
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
                   </tbody>
                 </table>
               </div>
-              <nav
-                className="flex flex-col items-start justify-between space-y-3 p-4 md:flex-row md:items-center md:space-y-0"
-                aria-label="Table navigation"
-              >
-                <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
-                  Showing
-                  <span className="font-semibold text-gray-900 dark:text-white">
-                    1-10
-                  </span>
-                  of
-                  <span className="font-semibold text-gray-900 dark:text-white">
-                    1000
-                  </span>
-                </span>
-                <ul className="inline-flex items-stretch -space-x-px">
-                  <li>
-                    <a
-                      href="#"
-                      className="ml-0 flex h-full items-center justify-center rounded-l-lg border border-gray-300 bg-white px-3 py-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      <span className="sr-only">Previous</span>
-                      <svg
-                        className="h-5 w-5"
-                        aria-hidden="true"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center border border-gray-300 bg-white px-3 py-2 text-sm leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      1
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center border border-gray-300 bg-white px-3 py-2 text-sm leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      2
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      aria-current="page"
-                      className="text-primary-600 bg-primary-50 border-primary-300 hover:bg-primary-100 hover:text-primary-700 z-10 flex items-center justify-center border px-3 py-2 text-sm leading-tight dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-                    >
-                      3
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center border border-gray-300 bg-white px-3 py-2 text-sm leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      ...
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center border border-gray-300 bg-white px-3 py-2 text-sm leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      100
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex h-full items-center justify-center rounded-r-lg border border-gray-300 bg-white px-3 py-1.5 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                      <span className="sr-only">Next</span>
-                      <svg
-                        className="h-5 w-5"
-                        aria-hidden="true"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
             </div>
           </div>
         </section>
       </div>
 
-      {/* Dialog */}
-      <Dialog open={dialogOpen} handler={handleDialogOpen}>
+      {/* Dialog Tambah */}
+      <Dialog open={dialogTambah} handler={handleDialogTambah} size="xxl">
         <DialogHeader className="flex flex-col">
-          <div className="relative flex text-primary">
+          <div className="flex w-full items-center justify-between px-6 text-primary">
             <h1 className="font-semibold">Tambah Kelas</h1>
             <IoCloseSharp
               size={30}
-              className="absolute inset-x-80 cursor-pointer"
-              onClick={handleDialogOpen}
+              className="cursor-pointer"
+              onClick={handleDialogTambah}
             />
           </div>
         </DialogHeader>
-        <DialogBody className="flex space-x-6 px-10 py-10 ">
+        <DialogBody className="flex space-x-6 px-10 py-10">
           {/* Left Column */}
-          <div className="flex-1 space-y-2 ">
+          <div className="flex-1 space-y-2">
+            <div className="flex flex-col">
+              <span className="text-slate-700">Nama Kelas</span>
+              <input
+                type="text"
+                value={newCourseName}
+                onChange={(e) => setNewCourseName(e.target.value)}
+                placeholder="Masukkan Nama Kelas"
+                className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
+              />
+            </div>
             <div className="flex flex-col ">
-              <span className="text-black ">Nama Kelas</span>
+              <span className="text-slate-700 ">Harga</span>
               <input
-                placeholder="Text"
-                className="flex rounded-xl border border-primary px-4 py-2"
+                type="number"
+                value={newPrice}
+                onChange={(e) => setNewPrice(e.target.value)}
+                placeholder="Rp"
+                className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
               />
             </div>
             <div className="flex flex-col">
-              <span className="text-black">Kategori</span>
+              <span className="text-slate-700">Level</span>
               <input
-                placeholder="Text"
-                className="flex rounded-xl border border-primary px-4 py-2"
+                type="text"
+                value={newLevel}
+                onChange={(e) => setNewLevel(e.target.value)}
+                placeholder="Masukkan Level"
+                className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
               />
             </div>
             <div className="flex flex-col">
-              <span className="text-black">Kode Kelas</span>
+              <span className="text-slate-700">Tentang Course</span>
               <input
-                placeholder="Text"
-                className="flex rounded-xl border border-primary px-4 py-2"
+                type="text"
+                value={newAboutCourse}
+                onChange={(e) => setNewAboutCourse(e.target.value)}
+                placeholder="Masukkan Tentang Course"
+                className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
               />
             </div>
             <div className="flex flex-col">
-              <span className="text-black">Tipe Kelas</span>
+              <span className="text-slate-700">Target User</span>
               <input
-                placeholder="Text"
-                className="flex rounded-xl border border-primary px-4 py-2"
+                type="text"
+                value={newTargetAudience}
+                onChange={(e) => setNewTargetAudience(e.target.value)}
+                placeholder="MAsukkan Target User"
+                className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-slate-700">Materi Pembelajaran</span>
+              <input
+                type="text"
+                value={newLearningMaterial}
+                onChange={(e) => setNewLearningMaterial(e.target.value)}
+                placeholder="Masukkan Materi Pembelajaran"
+                className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
               />
             </div>
           </div>
@@ -306,36 +461,246 @@ export const AdminKelolaKelas = () => {
           {/* Right Column */}
           <div className="flex-1 space-y-2">
             <div className="flex flex-col">
-              <span className="text-black">Level</span>
+              <span className="text-slate-700">Mentor</span>
               <input
-                placeholder="Text"
-                className="flex rounded-xl border border-primary px-4 py-2"
+                type="text"
+                value={newMentor}
+                onChange={(e) => setNewMentor(e.target.value)}
+                placeholder="Masukkan Mentor"
+                className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
               />
             </div>
             <div className="flex flex-col">
-              <span className="text-black">Harga</span>
+              <span className="text-slate-700">Link Video</span>
               <input
-                placeholder="Text"
-                className="flex rounded-xl border border-primary px-4 py-2"
+                type="text"
+                value={newVideoUrl}
+                onChange={(e) => setNewVideoUrl(e.target.value)}
+                placeholder="Masukkan Link Video"
+                className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
               />
             </div>
             <div className="flex flex-col">
-              <span className="text-black">Materi</span>
+              <span className="text-slate-700">Link Telegram</span>
               <input
-                placeholder="Paragraph"
-                className="flex h-[8rem] rounded-xl border border-primary px-4 py-2"
+                type="text"
+                value={newForumUrl}
+                onChange={(e) => setNewForumUrl(e.target.value)}
+                placeholder="Masukkan Link Telegram"
+                className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-slate-700">Link Thumbnail</span>
+              <input
+                type="text"
+                value={newCourseImg}
+                onChange={(e) => setNewCourseImg(e.target.value)}
+                placeholder="Masukkan Link Thumbnail"
+                className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-slate-700">Durasi</span>
+              <input
+                type="text"
+                value={newDuration}
+                onChange={(e) => setNewDuration(e.target.value)}
+                placeholder="Masukkan Durasi"
+                className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-slate-700">Kategori ID</span>
+              <input
+                type="number"
+                value={newCategoryId}
+                onChange={(e) => setNewCategoryId(e.target.value)}
+                placeholder="Masukkan Kategori ID"
+                className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-slate-700">Promotion ID</span>
+              <input
+                type="number"
+                value={newPromotionId}
+                onChange={(e) => setNewPromotionId(e.target.value)}
+                placeholder="Masukkan Promotion ID"
+                className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
               />
             </div>
           </div>
         </DialogBody>
         <DialogFooter className="flex justify-center gap-4">
-          <div className="flex cursor-pointer rounded-full bg-red-500 px-10 py-2 transition-all hover:bg-red-600">
-            <button className="flex font-semibold text-white">
-              Upload Video
-            </button>
+          <div
+            onClick={() => handleNewCourse()}
+            className="flex cursor-pointer rounded-full bg-primary px-10 py-2 transition-all hover:bg-primary-hover"
+          >
+            <button className="flex font-semibold text-white">Tambah</button>
           </div>
-          <div className="flex cursor-pointer rounded-full bg-primary px-10 py-2 transition-all hover:bg-primary-hover">
-            <button className="flex font-semibold text-white">Simpan</button>
+        </DialogFooter>
+      </Dialog>
+
+      {/* Dialog Edit */}
+      <Dialog open={dialogEdit} handler={handleDialogEdit} size="xxl">
+        <DialogHeader className="flex flex-col">
+          <div className="flex w-full items-center justify-between px-6 text-primary">
+            <h1 className="font-semibold">Edit Kelas</h1>
+            <IoCloseSharp
+              size={30}
+              className="cursor-pointer"
+              onClick={() => {
+                handleDialogEdit();
+              }}
+            />
+          </div>
+        </DialogHeader>
+        <DialogBody className="flex space-x-6 px-10 py-10">
+          {/* Left Column */}
+          <div className="flex-1 space-y-2">
+            <div className="flex flex-col">
+              <span className="text-slate-700">Nama Kelas</span>
+              <input
+                type="text"
+                value={updateCourseName}
+                onChange={(e) => setUpdateCourseName(e.target.value)}
+                placeholder="Masukkan Nama Kelas"
+                className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
+              />
+            </div>
+            <div className="flex flex-col ">
+              <span className="text-slate-700 ">Harga</span>
+              <input
+                type="number"
+                value={updatePrice}
+                onChange={(e) => setUpdatePrice(e.target.value)}
+                placeholder="Rp"
+                className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-slate-700">Level</span>
+              <input
+                type="text"
+                value={updateLevel}
+                onChange={(e) => setUpdateLevel(e.target.value)}
+                placeholder="Masukkan Level"
+                className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-slate-700">Tentang Course</span>
+              <input
+                type="text"
+                value={updateAboutCourse}
+                onChange={(e) => setUpdateAboutCourse(e.target.value)}
+                placeholder="Masukkan Tentang Course"
+                className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-slate-700">Target User</span>
+              <input
+                type="text"
+                value={updateTargetAudience}
+                onChange={(e) => setUpdateTargetAudience(e.target.value)}
+                placeholder="MAsukkan Target User"
+                className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-slate-700">Materi Pembelajaran</span>
+              <input
+                type="text"
+                value={updateLearningMaterial}
+                onChange={(e) => setUpdateLearningMaterial(e.target.value)}
+                placeholder="Masukkan Materi Pembelajaran"
+                className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
+              />
+            </div>
+          </div>
+
+          {/* Right Column */}
+          <div className="flex-1 space-y-2">
+            <div className="flex flex-col">
+              <span className="text-slate-700">Mentor</span>
+              <input
+                type="text"
+                value={updateMentor}
+                onChange={(e) => setUpdateMentor(e.target.value)}
+                placeholder="Masukkan Mentor"
+                className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-slate-700">Link Video</span>
+              <input
+                type="text"
+                value={updateVideoUrl}
+                onChange={(e) => setUpdateVideoUrl(e.target.value)}
+                placeholder="Masukkan Link Video"
+                className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-slate-700">Link Telegram</span>
+              <input
+                type="text"
+                value={updateForumUrl}
+                onChange={(e) => setUpdateForumUrl(e.target.value)}
+                placeholder="Masukkan Link Telegram"
+                className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-slate-700">Link Thumbnail</span>
+              <input
+                type="text"
+                value={updateCourseImg}
+                onChange={(e) => setUpdateCourseImg(e.target.value)}
+                placeholder="Masukkan Link Thumbnail"
+                className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-slate-700">Durasi</span>
+              <input
+                type="text"
+                value={updateDuration}
+                onChange={(e) => setUpdateDuration(e.target.value)}
+                placeholder="Masukkan Durasi"
+                className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-slate-700">Kategori ID</span>
+              <input
+                type="number"
+                value={updateCategoryId}
+                onChange={(e) => setUpdateCategoryId(e.target.value)}
+                placeholder="Masukkan Kategori ID"
+                className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-slate-700">Promotion ID</span>
+              <input
+                type="number"
+                value={updatePromotionId}
+                onChange={(e) => setUpdatePromotionId(e.target.value)}
+                placeholder="Masukkan Promotion ID"
+                className="flex rounded-xl border-2 border-slate-300 px-4 py-2 outline-none focus:border-primary"
+              />
+            </div>
+          </div>
+        </DialogBody>
+        <DialogFooter className="flex justify-center gap-4">
+          <div
+            className="flex cursor-pointer rounded-full bg-primary px-10 py-2 transition-all hover:bg-primary-hover"
+            onClick={handleUpdateCourse}
+          >
+            <button className="flex font-semibold text-white">Edit</button>
           </div>
         </DialogFooter>
       </Dialog>

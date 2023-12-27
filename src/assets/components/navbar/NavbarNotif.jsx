@@ -22,34 +22,33 @@ import {
   MenuItem,
   MenuList,
 } from "@material-tailwind/react";
+import { searchCourseAction } from "../../../redux/action/courses/searchCourseAction";
 
 export const NavbarNotif = () => {
   const dispatch = useDispatch();
-  const [search, setSearch] = useState("");
   const navigate = useNavigate();
-
-  // Fungsi untuk menangani perubahan pada input
-  const handleInputChange = (e) => {
-    setSearch(e.target.value);
-  };
-
-  // handle search dengan enter setelah input movie
-  const handleEnterKeyPress = (e) => {
-    if (e.key === "Enter" && search.trim() !== "") {
-      // navigate(`/Search?query=${search}`);
-    }
-  };
 
   // Handle Logout
   const handleLogout = () => {
     dispatch(logoutUserAction());
   };
 
+  // Search Feature
+  const [searchInput, setSearchInput] = useState("");
+
+  const handleSearchCourse = (searchInput) => {
+    const search = dispatch(searchCourseAction(searchInput));
+
+    if (search) {
+      navigate(`/pilih-kelas?search=${searchInput}`);
+    }
+  };
+
   return (
     <div className="fixed top-0 flex w-screen items-center justify-between gap-2 bg-primary px-2 py-4 md:px-10 lg:px-28">
       <div className="flex gap-10">
-        <div 
-          className="hidden items-center justify-center gap-2 md:flex lg:flex cursor-pointer"
+        <div
+          className="hidden cursor-pointer items-center justify-center gap-2 md:flex lg:flex"
           onClick={() => {
             navigate("/");
           }}
@@ -61,15 +60,20 @@ export const NavbarNotif = () => {
         <div className="relative">
           <input
             type="text"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            onKeyDown={(e) =>
+              e.key === "Enter" ? handleSearchCourse(searchInput) : ""
+            }
             placeholder="Cari kursus terbaik..."
             className="h-[3rem] w-[12rem] cursor-pointer rounded-xl bg-white px-3 py-2 md:w-[20rem] lg:w-[30rem]"
-            value={search}
-            onChange={handleInputChange}
-            onKeyDown={handleEnterKeyPress}
           />
           <BiSearchAlt
             size={30}
             className="absolute inset-y-2 right-4 hidden cursor-pointer rounded bg-primary p-1 text-white md:flex lg:flex"
+            onClick={() => {
+              handleSearchCourse(searchInput);
+            }}
           />
         </div>
       </div>
@@ -92,9 +96,7 @@ export const NavbarNotif = () => {
               ripple={false}
               size="sm"
             >
-              <LuUser 
-                size={30} 
-               />
+              <LuUser size={30} />
             </Button>
           </MenuHandler>
           <MenuList>

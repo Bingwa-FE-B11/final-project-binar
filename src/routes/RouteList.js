@@ -69,7 +69,14 @@ export const RouteList = () => {
             </AdminTokenProtected>
           }
         />
-        <Route path="/admin/kelola-kelas" element={<AdminKelolaKelas />} />
+        <Route
+          path="/admin/kelola-kelas"
+          element={
+            <AdminTokenProtected>
+              <AdminKelolaKelas />
+            </AdminTokenProtected>
+          }
+        />
 
         {/* Data User */}
         <Route path="notifikasi" element={<Notifikasi />} />

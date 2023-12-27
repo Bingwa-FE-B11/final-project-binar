@@ -1,25 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // Components
 import { NavbarAkun } from "../../../assets/components/navbar/NavbarAkun";
 import { SidebarAkun } from "../../../assets/components/sidebar/SidebarAkun";
 import { NavbarMobile } from "../../../assets/components/navbar/NavbarMobile";
-import { CardGlobal } from "../../../assets/components/cards/CardGlobal";
+import { CardRiwayat } from "../../../assets/components/cards/CardRiwayat";
 import CardCoursesSkeleton from "../../../assets/components/skeleton/CardCourseSkeleton";
 
 // Icons
 import { GoArrowLeft } from "react-icons/go";
 
+// Redux
+import { getHistoryAction } from "../../../redux/action/payment/HistoryAction";
+
 export const AkunPembayaran = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const isMobile = useMediaQuery({ maxWidth: 767 });
 
-  const storeHistory = useSelector((state) => state.payment.payment);
+  const storeHistory = useSelector((state) => state.payment.history);
   const storeCourses = useSelector((state) => state.dataCourses.courses);
-  console.log("storeHistory", storeHistory)
+
+  useEffect(() => {
+    dispatch(getHistoryAction());
+  }, [dispatch]);
 
   return (
     <>
@@ -52,17 +59,36 @@ export const AkunPembayaran = () => {
               </div>
 
               {/* Main Content */}
-              <div className="space-y-6 px-4 w-full">
+              <div className="w-fit space-y-6 px-4">
                 {/* Card Item */}
-                {storeHistory && storeCourses ? (
-                  <CardGlobal
-                    image={storeCourses?.courseImg}
-                    category={storeHistory?.category?.categoryName}
-                    title={storeHistory?.courseName}
-                    author={storeHistory?.mentor}
-                  />
-                ) : (
+                {storeHistory == null ? (
                   <CardCoursesSkeleton />
+                ) : (
+                  storeHistory.map((value) => {
+                    const matchedCourse = storeCourses.find(
+                      (course) => course.id === value.courseId,
+                    );
+
+                    if (matchedCourse) {
+                      return (
+                        <CardRiwayat
+                          key={value.courseId}
+                          image={matchedCourse.courseImg}
+                          category={value?.course?.category?.categoryName}
+                          rating={value.course.averageRating}
+                          title={value.course.courseName}
+                          author={value.course.mentor}
+                          level={value.course.level}
+                          modul={value.course.modul}
+                          duration={value.course.duration}
+                          courseId={value.courseId}
+                          status={value.status}
+                          price={value.amount}
+                        />
+                      );
+                    }
+                    return null;
+                  })
                 )}
               </div>
             </div>

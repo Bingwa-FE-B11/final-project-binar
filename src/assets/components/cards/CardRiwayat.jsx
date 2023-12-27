@@ -11,7 +11,7 @@ import { IoDiamond, IoTime } from "react-icons/io5";
 // Redux
 import { getDetailCoursesAction } from "../../../redux/action/courses/getDetailCourseAction";
 
-export const CardGlobal = ({
+export const CardRiwayat = ({
   image,
   category,
   rating,
@@ -21,7 +21,8 @@ export const CardGlobal = ({
   modul,
   duration,
   courseId,
-  isPremium,
+  status,
+  price,
 }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -53,10 +54,11 @@ export const CardGlobal = ({
             <div className="font-bold">{rating}4.9</div>
           </div>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col text-left">
           <div className="font-semibold text-slate-800">{title}</div>
           <div className="text-slate-500">by {author}</div>
         </div>
+
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1">
             <RiShieldStarLine size={20} color="#22c55e" />
@@ -73,18 +75,16 @@ export const CardGlobal = ({
             <div className="text-sm font-semibold text-primary">{duration}</div>
           </div>
         </div>
-        {isPremium ? (
-          <div className="flex w-fit cursor-pointer justify-between rounded-3xl bg-blue px-4 py-1 transition-all hover:bg-blue-hover">
-            <div className="flex items-center gap-2">
-              <IoDiamond size={20} color="white" />
-              <div className="font-bold text-white">Premium</div>
-            </div>
+
+        <div className="flex justify-between">
+          <div className="flex items-center gap-2 rounded-3xl bg-green px-4 py-1">
+            <IoDiamond size={20} color="white" />
+            <div className="font-bold text-white">{status}</div>
           </div>
-        ) : (
-          <div className="w-fit cursor-pointer rounded-3xl bg-green px-4 py-1 text-white transition-all hover:bg-blue-hover">
-            Mulai Kelas
+          <div className="flex items-center gap-2 rounded-3xl bg-primary px-4 py-1">
+            <div className="font-semibold text-white">Rp {price}</div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

@@ -7,28 +7,28 @@ import { BiSearchAlt } from "react-icons/bi";
 
 // Images
 import BrandLogo from "../../img/brain.webp";
+import { useDispatch } from "react-redux";
+import { searchCourseAction } from "../../../redux/action/courses/searchCourseAction";
 
 export const NavbarHome = () => {
-  const [search, setSearch] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  // Fungsi untuk menangani perubahan pada input
-  const handleInputChange = (e) => {
-    setSearch(e.target.value);
-  };
+  const [searchInput, setSearchInput] = useState("");
 
-  // handle search dengan enter setelah input movie
-  const handleEnterKeyPress = (e) => {
-    if (e.key === "Enter" && search.trim() !== "") {
-      // navigate(`/Search?query=${search}`);
+  const handleSearchCourse = (searchInput) => {
+    const search = dispatch(searchCourseAction(searchInput));
+
+    if (search) {
+      navigate(`/pilih-kelas?search=${searchInput}`);
     }
   };
 
   return (
-    <div className="fixed top-0 z-50 flex items-center justify-between w-screen px-6 py-4 bg-primary lg:px-28 md:px-14">
+    <div className="fixed top-0 z-50 flex w-screen items-center justify-between bg-primary px-6 py-4 md:px-14 lg:px-28">
       <div className="flex gap-10">
-        <div 
-          className="items-center justify-center hidden gap-2 lg:flex md:flex cursor-pointer"
+        <div
+          className="hidden cursor-pointer items-center justify-center gap-2 md:flex lg:flex"
           onClick={() => {
             navigate("/");
           }}
@@ -41,20 +41,30 @@ export const NavbarHome = () => {
           <input
             type="text"
             placeholder="Cari kursus terbaik..."
-            className="h-[3rem] w-[15rem] cursor-pointer rounded-xl bg-white px-3 py-2 lg:w-[30rem]"
-            value={search}
-            onChange={handleInputChange}
-            onKeyDown={handleEnterKeyPress}
+            className="h-[3rem] w-[15rem] cursor-pointer rounded-xl bg-white px-3 py-2 outline-none lg:w-[30rem]"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            onKeyDown={(e) =>
+              e.key === "Enter" ? handleSearchCourse(searchInput) : ""
+            }
           />
           <BiSearchAlt
             size={30}
             className="absolute inset-y-2 right-4 cursor-pointer rounded bg-primary p-1 text-white"
+            onClick={() => {
+              handleSearchCourse(searchInput);
+            }}
           />
         </div>
       </div>
 
-      <div className="flex gap-2 font-semibold text-white cursor-pointer" onClick={() => { navigate("/Login") }}>
-        <CgLogIn size={30} className="hidden lg:flex md:flex" />
+      <div
+        className="flex cursor-pointer gap-2 font-semibold text-white"
+        onClick={() => {
+          navigate("/Login");
+        }}
+      >
+        <CgLogIn size={30} className="hidden md:flex lg:flex" />
         <div className="text-xl">Masuk</div>
       </div>
     </div>

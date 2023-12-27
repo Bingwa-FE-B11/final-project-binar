@@ -1,11 +1,11 @@
 import { reduxGetAllCourses } from "../../../services/courses/getAllCourses";
-import { setCourses } from "../../reducer/courses/getAllCoursesSlice";
+import { getAllCourses } from "../../reducer/courses/courseSlice";
 
-export const getAllCoursesAction = () => (dispatch) => {
-  reduxGetAllCourses()
+export const getAllCoursesAction = () => async (dispatch) => {
+  await reduxGetAllCourses()
     .then((result) => {
       console.log("getAllCoursesAction:", result);
-      dispatch(setCourses(result.data.data.courses));
+      dispatch(getAllCourses(result.data.data.courses));
       return true;
     })
     .catch((err) => {
