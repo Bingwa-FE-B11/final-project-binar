@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // Icons
@@ -8,6 +8,7 @@ import { BiSearchAlt } from "react-icons/bi";
 import { NavbarKelas } from "../../../assets/components/navbar/NavbarKelas";
 import { CardKelasSaya } from "../../../assets/components/cards/CardKelasSaya";
 import { SidebarKelas } from "../../../assets/components/sidebar/SidebarKelas";
+import CardCoursesSkeleton from "../../../assets/components/skeleton/CardCourseSkeleton";
 
 // Redux
 import { getUserProfileAction } from "../../../redux/action/auth/getUserProfileAction";
@@ -15,10 +16,8 @@ import { getAllEnrollmentsAction } from "../../../redux/action/enrollments/getAl
 import CardCoursesSkeleton from "../../../assets/components/skeleton/CardCourseSkeleton";
 
 export const KelasSaya = () => {
-  const storeAuthUser = useSelector((state) => state.authLogin);
   const storeEnrollments = useSelector((state) => state.enrollments.course);
   const dispatch = useDispatch();
-
 
   const getEnroll = async() => {
     await dispatch(getAllEnrollmentsAction());

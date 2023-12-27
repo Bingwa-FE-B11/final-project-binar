@@ -10,13 +10,9 @@ import { NavbarHome } from "../assets/components/navbar/NavbarHome";
 import { CardKursus } from "../assets/components/cards/CardKursus";
 import { CardKategory } from "../assets/components/cards/CardKategory";
 import { NavbarKelas } from "../assets/components/navbar/NavbarKelas";
-<<<<<<< HEAD
-import CardKategorySkeleton from "../assets/components/skeleton/CardKategorySkeleton"
-=======
 import CardKategorySkeleton from "../assets/components/skeleton/CardKategorySkeleton";
 import CardCourseSkeleton from "../assets/components/skeleton/CardCourseSkeleton";
 import { Footer } from "../assets/components/footer/Footer";
->>>>>>> 92726baaaee76f75cd6417339035f55030755fc1
 
 // Redux
 import { getUserProfileAction } from "../redux/action/auth/getUserProfileAction";
@@ -55,7 +51,6 @@ export const HomePage = () => {
     setShowAllCourses(!showAllCourses);
   };
 
-<<<<<<< HEAD
   const storeCategories = useSelector((state) => state.dataCategories.categories);
   const storeCourses = useSelector((state) => state.dataCourses.courses);
   const storeAuthUser = useSelector((state) => state.authLogin);
@@ -70,17 +65,11 @@ export const HomePage = () => {
   console.log("storeCategories", storeCategories);
 
   console.log("storeAuthUser", storeAuthUser);
-=======
+  
   const handleCategoryFilter = (category) => {
     setSelectedCategory(category);
   };
 
-  const storeCategories = useSelector(
-    (state) => state.dataCategories.categories,
-  );
-  const storeCourses = useSelector((state) => state.dataCourses.courses);
-  const storeAuthUser = useSelector((state) => state.authLogin);
->>>>>>> 92726baaaee76f75cd6417339035f55030755fc1
 
   return (
     <>
@@ -135,26 +124,21 @@ export const HomePage = () => {
         {/* Start Kursus Populer Section */}
         <div className="flex flex-col gap-8 px-28 py-12">
           <div className="flex items-center justify-between">
-<<<<<<< HEAD
             <div className="text-2xl font-semibold">Kursus Populer</div>
             <div className="cursor-pointer text-lg font-semibold text-primary"
             onClick={toggleShowAllCourses}>
-=======
             <div className="text-2xl font-semibold">Kursus Pembelajaran</div>
             <div
               className="cursor-pointer text-lg font-semibold text-primary"
               onClick={toggleShowAllCourses}
             >
->>>>>>> 92726baaaee76f75cd6417339035f55030755fc1
               {showAllCourses ? "Tampilkan Sedikit" : "Lihat Semua"}
             </div>
           </div>
 
           {/* Filter */}
-<<<<<<< HEAD
           <div className="flex justify-between">
             <div className="cursor-pointer rounded-xl bg-secondary px-5 py-1 text-base font-semibold transition-all hover:bg-primary hover:text-white">
-=======
           <div className="flex flex-wrap justify-center gap-4">
             {/* Menampilkan tombol "All" */}
             <div
@@ -165,7 +149,6 @@ export const HomePage = () => {
               }`}
               onClick={() => handleCategoryFilter("All")}
             >
->>>>>>> 92726baaaee76f75cd6417339035f55030755fc1
               All
             </div>
             <div className="cursor-pointer rounded-xl bg-secondary px-5 py-1 text-base font-semibold transition-all hover:bg-primary hover:text-white">
@@ -188,7 +171,6 @@ export const HomePage = () => {
             </div>
           </div>
 
-<<<<<<< HEAD
           {/* Container Card Kelas */}
           <div className="grid grid-cols-3 gap-6">
           {showAllCourses
@@ -224,7 +206,7 @@ export const HomePage = () => {
                   isPremium={value.isPremium}
                 />
               ))}
-=======
+
             {/* Menampilkan button filter kategori yang dimuat */}
             {storeCategories === null ? (
               <CardCourseSkeleton />
@@ -315,15 +297,11 @@ export const HomePage = () => {
                 - Course Belum Tersedia -
               </p>
             )}
->>>>>>> 92726baaaee76f75cd6417339035f55030755fc1
           </div>
         </div>
         {/* End Kursus Populer */}
       </div>
-<<<<<<< HEAD
-=======
       <Footer />
->>>>>>> 92726baaaee76f75cd6417339035f55030755fc1
     </>
   );
 };
