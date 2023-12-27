@@ -10,6 +10,10 @@ export const getUserProfileAction = () => (dispatch) => {
         "result -> reduxGetUserProfile",
         result.data.data.user.userProfile,
       );
+      console.log(
+        "result -> reduxGetUserProfile",
+        result.data.data.user,
+      );
       dispatch(setUserProfile(result.data.data.user.userProfile));
       return true;
     })

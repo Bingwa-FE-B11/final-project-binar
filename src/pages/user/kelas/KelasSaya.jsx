@@ -11,21 +11,32 @@ import { SidebarKelas } from "../../../assets/components/sidebar/SidebarKelas";
 
 // Redux
 import { getUserProfileAction } from "../../../redux/action/auth/getUserProfileAction";
+import { getAllEnrollmentsAction } from "../../../redux/action/enrollments/getAllEnrollmentsAction";
+import CardCoursesSkeleton from "../../../assets/components/skeleton/CardCourseSkeleton";
 
 export const KelasSaya = () => {
   const storeAuthUser = useSelector((state) => state.authLogin);
   const storeEnrollments = useSelector((state) => state.enrollments.course);
   const dispatch = useDispatch();
 
-  const getUser = () => {
-    dispatch(getUserProfileAction());
+
+  const getEnroll = async() => {
+    await dispatch(getAllEnrollmentsAction());
+  };
+
+  const getUser =async () => {
+    await dispatch(getUserProfileAction());
   };
 
   useEffect(() => {
+    getEnroll();
     getUser();
-  }, [dispatch]);
+  }, []);
 
-console.log("storeEnrollments", storeEnrollments)
+  // useEffect(() => {
+  //   getEnroll();
+  // }, [dispatch]);
+  console.log("storeEnrollments", storeEnrollments);
   return (
     <div className="flex h-full flex-col justify-between bg-secondary">
       <div className="flex flex-col justify-center px-2 pt-16 md:px-4 md:pt-20 lg:px-24 lg:pt-28">
@@ -45,9 +56,9 @@ console.log("storeEnrollments", storeEnrollments)
           </div>
         </div>
 
-        <div className="flex items-start justify-center lg:justify-between md:justify-between py-4">
-        {/* Filter */}
-          <SidebarKelas/>
+        <div className="flex items-start justify-center py-4 md:justify-between lg:justify-between">
+          {/* Filter */}
+          <SidebarKelas />
 
           {/* Button */}
           <div className="flex w-[65%] flex-wrap items-center justify-between font-semibold">
@@ -65,20 +76,38 @@ console.log("storeEnrollments", storeEnrollments)
 
             {/* Main Content */}
             <div className="grid w-full grid-cols-2 gap-6 py-4 md:grid-cols-1 lg:grid-cols-2">
-              {/* Card Item */}
-              <CardKelasSaya
-                category={"UAI UEX DISAIN"}
-                rating={4.5}
-                title={"Mari Belajar UIUX"}
-                author={"Paijo"}
-                level={"Basic"}
-                modul={10}
-                duration={120}
-                kelas={"Premium"}
-                progress={60}
-              />
+              {storeEnrollments.length === 0 ? (
+                <CardCoursesSkeleton />
+              ) : (
+                storeEnrollments?.map((value) => (
+                  <CardKelasSaya
+                  key={value.id}
+                  image={value.course.courseImg}
+                  category={value.course.categoryName}
+                  rating={value.course.averageRating}
+                  title={value.course.courseName}
+                  author={value.course.mentor}
+                  level={value.course.level}
+                  modul={value.course.modul}
+                  duration={value.course.duration}
+                  progress ={value.progres}/>
+                ))
 
-{/* {storeCourses == null ? (
+                //   <CardKelasSaya
+                //   image = {value.courseImg}
+                //   category={"UAI UEX DISAIN"}
+                //   rating={4.5}
+                //   title={"Mari Belajar UIUX"}
+                //   author={"Paijo"}
+                //   level={"Basic"}
+                //   modul={10}
+                //   duration={120}
+                //   kelas={"Premium"}
+                //   progress={60}
+                // />
+              )}
+
+              {/* {storeCourses == null ? (
                   <CardCoursesSkeleton />
                 ) : (
                   storeCourses
