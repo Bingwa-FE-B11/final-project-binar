@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -12,6 +12,7 @@ import { CardGlobal } from "../../../assets/components/cards/CardGlobal";
 import CardCoursesSkeleton from "../../../assets/components/skeleton/CardCourseSkeleton";
 import { getAllCoursesAction } from "../../../redux/action/courses/getAllCoursesAction";
 import { SidebarKelas } from "../../../assets/components/sidebar/SidebarKelas";
+import { searchCourseAction } from "../../../redux/action/courses/searchCourseAction";
 
 export const AllCourse = () => {
   const navigate = useNavigate();
@@ -24,8 +25,23 @@ export const AllCourse = () => {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     getCourses();
   }, [dispatch]);
+
+  // Search Feature
+  const [searchInput, setSearchInput] = useState("");
+
+  const handleSearchCourse = (searchInput) => {
+    const search = dispatch(searchCourseAction(searchInput));
+
+    if (search) {
+      navigate(`/pilih-kelas?search=${searchInput}`);
+    }
+  };
 
   return (
     <>
@@ -38,12 +54,20 @@ export const AllCourse = () => {
             <div className="relative flex items-center">
               <input
                 type="text"
-                className="cursor-pointer rounded-3xl border-2 border-primary px-1 py-2 md:px-4 lg:px-4"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                onKeyDown={(e) =>
+                  e.key === "Enter" ? handleSearchCourse(searchInput) : ""
+                }
+                className="cursor-pointer rounded-3xl border-2 border-primary px-1 py-2 outline-none md:px-4 lg:px-4"
                 placeholder="Cari Kelas..."
               />
               <BiSearchAlt
                 size={25}
                 className="absolute inset-y-2 right-4 cursor-pointer rounded-lg bg-primary p-1 text-white"
+                onClick={() => {
+                  handleSearchCourse(searchInput);
+                }}
               />
             </div>
           </div>

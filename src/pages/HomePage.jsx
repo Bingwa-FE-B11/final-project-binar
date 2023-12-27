@@ -38,6 +38,10 @@ export const HomePage = () => {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     getUserProfile();
     getCategories();
     getCourses();
@@ -186,7 +190,7 @@ export const HomePage = () => {
                   ))
               ) : (
                 <p className="col-span-3 py-10 text-center text-lg italic text-slate-500">
-                  - Kelas Belum Tersedia -
+                  - Course Belum Tersedia -
                 </p>
               )
             ) : storeCourses
@@ -221,7 +225,7 @@ export const HomePage = () => {
                 ))
             ) : (
               <p className="col-span-3 py-10 text-center text-lg italic text-slate-500">
-                - Kelas Belum Tersedia -
+                - Course Belum Tersedia -
               </p>
             )}
           </div>

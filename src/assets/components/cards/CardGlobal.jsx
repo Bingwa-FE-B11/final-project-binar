@@ -32,10 +32,14 @@ export const CardGlobal = ({
   };
 
   return (
-    <div className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-md hover:scale-95 transition-all">
+    <div className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-md transition-all hover:scale-95">
       <div
         className="h-32 min-w-fit scale-105 cursor-pointer bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${image})`, backgroundSize: 'cover', objectFit: 'cover' }}
+        style={{
+          backgroundImage: `url(${image})`,
+          backgroundSize: "cover",
+          objectFit: "cover",
+        }}
         onClick={handleCardClick}
       ></div>
       {/* Container Desc Card Kelas */}
@@ -77,7 +81,7 @@ export const CardGlobal = ({
             </div>
           </div>
         ) : (
-          <div className="w-fit cursor-pointer rounded-3xl text-white bg-green px-4 py-1 transition-all hover:bg-blue-hover">
+          <div className="w-fit cursor-pointer rounded-3xl bg-green px-4 py-1 text-white transition-all hover:bg-blue-hover">
             Mulai Kelas
           </div>
         )}

@@ -6,25 +6,26 @@ import { BiSearchAlt } from "react-icons/bi";
 // Images
 import BrandLogo from "../../img/brain.webp";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { searchCourseAction } from "../../../redux/action/courses/searchCourseAction";
 
 export const NavbarPembayaran = () => {
-  const [search, setSearch] = useState("");
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Fungsi untuk menangani perubahan pada input
-  const handleInputChange = (e) => {
-    setSearch(e.target.value);
-  };
+  // Search Feature
+  const [searchInput, setSearchInput] = useState("");
 
-  // handle search dengan enter setelah input movie
-  const handleEnterKeyPress = (e) => {
-    if (e.key === "Enter" && search.trim() !== "") {
-      // navigate(`/Search?query=${search}`);
+  const handleSearchCourse = (searchInput) => {
+    const search = dispatch(searchCourseAction(searchInput));
+
+    if (search) {
+      navigate(`/pilih-kelas?search=${searchInput}`);
     }
   };
+
   return (
-    <div className="fixed top-0 z-50 flex items-center justify-between w-screen px-20 py-4 bg-primary lg:px-28 md:px-60">
+    <div className="fixed top-0 z-50 flex w-screen items-center justify-between bg-primary px-20 py-4 md:px-60 lg:px-28">
       <div className="flex gap-10">
         <div
           className="hidden cursor-pointer items-center justify-center gap-2 lg:flex"
@@ -39,15 +40,20 @@ export const NavbarPembayaran = () => {
         <div className="relative">
           <input
             type="text"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            onKeyDown={(e) =>
+              e.key === "Enter" ? handleSearchCourse(searchInput) : ""
+            }
             placeholder="Cari kursus terbaik..."
-            className="w-[15rem] lg:w-[30rem] md:w-[20rem] h-[3rem] px-3 py-2 rounded-xl bg-white cursor-pointer"
-            value={search}
-            onChange={handleInputChange}
-            onKeyDown={handleEnterKeyPress}
+            className="h-[3rem] w-[15rem] cursor-pointer rounded-xl bg-white px-3 py-2 md:w-[20rem] lg:w-[30rem]"
           />
           <BiSearchAlt
             size={30}
             className="absolute inset-y-2 right-4 cursor-pointer rounded bg-primary p-1 text-white"
+            onClick={() => {
+              handleSearchCourse(searchInput);
+            }}
           />
         </div>
       </div>
