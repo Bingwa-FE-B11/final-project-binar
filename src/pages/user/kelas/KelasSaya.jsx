@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // Icons
@@ -8,21 +8,17 @@ import { BiSearchAlt } from "react-icons/bi";
 import { NavbarKelas } from "../../../assets/components/navbar/NavbarKelas";
 import { CardKelasSaya } from "../../../assets/components/cards/CardKelasSaya";
 import { SidebarKelas } from "../../../assets/components/sidebar/SidebarKelas";
-import CardCoursesSkeleton from "../../../assets/components/skeleton/CardCourseSkeleton";
 
 // Redux
 import { getUserProfileAction } from "../../../redux/action/auth/getUserProfileAction";
 import { getAllEnrollmentsAction } from "../../../redux/action/enrollments/getAllEnrollmentsAction";
-<<<<<<< HEAD
 import CardCoursesSkeleton from "../../../assets/components/skeleton/CardCourseSkeleton";
-=======
->>>>>>> 92726baaaee76f75cd6417339035f55030755fc1
 
 export const KelasSaya = () => {
+  const storeAuthUser = useSelector((state) => state.authLogin);
   const storeEnrollments = useSelector((state) => state.enrollments.course);
   const dispatch = useDispatch();
 
-<<<<<<< HEAD
 
   const getEnroll = async() => {
     await dispatch(getAllEnrollmentsAction());
@@ -40,13 +36,6 @@ export const KelasSaya = () => {
   // useEffect(() => {
   //   getEnroll();
   // }, [dispatch]);
-=======
-  useEffect(() => {
-    dispatch(getUserProfileAction());
-    dispatch(getAllEnrollmentsAction());
-  }, [dispatch]);
-
->>>>>>> 92726baaaee76f75cd6417339035f55030755fc1
   console.log("storeEnrollments", storeEnrollments);
   return (
     <div className="flex h-full flex-col justify-between bg-secondary">
@@ -87,7 +76,6 @@ export const KelasSaya = () => {
 
             {/* Main Content */}
             <div className="grid w-full grid-cols-2 gap-6 py-4 md:grid-cols-1 lg:grid-cols-2">
-<<<<<<< HEAD
               {storeEnrollments.length === 0 ? (
                 <CardCoursesSkeleton />
               ) : (
@@ -140,26 +128,6 @@ export const KelasSaya = () => {
                       />
                     ))
                 )} */}
-=======
-              {/* Card Item */}
-              {storeEnrollments === null ? (
-                <CardCoursesSkeleton />
-              ) : (
-                storeEnrollments.map((value) => (
-                  <CardKelasSaya
-                    key={value.courseId}
-                    image={value.course.courseImg}
-                    category={value.course.category.categoryName}
-                    title={value.course.courseName}
-                    author={value.course.mentor}
-                    level={value.course.level}
-                    modul={value.course.modul}
-                    duration={value.course.duration}
-                    progress={value.progres}
-                  />
-                ))
-              )}
->>>>>>> 92726baaaee76f75cd6417339035f55030755fc1
             </div>
           </div>
         </div>
