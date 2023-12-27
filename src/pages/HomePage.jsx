@@ -51,15 +51,25 @@ export const HomePage = () => {
     setShowAllCourses(!showAllCourses);
   };
 
+  const storeCategories = useSelector((state) => state.dataCategories.categories);
+  const storeCourses = useSelector((state) => state.dataCourses.courses);
+  const storeAuthUser = useSelector((state) => state.authLogin);
+  // const detailCourses = useSelector((state) => state.dataCourses.detail)
+  const displayedCourses = storeCourses ? storeCourses.slice(0, 3) : [];
+  const displayedCategories = storeCategories ? storeCategories.slice(0, 6) : [];
+
+  // console.log("detailCourses", detailCourses);
+
+  console.log("storeCourses", storeCourses);
+
+  console.log("storeCategories", storeCategories);
+
+  console.log("storeAuthUser", storeAuthUser);
+  
   const handleCategoryFilter = (category) => {
     setSelectedCategory(category);
   };
 
-  const storeCategories = useSelector(
-    (state) => state.dataCategories.categories,
-  );
-  const storeCourses = useSelector((state) => state.dataCourses.courses);
-  const storeAuthUser = useSelector((state) => state.authLogin);
 
   return (
     <>
@@ -98,7 +108,7 @@ export const HomePage = () => {
           </div>
           <div className="grid grid-cols-6 gap-4 text-center">
             {storeCategories == null ? (
-              <CardKategorySkeleton />
+              <CardKategorySkeleton/>
             ) : (
               storeCategories.map((value) => (
                 <CardKategory
@@ -106,8 +116,7 @@ export const HomePage = () => {
                   category={value.categoryName}
                   thumbnail={value.categoryImg}
                 />
-              ))
-            )}
+            )))}
           </div>
         </div>
         {/* End Kategori Belajar Section */}
@@ -115,6 +124,9 @@ export const HomePage = () => {
         {/* Start Kursus Populer Section */}
         <div className="flex flex-col gap-8 px-28 py-12">
           <div className="flex items-center justify-between">
+            <div className="text-2xl font-semibold">Kursus Populer</div>
+            <div className="cursor-pointer text-lg font-semibold text-primary"
+            onClick={toggleShowAllCourses}>
             <div className="text-2xl font-semibold">Kursus Pembelajaran</div>
             <div
               className="cursor-pointer text-lg font-semibold text-primary"
@@ -125,6 +137,8 @@ export const HomePage = () => {
           </div>
 
           {/* Filter */}
+          <div className="flex justify-between">
+            <div className="cursor-pointer rounded-xl bg-secondary px-5 py-1 text-base font-semibold transition-all hover:bg-primary hover:text-white">
           <div className="flex flex-wrap justify-center gap-4">
             {/* Menampilkan tombol "All" */}
             <div
@@ -137,6 +151,61 @@ export const HomePage = () => {
             >
               All
             </div>
+            <div className="cursor-pointer rounded-xl bg-secondary px-5 py-1 text-base font-semibold transition-all hover:bg-primary hover:text-white">
+              Data Science
+            </div>
+            <div className="cursor-pointer rounded-xl bg-secondary px-5 py-1 text-base font-semibold transition-all hover:bg-primary hover:text-white">
+              UI/UX Design
+            </div>
+            <div className="cursor-pointer rounded-xl bg-secondary px-5 py-1 text-base font-semibold transition-all hover:bg-primary hover:text-white">
+              Android Development
+            </div>
+            <div className="cursor-pointer rounded-xl bg-secondary px-5 py-1 text-base font-semibold transition-all hover:bg-primary hover:text-white">
+              Web Development
+            </div>
+            <div className="cursor-pointer rounded-xl bg-secondary px-5 py-1 text-base font-semibold transition-all hover:bg-primary hover:text-white">
+              IOS Development
+            </div>
+            <div className="cursor-pointer rounded-xl bg-secondary px-5 py-1 text-base font-semibold transition-all hover:bg-primary hover:text-white">
+              Bussiness Intelligence
+            </div>
+          </div>
+
+          {/* Container Card Kelas */}
+          <div className="grid grid-cols-3 gap-6">
+          {showAllCourses
+            ? storeCourses.map((value) => (
+                <CardKursus
+                  key={value.id}
+                  image={value.courseImg}
+                  category={value.category.categoryName}
+                  rating={value.averageRating}
+                  title={value.courseName}
+                  author={value.mentor}
+                  level={value.level}
+                  modul={value.modul}
+                  duration={value.duration}
+                  price={value.price}
+                  categoryId={value.id}
+                  isPremium={value.isPremium}
+                />
+              ))
+            : displayedCourses.map((value) => (
+                <CardKursus
+                  key={value.id}
+                  image={value.courseImg}
+                  category={value.category.categoryName}
+                  rating={value.averageRating}
+                  title={value.courseName}
+                  author={value.mentor}
+                  level={value.level}
+                  modul={value.modul}
+                  duration={value.duration}
+                  price={value.price}
+                  categoryId={value.id}
+                  isPremium={value.isPremium}
+                />
+              ))}
 
             {/* Menampilkan button filter kategori yang dimuat */}
             {storeCategories === null ? (

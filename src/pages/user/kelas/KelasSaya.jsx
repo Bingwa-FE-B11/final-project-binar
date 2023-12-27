@@ -13,16 +13,28 @@ import CardCoursesSkeleton from "../../../assets/components/skeleton/CardCourseS
 // Redux
 import { getUserProfileAction } from "../../../redux/action/auth/getUserProfileAction";
 import { getAllEnrollmentsAction } from "../../../redux/action/enrollments/getAllEnrollmentsAction";
+import CardCoursesSkeleton from "../../../assets/components/skeleton/CardCourseSkeleton";
 
 export const KelasSaya = () => {
   const storeEnrollments = useSelector((state) => state.enrollments.course);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getUserProfileAction());
-    dispatch(getAllEnrollmentsAction());
-  }, [dispatch]);
+  const getEnroll = async() => {
+    await dispatch(getAllEnrollmentsAction());
+  };
 
+  const getUser =async () => {
+    await dispatch(getUserProfileAction());
+  };
+
+  useEffect(() => {
+    getEnroll();
+    getUser();
+  }, []);
+
+  // useEffect(() => {
+  //   getEnroll();
+  // }, [dispatch]);
   console.log("storeEnrollments", storeEnrollments);
   return (
     <div className="flex h-full flex-col justify-between bg-secondary">
@@ -63,24 +75,58 @@ export const KelasSaya = () => {
 
             {/* Main Content */}
             <div className="grid w-full grid-cols-2 gap-6 py-4 md:grid-cols-1 lg:grid-cols-2">
-              {/* Card Item */}
-              {storeEnrollments === null ? (
+              {storeEnrollments.length === 0 ? (
                 <CardCoursesSkeleton />
               ) : (
-                storeEnrollments.map((value) => (
+                storeEnrollments?.map((value) => (
                   <CardKelasSaya
-                    key={value.courseId}
-                    image={value.course.courseImg}
-                    category={value.course.category.categoryName}
-                    title={value.course.courseName}
-                    author={value.course.mentor}
-                    level={value.course.level}
-                    modul={value.course.modul}
-                    duration={value.course.duration}
-                    progress={value.progres}
-                  />
+                  key={value.id}
+                  image={value.course.courseImg}
+                  category={value.course.categoryName}
+                  rating={value.course.averageRating}
+                  title={value.course.courseName}
+                  author={value.course.mentor}
+                  level={value.course.level}
+                  modul={value.course.modul}
+                  duration={value.course.duration}
+                  progress ={value.progres}/>
                 ))
+
+                //   <CardKelasSaya
+                //   image = {value.courseImg}
+                //   category={"UAI UEX DISAIN"}
+                //   rating={4.5}
+                //   title={"Mari Belajar UIUX"}
+                //   author={"Paijo"}
+                //   level={"Basic"}
+                //   modul={10}
+                //   duration={120}
+                //   kelas={"Premium"}
+                //   progress={60}
+                // />
               )}
+
+              {/* {storeCourses == null ? (
+                  <CardCoursesSkeleton />
+                ) : (
+                  storeCourses
+                    .filter((value) => value.isPremium)
+                    .map((value) => (
+                      <CardPremium
+                        key={value.id}
+                        image={value.courseImg}
+                        category={value.category.categoryName}
+                        rating={value.averageRating}
+                        title={value.courseName}
+                        author={value.mentor}
+                        level={value.level}
+                        modul={value.modul}
+                        duration={value.duration}
+                        categoryId={value.id}
+                        isPremium={"Premium"}
+                      />
+                    ))
+                )} */}
             </div>
           </div>
         </div>
