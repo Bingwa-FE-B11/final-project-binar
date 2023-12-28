@@ -31,9 +31,9 @@ export const CardKelasSaya = ({
   };
 
   return (
-    <div className="flex cursor-pointer flex-col overflow-hidden rounded-2xl bg-white shadow-md transition-all hover:scale-95">
+    <div className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-md transition-all hover:scale-95">
       <div
-        className="h-32 min-w-fit scale-105 bg-center bg-no-repeat"
+        className="h-32 min-w-fit scale-105 bg-center bg-no-repeat cursor-pointer"
         style={{
           backgroundImage: `url(${image})`,
           backgroundSize: "cover",
