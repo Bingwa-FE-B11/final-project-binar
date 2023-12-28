@@ -13,17 +13,16 @@ import CardCoursesSkeleton from "../../../assets/components/skeleton/CardCourseS
 // Redux
 import { getUserProfileAction } from "../../../redux/action/auth/getUserProfileAction";
 import { getAllEnrollmentsAction } from "../../../redux/action/enrollments/getAllEnrollmentsAction";
-import CardCoursesSkeleton from "../../../assets/components/skeleton/CardCourseSkeleton";
 
 export const KelasSaya = () => {
   const storeEnrollments = useSelector((state) => state.enrollments.course);
   const dispatch = useDispatch();
 
-  const getEnroll = async() => {
+  const getEnroll = async () => {
     await dispatch(getAllEnrollmentsAction());
   };
 
-  const getUser =async () => {
+  const getUser = async () => {
     await dispatch(getUserProfileAction());
   };
 
@@ -38,7 +37,9 @@ export const KelasSaya = () => {
       <div className="flex flex-col justify-center px-2 pt-16 md:px-4 md:pt-20 lg:px-24 lg:pt-28">
         {/* Search */}
         <div className="flex items-center justify-between py-4">
-          <div className="px-4 py-6 text-xl lg:text-3xl md:text-3xl font-bold">Kelas Berjalan</div>
+          <div className="px-4 py-6 text-xl font-bold md:text-3xl lg:text-3xl">
+            Kelas Berjalan
+          </div>
           <div className="relative flex items-center">
             <input
               type="text"
@@ -57,7 +58,7 @@ export const KelasSaya = () => {
           <SidebarKelas />
 
           {/* Button */}
-          <div className="flex w-full lg:w-[65%] md:w-[65%] flex-wrap items-center justify-between font-semibold">
+          <div className="flex w-full flex-wrap items-center justify-between font-semibold md:w-[65%] lg:w-[65%]">
             <div className="flex w-full gap-4 text-center">
               <div className="w-[20%] cursor-pointer rounded-xl bg-white py-2 hover:bg-primary hover:text-white">
                 <button>All</button>
@@ -76,7 +77,7 @@ export const KelasSaya = () => {
               {storeEnrollments === null ? (
                 <CardCoursesSkeleton />
               ) : (
-                storeEnrollments?.map((value) => (
+                storeEnrollments.map((value) => (
                   <CardKelasSaya
                     key={value.id}
                     courseId={value.courseId}
@@ -90,6 +91,7 @@ export const KelasSaya = () => {
                     progress={value.progres}
                   />
                 ))
+              )}
             </div>
           </div>
         </div>

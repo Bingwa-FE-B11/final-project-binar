@@ -51,12 +51,16 @@ export const HomePage = () => {
     setShowAllCourses(!showAllCourses);
   };
 
-  const storeCategories = useSelector((state) => state.dataCategories.categories);
+  const storeCategories = useSelector(
+    (state) => state.dataCategories.categories,
+  );
   const storeCourses = useSelector((state) => state.dataCourses.courses);
   const storeAuthUser = useSelector((state) => state.authLogin);
   // const detailCourses = useSelector((state) => state.dataCourses.detail)
   const displayedCourses = storeCourses ? storeCourses.slice(0, 3) : [];
-  const displayedCategories = storeCategories ? storeCategories.slice(0, 6) : [];
+  const displayedCategories = storeCategories
+    ? storeCategories.slice(0, 6)
+    : [];
 
   // console.log("detailCourses", detailCourses);
 
@@ -65,28 +69,27 @@ export const HomePage = () => {
   console.log("storeCategories", storeCategories);
 
   console.log("storeAuthUser", storeAuthUser);
-  
+
   const handleCategoryFilter = (category) => {
     setSelectedCategory(category);
   };
-
 
   return (
     <>
       {storeAuthUser.token === null ? <NavbarHome /> : <NavbarKelas />}
       <div className="mt-[5rem] flex flex-col">
         {/* Hero Section */}
-        <div className="flex">
+        <div className="hidden md:flex lg:flex">
           <div className="relative -z-10 w-2/3">
-            <img src={Header} alt="Header" className="w-full h-full" />
+            <img src={Header} alt="Header" className="h-full w-full" />
             <div className="absolute inset-0 bg-gradient-to-l from-primary"></div>
           </div>
-          <div className="flex w-full lg:w-1/3 md:w-1/3 items-center justify-center bg-primary">
+          <div className="flex w-full items-center justify-center bg-primary md:w-1/3 lg:w-1/3">
             <div className="flex flex-col gap-2">
-              <div className="text-lg lg:text-3xl md:text-2xl font-semibold tracking-wide text-white">
+              <div className="text-lg font-semibold tracking-wide text-white md:text-2xl lg:text-3xl">
                 Belajar
               </div>
-              <div className="text-lg lg:text-3xl md:text-2xl font-semibold tracking-wide text-white">
+              <div className="text-lg font-semibold tracking-wide text-white md:text-2xl lg:text-3xl">
                 dari Praktisi Terbaik!
               </div>
               <div
@@ -102,13 +105,13 @@ export const HomePage = () => {
         </div>
 
         {/* Start Kategori Belajar Section */}
-        <div className="flex flex-col gap-5 bg-secondary px-4 lg:px-28 md:px-20 py-12">
+        <div className="flex flex-col gap-5 bg-secondary px-4 py-6 md:py-12 lg:py-12 md:px-20 lg:px-28">
           <div className="flex items-center">
             <div className="text-2xl font-semibold">Kategori Belajar</div>
           </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-4 gap-4 text-center">
+          <div className="grid grid-cols-2 gap-4 text-center md:grid-cols-4 lg:grid-cols-6">
             {storeCategories == null ? (
-              <CardKategorySkeleton/>
+              <CardKategorySkeleton />
             ) : (
               storeCategories.map((value) => (
                 <CardKategory
@@ -116,15 +119,18 @@ export const HomePage = () => {
                   category={value.categoryName}
                   thumbnail={value.categoryImg}
                 />
-            )))}
+              ))
+            )}
           </div>
         </div>
         {/* End Kategori Belajar Section */}
 
         {/* Start Kursus Populer Section */}
-        <div className="flex flex-col gap-8 px-2 lg:px-28 md:px-20 py-12">
+        <div className="flex flex-col gap-8 px-4 py-6 md:py-12 lg:py-12 md:px-20 lg:px-28">
           <div className="flex items-center justify-between">
-            <div className="text-xl lg:text:2xl md:text-2xl font-semibold">Kursus Pembelajaran</div>
+            <div className="lg:text:2xl text-xl font-semibold md:text-2xl">
+              Kursus Pembelajaran
+            </div>
             <div
               className="cursor-pointer text-lg font-semibold text-primary"
               onClick={toggleShowAllCourses}
@@ -134,8 +140,6 @@ export const HomePage = () => {
           </div>
 
           {/* Filter */}
-          <div className="flex justify-between">
-            <div className="cursor-pointer rounded-xl bg-secondary px-5 py-1 text-base font-semibold transition-all hover:bg-primary hover:text-white">
           <div className="flex flex-wrap justify-center gap-4">
             {/* Menampilkan tombol "All" */}
             <div
@@ -148,61 +152,6 @@ export const HomePage = () => {
             >
               All
             </div>
-            <div className="cursor-pointer rounded-xl bg-secondary px-5 py-1 text-base font-semibold transition-all hover:bg-primary hover:text-white">
-              Data Science
-            </div>
-            <div className="cursor-pointer rounded-xl bg-secondary px-5 py-1 text-base font-semibold transition-all hover:bg-primary hover:text-white">
-              UI/UX Design
-            </div>
-            <div className="cursor-pointer rounded-xl bg-secondary px-5 py-1 text-base font-semibold transition-all hover:bg-primary hover:text-white">
-              Android Development
-            </div>
-            <div className="cursor-pointer rounded-xl bg-secondary px-5 py-1 text-base font-semibold transition-all hover:bg-primary hover:text-white">
-              Web Development
-            </div>
-            <div className="cursor-pointer rounded-xl bg-secondary px-5 py-1 text-base font-semibold transition-all hover:bg-primary hover:text-white">
-              IOS Development
-            </div>
-            <div className="cursor-pointer rounded-xl bg-secondary px-5 py-1 text-base font-semibold transition-all hover:bg-primary hover:text-white">
-              Bussiness Intelligence
-            </div>
-          </div>
-
-          {/* Container Card Kelas */}
-          <div className="grid grid-cols-3 gap-6">
-          {showAllCourses
-            ? storeCourses.map((value) => (
-                <CardKursus
-                  key={value.id}
-                  image={value.courseImg}
-                  category={value.category.categoryName}
-                  rating={value.averageRating}
-                  title={value.courseName}
-                  author={value.mentor}
-                  level={value.level}
-                  modul={value.modul}
-                  duration={value.duration}
-                  price={value.price}
-                  categoryId={value.id}
-                  isPremium={value.isPremium}
-                />
-              ))
-            : displayedCourses.map((value) => (
-                <CardKursus
-                  key={value.id}
-                  image={value.courseImg}
-                  category={value.category.categoryName}
-                  rating={value.averageRating}
-                  title={value.courseName}
-                  author={value.mentor}
-                  level={value.level}
-                  modul={value.modul}
-                  duration={value.duration}
-                  price={value.price}
-                  categoryId={value.id}
-                  isPremium={value.isPremium}
-                />
-              ))}
 
             {/* Menampilkan button filter kategori yang dimuat */}
             {storeCategories === null ? (
@@ -225,7 +174,7 @@ export const HomePage = () => {
           </div>
 
           {/* Container Card Kelas */}
-          <div className="grid lg:grid-cols-3 grid-cols-1 gap-6">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
             {showAllCourses ? (
               storeCourses.filter(
                 (value) =>
