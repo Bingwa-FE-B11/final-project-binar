@@ -65,8 +65,8 @@ export const AllCourse = () => {
       <div className="flex h-full flex-col justify-between bg-secondary">
         <div className="flex flex-col justify-center px-2 pt-16 md:px-4 md:pt-20 lg:px-24 lg:pt-28">
           {/* Search */}
-          <div className="flex items-center justify-between">
-            <div className="px-4 py-6 text-3xl font-bold">Topik Kelas</div>
+          <div className="flex items-center justify-between py-4">
+            <div className="px-4 py-6 text-xl lg:text-3xl md:text-3xl font-bold">Topik Kelas</div>
             <div className="relative flex items-center">
               <input
                 type="text"
@@ -93,7 +93,7 @@ export const AllCourse = () => {
             <SidebarKelas />
 
             {/* Button */}
-            <div className="flex w-[65%] flex-wrap items-center justify-between font-semibold">
+            <div className="flex w-full lg:w-[65%] md:w-[65%] flex-wrap items-center justify-between font-semibold">
               <div className="flex w-full gap-4 text-center">
                 <div className="w-[20%] cursor-pointer rounded-xl bg-primary py-2 text-white">
                   <button>All</button>
