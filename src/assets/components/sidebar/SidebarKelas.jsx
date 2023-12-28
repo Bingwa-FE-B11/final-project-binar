@@ -1,123 +1,115 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { filterCoursesAction } from "../../../redux/action/courses/filterCourseAction";
 
 export const SidebarKelas = () => {
+  const dispatch = useDispatch();
+
+  // Redux Store
+  const storeCategories = useSelector(
+    (state) => state.dataCategories.categories,
+  );
+
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedLevels, setSelectedLevels] = useState([]);
+
+  const handleCategoryFilter = (e) => {
+    let isSelected = e.target.checked;
+    let value = e.target.value;
+
+    setSelectedCategories((prevCategories) => {
+      const updatedCategories = isSelected
+        ? [...prevCategories, value]
+        : prevCategories.filter((category) => category !== value);
+
+      dispatch(filterCoursesAction(updatedCategories, selectedLevels));
+
+      return updatedCategories;
+    });
+  };
+
+  const handleLevelFilter = (e) => {
+    let isSelected = e.target.checked;
+    let value = e.target.value;
+
+    setSelectedLevels((prevLevels) => {
+      const updatedLevels = isSelected
+        ? [...prevLevels, value]
+        : prevLevels.filter((level) => level !== value);
+
+      dispatch(filterCoursesAction(selectedCategories, updatedLevels));
+
+      return updatedLevels;
+    });
+  };
+
+  const clearFilters = () => {
+    setSelectedCategories([]);
+    setSelectedLevels([]);
+    dispatch(filterCoursesAction([], []));
+  };
+
   return (
     <>
       <div className="hidden w-[30%] flex-col rounded-xl bg-white md:flex lg:flex">
-        <div className="flex px-4 py-4 text-xl font-bold">Filter</div>
-        <div className="flex flex-col space-y-3 font-medium">
-          <div className="flex items-center px-6">
-            <input
-              type="checkbox"
-              className="mr-2 h-[20px] w-[20px] cursor-pointer"
-            />
-            Paling Baru
-          </div>
-          <div className="flex items-center px-6">
-            <input
-              type="checkbox"
-              className="mr-2 h-[20px] w-[20px] cursor-pointer"
-            />
-            Paling Populer
-          </div>
-          <div className="flex items-center px-6">
-            <input
-              type="checkbox"
-              className="mr-2 h-[20px] w-[20px] cursor-pointer"
-            />
-            Promo
-          </div>
-        </div>
-
         {/* Kategori */}
         <div className="flex px-4 py-3 text-xl font-bold">Kategori</div>
         <div className="flex flex-col space-y-3 font-medium">
-          <div className="flex items-center px-6">
-            <input
-              type="checkbox"
-              className="mr-2 h-[20px] w-[20px] cursor-pointer"
-            />
-            UI-UX Design
-          </div>
-          <div className="flex items-center px-6">
-            <input
-              type="checkbox"
-              className="mr-2 h-[20px] w-[20px] cursor-pointer"
-            />
-            Product Management
-          </div>
-          <div className="flex items-center px-6">
-            <input
-              type="checkbox"
-              className="mr-2 h-[20px] w-[20px] cursor-pointer"
-            />
-            Web Development
-          </div>
-          <div className="flex items-center px-6">
-            <input
-              type="checkbox"
-              className="mr-2 h-[20px] w-[20px] cursor-pointer"
-            />
-            Android Development
-          </div>
-          <div className="flex items-center px-6">
-            <input
-              type="checkbox"
-              className="mr-2 h-[20px] w-[20px] cursor-pointer"
-            />
-            IOS Development
-          </div>
-          <div className="flex items-center px-6">
-            <input
-              type="checkbox"
-              className="mr-2 h-[20px] w-[20px] cursor-pointer"
-            />
-            Data Science
-          </div>
-          <div className="flex items-center px-6">
-            <input
-              type="checkbox"
-              className="mr-2 h-[20px] w-[20px] cursor-pointer"
-            />
-            Business Intelligence
-          </div>
+          {storeCategories?.map((value) => (
+            <label key={value.id} className="flex items-center px-6">
+              <input
+                type="checkbox"
+                value={value.categoryName}
+                className="mr-2 h-[20px] w-[20px] cursor-pointer"
+                checked={selectedCategories.includes(value.categoryName)}
+                onChange={handleCategoryFilter}
+              />
+              {value.categoryName}
+            </label>
+          ))}
         </div>
 
         {/* Level Kesulitan */}
         <div className="flex px-4 py-3 text-xl font-bold">Level Kesulitan</div>
         <div className="flex flex-col space-y-3 font-medium">
-          <div className="flex items-center px-6">
+          <label className="flex items-center px-6">
             <input
               type="checkbox"
-              className="mr-2 h-[20px] w-[20px] cursor-pointer"
-            />
-            Semua Level
-          </div>
-          <div className="flex items-center px-6">
-            <input
-              type="checkbox"
+              value={"Beginner Level"}
+              checked={selectedLevels.includes("Beginner Level")}
+              onChange={handleLevelFilter}
               className="mr-2 h-[20px] w-[20px] cursor-pointer"
             />
             Beginner Level
-          </div>
-          <div className="flex items-center px-6">
+          </label>
+          <label className="flex items-center px-6">
             <input
               type="checkbox"
+              value={"Intermediate Level"}
+              checked={selectedLevels.includes("Intermediate Level")}
+              onChange={handleLevelFilter}
               className="mr-2 h-[20px] w-[20px] cursor-pointer"
             />
             Intermediate Level
-          </div>
-          <div className="flex items-center px-6">
+          </label>
+          <label className="flex items-center px-6">
             <input
               type="checkbox"
+              value={"Advanced Level"}
+              checked={selectedLevels.includes("Advanced Level")}
+              onChange={handleLevelFilter}
               className="mr-2 h-[20px] w-[20px] cursor-pointer"
             />
             Advanced Level
-          </div>
+          </label>
         </div>
 
         {/* Hapus Filter */}
-        <button className="py-10 font-medium text-red-600">Hapus Filter</button>
+        <div className="flex justify-center py-10">
+          <button className="font-semibold text-red-600" onClick={clearFilters}>
+            Hapus Filter
+          </button>
+        </div>
       </div>
     </>
   );

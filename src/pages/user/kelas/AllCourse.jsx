@@ -9,7 +9,6 @@ import { BiSearchAlt } from "react-icons/bi";
 import { NavbarKelas } from "../../../assets/components/navbar/NavbarKelas";
 import { NavbarHome } from "../../../assets/components/navbar/NavbarHome";
 import { CardGlobal } from "../../../assets/components/cards/CardGlobal";
-import CardCoursesSkeleton from "../../../assets/components/skeleton/CardCourseSkeleton";
 import { getAllCoursesAction } from "../../../redux/action/courses/getAllCoursesAction";
 import { SidebarKelas } from "../../../assets/components/sidebar/SidebarKelas";
 import { searchCourseAction } from "../../../redux/action/courses/searchCourseAction";
@@ -17,8 +16,17 @@ import { searchCourseAction } from "../../../redux/action/courses/searchCourseAc
 export const AllCourse = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  // Redux Store
   const storeAuthUser = useSelector((state) => state.authLogin);
   const storeCourses = useSelector((state) => state.dataCourses.courses);
+  const storeFilteredCourses = useSelector(
+    (state) => state.dataCourses.filteredCourses,
+  );
+  console.log(
+    "🚀 ~ file: AllCourse.jsx:26 ~ AllCourse ~ storeFilteredCourses:",
+    storeFilteredCourses,
+  );
 
   const getCourses = () => {
     dispatch(getAllCoursesAction());
@@ -42,6 +50,14 @@ export const AllCourse = () => {
       navigate(`/pilih-kelas?search=${searchInput}`);
     }
   };
+
+  const [displayedCourses, setDisplayedCourses] = useState([]);
+
+  useEffect(() => {
+    const coursesToDisplay =
+      storeFilteredCourses?.length > 0 ? storeFilteredCourses : [];
+    setDisplayedCourses(coursesToDisplay);
+  }, [storeFilteredCourses, storeCourses]);
 
   return (
     <>
@@ -102,10 +118,12 @@ export const AllCourse = () => {
 
               {/* Main Content */}
               <div className="grid w-full grid-cols-2 gap-6 py-4 md:grid-cols-1 lg:grid-cols-2">
-                {storeCourses == null ? (
-                  <CardCoursesSkeleton />
+                {displayedCourses.length === 0 ? (
+                  <p className="col-span-2 py-10 text-center text-lg font-semibold italic text-slate-500">
+                    - Course tidak ditemukan -
+                  </p>
                 ) : (
-                  storeCourses.map((value) => (
+                  displayedCourses.map((value) => (
                     <CardGlobal
                       key={value.id}
                       image={value.courseImg}

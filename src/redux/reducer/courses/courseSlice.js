@@ -5,6 +5,7 @@ const initialState = {
   detail: [],
   me: [],
   searchedCourses: [],
+  filteredCourses: [],
   loading: false,
 };
 
@@ -46,6 +47,27 @@ const courseSlice = createSlice({
       state.searchedCourses = action.payload;
     },
 
+    setFilteredCourses: (state, action) => {
+      const { selectedCategories, selectedLevels } = action.payload;
+
+      // Pengecekan untuk memastikan tidak undefined
+      if (selectedCategories === undefined || selectedLevels === undefined) {
+        // Handle jika salah satu atau keduanya undefined
+        return;
+      }
+
+      state.filteredCourses = state.courses.filter((course) => {
+        const categoryMatch =
+          selectedCategories.length === 0 ||
+          selectedCategories.includes(course.category.categoryName);
+
+        const levelMatch =
+          selectedLevels.length === 0 || selectedLevels.includes(course.level);
+
+        return categoryMatch && levelMatch;
+      });
+    },
+
     startLoading: (state) => {
       state.loading = true;
     },
@@ -64,6 +86,7 @@ export const {
   setDetailCourse,
   setMe,
   setSearchedCourses,
+  setFilteredCourses,
   startLoading,
   endLoading,
 } = courseSlice.actions;
