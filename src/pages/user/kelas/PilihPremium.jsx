@@ -27,6 +27,10 @@ export const PilihPremium = () => {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     getCourses();
   }, [dispatch]);
 

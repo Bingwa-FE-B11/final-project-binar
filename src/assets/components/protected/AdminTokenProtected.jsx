@@ -7,8 +7,6 @@ function AdminTokenProtected({ children }) {
   const data = useSelector((state) => state.adminAuthLogin);
   const navigate = useNavigate();
 
-  console.log("data TokenProtected:", data);
-
   useEffect(() => {
     if (data.token === null) {
       showErrorToast("Silahkan login terlebih dahulu");
