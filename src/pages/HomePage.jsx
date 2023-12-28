@@ -105,7 +105,7 @@ export const HomePage = () => {
         </div>
 
         {/* Start Kategori Belajar Section */}
-        <div className="flex flex-col gap-5 bg-secondary px-4 py-6 md:py-12 lg:py-12 md:px-20 lg:px-28">
+        <div className="flex flex-col gap-5 bg-secondary px-4 py-6 md:px-20 md:py-12 lg:px-28 lg:py-12">
           <div className="flex items-center">
             <div className="text-2xl font-semibold">Kategori Belajar</div>
           </div>
@@ -126,7 +126,7 @@ export const HomePage = () => {
         {/* End Kategori Belajar Section */}
 
         {/* Start Kursus Populer Section */}
-        <div className="flex flex-col gap-8 px-4 py-6 md:py-12 lg:py-12 md:px-20 lg:px-28">
+        <div className="flex flex-col gap-8 px-4 py-6 md:px-20 md:py-12 lg:px-28 lg:py-12">
           <div className="flex items-center justify-between">
             <div className="lg:text:2xl text-xl font-semibold md:text-2xl">
               Kursus Pembelajaran

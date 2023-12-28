@@ -21,6 +21,9 @@ export const PilihGratis = () => {
   const dispatch = useDispatch();
   const storeAuthUser = useSelector((state) => state.authLogin);
   const storeCourses = useSelector((state) => state.dataCourses.courses);
+  const storeFilteredCourses = useSelector(
+    (state) => state.dataCourses.filteredCourses,
+  );
 
   const getCourses = () => {
     dispatch(getAllCoursesAction());
@@ -45,14 +48,25 @@ export const PilihGratis = () => {
     }
   };
 
+  // Filter Feature
+  const [displayedCourses, setDisplayedCourses] = useState([]);
+
+  useEffect(() => {
+    const coursesToDisplay =
+      storeFilteredCourses?.length > 0 ? storeFilteredCourses : [];
+    setDisplayedCourses(coursesToDisplay);
+  }, [storeFilteredCourses, storeCourses]);
+
   return (
     <>
       {storeAuthUser.token === null ? <NavbarHome /> : <NavbarKelas />}
       <div className="flex h-full flex-col justify-between bg-secondary">
-        <div className="flex flex-col justify-center px-2 pt-16 md:px-4 md:pt-20 lg:px-24 lg:pt-28">
+        <div className="flex flex-col justify-center px-2 pt-16 md:px-4 md:pt-20 lg:px-24 lg:pt-20">
           {/* Search */}
           <div className="flex items-center justify-between py-4">
-            <div className="px-4 py-6 text-xl lg:text-3xl md:text-3xl font-bold">Topik Kelas</div>
+            <div className="px-4 py-6 text-xl font-bold md:text-3xl lg:text-3xl">
+              Topik Kelas
+            </div>
             <div className="relative flex items-center">
               <input
                 type="text"
@@ -79,7 +93,7 @@ export const PilihGratis = () => {
             <SidebarKelas />
 
             {/* Button */}
-            <div className="flex w-full lg:w-[65%] md:w-[65%] flex-wrap items-center justify-between font-semibold">
+            <div className="flex w-full flex-wrap items-center justify-between font-semibold md:w-[65%] lg:w-[65%]">
               <div className="flex w-full gap-4 text-center">
                 <div
                   className="w-[20%] cursor-pointer rounded-xl bg-white py-2"
@@ -109,10 +123,14 @@ export const PilihGratis = () => {
 
               {/* Main Content */}
               <div className="grid w-full grid-cols-1 gap-6 py-4 md:grid-cols-1 lg:grid-cols-2">
-                {storeCourses == null ? (
-                  <CardCoursesSkeleton />
+                {displayedCourses.length === 0 ||
+                displayedCourses.filter((value) => !value.isPremium).length ===
+                  0 ? (
+                  <p className="col-span-2 py-10 text-center text-lg font-semibold italic text-slate-500">
+                    - Course tidak ditemukan -
+                  </p>
                 ) : (
-                  storeCourses
+                  displayedCourses
                     .filter((value) => !value.isPremium)
                     .map((value) => (
                       <CardGlobal

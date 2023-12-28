@@ -161,7 +161,7 @@ export const AkunProfile = () => {
                       ? URL.createObjectURL(image)
                       : Data.userProfile?.profilePicture
                   }
-                  alt="Profile"
+                  alt=""
                   className="h-full w-full cursor-pointer rounded-full object-cover"
                 />
                 {Data?.userProfile.profilePicture ? (
