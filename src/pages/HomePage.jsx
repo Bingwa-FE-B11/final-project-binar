@@ -18,12 +18,17 @@ import { Footer } from "../assets/components/footer/Footer";
 import { getUserProfileAction } from "../redux/action/auth/getUserProfileAction";
 import { getAllCategoriesAction } from "../redux/action/categories/getAllCategoriesAction";
 import { getAllCoursesAction } from "../redux/action/courses/getAllCoursesAction";
+import { useMediaQuery } from "react-responsive";
+import { NavbarMobile } from "../assets/components/navbar/NavbarMobile";
+import { SearchMobile } from "../assets/components/search/SearchMobile";
 
 export const HomePage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showAllCourses, setShowAllCourses] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("All");
+
+  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const getUserProfile = () => {
     dispatch(getUserProfileAction());
@@ -76,20 +81,27 @@ export const HomePage = () => {
 
   return (
     <>
-      {storeAuthUser.token === null ? <NavbarHome /> : <NavbarKelas />}
-      <div className="mt-[5rem] flex flex-col">
+      {isMobile ? (
+        <NavbarMobile />
+      ) : storeAuthUser.token === null ? (
+        <NavbarHome />
+      ) : (
+        <NavbarKelas />
+      )}
+      <div className="flex flex-col md:mt-[5rem] lg:mt-[5rem]">
+        {isMobile ? <SearchMobile /> : <></>}
         {/* Hero Section */}
         <div className="hidden md:flex lg:flex">
           <div className="relative -z-10 w-2/3">
             <img src={Header} alt="Header" className="h-full w-full" />
             <div className="absolute inset-0 bg-gradient-to-l from-primary"></div>
           </div>
-          <div className="flex w-full items-center justify-center bg-primary md:w-1/3 lg:w-1/3">
+          <div className="flex w-full items-center justify-center bg-primary md:w-1/3 md:pr-10 lg:w-1/3 lg:pr-6">
             <div className="flex flex-col gap-2">
-              <div className="text-lg font-semibold tracking-wide text-white md:text-2xl lg:text-3xl">
+              <div className="text-lg font-semibold tracking-wide text-white md:text-xl lg:text-3xl">
                 Belajar
               </div>
-              <div className="text-lg font-semibold tracking-wide text-white md:text-2xl lg:text-3xl">
+              <div className="text-lg font-semibold tracking-wide text-white md:text-xl lg:text-3xl">
                 dari Praktisi Terbaik!
               </div>
               <div
