@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // Icons
 import { FaStar } from "react-icons/fa";
@@ -9,6 +9,7 @@ import { LiaBookSolid } from "react-icons/lia";
 import { RiShieldStarLine } from "react-icons/ri";
 
 // Redux
+import { getCoursesEnrollAction } from "../../../redux/action/courses/getCoursesEnrollAction";
 import { getDetailCoursesAction } from "../../../redux/action/courses/getDetailCourseAction";
 
 export const CardKursus = ({
@@ -27,8 +28,8 @@ export const CardKursus = ({
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleCardClick = () => {
-    dispatch(getDetailCoursesAction(courseId));
+  const handleCardClick = async () => {
+    await dispatch(getDetailCoursesAction(courseId));
     navigate(`/detail-kelas/${courseId}`);
   };
 

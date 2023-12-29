@@ -58,7 +58,10 @@ export const Pembayaran = () => {
         navigate("/pembayaran-sukses");
       }, 2000);
     } else {
-      showErrorToast("Payment Gagal...!!!")
+      showErrorToast("Tidak Bisa Membeli Course Ini...!!!")
+      setTimeout(() => {
+        navigate("/kelas-saya");
+      }, 2000);
     }
   };
 

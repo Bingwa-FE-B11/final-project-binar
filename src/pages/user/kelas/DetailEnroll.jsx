@@ -1,45 +1,34 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 // Components
 import { NavbarKelas } from "../../../assets/components/navbar/NavbarKelas";
 import { NavbarHome } from "../../../assets/components/navbar/NavbarHome";
-import CardCoursesSkeleton from "../../../assets/components/skeleton/CardCourseSkeleton";
-import { CardDetail } from "../../../assets/components/cards/CardDetail";
-import { showErrorToast, showSuccessToast } from "../../../helper/ToastHelper";
+import { showSuccessToast } from "../../../helper/ToastHelper";
 
 // Icons
 import { GoArrowLeft } from "react-icons/go";
 import { FaStar } from "react-icons/fa";
 import { RiShieldStarLine } from "react-icons/ri";
 import { LiaBookSolid } from "react-icons/lia";
-import { IoCloseSharp, IoTime } from "react-icons/io5";
+import { IoTime } from "react-icons/io5";
 import { HiChatAlt2 } from "react-icons/hi";
 import { FaCirclePlay } from "react-icons/fa6";
-import { BiSolidLock } from "react-icons/bi";
-import { FaArrowCircleRight } from "react-icons/fa";
-
-// Redux
-import { postEnrollmentsAction } from "../../../redux/action/enrollments/EnrollmentsAction";
+import { TbProgressCheck } from "react-icons/tb";
 
 // Material Tailwind Components
-import {
-  Dialog,
-  DialogBody,
-  DialogFooter,
-  DialogHeader,
-} from "@material-tailwind/react";
 import LoadingSpinner from "../../../assets/components/loading/loadingSpinner";
 
-export const DetailKelas = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const storeAuthUser = useSelector((state) => state.authLogin);
-  const storeDetailCourses = useSelector((state) => state.dataCourses.detail);
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [paymentCourseId, setPaymentCourseId] = useState(null);
+// Redux
+import { reduxPutTrackings } from "../../../services/Tracking";
 
+export const DetailEnroll = () => {
+  const navigate = useNavigate();
+  const storeAuthUser = useSelector((state) => state.authLogin);
+  const storeDetailCoursesEnroll = useSelector(
+    (state) => state.dataCourses.enroll,
+  );
   const isLoading = useSelector((state) => state.dataCourses.loading);
 
   useEffect(() => {
@@ -50,40 +39,17 @@ export const DetailKelas = () => {
     return <LoadingSpinner />;
   }
 
-  const handleDetail = () => {
-    handleDialogOpen();
-    setDialogOpen(false);
-  };
+  const handleTrackings = async (lessonId) => {
 
-  const handleDialogOpen = () => {
-    setPaymentCourseId(storeDetailCourses?.id);
-    setDialogOpen(true);
-  };
-
-  const handleEnrollCourse = async () => {
     try {
-      if (storeAuthUser.token !== null) {
-        const isPremium = storeDetailCourses?.isPremium;
-
-        if (isPremium) {
-          navigate(`/pembayaran/${paymentCourseId}`);
-        }
-
-        if (!isPremium) {
-          await dispatch(postEnrollmentsAction(paymentCourseId));
-          showSuccessToast("Berhasil Enrollments Course");
-          navigate("/kelas-saya");
-        }
-      }
-
-      if (storeAuthUser.token === null) {
-        showErrorToast("Anda harus login terlebih dahulu");
-      }
-    } catch (err) {
-      console.error("Error during enrollment:", err);
-      showErrorToast("Pendaftaran gagal. Silakan coba lagi.");
+      await reduxPutTrackings(lessonId);
+      showSuccessToast("Selamat Telah Menyelesaikan Lesson Ini...!!!");
+    } catch (error) {
+      console.error("Error handling trackings:", error);
     }
   };
+
+  console.log(storeDetailCoursesEnroll, "storeDetailCoursesEnroll")
 
   return (
     <>
@@ -110,46 +76,49 @@ export const DetailKelas = () => {
           <div className="flex flex-col gap-3">
             <div className="flex justify-between">
               <div className="text-xl font-bold text-primary">
-                {storeDetailCourses?.category?.categoryName}
+                {storeDetailCoursesEnroll?.category?.categoryName}
               </div>
               <div className="flex items-center gap-1">
                 <div className="text-yellow-700">
                   <FaStar />
                 </div>
                 <div className="text-lg font-bold">
-                  {storeDetailCourses?.averageRating}4.9
+                  {storeDetailCoursesEnroll?.averageRating}4.9
                 </div>
               </div>
             </div>
             <div className="flex flex-col">
               <div className="text-xl font-bold">
-                {storeDetailCourses?.courseName}
+                {storeDetailCoursesEnroll?.courseName}
               </div>
-              <div className="text-lg">{storeDetailCourses?.mentor}</div>
+              <div className="text-lg">{storeDetailCoursesEnroll?.mentor}</div>
             </div>
             <div className="flex gap-4 md:gap-10 lg:gap-10">
               <div className="flex items-center gap-1">
                 <RiShieldStarLine size={20} color="#22c55e" />
                 <div className="text-sm font-semibold text-primary">
-                  {storeDetailCourses?.level}
+                  {storeDetailCoursesEnroll?.level}
                 </div>
               </div>
               <div className="flex items-center gap-1">
                 <LiaBookSolid size={20} color="#22c55e" />
                 <div className="text-sm font-semibold">
-                  {storeDetailCourses?.modul}
+                  {storeDetailCoursesEnroll?.modul}
                 </div>
               </div>
               <div className="flex items-center gap-1">
                 <IoTime size={20} color="#22c55e" />
                 <div className="text-sm font-semibold">
-                  {storeDetailCourses?.duration}
+                  {storeDetailCoursesEnroll?.duration}
                 </div>
               </div>
             </div>
           </div>
           <div
             className="flex w-fit cursor-pointer items-center gap-2 rounded-xl bg-green px-6 py-2 text-white"
+            onClick={() =>
+              window.open(storeDetailCoursesEnroll?.forumURL, "_blank")
+            }
           >
             <div className="font-semibold">Join Grup Telegram</div>
             <div>
@@ -161,7 +130,12 @@ export const DetailKelas = () => {
           <div className="flex flex-col">
             <div className="my-4 flex h-[20rem] items-center justify-center rounded-2xl bg-slate-300">
               <div className="cursor-pointer text-primary">
-                <FaCirclePlay size={60} onClick={handleDialogOpen} />
+                <FaCirclePlay
+                  size={60}
+                  onClick={() =>
+                    window.open(storeDetailCoursesEnroll?.videoURL, "_blank")
+                  }
+                />
               </div>
             </div>
 
@@ -170,7 +144,7 @@ export const DetailKelas = () => {
               <div className="flex flex-col gap-2">
                 <h1 className="text-xl font-bold">Tentang Kelas</h1>
                 <p className="text-slate-600">
-                  {storeDetailCourses?.aboutCourse}
+                  {storeDetailCoursesEnroll?.aboutCourse}
                 </p>
               </div>
 
@@ -178,7 +152,7 @@ export const DetailKelas = () => {
               <div className="flex flex-col gap-2">
                 <h1 className="text-xl font-bold">Kelas Ini Ditujukan Untuk</h1>
                 <ol className="list-decimal pl-4">
-                  <li>{storeDetailCourses?.targetAudience}</li>
+                  <li>{storeDetailCoursesEnroll?.targetAudience}</li>
                 </ol>
               </div>
             </div>
@@ -192,13 +166,25 @@ export const DetailKelas = () => {
             {/* Materi Belajar */}
             <div className="flex justify-between">
               <h1 className="text-xl font-bold">Materi Belajar</h1>
+              <div className="flex w-fit items-center justify-between gap-2 rounded-3xl">
+                <TbProgressCheck
+                  size={30}
+                  color="#22c55e"
+                  className="hidden md:hidden lg:flex"
+                />
+                <div className="rounded-3xl bg-primary px-3 py-1 font-bold text-white">
+                  {storeDetailCoursesEnroll?.enrollment?.progres}% Completed
+                </div>
+              </div>
             </div>
 
             {/* Chapter */}
-            {storeDetailCourses.chapter.map((chapter, index) => (
+            {storeDetailCoursesEnroll.chapter.map((chapter, index) => (
               <div key={index} className="flex flex-col gap-4">
                 <div className="flex justify-between gap-10">
-                  <h2 className="font-semibold text-primary">Chapter {index + 1 } - {chapter.name}</h2>
+                  <h2 className="font-semibold text-primary">
+                    Chapter {index + 1} - {chapter.name}
+                  </h2>
                   <h2 className="font-semibold text-blue">
                     {chapter.duration}
                   </h2>
@@ -215,8 +201,16 @@ export const DetailKelas = () => {
                       </p>
                       <p className="font-semibold">{lesson.lessonName}</p>
                     </div>
-                    <div className="text-slate-500">
-                      <BiSolidLock size={25} />
+                    <div
+                      className={`cursor-pointer text-green ${
+                        lesson.tracking[0]?.status ? "text-slate-500" : ""
+                      }`}
+                      onClick={() =>
+                        !lesson.tracking[0]?.status &&
+                        handleTrackings(lesson.id)
+                      }
+                    >
+                      <FaCirclePlay size={25} />
                     </div>
                   </div>
                 ))}
@@ -225,48 +219,6 @@ export const DetailKelas = () => {
           </div>
         </div>
       </div>
-
-      {/* Dialog */}
-      <Dialog open={dialogOpen} handler={handleDialogOpen} className="py-3">
-        <DialogHeader className="relative flex flex-col items-center">
-          <IoCloseSharp
-            size={30}
-            className="absolute right-10 top-5 cursor-pointer text-primary"
-            onClick={handleDetail}
-          />
-          <h1 className="mb-2 font-semibold text-slate-700">
-            Selangkah lagi menuju
-          </h1>
-          <h1 className="font-semibold text-primary">Course Kebanggan Anda</h1>
-        </DialogHeader>
-        <DialogBody className="px-12">
-          {storeDetailCourses === null ? (
-            <CardCoursesSkeleton />
-          ) : (
-            <CardDetail
-              image={storeDetailCourses?.courseImg}
-              category={storeDetailCourses?.category?.categoryName}
-              rating={storeDetailCourses?.averageRating}
-              title={storeDetailCourses?.courseName}
-              author={storeDetailCourses?.mentor}
-              level={storeDetailCourses?.level}
-              modul={storeDetailCourses?.modul}
-              duration={storeDetailCourses?.duration}
-              price={storeDetailCourses?.price}
-              isPremium={storeDetailCourses?.isPremium}
-            />
-          )}
-        </DialogBody>
-        <DialogFooter className="flex justify-center">
-          <div
-            className="flex w-64 cursor-pointer items-center justify-center gap-3 rounded-full bg-primary py-2 transition-all hover:bg-primary-hover"
-            onClick={handleEnrollCourse}
-          >
-            <div className="font-semibold text-white">Beli Sekarang</div>
-            <FaArrowCircleRight size={17} className="text-white" />
-          </div>
-        </DialogFooter>
-      </Dialog>
     </>
   );
 };
