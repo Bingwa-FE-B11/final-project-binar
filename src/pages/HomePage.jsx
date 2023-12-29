@@ -21,6 +21,8 @@ import { getAllCoursesAction } from "../redux/action/courses/getAllCoursesAction
 import { useMediaQuery } from "react-responsive";
 import { NavbarMobile } from "../assets/components/navbar/NavbarMobile";
 import { SearchMobile } from "../assets/components/search/SearchMobile";
+import { SliderFilterCategories } from "../assets/components/slider/SliderFilterCategories";
+import { SliderCardCategories } from "../assets/components/slider/SliderCardCategories";
 
 export const HomePage = () => {
   const dispatch = useDispatch();
@@ -119,21 +121,19 @@ export const HomePage = () => {
         {/* Start Kategori Belajar Section */}
         <div className="flex flex-col gap-5 bg-secondary px-4 py-6 md:px-20 md:py-12 lg:px-28 lg:py-12">
           <div className="flex items-center">
-            <div className="text-2xl font-semibold">Kategori Belajar</div>
+            <div className="text-xl font-semibold md:text-2xl lg:text-2xl">
+              Kategori Belajar
+            </div>
           </div>
-          <div className="grid grid-cols-2 gap-4 text-center md:grid-cols-4 lg:grid-cols-6">
-            {storeCategories == null ? (
+          {storeCategories == null ? (
+            <div className="grid grid-cols-6 gap-4">
               <CardKategorySkeleton />
-            ) : (
-              storeCategories.map((value) => (
-                <CardKategory
-                  key={value.id}
-                  category={value.categoryName}
-                  thumbnail={value.categoryImg}
-                />
-              ))
-            )}
-          </div>
+            </div>
+          ) : (
+            <div className="-ms-6">
+              <SliderCardCategories />
+            </div>
+          )}
         </div>
         {/* End Kategori Belajar Section */}
 
@@ -144,7 +144,7 @@ export const HomePage = () => {
               Kursus Pembelajaran
             </div>
             <div
-              className="cursor-pointer text-lg font-semibold text-primary"
+              className="text-md cursor-pointer font-semibold text-primary md:text-lg lg:text-lg"
               onClick={toggleShowAllCourses}
             >
               {showAllCourses ? "Lebih Sedikit" : "Lihat Semua"}
@@ -152,37 +152,12 @@ export const HomePage = () => {
           </div>
 
           {/* Filter */}
-          <div className="flex flex-wrap justify-center gap-4">
-            {/* Menampilkan tombol "All" */}
-            <div
-              className={`cursor-pointer rounded-xl px-5 py-1 text-base font-semibold transition-all ${
-                selectedCategory === "All"
-                  ? "bg-primary text-white"
-                  : "bg-secondary hover:bg-primary hover:text-white"
-              }`}
-              onClick={() => handleCategoryFilter("All")}
-            >
-              All
-            </div>
-
-            {/* Menampilkan button filter kategori yang dimuat */}
-            {storeCategories === null ? (
-              <CardCourseSkeleton />
-            ) : (
-              storeCategories.map((value) => (
-                <div
-                  key={value.id}
-                  className={`cursor-pointer rounded-xl px-5 py-1 text-base font-semibold transition-all ${
-                    selectedCategory === value.categoryName
-                      ? "bg-primary text-white"
-                      : "bg-secondary hover:bg-primary hover:text-white"
-                  }`}
-                  onClick={() => handleCategoryFilter(value.categoryName)}
-                >
-                  {value.categoryName}
-                </div>
-              ))
-            )}
+          <div className="-ms-3">
+            <SliderFilterCategories
+              storeCategories={storeCategories}
+              selectedCategory={selectedCategory}
+              handleCategoryFilter={handleCategoryFilter}
+            />
           </div>
 
           {/* Container Card Kelas */}

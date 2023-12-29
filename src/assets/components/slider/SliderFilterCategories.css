@@ -1,0 +1,13 @@
+.custom-carousel-item {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: auto !important;
+  margin-right: 0.5rem !important;
+  margin-left: 0.5rem !important;
+}
+
+/* .alice-carousel__stage {
+  background-color: red;
+  display: flex !important;
+} */
