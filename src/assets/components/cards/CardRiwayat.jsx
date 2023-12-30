@@ -9,7 +9,7 @@ import { LiaBookSolid } from "react-icons/lia";
 import { IoDiamond, IoTime } from "react-icons/io5";
 
 // Redux
-import { getDetailCoursesAction } from "../../../redux/action/courses/getDetailCourseAction";
+import { getCoursesEnrollAction } from "../../../redux/action/courses/getCoursesEnrollAction";
 
 export const CardRiwayat = ({
   image,
@@ -28,8 +28,8 @@ export const CardRiwayat = ({
   const dispatch = useDispatch();
 
   const handleCardClick = () => {
-    dispatch(getDetailCoursesAction(courseId));
-    navigate(`/detail-kelas/${courseId}`);
+    dispatch(getCoursesEnrollAction(courseId));
+    navigate(`/detail-course/${courseId}`);
   };
 
   return (

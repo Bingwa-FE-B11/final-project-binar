@@ -8,7 +8,7 @@ import { IoTime } from "react-icons/io5";
 import { TbProgressCheck } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { getDetailCoursesAction } from "../../../redux/action/courses/getDetailCourseAction";
+import { getCoursesEnrollAction } from "../../../redux/action/courses/getCoursesEnrollAction";
 
 export const CardKelasSaya = ({
   image,
@@ -26,8 +26,8 @@ export const CardKelasSaya = ({
   const dispatch = useDispatch();
 
   const handleCardClick = () => {
-    dispatch(getDetailCoursesAction(courseId));
-    navigate(`/detail-kelas/${courseId}`);
+    dispatch(getCoursesEnrollAction(courseId));
+    navigate(`/detail-course/${courseId}`);
   };
 
   return (
@@ -64,7 +64,7 @@ export const CardKelasSaya = ({
           <div className="flex items-center gap-1">
             <LiaBookSolid size={20} color="#22c55e" />
             <div className="text-sm font-semibold text-primary">
-              {modul} 0 Modul
+              {modul} Modul
             </div>
           </div>
           <div className="flex items-center gap-1">
