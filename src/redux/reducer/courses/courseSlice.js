@@ -4,6 +4,7 @@ const initialState = {
   courses: [],
   detail: [],
   me: [],
+  enroll: [],
   searchedCourses: [],
   filteredCourses: [],
   loading: false,
@@ -41,6 +42,10 @@ const courseSlice = createSlice({
 
     setMe: (state, action) => {
       state.me = action.payload;
+    },
+
+    setEnroll: (state, action) => {
+      state.enroll = action.payload;
     },
 
     setSearchedCourses: (state, action) => {
@@ -85,6 +90,7 @@ export const {
   deleteCourse,
   setDetailCourse,
   setMe,
+  setEnroll,
   setSearchedCourses,
   setFilteredCourses,
   startLoading,
