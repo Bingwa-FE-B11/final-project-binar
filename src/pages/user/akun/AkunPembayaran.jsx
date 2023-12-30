@@ -30,7 +30,7 @@ export const AkunPembayaran = () => {
 
   return (
     <>
-      <div className="h-fit bg-secondary px-9 py-20 pt-2 md:h-screen md:px-20 lg:h-fit lg:px-80 lg:pt-[5rem]">
+      <div className="min-h-screen bg-secondary px-9 py-20 pt-2 md:h-screen md:px-20 lg:h-fit lg:px-80 lg:pt-[5rem]">
         <div className="relative flex items-center gap-2 py-8 text-lg font-bold text-primary">
           <GoArrowLeft
             size={30}

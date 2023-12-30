@@ -61,7 +61,7 @@ export const NavbarMobile = () => {
           <div
             className="flex flex-col items-center justify-center gap-2"
             onClick={() => {
-              navigate("/pilih-kelas");
+              navigate("/all-kelas");
             }}
           >
             <CiCircleList size={25} color="gray" />
