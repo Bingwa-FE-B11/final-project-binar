@@ -51,7 +51,7 @@ export const SidebarKelas = () => {
 
   return (
     <>
-      <div className="hidden w-[30%] flex-col rounded-2xl bg-white p-4 md:flex lg:flex">
+      <div className="flex w-full flex-col rounded-2xl bg-white p-0 md:p-4 lg:p-4">
         {/* Kategori */}
         <div className="flex px-4 py-3 text-xl font-bold">Kategori</div>
         <div className="flex flex-col space-y-4 pb-3 font-medium">

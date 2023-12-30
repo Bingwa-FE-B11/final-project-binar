@@ -29,7 +29,7 @@ export const NavbarMobile = () => {
 
   return (
     <>
-      <div className="fixed bottom-0 w-full shadow-2xl">
+      <div className="fixed bottom-0 w-full shadow-2xl z-50">
         <div className="flex h-full items-center justify-between bg-white px-5 py-2">
           <div
             className="flex flex-col items-center justify-center gap-2"

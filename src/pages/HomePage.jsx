@@ -8,22 +8,27 @@ import Header from "../assets/img/Header.webp";
 // Components
 import { NavbarHome } from "../assets/components/navbar/NavbarHome";
 import { CardKursus } from "../assets/components/cards/CardKursus";
-import { CardKategory } from "../assets/components/cards/CardKategory";
 import { NavbarKelas } from "../assets/components/navbar/NavbarKelas";
 import CardKategorySkeleton from "../assets/components/skeleton/CardKategorySkeleton";
-import CardCourseSkeleton from "../assets/components/skeleton/CardCourseSkeleton";
 import { Footer } from "../assets/components/footer/Footer";
 
 // Redux
 import { getUserProfileAction } from "../redux/action/auth/getUserProfileAction";
 import { getAllCategoriesAction } from "../redux/action/categories/getAllCategoriesAction";
 import { getAllCoursesAction } from "../redux/action/courses/getAllCoursesAction";
+import { useMediaQuery } from "react-responsive";
+import { NavbarMobile } from "../assets/components/navbar/NavbarMobile";
+import { SearchMobile } from "../assets/components/search/SearchMobile";
+import { SliderFilterCategories } from "../assets/components/slider/SliderFilterCategories";
+import { SliderCardCategories } from "../assets/components/slider/SliderCardCategories";
 
 export const HomePage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showAllCourses, setShowAllCourses] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("All");
+
+  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const getUserProfile = () => {
     dispatch(getUserProfileAction());
@@ -63,20 +68,27 @@ export const HomePage = () => {
 
   return (
     <>
-      {storeAuthUser.token === null ? <NavbarHome /> : <NavbarKelas />}
-      <div className="mt-[5rem] flex flex-col">
+      {isMobile ? (
+        <NavbarMobile />
+      ) : storeAuthUser.token === null ? (
+        <NavbarHome />
+      ) : (
+        <NavbarKelas />
+      )}
+      <div className="flex flex-col md:mt-[5rem] lg:mt-[5rem]">
+        {isMobile ? <SearchMobile /> : <></>}
         {/* Hero Section */}
         <div className="hidden md:flex lg:flex">
           <div className="relative -z-10 w-2/3">
             <img src={Header} alt="Header" className="h-full w-full" />
             <div className="absolute inset-0 bg-gradient-to-l from-primary"></div>
           </div>
-          <div className="flex w-full items-center justify-center bg-primary md:w-1/3 lg:w-1/3">
+          <div className="flex w-full items-center justify-center bg-primary md:w-1/3 md:pr-10 lg:w-1/3 lg:pr-6">
             <div className="flex flex-col gap-2">
-              <div className="text-lg font-semibold tracking-wide text-white md:text-2xl lg:text-3xl">
+              <div className="text-lg font-semibold tracking-wide text-white md:text-xl lg:text-3xl">
                 Belajar
               </div>
-              <div className="text-lg font-semibold tracking-wide text-white md:text-2xl lg:text-3xl">
+              <div className="text-lg font-semibold tracking-wide text-white md:text-xl lg:text-3xl">
                 dari Praktisi Terbaik!
               </div>
               <div
@@ -94,21 +106,19 @@ export const HomePage = () => {
         {/* Start Kategori Belajar Section */}
         <div className="flex flex-col gap-5 bg-secondary px-4 py-6 md:px-20 md:py-12 lg:px-28 lg:py-12">
           <div className="flex items-center">
-            <div className="text-2xl font-semibold">Kategori Belajar</div>
+            <div className="text-xl font-semibold md:text-2xl lg:text-2xl">
+              Kategori Belajar
+            </div>
           </div>
-          <div className="grid grid-cols-2 gap-4 text-center md:grid-cols-4 lg:grid-cols-6">
-            {storeCategories == null ? (
+          {storeCategories == null ? (
+            <div className="grid grid-cols-6 gap-4">
               <CardKategorySkeleton />
-            ) : (
-              storeCategories.map((value) => (
-                <CardKategory
-                  key={value.id}
-                  category={value.categoryName}
-                  thumbnail={value.categoryImg}
-                />
-              ))
-            )}
-          </div>
+            </div>
+          ) : (
+            <div className="-ms-6">
+              <SliderCardCategories />
+            </div>
+          )}
         </div>
         {/* End Kategori Belajar Section */}
 
@@ -119,7 +129,7 @@ export const HomePage = () => {
               Kursus Pembelajaran
             </div>
             <div
-              className="cursor-pointer text-lg font-semibold text-primary"
+              className="text-md cursor-pointer font-semibold text-primary md:text-lg lg:text-lg"
               onClick={toggleShowAllCourses}
             >
               {showAllCourses ? "Lebih Sedikit" : "Lihat Semua"}
@@ -127,37 +137,12 @@ export const HomePage = () => {
           </div>
 
           {/* Filter */}
-          <div className="flex flex-wrap justify-center gap-4">
-            {/* Menampilkan tombol "All" */}
-            <div
-              className={`cursor-pointer rounded-xl px-5 py-1 text-base font-semibold transition-all ${
-                selectedCategory === "All"
-                  ? "bg-primary text-white"
-                  : "bg-secondary hover:bg-primary hover:text-white"
-              }`}
-              onClick={() => handleCategoryFilter("All")}
-            >
-              All
-            </div>
-
-            {/* Menampilkan button filter kategori yang dimuat */}
-            {storeCategories === null ? (
-              <CardCourseSkeleton />
-            ) : (
-              storeCategories.map((value) => (
-                <div
-                  key={value.id}
-                  className={`cursor-pointer rounded-xl px-5 py-1 text-base font-semibold transition-all ${
-                    selectedCategory === value.categoryName
-                      ? "bg-primary text-white"
-                      : "bg-secondary hover:bg-primary hover:text-white"
-                  }`}
-                  onClick={() => handleCategoryFilter(value.categoryName)}
-                >
-                  {value.categoryName}
-                </div>
-              ))
-            )}
+          <div className="-ms-3">
+            <SliderFilterCategories
+              storeCategories={storeCategories}
+              selectedCategory={selectedCategory}
+              handleCategoryFilter={handleCategoryFilter}
+            />
           </div>
 
           {/* Container Card Kelas */}

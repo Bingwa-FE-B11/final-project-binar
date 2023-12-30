@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useMediaQuery } from "react-responsive";
+import { Dialog, DialogBody, DialogHeader } from "@material-tailwind/react";
 
 // Icons
 import { BiSearchAlt } from "react-icons/bi";
+import { IoClose } from "react-icons/io5";
 
 // Components
 import { NavbarKelas } from "../../../assets/components/navbar/NavbarKelas";
 import { CardPremium } from "../../../assets/components/cards/CardPremium";
 import { NavbarHome } from "../../../assets/components/navbar/NavbarHome";
 import { SidebarKelas } from "../../../assets/components/sidebar/SidebarKelas";
-import CardCoursesSkeleton from "../../../assets/components/skeleton/CardCourseSkeleton";
+import { NavbarMobile } from "../../../assets/components/navbar/NavbarMobile";
+import { SearchMobile } from "../../../assets/components/search/SearchMobile";
 
 // Redux
 import { getAllCoursesAction } from "../../../redux/action/courses/getAllCoursesAction";
@@ -24,6 +28,8 @@ export const PilihPremium = () => {
   const storeFilteredCourses = useSelector(
     (state) => state.dataCourses.filteredCourses,
   );
+
+  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const getCourses = () => {
     dispatch(getAllCoursesAction());
@@ -57,46 +63,68 @@ export const PilihPremium = () => {
     setDisplayedCourses(coursesToDisplay);
   }, [storeFilteredCourses, storeCourses]);
 
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => setOpen(!open);
+
   return (
     <>
-      {storeAuthUser.token === null ? <NavbarHome /> : <NavbarKelas />}
+      {isMobile ? (
+        <NavbarMobile />
+      ) : storeAuthUser.token === null ? (
+        <NavbarHome />
+      ) : (
+        <NavbarKelas />
+      )}
       <div className="flex h-full flex-col justify-between bg-secondary">
-        <div className="flex flex-col justify-center px-2 pt-16 md:px-4 md:pt-20 lg:px-24 lg:pt-20">
+        {isMobile ? <SearchMobile /> : <></>}
+        <div className="flex flex-col justify-center px-4 pb-16 pt-2 md:px-8 md:pb-0 md:pt-20 lg:px-24 lg:pb-0 lg:pt-20">
           {/* Search */}
           <div className="flex items-center justify-between py-4">
-            <div className="px-4 py-6 text-xl font-bold md:text-3xl lg:text-3xl">
+            <div className="-mt-8 px-0 py-6 text-xl font-bold md:mt-0 md:text-3xl lg:mt-0 lg:text-3xl">
               Topik Kelas
             </div>
-            <div className="relative flex items-center">
-              <input
-                type="text"
-                value={searchInput}
-                onChange={(e) => setSearchInput(e.target.value)}
-                onKeyDown={(e) =>
-                  e.key === "Enter" ? handleSearchCourse(searchInput) : ""
-                }
-                className="cursor-pointer rounded-3xl border-2 border-primary px-1 py-2 outline-none md:px-4 lg:px-4"
-                placeholder="Cari Kelas..."
-              />
-              <BiSearchAlt
-                size={25}
-                className="absolute inset-y-2 right-4 cursor-pointer rounded-lg bg-primary p-1 text-white"
-                onClick={() => {
-                  handleSearchCourse(searchInput);
-                }}
-              />
-            </div>
+            {isMobile ? (
+              <div
+                className="-mt-8 font-semibold text-primary md:mt-0 lg:mt-0"
+                onClick={handleOpen}
+              >
+                Filter
+              </div>
+            ) : (
+              <div className="relative flex items-center">
+                <input
+                  type="text"
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)}
+                  onKeyDown={(e) =>
+                    e.key === "Enter" ? handleSearchCourse(searchInput) : ""
+                  }
+                  className="cursor-pointer rounded-3xl border-2 border-primary px-1 py-2 outline-none md:px-4 lg:px-4"
+                  placeholder="Cari Kelas..."
+                />
+                <BiSearchAlt
+                  size={25}
+                  className="absolute inset-y-2 right-4 cursor-pointer rounded-lg bg-primary p-1 text-white"
+                  onClick={() => {
+                    handleSearchCourse(searchInput);
+                  }}
+                />
+              </div>
+            )}
           </div>
 
           <div className="flex items-start justify-center py-4 md:justify-between lg:justify-between">
             {/* Filter */}
-            <SidebarKelas />
+            <div className="hidden w-[30%] md:flex lg:flex">
+              <SidebarKelas />
+            </div>
 
             {/* Button */}
-            <div className="flex w-full flex-wrap items-center justify-between font-semibold md:w-[65%] lg:w-[65%]">
+            <div className="-mt-10 flex w-full flex-wrap items-center justify-between font-semibold md:mt-0 md:w-[65%] lg:mt-0 lg:w-[65%]">
               <div className="flex w-full gap-4 text-center">
                 <div
-                  className="w-[20%] cursor-pointer rounded-xl bg-white py-2"
+                  className="w-[20%] cursor-pointer rounded-xl bg-white py-2 text-sm md:text-base lg:text-base"
                   onClick={() => {
                     navigate("/all-kelas");
                   }}
@@ -104,7 +132,7 @@ export const PilihPremium = () => {
                   <button>All</button>
                 </div>
                 <div
-                  className="w-[40%] cursor-pointer rounded-xl bg-primary py-2 text-white md:w-[50%] lg:w-[60%]"
+                  className="w-[40%] cursor-pointer rounded-xl bg-primary py-2 text-sm text-white md:w-[50%] md:text-base lg:w-[60%] lg:text-base"
                   onClick={() => {
                     navigate("/pilih-premium");
                   }}
@@ -112,7 +140,7 @@ export const PilihPremium = () => {
                   <button>Kelas Premium</button>
                 </div>
                 <div
-                  className="w-[30%] cursor-pointer rounded-xl bg-white py-2 md:w-[40%] lg:w-[30%]"
+                  className="w-[30%] cursor-pointer rounded-xl bg-white py-2 text-sm md:w-[40%] md:text-base lg:w-[30%] lg:text-base"
                   onClick={() => {
                     navigate("/pilih-gratis");
                   }}
@@ -150,9 +178,17 @@ export const PilihPremium = () => {
             </div>
           </div>
         </div>
-
-        <NavbarKelas style={{ zIndex: 1 }} />
       </div>
+
+      {/* Dialog Filter */}
+      <Dialog open={open} handler={handleOpen} size="xxl">
+        <DialogHeader className="-mb-6 flex justify-end pr-4 pt-4">
+          <IoClose size={30} onClick={handleOpen} />
+        </DialogHeader>
+        <DialogBody>
+          <SidebarKelas />
+        </DialogBody>
+      </Dialog>
     </>
   );
 };

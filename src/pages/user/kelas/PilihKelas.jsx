@@ -13,6 +13,9 @@ import { SidebarKelas } from "../../../assets/components/sidebar/SidebarKelas";
 import LoadingSpinner from "../../../assets/components/loading/loadingSpinner";
 import { searchCourseAction } from "../../../redux/action/courses/searchCourseAction";
 import { CardPremium } from "../../../assets/components/cards/CardPremium";
+import { useMediaQuery } from "react-responsive";
+import { NavbarMobile } from "../../../assets/components/navbar/NavbarMobile";
+import { SearchMobile } from "../../../assets/components/search/SearchMobile";
 
 export const PilihKelas = () => {
   const navigate = useNavigate();
@@ -20,6 +23,8 @@ export const PilihKelas = () => {
   const dispatch = useDispatch();
   const searchParam = new URLSearchParams(location.search).get("search");
   const [searchInput, setSearchInput] = useState("");
+
+  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   // Redux Store
   const storeAuthUser = useSelector((state) => state.authLogin);
@@ -55,69 +60,86 @@ export const PilihKelas = () => {
 
   return (
     <>
-      {storeAuthUser.token === null ? <NavbarHome /> : <NavbarKelas />}
+      {isMobile ? (
+        <NavbarMobile />
+      ) : storeAuthUser.token === null ? (
+        <NavbarHome />
+      ) : (
+        <NavbarKelas />
+      )}
       <div className="flex h-fit flex-col justify-between bg-secondary md:h-screen lg:h-fit">
-        <div className="flex flex-col justify-center px-2 pt-16 md:px-4 md:pt-20 lg:px-24 lg:pt-28">
+        {isMobile ? <SearchMobile /> : <></>}
+        <div className="flex flex-col justify-center px-4 pb-16 pt-4 md:px-4 md:pb-0 md:pt-20 lg:px-24 lg:pb-0 lg:pt-20">
           {/* Search */}
           <div className="flex items-center justify-between py-4">
-            <div className="px-4 py-6 text-xl font-bold md:text-3xl lg:text-3xl">
+            <div className="-mt-8 py-6 text-xl font-bold md:mt-0 md:px-4 md:text-3xl lg:mt-0 lg:px-0 lg:text-3xl">
               Topik Kelas
             </div>
-            <div className="relative flex items-center">
-              <input
-                type="text"
-                value={searchInput}
-                onChange={(e) => setSearchInput(e.target.value)}
-                onKeyDown={(e) =>
-                  e.key === "Enter" ? handleSearchCourse(searchInput) : ""
-                }
-                className="cursor-pointer rounded-3xl border-2 border-primary px-1 py-2 outline-none md:px-4 lg:px-4"
-                placeholder="Cari Kelas..."
-              />
-              <BiSearchAlt
-                size={25}
-                className="absolute inset-y-2 right-4 cursor-pointer rounded-lg bg-primary p-1 text-white"
-                onClick={() => {
-                  handleSearchCourse(searchInput);
-                }}
-              />
-            </div>
+            {isMobile ? (
+              <></>
+            ) : (
+              <div className="relative flex items-center">
+                <input
+                  type="text"
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)}
+                  onKeyDown={(e) =>
+                    e.key === "Enter" ? handleSearchCourse(searchInput) : ""
+                  }
+                  className="cursor-pointer rounded-3xl border-2 border-primary px-1 py-2 outline-none md:px-4 lg:px-4"
+                  placeholder="Cari Kelas..."
+                />
+                <BiSearchAlt
+                  size={25}
+                  className="absolute inset-y-2 right-4 cursor-pointer rounded-lg bg-primary p-1 text-white"
+                  onClick={() => {
+                    handleSearchCourse(searchInput);
+                  }}
+                />
+              </div>
+            )}
           </div>
 
           <div className="flex items-start justify-center py-4 md:justify-between lg:justify-between">
             {/* Filter */}
-            <SidebarKelas />
+            <div className="hidden w-[30%] md:flex lg:flex">
+              <SidebarKelas />
+            </div>
 
             {/* Button */}
             <div className="flex w-full flex-wrap items-center justify-between font-semibold md:w-[65%] lg:w-[65%]">
-              <div className="flex w-full gap-4 text-center">
-                <div
-                  className="w-[20%] cursor-pointer rounded-xl bg-white py-2 hover:bg-primary hover:text-white"
-                  onClick={() => {
-                    navigate("/all-kelas");
-                  }}
-                >
-                  <button>All</button>
+              {isMobile ? (
+                <></>
+              ) : (
+                <div className="flex w-full gap-4 text-center">
+                  <div
+                    className="w-[20%] cursor-pointer rounded-xl bg-white py-2 hover:bg-primary hover:text-white"
+                    onClick={() => {
+                      navigate("/all-kelas");
+                    }}
+                  >
+                    <button>All</button>
+                  </div>
+                  <div
+                    className="w-[40%] cursor-pointer rounded-xl bg-white py-2 hover:bg-primary hover:text-white md:w-[50%] lg:w-[60%]"
+                    onClick={() => {
+                      navigate("/pilih-premium");
+                    }}
+                  >
+                    <button>Kelas Premium</button>
+                  </div>
+                  <div
+                    className="w-[30%] cursor-pointer rounded-xl bg-white py-2 hover:bg-primary hover:text-white md:w-[40%] lg:w-[30%]"
+                    onClick={() => {
+                      navigate("/pilih-gratis");
+                    }}
+                  >
+                    <button>Kelas Gratis</button>
+                  </div>
                 </div>
-                <div
-                  className="w-[40%] cursor-pointer rounded-xl bg-white py-2 hover:bg-primary hover:text-white md:w-[50%] lg:w-[60%]"
-                  onClick={() => {
-                    navigate("/pilih-premium");
-                  }}
-                >
-                  <button>Kelas Premium</button>
-                </div>
-                <div
-                  className="w-[30%] cursor-pointer rounded-xl bg-white py-2 hover:bg-primary hover:text-white md:w-[40%] lg:w-[30%]"
-                  onClick={() => {
-                    navigate("/pilih-gratis");
-                  }}
-                >
-                  <button>Kelas Gratis</button>
-                </div>
-              </div>
+              )}
 
-              <div className="py-4">
+              <div className="-mt-12 py-4 md:mt-0 lg:mt-0">
                 Menampilkan{" "}
                 <span className="font-bold text-primary">"{searchParam}"</span>
               </div>
@@ -165,7 +187,7 @@ export const PilihKelas = () => {
             </div>
           </div>
         </div>
-        <NavbarKelas style={{ zIndex: 1 }} />
+        {isMobile ? <NavbarMobile /> : <NavbarKelas style={{ zIndex: 1 }} />}
       </div>
     </>
   );

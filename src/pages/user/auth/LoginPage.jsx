@@ -21,7 +21,7 @@ import {
 import toast from "react-hot-toast";
 
 // Google Login
-import GoogleLogin from "../../../assets/components/google/Google";
+import { LoginGoogle } from "../../../assets/components/google/LoginGoogle";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -241,8 +241,8 @@ export const LoginPage = () => {
                 Masuk
               </button>
 
-              <div className="flex items-center justify-center">
-                <GoogleLogin />
+              <div className="flex items-center justify-center py-6">
+                <LoginGoogle />
               </div>
 
               <div className="text-center">

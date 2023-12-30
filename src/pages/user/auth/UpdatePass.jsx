@@ -11,6 +11,7 @@ import { getUpdatePass } from "../../../redux/action/auth/getPasswordAction";
 
 // Toast
 import { showErrorToast, showSuccessToast } from "../../../helper/ToastHelper";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 export const UpdatePass = () => {
   const navigate = useNavigate();
@@ -85,12 +86,19 @@ export const UpdatePass = () => {
                 value={password}
                 id="newPassword"
               />
-              <img
-                src={EyePassword}
-                alt="Icon Eye Password"
-                className="absolute inset-y-2.5 right-4 w-8 cursor-pointer text-black"
-                onClick={handleShowPassword1}
-              />
+              {showPassword1 ? (
+                <FiEye
+                  size={27}
+                  className="absolute inset-y-3 right-4 w-8 cursor-pointer text-slate-400"
+                  onClick={handleShowPassword1}
+                />
+              ) : (
+                <FiEyeOff
+                  size={27}
+                  className="absolute inset-y-3 right-4 w-8 cursor-pointer text-slate-400"
+                  onClick={handleShowPassword1}
+                />
+              )}
             </div>
           </div>
 
@@ -108,12 +116,19 @@ export const UpdatePass = () => {
                 value={passwordConfirmation}
                 id="confirmPassword"
               />
-              <img
-                src={EyePassword}
-                alt="Icon Eye Password"
-                className="absolute inset-y-2.5 right-4 w-8 cursor-pointer text-black"
-                onClick={handleShowPassword2}
-              />
+              {showPassword2 ? (
+                <FiEye
+                  size={27}
+                  className="absolute inset-y-3 right-4 w-8 cursor-pointer text-slate-400"
+                  onClick={handleShowPassword2}
+                />
+              ) : (
+                <FiEyeOff
+                  size={27}
+                  className="absolute inset-y-3 right-4 w-8 cursor-pointer text-slate-400"
+                  onClick={handleShowPassword2}
+                />
+              )}
             </div>
           </div>
 
@@ -130,7 +145,7 @@ export const UpdatePass = () => {
         </div>
       </div>
 
-      <div className="hidden h-screen w-2/5 items-center justify-center bg-primary lg:flex md:flex">
+      <div className="hidden h-screen w-2/5 items-center justify-center bg-primary md:flex lg:flex">
         <div className="flex items-center justify-center gap-6">
           <img src={BrandLogo} alt="Brand Logo" className="w-[15%]" />
           <span className="text-center font-sans text-6xl text-white">

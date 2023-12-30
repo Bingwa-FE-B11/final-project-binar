@@ -6,14 +6,6 @@ import { setUserProfile } from "../../reducer/auth/loginSlice";
 export const getUserProfileAction = () => (dispatch) => {
   return reduxGetUser()
     .then((result) => {
-      console.log(
-        "result -> reduxGetUserProfile",
-        result.data.data.user.userProfile,
-      );
-      console.log(
-        "result -> reduxGetUserProfile",
-        result.data.data.user,
-      );
       dispatch(setUserProfile(result.data.data.user.userProfile));
       return true;
     })
@@ -25,7 +17,6 @@ export const getUserProfileAction = () => (dispatch) => {
 export const putUpdateProfile = (formData) => async (dispatch) => {
   return reduxUpdateProfile(formData)
     .then((result) => {
-      console.log("result -> reduxUpdateProfile", result);
       dispatch(setUserProfile(result.data.data.newUserProfile));
       return true;
     })
