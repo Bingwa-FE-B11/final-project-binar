@@ -69,7 +69,7 @@ export const API_ENDPOINT = {
   UPDATE_NOTIFICATIONS: "/notifications/markAsRead", // [PUT] Update Notification by Authentication
 
   // TRACKINGS
-  UPDATE_TRACKINGS: "/trackings/{lessonId}", // [PUT] Update Trackings
+  UPDATE_TRACKINGS: "/trackings", // [PUT] Update Trackings
 
   // PAYMENTS
   GET_ALL_PAYMENTS: "/payments", // [GET] Get All Payment

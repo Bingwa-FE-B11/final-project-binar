@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // Icons
@@ -12,14 +12,21 @@ import CardCoursesSkeleton from "../../../assets/components/skeleton/CardCourseS
 
 // Redux
 import { getUserProfileAction } from "../../../redux/action/auth/getUserProfileAction";
-import { getAllEnrollmentsAction } from "../../../redux/action/enrollments/getAllEnrollmentsAction";
+import { getCoursesMeAction } from "../../../redux/action/courses/getCoursesMeAction";
 
 export const KelasSaya = () => {
-  const storeEnrollments = useSelector((state) => state.enrollments.course);
+  const storeCoursesEnroll = useSelector((state) => state.dataCourses.me);
+  const [filterStatus, setFilterStatus] = useState("All");
+  const handleFilterChange = (status) => {
+    setFilterStatus(status);
+  };
+  // const storeFilteredCourses = useSelector(
+  //   (state) => state.dataCourses.filteredCourses,
+  // );
   const dispatch = useDispatch();
 
-  const getEnroll = async () => {
-    await dispatch(getAllEnrollmentsAction());
+  const getCourses = async () => {
+    await dispatch(getCoursesMeAction());
   };
 
   const getUser = async () => {
@@ -27,11 +34,19 @@ export const KelasSaya = () => {
   };
 
   useEffect(() => {
-    getEnroll();
+    getCourses();
     getUser();
   }, []);
 
-  console.log("storeEnrollments", storeEnrollments);
+  // Filter Feature
+  // const [displayedCourses, setDisplayedCourses] = useState([]);
+
+  // useEffect(() => {
+  //   const coursesToDisplay =
+  //     storeFilteredCourses?.length > 0 ? storeFilteredCourses : [];
+  //   setDisplayedCourses(coursesToDisplay);
+  // }, [storeFilteredCourses]);
+
   return (
     <div className="flex h-full flex-col justify-between bg-secondary">
       <div className="flex flex-col justify-center px-2 pt-16 md:px-4 md:pt-20 lg:px-24 lg:pt-28">
@@ -60,13 +75,34 @@ export const KelasSaya = () => {
           {/* Button */}
           <div className="flex w-full flex-wrap items-center justify-between font-semibold md:w-[65%] lg:w-[65%]">
             <div className="flex w-full gap-4 text-center">
-              <div className="w-[20%] cursor-pointer rounded-xl bg-white py-2 hover:bg-primary hover:text-white">
+              <div
+                className={`w-[20%] cursor-pointer rounded-xl py-2 ${
+                  filterStatus === "All"
+                    ? "bg-primary text-white"
+                    : "bg-white hover:bg-primary hover:text-white"
+                }`}
+                onClick={() => handleFilterChange("All")}
+              >
                 <button>All</button>
               </div>
-              <div className="w-[60%] cursor-pointer rounded-xl bg-white py-2 hover:bg-primary hover:text-white">
+              <div
+                className={`w-[60%] cursor-pointer rounded-xl py-2 ${
+                  filterStatus === "In Progress"
+                    ? "bg-primary text-white"
+                    : "bg-white hover:bg-primary hover:text-white"
+                }`}
+                onClick={() => handleFilterChange("In Progress")}
+              >
                 <button>In Progress</button>
               </div>
-              <div className="w-[20%] cursor-pointer rounded-xl bg-white py-2 hover:bg-primary hover:text-white">
+              <div
+                className={`w-[20%] cursor-pointer rounded-xl py-2 ${
+                  filterStatus === "Selesai"
+                    ? "bg-primary text-white"
+                    : "bg-white hover:bg-primary hover:text-white"
+                }`}
+                onClick={() => handleFilterChange("Selesai")}
+              >
                 <button>Selesai</button>
               </div>
             </div>
@@ -74,23 +110,35 @@ export const KelasSaya = () => {
             {/* Main Content */}
             <div className="grid w-full grid-cols-1 gap-6 py-4 md:grid-cols-1 lg:grid-cols-2">
               {/* Card Item */}
-              {storeEnrollments === null ? (
+              {storeCoursesEnroll === null ? (
                 <CardCoursesSkeleton />
               ) : (
-                storeEnrollments.map((value) => (
-                  <CardKelasSaya
-                    key={value.id}
-                    courseId={value.courseId}
-                    image={value.course.courseImg}
-                    category={value.course.category.categoryName}
-                    title={value.course.courseName}
-                    author={value.course.mentor}
-                    level={value.course.level}
-                    modul={value.course.modul}
-                    duration={value.course.duration}
-                    progress={value.progres}
-                  />
-                ))
+                storeCoursesEnroll
+                  .filter((value) => {
+                    if (filterStatus === "All") return true;
+                    if (filterStatus === "In Progress")
+                      return (
+                        value.enrollment.progres > 0 &&
+                        value.enrollment.progres < 100
+                      );
+                    if (filterStatus === "Selesai")
+                      return value.enrollment.progres === 100;
+                    return false;
+                  })
+                  .map((value) => (
+                    <CardKelasSaya
+                      key={value.id}
+                      courseId={value.id}
+                      image={value.courseImg}
+                      category={value.category.categoryName}
+                      title={value.courseName}
+                      author={value.mentor}
+                      level={value.level}
+                      modul={value.modul}
+                      duration={value.duration}
+                      progress={value.enrollment.progres}
+                    />
+                  ))
               )}
             </div>
           </div>

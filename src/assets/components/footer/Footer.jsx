@@ -39,6 +39,7 @@ export const Footer = () => {
                 <p>Moh Hafid Nur Firmansyah</p>
                 <p>Arfin Dwi Octavianto</p>
                 <p>Shera Alice Ayutri</p>
+                <p>Muhammad Afif Mu'tashim</p>
               </div>
             </div>
           </div>

@@ -27,7 +27,7 @@ export const Notifikasi = () => {
 
   return (
     <>
-      <div className="mt-[2rem] h-full bg-secondary px-9 py-10 md:px-20 lg:px-80 ">
+      <div className="mt-[2rem] h-screen bg-secondary px-9 py-10 md:px-20 lg:px-80 ">
         <div className="relative flex items-center gap-2 py-8 text-lg font-semibold text-black">
           <GoArrowLeft
             size={30}

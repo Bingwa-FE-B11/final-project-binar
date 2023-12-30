@@ -56,19 +56,6 @@ export const HomePage = () => {
   );
   const storeCourses = useSelector((state) => state.dataCourses.courses);
   const storeAuthUser = useSelector((state) => state.authLogin);
-  // const detailCourses = useSelector((state) => state.dataCourses.detail)
-  const displayedCourses = storeCourses ? storeCourses.slice(0, 3) : [];
-  const displayedCategories = storeCategories
-    ? storeCategories.slice(0, 6)
-    : [];
-
-  // console.log("detailCourses", detailCourses);
-
-  console.log("storeCourses", storeCourses);
-
-  console.log("storeCategories", storeCategories);
-
-  console.log("storeAuthUser", storeAuthUser);
 
   const handleCategoryFilter = (category) => {
     setSelectedCategory(category);

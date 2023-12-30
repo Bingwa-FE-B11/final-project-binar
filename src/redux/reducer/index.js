@@ -13,6 +13,7 @@ import courseSlice from "./courses/courseSlice";
 import EnrollmentsSlice from "./enrollments/EnrollmentsSlice";
 import PaymentSlice from "./payment/PaymentSlice";
 import getNotificationsSlice from "./notifications/getNotificationsSlice";
+import getTrackingsSlice from "./TrackingsSlice"
 
 export default combineReducers({
   // User
@@ -37,6 +38,9 @@ export default combineReducers({
 
   // seNotifications
   notifications: getNotificationsSlice, 
+
+  // Trackings
+  trackings: getTrackingsSlice,
 
   // Admin
   adminAuthLogin: adminLoginSlice,
