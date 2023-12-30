@@ -8,10 +8,8 @@ import Header from "../assets/img/Header.webp";
 // Components
 import { NavbarHome } from "../assets/components/navbar/NavbarHome";
 import { CardKursus } from "../assets/components/cards/CardKursus";
-import { CardKategory } from "../assets/components/cards/CardKategory";
 import { NavbarKelas } from "../assets/components/navbar/NavbarKelas";
 import CardKategorySkeleton from "../assets/components/skeleton/CardKategorySkeleton";
-import CardCourseSkeleton from "../assets/components/skeleton/CardCourseSkeleton";
 import { Footer } from "../assets/components/footer/Footer";
 
 // Redux
@@ -63,19 +61,10 @@ export const HomePage = () => {
   );
   const storeCourses = useSelector((state) => state.dataCourses.courses);
   const storeAuthUser = useSelector((state) => state.authLogin);
-  // const detailCourses = useSelector((state) => state.dataCourses.detail)
   const displayedCourses = storeCourses ? storeCourses.slice(0, 3) : [];
   const displayedCategories = storeCategories
     ? storeCategories.slice(0, 6)
     : [];
-
-  // console.log("detailCourses", detailCourses);
-
-  console.log("storeCourses", storeCourses);
-
-  console.log("storeCategories", storeCategories);
-
-  console.log("storeAuthUser", storeAuthUser);
 
   const handleCategoryFilter = (category) => {
     setSelectedCategory(category);

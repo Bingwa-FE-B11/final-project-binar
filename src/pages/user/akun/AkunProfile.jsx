@@ -28,6 +28,7 @@ export const AkunProfile = () => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const Data = useSelector((state) => state.authLogin);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -40,13 +41,15 @@ export const AkunProfile = () => {
   }, [dispatch]);
 
   const [image, setImage] = useState(null);
-  const [newFullName, setNewFullName] = useState(Data.userProfile?.fullName);
-  const [email, setEmail] = useState(Data.user?.email);
-  const [newPhoneNumber, setNewPhoneNumber] = useState(
-    Data.userProfile?.phoneNumber,
+  const [newFullName, setNewFullName] = useState(
+    Data.userProfile?.fullName || "",
   );
-  const [newCity, setNewCity] = useState(Data.userProfile?.city);
-  const [newCountry, setNewCountry] = useState(Data.userProfile?.country);
+  const [email, setEmail] = useState(Data.user?.email || "");
+  const [newPhoneNumber, setNewPhoneNumber] = useState(
+    Data.userProfile?.phoneNumber || "",
+  );
+  const [newCity, setNewCity] = useState(Data.userProfile?.city || "");
+  const [newCountry, setNewCountry] = useState(Data.userProfile?.country || "");
 
   const handleInputName = (e) => {
     if (e) {
@@ -159,12 +162,12 @@ export const AkunProfile = () => {
                   src={
                     image
                       ? URL.createObjectURL(image)
-                      : Data.userProfile?.profilePicture
+                      : Data?.userProfile?.profilePicture || ""
                   }
                   alt=""
                   className="h-full w-full cursor-pointer rounded-full object-cover"
                 />
-                {Data?.userProfile.profilePicture ? (
+                {Data?.userProfile && Data?.userProfile.profilePicture ? (
                   <></>
                 ) : (
                   <div className="absolute bottom-0 right-0 rounded-full bg-slate-100 p-1 text-primary">

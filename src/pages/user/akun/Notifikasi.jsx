@@ -49,33 +49,34 @@ export const Notifikasi = () => {
           </div>
 
           {/* Isi Notifikasi */}
-          {storeNotif.map((notification) => (
-            <div
-              key={notification.id}
-              className="flex items-center justify-between px-10 py-6"
-            >
-              <div className="flex flex-col space-y-2">
-                <div className="flex gap-4 text-lg font-semibold text-primary">
-                  <IoNotificationsCircleSharp size={30} />
-                  {notification.title}
+          {storeNotif &&
+            storeNotif.map((notification) => (
+              <div
+                key={notification.id}
+                className="flex items-center justify-between px-10 py-6"
+              >
+                <div className="flex flex-col space-y-2">
+                  <div className="flex gap-4 text-lg font-semibold text-primary">
+                    <IoNotificationsCircleSharp size={30} />
+                    {notification.title}
+                  </div>
+                  <div className="flex px-11 font-semibold">
+                    {notification.message}
+                  </div>
                 </div>
-                <div className="flex px-11 font-semibold">
-                  {notification.message}
-                </div>
-              </div>
 
-              {/* Tanggal */}
-              <div className="flex gap-2 font-thin">
-                {notification.createdAt}
-                <FaCircle
-                  size={25}
-                  className={`py-1.5 text-center ${
-                    notification.isRead ? "text-green" : "text-red-500"
-                  }`}
-                />
+                {/* Tanggal */}
+                <div className="flex gap-2 font-thin">
+                  {notification.createdAt}
+                  <FaCircle
+                    size={25}
+                    className={`py-1.5 text-center ${
+                      notification.isRead ? "text-green" : "text-red-500"
+                    }`}
+                  />
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
       <NavbarNotif style={{ zIndex: 1 }} />
