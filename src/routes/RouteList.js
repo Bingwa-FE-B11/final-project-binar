@@ -36,14 +36,7 @@ export const RouteList = () => {
         {/* User */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<Register />} />
-        <Route
-          path="/update-password"
-          element={
-            <TokenProtected>
-              <UpdatePass />
-            </TokenProtected>
-          }
-        />
+        <Route path="/update-password" element={<UpdatePass />} />
         <Route path="/forget-password" element={<ForgetPass />} />
         <Route path="/otp" element={<Otp />} />
 
