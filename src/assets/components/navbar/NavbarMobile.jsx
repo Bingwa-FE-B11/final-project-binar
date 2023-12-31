@@ -144,8 +144,29 @@ export const NavbarMobile = () => {
             className="flex flex-col items-center justify-center gap-2"
             onClick={handleOpen}
           >
-            <FaRegUser size={25} color="gray" />
-            <span className="text-sm text-slate-500">Akun</span>
+            <div
+              className={
+                location.pathname === "/akun-profile" ||
+                location.pathname === "/akun-password" ||
+                location.pathname === "/akun-pembayaran"
+                  ? `text-primary`
+                  : `text-slate-500`
+              }
+            >
+              <FaRegUser size={25} />
+            </div>
+            <span
+              className={`text-sm
+                ${
+                  location.pathname === "/akun-profile" ||
+                  location.pathname === "/akun-password" ||
+                  location.pathname === "/akun-pembayaran"
+                    ? `font-semibold text-primary`
+                    : `text-slate-500`
+                }`}
+            >
+              Akun
+            </span>
           </div>
         </div>
       </div>
