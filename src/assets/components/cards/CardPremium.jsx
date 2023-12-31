@@ -75,7 +75,10 @@ export const CardPremium = ({
           </div>
         </div>
         {isPremium ? (
-          <div className="flex w-fit cursor-pointer justify-between rounded-3xl bg-blue px-4 py-1 transition-all hover:bg-blue-hover">
+          <div
+            className="flex w-fit cursor-pointer justify-between rounded-3xl bg-blue px-4 py-1 transition-all hover:bg-blue-hover"
+            onClick={handleCardClick}
+          >
             <div className="flex items-center gap-2">
               <IoDiamond size={20} color="white" />
               <div className="font-bold text-white">{isPremium}</div>

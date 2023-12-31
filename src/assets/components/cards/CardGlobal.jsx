@@ -75,14 +75,20 @@ export const CardGlobal = ({
           </div>
         </div>
         {isPremium ? (
-          <div className="flex w-fit cursor-pointer justify-between rounded-3xl bg-blue px-4 py-1 transition-all hover:bg-blue-hover">
+          <div
+            className="flex w-fit cursor-pointer justify-between rounded-3xl bg-blue px-4 py-1 transition-all hover:bg-blue-hover"
+            onClick={handleCardClick}
+          >
             <div className="flex items-center gap-2">
               <IoDiamond size={20} color="white" />
               <div className="font-bold text-white">Premium</div>
             </div>
           </div>
         ) : (
-          <div className="w-fit cursor-pointer rounded-3xl bg-green px-4 py-1 text-white transition-all hover:bg-blue-hover">
+          <div
+            className="w-fit cursor-pointer rounded-3xl bg-green px-4 py-1 font-semibold text-white"
+            onClick={handleCardClick}
+          >
             Mulai Kelas
           </div>
         )}
