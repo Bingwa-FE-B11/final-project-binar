@@ -192,6 +192,12 @@ export const DetailKelas = () => {
             {/* Materi Belajar */}
             <div className="flex justify-between">
               <h1 className="text-xl font-bold">Materi Belajar</h1>
+              <div className="flex w-fit items-center justify-between gap-2 rounded-3xl">
+                <div className="rounded-xl bg-green px-3 py-1 font-bold text-white cursor-pointer"
+                  onClick={handleDialogOpen}>
+                  Buy Course
+                </div>
+              </div>
             </div>
 
             {/* Chapter */}

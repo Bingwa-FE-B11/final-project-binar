@@ -179,7 +179,7 @@ export const KelasSaya = () => {
                           value.enrollment.progres < 100
                         );
                       if (filterStatus === "Selesai")
-                        return value.enrollment.progres === 100;
+                        return value.enrollment.progres >= 100;
                       return false;
                     })
                     .map((value) => (
