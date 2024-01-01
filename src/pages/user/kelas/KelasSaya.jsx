@@ -21,10 +21,10 @@ import { searchCourseAction } from "../../../redux/action/courses/searchCourseAc
 import { useNavigate } from "react-router-dom";
 import { Dialog, DialogBody, DialogHeader } from "@material-tailwind/react";
 import { IoClose } from "react-icons/io5";
+import { CookieStorage, CookiesKeys } from "../../../utils/cookie";
 
 export const KelasSaya = () => {
   const storeCoursesEnroll = useSelector((state) => state.dataCourses.me);
-  const storeAuthUser = useSelector((state) => state.authLogin);
   const [filterStatus, setFilterStatus] = useState("All");
   const handleFilterChange = (status) => {
     setFilterStatus(status);
@@ -36,6 +36,8 @@ export const KelasSaya = () => {
   const navigate = useNavigate();
 
   const isMobile = useMediaQuery({ maxWidth: 767 });
+
+  const token = CookieStorage.get(CookiesKeys.AuthToken);
 
   const getCourses = async () => {
     await dispatch(getCoursesMeAction());
@@ -78,7 +80,7 @@ export const KelasSaya = () => {
     <>
       {isMobile ? (
         <NavbarMobile />
-      ) : storeAuthUser.token === null ? (
+      ) : token === undefined ? (
         <NavbarHome />
       ) : (
         <NavbarKelas />

@@ -14,7 +14,7 @@ import EnrollmentsSlice from "./enrollments/EnrollmentsSlice";
 import PaymentSlice from "./payment/PaymentSlice";
 import getNotificationsSlice from "./notifications/getNotificationsSlice";
 import googleLoginSlice from "./auth/googleLoginSlice";
-import getTrackingsSlice from "./TrackingsSlice"
+import getTrackingsSlice from "./TrackingsSlice";
 
 export default combineReducers({
   // User
@@ -39,7 +39,7 @@ export default combineReducers({
   payment: PaymentSlice,
 
   // seNotifications
-  notifications: getNotificationsSlice, 
+  notifications: getNotificationsSlice,
 
   // Trackings
   trackings: getTrackingsSlice,

@@ -40,7 +40,6 @@ export const DetailEnroll = () => {
   }
 
   const handleTrackings = async (lessonId) => {
-
     try {
       await reduxPutTrackings(lessonId);
       showSuccessToast("Selamat Telah Menyelesaikan Lesson Ini...!!!");
@@ -49,7 +48,7 @@ export const DetailEnroll = () => {
     }
   };
 
-  console.log(storeDetailCoursesEnroll, "storeDetailCoursesEnroll")
+  console.log(storeDetailCoursesEnroll, "storeDetailCoursesEnroll");
 
   return (
     <>

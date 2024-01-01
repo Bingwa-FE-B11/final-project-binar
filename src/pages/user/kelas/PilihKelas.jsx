@@ -15,6 +15,7 @@ import { CardPremium } from "../../../assets/components/cards/CardPremium";
 import { useMediaQuery } from "react-responsive";
 import { NavbarMobile } from "../../../assets/components/navbar/NavbarMobile";
 import { SearchMobile } from "../../../assets/components/search/SearchMobile";
+import { CookieStorage, CookiesKeys } from "../../../utils/cookie";
 
 export const PilihKelas = () => {
   const navigate = useNavigate();
@@ -26,11 +27,12 @@ export const PilihKelas = () => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
 
   // Redux Store
-  const storeAuthUser = useSelector((state) => state.authLogin);
   const storeSearchedCourses = useSelector(
     (state) => state.dataCourses.searchedCourses,
   );
   const isLoading = useSelector((state) => state.dataCourses.loading);
+
+  const token = CookieStorage.get(CookiesKeys.AuthToken);
 
   if (isLoading) {
     return <LoadingSpinner />;
@@ -50,7 +52,7 @@ export const PilihKelas = () => {
     <>
       {isMobile ? (
         <NavbarMobile />
-      ) : storeAuthUser.token === null ? (
+      ) : token === undefined ? (
         <NavbarHome />
       ) : (
         <NavbarKelas />

@@ -9,7 +9,6 @@ const http = axios.create({
   },
 });
 
-// Menambahkan interceptor untuk menyisipkan token ke dalam header
 http.interceptors.request.use(
   (config) => {
     const token = CookieStorage.get(CookiesKeys.AuthToken) || null;

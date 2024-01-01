@@ -9,6 +9,7 @@ import { TbProgressCheck } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getCoursesEnrollAction } from "../../../redux/action/courses/getCoursesEnrollAction";
+import { Progress } from "@material-tailwind/react";
 
 export const CardKelasSaya = ({
   image,
@@ -33,7 +34,7 @@ export const CardKelasSaya = ({
   return (
     <div className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-md transition-all hover:scale-95">
       <div
-        className="h-32 min-w-fit scale-105 bg-center bg-no-repeat cursor-pointer"
+        className="h-32 min-w-fit scale-105 cursor-pointer bg-center bg-no-repeat"
         style={{
           backgroundImage: `url(${image})`,
           backgroundSize: "cover",
@@ -72,10 +73,10 @@ export const CardKelasSaya = ({
             <div className="text-sm font-semibold text-primary">{duration}</div>
           </div>
         </div>
-        <div className="flex w-fit items-center justify-between gap-2 rounded-3xl">
+        <div className="flex w-full items-center justify-between gap-2 rounded-3xl">
           <TbProgressCheck size={20} color="#22c55e" />
-          <div className="rounded-3xl bg-blue px-3 py-1 font-bold text-white">
-            {progress}% Completed
+          <div className="flex w-full">
+            <Progress value={progress} size="lg" label="Completed" />
           </div>
         </div>
       </div>

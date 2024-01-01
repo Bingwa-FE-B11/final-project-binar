@@ -18,6 +18,7 @@ import { NavbarMobile } from "../../../assets/components/navbar/NavbarMobile";
 import { useMediaQuery } from "react-responsive";
 import { SearchMobile } from "../../../assets/components/search/SearchMobile";
 import { Dialog, DialogBody, DialogHeader } from "@material-tailwind/react";
+import { CookieStorage, CookiesKeys } from "../../../utils/cookie";
 
 export const AllCourse = () => {
   const navigate = useNavigate();
@@ -29,11 +30,12 @@ export const AllCourse = () => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
 
   // Redux Store
-  const storeAuthUser = useSelector((state) => state.authLogin);
   const storeCourses = useSelector((state) => state.dataCourses.courses);
   const storeFilteredCourses = useSelector(
     (state) => state.dataCourses.filteredCourses,
   );
+
+  const token = CookieStorage.get(CookiesKeys.AuthToken);
 
   const getCourses = () => {
     dispatch(getAllCoursesAction());
@@ -81,7 +83,7 @@ export const AllCourse = () => {
     <>
       {isMobile ? (
         <NavbarMobile />
-      ) : storeAuthUser.token === null ? (
+      ) : token === undefined ? (
         <NavbarHome />
       ) : (
         <NavbarKelas />
