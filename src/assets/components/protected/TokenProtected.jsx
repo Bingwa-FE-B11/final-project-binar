@@ -1,14 +1,15 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { showErrorToast } from "../../../helper/ToastHelper";
+import { CookieStorage, CookiesKeys } from "../../../utils/cookie";
 
 function TokenProtected({ children }) {
-  const data = useSelector((state) => state.authLogin);
   const navigate = useNavigate();
 
+  const token = CookieStorage.get(CookiesKeys.AuthToken);
+
   useEffect(() => {
-    if (data.token === null) {
+    if (token === undefined) {
       showErrorToast("Silahkan login terlebih dahulu");
       navigate("/login");
     }

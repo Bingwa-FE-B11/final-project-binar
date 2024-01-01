@@ -41,7 +41,8 @@ export const DetailEnroll = () => {
   }
 
   const handleTrackings = async (lessonId) => {
-    const loadingToastId = showLoadingToast("Loading ...");
+
+  const loadingToastId = showLoadingToast("Loading ...");
 
     try {
       await reduxPutTrackings(lessonId);
@@ -52,7 +53,7 @@ export const DetailEnroll = () => {
     }
   };
 
-  console.log(storeDetailCoursesEnroll, "storeDetailCoursesEnroll")
+  console.log(storeDetailCoursesEnroll, "storeDetailCoursesEnroll");
 
   return (
     <>

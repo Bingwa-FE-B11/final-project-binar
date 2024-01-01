@@ -19,17 +19,19 @@ import { SearchMobile } from "../../../assets/components/search/SearchMobile";
 // Redux
 import { getAllCoursesAction } from "../../../redux/action/courses/getAllCoursesAction";
 import { searchCourseAction } from "../../../redux/action/courses/searchCourseAction";
+import { CookieStorage, CookiesKeys } from "../../../utils/cookie";
 
 export const PilihPremium = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const storeAuthUser = useSelector((state) => state.authLogin);
   const storeCourses = useSelector((state) => state.dataCourses.courses);
   const storeFilteredCourses = useSelector(
     (state) => state.dataCourses.filteredCourses,
   );
 
   const isMobile = useMediaQuery({ maxWidth: 767 });
+
+  const token = CookieStorage.get(CookiesKeys.AuthToken);
 
   const getCourses = () => {
     dispatch(getAllCoursesAction());
@@ -71,7 +73,7 @@ export const PilihPremium = () => {
     <>
       {isMobile ? (
         <NavbarMobile />
-      ) : storeAuthUser.token === null ? (
+      ) : token === undefined ? (
         <NavbarHome />
       ) : (
         <NavbarKelas />

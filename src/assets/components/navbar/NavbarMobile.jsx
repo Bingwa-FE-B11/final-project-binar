@@ -14,13 +14,14 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 import { LuLogOut } from "react-icons/lu";
 import { logoutUserAction } from "../../../redux/action/auth/logoutUserAction";
 import { useDispatch, useSelector } from "react-redux";
+import { CookieStorage, CookiesKeys } from "../../../utils/cookie";
 
 export const NavbarMobile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const storeAuthUser = useSelector((state) => state.authLogin);
+  const token = CookieStorage.get(CookiesKeys.AuthToken);
 
   const [open, setOpen] = React.useState(false);
 
@@ -174,7 +175,7 @@ export const NavbarMobile = () => {
       {/* Dialog Navbar Mobile */}
       <Dialog open={open} handler={handleOpen}>
         <DialogBody>
-          {storeAuthUser.token ? (
+          {token !== undefined ? (
             <>
               <div
                 className="flex cursor-pointer items-center gap-3 border-b-2 border-slate-300 py-4 hover:text-primary"

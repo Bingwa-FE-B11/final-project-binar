@@ -191,10 +191,10 @@ export const LoginPage = () => {
 
             {/* Password */}
             <div className="flex flex-col gap-2 py-6">
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center">
                 <span className="text-left text-lg">Password</span>
                 <span
-                  className="cursor-pointer text-lg font-semibold text-primary"
+                  className="cursor-pointer text-md font-semibold text-primary"
                   onClick={() => {
                     navigate("/forget-password");
                   }}

@@ -21,6 +21,7 @@ import { NavbarMobile } from "../assets/components/navbar/NavbarMobile";
 import { SearchMobile } from "../assets/components/search/SearchMobile";
 import { SliderFilterCategories } from "../assets/components/slider/SliderFilterCategories";
 import { SliderCardCategories } from "../assets/components/slider/SliderCardCategories";
+import { CookieStorage, CookiesKeys } from "../utils/cookie";
 
 export const HomePage = () => {
   const dispatch = useDispatch();
@@ -56,11 +57,13 @@ export const HomePage = () => {
     setShowAllCourses(!showAllCourses);
   };
 
+  // Redux Store
   const storeCategories = useSelector(
     (state) => state.dataCategories.categories,
   );
   const storeCourses = useSelector((state) => state.dataCourses.courses);
-  const storeAuthUser = useSelector((state) => state.authLogin);
+
+  const token = CookieStorage.get(CookiesKeys.AuthToken);
 
   const handleCategoryFilter = (category) => {
     setSelectedCategory(category);
@@ -70,7 +73,7 @@ export const HomePage = () => {
     <>
       {isMobile ? (
         <NavbarMobile />
-      ) : storeAuthUser.token === null ? (
+      ) : token === undefined ? (
         <NavbarHome />
       ) : (
         <NavbarKelas />
