@@ -1,11 +1,15 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 // Components
 import { NavbarKelas } from "../../../assets/components/navbar/NavbarKelas";
 import { NavbarHome } from "../../../assets/components/navbar/NavbarHome";
-import { showSuccessToast } from "../../../helper/ToastHelper";
+import {
+  showLoadingToast,
+  showSuccessToast,
+} from "../../../helper/ToastHelper";
 
 // Icons
 import { GoArrowLeft } from "react-icons/go";
@@ -40,8 +44,11 @@ export const DetailEnroll = () => {
   }
 
   const handleTrackings = async (lessonId) => {
+    const loadingToastId = showLoadingToast("Loading ...");
+
     try {
       await reduxPutTrackings(lessonId);
+      toast.dismiss(loadingToastId);
       showSuccessToast("Selamat Telah Menyelesaikan Lesson Ini...!!!");
     } catch (error) {
       console.error("Error handling trackings:", error);
@@ -127,7 +134,14 @@ export const DetailEnroll = () => {
 
           {/* Section Detail Kelas */}
           <div className="flex flex-col">
-            <div className="my-4 flex h-[20rem] items-center justify-center rounded-2xl bg-slate-300">
+            <div
+              className="my-4 flex h-[20rem] items-center justify-center rounded-2xl"
+              style={{
+                backgroundImage: `url(${storeDetailCoursesEnroll?.courseImg})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            >
               <div className="cursor-pointer text-primary">
                 <FaCirclePlay
                   size={60}
