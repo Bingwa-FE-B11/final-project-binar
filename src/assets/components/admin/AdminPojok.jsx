@@ -5,10 +5,16 @@ import { useNavigate } from "react-router-dom";
 import BrandLogo from "../../../assets/img/brain.webp";
 import { useDispatch } from "react-redux";
 import { logoutAdminAction } from "../../../redux/action/admin/auth/logoutAdminAction";
+import { searchCourseAction } from "../../../redux/action/courses/searchCourseAction";
 
 export const AdminPojok = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const clearSearchedCourse = () => {
+    navigate("/admin/kelola-kelas");
+    dispatch(searchCourseAction(null));
+  };
 
   const handleLogout = () => {
     dispatch(logoutAdminAction());
@@ -36,9 +42,7 @@ export const AdminPojok = () => {
         <div className="mr-auto text-start">
           <button
             className="py-4 font-sans text-xl text-white"
-            onClick={() => {
-              navigate("/admin/kelola-kelas");
-            }}
+            onClick={clearSearchedCourse}
           >
             Kelola Kelas
           </button>

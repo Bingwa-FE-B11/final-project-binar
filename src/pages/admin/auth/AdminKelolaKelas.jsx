@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 // Material Tailwind Components
 import {
@@ -12,22 +13,29 @@ import {
 import { AdminNavbar } from "../../../assets/components/admin/adminNavbar";
 import { AdminPojok } from "../../../assets/components/admin/AdminPojok";
 import { AdminCard } from "../../../assets/components/admin/AdminCard";
+import { showSuccessToast } from "../../../helper/ToastHelper";
 
 // Icons
 import { IoCloseSharp } from "react-icons/io5";
 import { FiPlusCircle } from "react-icons/fi";
-import { FiFilter } from "react-icons/fi";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllDataAction } from "../../../redux/action/admin/data/getAllDataAction";
-import { getDetailCoursesAction } from "../../../redux/action/courses/getDetailCourseAction";
-import { createCourseAction } from "../../../redux/action/admin/course/createCourseAction";
-import { showSuccessToast } from "../../../helper/ToastHelper";
+
+// Redux Actions
 import { getAllCoursesAction } from "../../../redux/action/courses/getAllCoursesAction";
 import { deleteCourseAction } from "../../../redux/action/admin/course/deleteCourseAction";
 import { editCourseAction } from "../../../redux/action/admin/course/editCourseAction";
+import { getAllDataAction } from "../../../redux/action/admin/data/getAllDataAction";
+import { getDetailCoursesAction } from "../../../redux/action/courses/getDetailCourseAction";
+import { createCourseAction } from "../../../redux/action/admin/course/createCourseAction";
+import { useLocation, useNavigate } from "react-router-dom";
+import { searchCourseAction } from "../../../redux/action/courses/searchCourseAction";
+import LoadingSpinner from "../../../assets/components/loading/loadingSpinner";
 
 export const AdminKelolaKelas = () => {
   const dispatch = useDispatch();
+
+  const storeSearchedCourses = useSelector(
+    (state) => state.dataCourses.searchedCourses,
+  );
 
   // Redux Store
   const adminData = useSelector((state) => state.allAdminData);
@@ -250,6 +258,21 @@ export const AdminKelolaKelas = () => {
     }
   };
 
+  // Displayed Course
+  const [displayedCourses, setDisplayedCourses] = useState([]);
+
+  useEffect(() => {
+    const coursesToDisplay =
+      storeSearchedCourses?.length > 0 ? storeSearchedCourses : storeAllCourse;
+    setDisplayedCourses(coursesToDisplay);
+  }, [storeSearchedCourses, storeAllCourse]);
+
+  const isLoading = useSelector((state) => state.dataCourses.loading);
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <div className="flex">
       <div className="w-1/6">
@@ -289,10 +312,6 @@ export const AdminKelolaKelas = () => {
                       <FiPlusCircle size={30} />
                       <span className="font-semibold">Tambah</span>
                     </button>
-                    <button className="flex h-10 items-center justify-center gap-2 rounded-full border-2 border-primary bg-white px-4 text-primary transition-all hover:bg-primary-hover hover:text-white">
-                      <FiFilter size={25} />
-                      <span className="font-semibold">Filter</span>
-                    </button>
                   </div>
                 </div>
               </div>
@@ -324,8 +343,8 @@ export const AdminKelolaKelas = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {storeAllCourse &&
-                      storeAllCourse?.map((value, index) => (
+                    {displayedCourses &&
+                      displayedCourses?.map((value, index) => (
                         <tr
                           className="border-b dark:border-gray-700"
                           key={value.id}
