@@ -8,5 +8,5 @@ export const logoutAdminAction = () => (dispatch) => {
   CookieStorage.remove(CookiesKeys.AuthToken);
   dispatch(setToken(null));
   dispatch(setIsLoggedIn(false));
-  window.location.href = "/";
+  window.location.href = "/admin/login";
 };

@@ -14,7 +14,7 @@ import { GoArrowLeft } from "react-icons/go";
 import { FaStar } from "react-icons/fa";
 import { RiShieldStarLine } from "react-icons/ri";
 import { LiaBookSolid } from "react-icons/lia";
-import { IoCloseSharp, IoTime } from "react-icons/io5";
+import { IoClose, IoCloseSharp, IoTime } from "react-icons/io5";
 import { HiChatAlt2 } from "react-icons/hi";
 import { FaCirclePlay } from "react-icons/fa6";
 import { BiSolidLock } from "react-icons/bi";
@@ -41,6 +41,9 @@ export const DetailKelas = () => {
   const [paymentCourseId, setPaymentCourseId] = useState(null);
 
   const isLoading = useSelector((state) => state.dataCourses.loading);
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(!open);
 
   const token = CookieStorage.get(CookiesKeys.AuthToken);
 
@@ -94,7 +97,7 @@ export const DetailKelas = () => {
       {/* Parent Container */}
       <div className="z-20 flex min-h-screen px-0 py-6 md:px-4 lg:px-20">
         {/* Left Container */}
-        <div className="mt-16 flex w-full flex-col gap-4 px-8 md:w-3/5 lg:w-3/5">
+        <div className="mt-16 flex w-full flex-col gap-4 px-4 md:w-3/5 lg:w-3/5">
           {/* Button Back */}
           <div className="flex w-full items-center gap-2 py-4">
             <div
@@ -105,7 +108,15 @@ export const DetailKelas = () => {
             >
               <GoArrowLeft size={30} />
             </div>
-            <div className="font-semibold">Kelas Lainnya</div>
+            <div className="flex w-full justify-between">
+              <div className="font-semibold">Kelas Lainnya</div>
+              <div
+                className="font-bold text-primary md:hidden lg:hidden"
+                onClick={handleOpen}
+              >
+                Chapter
+              </div>
+            </div>
           </div>
 
           {/* Container Desc Kelas */}
@@ -195,7 +206,7 @@ export const DetailKelas = () => {
               <div className="flex w-fit items-center justify-between gap-2 rounded-3xl">
                 <div
                   className="cursor-pointer rounded-xl bg-green px-3 py-1 font-bold text-white"
-                  onClick={handleDialogOpen}
+                  onClick={handleEnrollCourse}
                 >
                   Buy Course
                 </div>
@@ -241,15 +252,17 @@ export const DetailKelas = () => {
         <DialogHeader className="relative flex flex-col items-center">
           <IoCloseSharp
             size={30}
-            className="absolute right-10 top-5 cursor-pointer text-primary"
+            className="absolute right-4 top-4 cursor-pointer text-primary"
             onClick={handleDetail}
           />
-          <h1 className="mb-2 font-semibold text-slate-700">
+          <h1 className="text-lg font-semibold text-slate-700">
             Selangkah lagi menuju
           </h1>
-          <h1 className="font-semibold text-primary">Course Kebanggan Anda</h1>
+          <h1 className="text-lg font-semibold text-primary">
+            Course Kebanggan Anda
+          </h1>
         </DialogHeader>
-        <DialogBody className="px-12">
+        <DialogBody className="w-full text-sm">
           {storeDetailCourses === null ? (
             <CardCoursesSkeleton />
           ) : (
@@ -276,6 +289,61 @@ export const DetailKelas = () => {
             <FaArrowCircleRight size={17} className="text-white" />
           </div>
         </DialogFooter>
+      </Dialog>
+
+      {/* Dialog Chapter */}
+      <Dialog open={open} handler={handleOpen} size="xxl">
+        <DialogHeader className="-mb-6 flex justify-end pr-4 pt-10">
+          <IoClose size={30} onClick={handleOpen} />
+        </DialogHeader>
+        <DialogBody className="bg-white">
+          {/* Materi Belajar */}
+          <div className="flex justify-between py-4">
+            <h1 className="text-xl font-bold">Materi Belajar</h1>
+            <div className="flex w-fit items-center justify-between gap-2 rounded-3xl">
+              <div
+                className="cursor-pointer rounded-xl bg-green px-3 py-1 font-bold text-white"
+                onClick={handleEnrollCourse}
+              >
+                Buy Course
+              </div>
+            </div>
+          </div>
+
+          {/* Chapter */}
+          {storeDetailCourses.chapter.map((chapter, index) => (
+            <div key={index} className="flex flex-col gap-4">
+              <div className="flex justify-between text-lg pt-6 px-2">
+                <h2 className="font-bold text-primary">
+                  Chapter {index + 1}
+                </h2>
+                <h2 className="font-bold text-blue">
+                  {chapter.duration}
+                </h2>
+              </div>
+              <h2 className="font-bold text-black text-center">
+                {chapter.name}
+              </h2>
+              {/* Lesson List */}
+              {chapter.lesson.map((lesson, lessonIndex) => (
+                <div
+                  key={lessonIndex}
+                  className="flex items-center justify-between"
+                >
+                  <div className="flex w-full items-center gap-4">
+                    <p className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary font-bold">
+                      {lessonIndex + 1}
+                    </p>
+                    <p className="font-semibold">{lesson.lessonName}</p>
+                  </div>
+                  <div className="text-slate-500">
+                    <BiSolidLock size={25} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          ))}
+        </DialogBody>
       </Dialog>
     </>
   );

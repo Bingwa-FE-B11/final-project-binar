@@ -58,7 +58,7 @@ export const Pembayaran = () => {
         navigate("/pembayaran-sukses");
       }, 2000);
     } else {
-      showErrorToast("Tidak Bisa Membeli Course Ini...!!!")
+      showErrorToast("Anda Telah Membeli Course Ini...!!!")
       setTimeout(() => {
         navigate("/kelas-saya");
       }, 2000);
@@ -82,7 +82,7 @@ export const Pembayaran = () => {
       <NavbarPembayaran />
 
       {/* First Container */}
-      <div className="lg:x-80 mt-[5rem] h-[13rem] px-20 shadow-lg md:h-[12rem] md:px-60 lg:h-[10rem]">
+      <div className="lg:px-80 mt-[5rem] h-[13rem] px-14 shadow-lg md:h-[12rem] md:px-60 lg:h-[10rem]">
         {/* Button Back */}
         <div className="relative flex items-center gap-1 pt-5 text-lg font-bold">
           <GoArrowLeft
@@ -107,7 +107,7 @@ export const Pembayaran = () => {
       <div className="justify-center gap-10 px-[1rem] py-10 md:px-2 lg:flex lg:px-[3rem]">
         {/* Payment Method */}
         <div className="flex flex-col gap-1 lg:w-[40%]">
-          <div className="flex flex-col gap-2 text-center">
+          <div className="flex flex-col gap-2 text-center pb-10">
             <div
               className={`flex cursor-pointer items-center rounded-xl bg-primary py-4 text-xl text-white ${
                 showBankInput ? "bg-primary" : "cursor-pointer"
