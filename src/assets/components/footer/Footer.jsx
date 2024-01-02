@@ -59,16 +59,6 @@ export const Footer = () => {
                 Courses
               </a>
             </li>
-            <li className="mb-2">
-              <a href="/" className="text-white hover:underline">
-                About Us
-              </a>
-            </li>
-            <li>
-              <a href="/" className="text-white hover:underline">
-                Contact Us
-              </a>
-            </li>
           </ul>
         </div>
 
