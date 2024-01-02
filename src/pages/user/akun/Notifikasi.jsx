@@ -1,26 +1,24 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useMediaQuery } from "react-responsive";
 
 // Components
 import { NavbarNotif } from "../../../assets/components/navbar/NavbarNotif";
+import { NavbarMobile } from "../../../assets/components/navbar/NavbarMobile";
 
-// Redux
+// Redux Actions
+import { getNotificationsAction } from "../../../redux/action/notifications/getNotificationsAction";
+import { putNotificationsAction } from "../../../redux/action/notifications/putNotificationsAction";
 
 // Icons
 import { GoArrowLeft } from "react-icons/go";
 import { IoNotificationsCircleSharp } from "react-icons/io5";
-import { FaCircle } from "react-icons/fa";
-import { getNotificationsAction } from "../../../redux/action/notifications/getNotificationsAction";
-import { putNotificationsAction } from "../../../redux/action/notifications/putNotificationsAction";
-import { useMediaQuery } from "react-responsive";
-import { NavbarMobile } from "../../../assets/components/navbar/NavbarMobile";
 
 export const Notifikasi = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const storeNotif = useSelector((state) => state.notifications.notifications);
-  const storeStatus = useSelector((state) => state.notifications.status);
 
   const isMobile = useMediaQuery({ maxWidth: 767 });
 
@@ -33,10 +31,10 @@ export const Notifikasi = () => {
     <>
       {isMobile ? <NavbarMobile /> : <NavbarNotif />}
       {isMobile ? (
-        <div className="flex h-full flex-col bg-secondary p-4">
+        <div className="flex min-h-screen flex-col p-4">
           <h1 className="pb-8 text-2xl font-bold">Notifikasi</h1>
           {/* Notif Item */}
-          {storeNotif &&
+          {storeNotif && storeNotif.length > 0 ? (
             storeNotif.map((notification) => (
               <div
                 key={notification.id}
@@ -54,12 +52,6 @@ export const Notifikasi = () => {
                       <h5 className="text-sm text-slate-500">
                         {notification.createdAt}
                       </h5>
-                      <FaCircle
-                        size={10}
-                        className={`${
-                          notification.isRead ? "text-green" : "text-red-500"
-                        }`}
-                      />
                     </div>
                   </div>
                   <p className="text-sm font-semibold">
@@ -67,10 +59,15 @@ export const Notifikasi = () => {
                   </p>
                 </div>
               </div>
-            ))}
+            ))
+          ) : (
+            <div className="text-center text-slate-500">
+              Tidak ada notifikasi saat ini.
+            </div>
+          )}
         </div>
       ) : (
-        <div className="mt-[2rem] h-full bg-secondary px-9 py-10 md:px-20 lg:px-80 ">
+        <div className="mt-[2rem] min-h-screen bg-secondary px-9 py-10 md:px-20 lg:px-80 ">
           <div className="relative flex items-center gap-2 py-8 text-lg font-semibold text-black">
             <GoArrowLeft
               size={30}
@@ -80,9 +77,6 @@ export const Notifikasi = () => {
               }}
             />
             Kembali Ke Beranda
-            <div className="ml-auto flex cursor-pointer text-base text-primary">
-              Sudah Dibaca
-            </div>
           </div>
 
           {/* Notifikasi */}
@@ -92,7 +86,7 @@ export const Notifikasi = () => {
             </div>
 
             {/* Isi Notifikasi */}
-            {storeNotif &&
+            {storeNotif && storeNotif.length > 0 ? (
               storeNotif.map((notification) => (
                 <div
                   key={notification.id}
@@ -111,15 +105,16 @@ export const Notifikasi = () => {
                   {/* Tanggal */}
                   <div className="flex gap-2 font-thin">
                     {notification.createdAt}
-                    <FaCircle
-                      size={25}
-                      className={`py-1.5 text-center ${
-                        notification.isRead ? "text-green" : "text-red-500"
-                      }`}
-                    />
                   </div>
                 </div>
-              ))}
+              ))
+            ) : (
+              <div className="flex items-center justify-center py-10">
+                <div className="text-center text-slate-500">
+                  Tidak ada notifikasi saat ini.
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}

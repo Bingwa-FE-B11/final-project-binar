@@ -8,7 +8,7 @@ import { RiShieldStarLine } from "react-icons/ri";
 import { LiaBookSolid } from "react-icons/lia";
 import { IoDiamond, IoTime } from "react-icons/io5";
 
-// Redux
+// Redux Actions
 import { getCoursesEnrollAction } from "../../../redux/action/courses/getCoursesEnrollAction";
 
 export const CardRiwayat = ({
@@ -61,17 +61,29 @@ export const CardRiwayat = ({
 
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1">
-            <RiShieldStarLine size={20} color="#22c55e" className="hidden md:flex lg:flex" />
+            <RiShieldStarLine
+              size={20}
+              color="#22c55e"
+              className="hidden md:hidden lg:flex"
+            />
             <div className="text-sm font-semibold text-primary">{level}</div>
           </div>
           <div className="flex items-center gap-1">
-            <LiaBookSolid size={20} color="#22c55e" className="hidden md:flex lg:flex" />
+            <LiaBookSolid
+              size={20}
+              color="#22c55e"
+              className="hidden md:hidden lg:flex"
+            />
             <div className="text-sm font-semibold text-primary">
               {modul} Modul
             </div>
           </div>
           <div className="flex items-center gap-1">
-            <IoTime size={20} color="#22c55e" className="hidden md:flex lg:flex" />
+            <IoTime
+              size={20}
+              color="#22c55e"
+              className="hidden md:hidden lg:flex"
+            />
             <div className="text-sm font-semibold text-primary">{duration}</div>
           </div>
         </div>

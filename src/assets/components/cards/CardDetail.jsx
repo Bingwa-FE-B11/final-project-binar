@@ -16,14 +16,17 @@ export const CardDetail = ({
   modul,
   duration,
   price,
-  isPremium
+  isPremium,
 }) => {
-
   return (
     <div className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-md">
       <div
         className="h-32 min-w-fit scale-105 bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${image})`, backgroundSize: 'cover', objectFit: 'cover' }}
+        style={{
+          backgroundImage: `url(${image})`,
+          backgroundSize: "cover",
+          objectFit: "cover",
+        }}
       ></div>
       <div className="flex flex-col gap-4 bg-white px-4 py-3">
         <div className="flex justify-between">
@@ -41,17 +44,29 @@ export const CardDetail = ({
         </div>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1">
-            <RiShieldStarLine size={20} color="#22c55e" className="hidden md:flex lg:flex" />
+            <RiShieldStarLine
+              size={20}
+              color="#22c55e"
+              className="hidden md:flex lg:flex"
+            />
             <div className="text-sm font-semibold text-primary">{level}</div>
           </div>
           <div className="flex items-center gap-1">
-            <LiaBookSolid size={20} color="#22c55e" className="hidden md:flex lg:flex" />
+            <LiaBookSolid
+              size={20}
+              color="#22c55e"
+              className="hidden md:flex lg:flex"
+            />
             <div className="text-sm font-semibold text-primary">
               {modul} Modul
             </div>
           </div>
           <div className="flex items-center gap-1">
-            <IoTime size={20} color="#22c55e" className="hidden md:flex lg:flex" />
+            <IoTime
+              size={20}
+              color="#22c55e"
+              className="hidden md:flex lg:flex"
+            />
             <div className="text-sm font-semibold text-primary">{duration}</div>
           </div>
         </div>
@@ -64,9 +79,7 @@ export const CardDetail = ({
             </div>
           </div>
         ) : (
-          <div
-            className="w-fit rounded-3xl bg-green px-4 py-1 text-center text-base font-bold text-white transition-all"
-          >
+          <div className="w-fit rounded-3xl bg-green px-4 py-1 text-center text-base font-bold text-white transition-all">
             Gratis
           </div>
         )}

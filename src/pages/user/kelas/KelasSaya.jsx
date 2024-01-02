@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useMediaQuery } from "react-responsive";
+import { useNavigate } from "react-router-dom";
 
 // Icons
 import { BiSearchAlt } from "react-icons/bi";
@@ -7,20 +9,17 @@ import { BiSearchAlt } from "react-icons/bi";
 // Components
 import { NavbarKelas } from "../../../assets/components/navbar/NavbarKelas";
 import { CardKelasSaya } from "../../../assets/components/cards/CardKelasSaya";
-import { SidebarKelas } from "../../../assets/components/sidebar/SidebarKelas";
 import CardCoursesSkeleton from "../../../assets/components/skeleton/CardCourseSkeleton";
-
-// Redux
-import { getUserProfileAction } from "../../../redux/action/auth/getUserProfileAction";
-import { getCoursesMeAction } from "../../../redux/action/courses/getCoursesMeAction";
 import { NavbarMobile } from "../../../assets/components/navbar/NavbarMobile";
 import { NavbarHome } from "../../../assets/components/navbar/NavbarHome";
-import { useMediaQuery } from "react-responsive";
 import { SearchMobile } from "../../../assets/components/search/SearchMobile";
+
+// Redux Actions
+import { getUserProfileAction } from "../../../redux/action/auth/getUserProfileAction";
+import { getCoursesMeAction } from "../../../redux/action/courses/getCoursesMeAction";
 import { searchCourseAction } from "../../../redux/action/courses/searchCourseAction";
-import { useNavigate } from "react-router-dom";
-import { Dialog, DialogBody, DialogHeader } from "@material-tailwind/react";
-import { IoClose } from "react-icons/io5";
+
+// Cookies
 import { CookieStorage, CookiesKeys } from "../../../utils/cookie";
 
 export const KelasSaya = () => {

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useMediaQuery } from "react-responsive";
 
 // Icons
 import { BiSearchAlt } from "react-icons/bi";
@@ -10,11 +11,14 @@ import { NavbarKelas } from "../../../assets/components/navbar/NavbarKelas";
 import { CardGlobal } from "../../../assets/components/cards/CardGlobal";
 import { NavbarHome } from "../../../assets/components/navbar/NavbarHome";
 import LoadingSpinner from "../../../assets/components/loading/loadingSpinner";
-import { searchCourseAction } from "../../../redux/action/courses/searchCourseAction";
 import { CardPremium } from "../../../assets/components/cards/CardPremium";
-import { useMediaQuery } from "react-responsive";
 import { NavbarMobile } from "../../../assets/components/navbar/NavbarMobile";
 import { SearchMobile } from "../../../assets/components/search/SearchMobile";
+
+// Redux Actions
+import { searchCourseAction } from "../../../redux/action/courses/searchCourseAction";
+
+// Cookies
 import { CookieStorage, CookiesKeys } from "../../../utils/cookie";
 
 export const PilihKelas = () => {

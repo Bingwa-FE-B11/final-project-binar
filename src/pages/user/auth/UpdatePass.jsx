@@ -3,14 +3,15 @@ import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
 // Images
-import EyePassword from "../../../assets/img/fi_eye.webp";
 import BrandLogo from "../../../assets/img/brain.webp";
 
-// Redux
+// Redux Actions
 import { getUpdatePass } from "../../../redux/action/auth/getPasswordAction";
 
-// Toast
+// Helper
 import { showErrorToast, showSuccessToast } from "../../../helper/ToastHelper";
+
+// Icons
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
 export const UpdatePass = () => {

@@ -1,5 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+// Pages
 import { HomePage } from "../pages/HomePage";
 import { LoginPage } from "../pages/user/auth/LoginPage";
 import { Register } from "../pages/user/auth/Register";
@@ -22,8 +24,10 @@ import { AdminKelolaKelas } from "../pages/admin/auth/AdminKelolaKelas";
 import { Pembayaran } from "../pages/user/payment/Pembayaran";
 import { PembayaranSukses } from "../pages/user/payment/PembayaranSukses";
 import { ForgetPass } from "../pages/user/auth/ForgetPass";
-import TokenProtected from "../assets/components/protected/TokenProtected";
 import { AllCourse } from "../pages/user/kelas/AllCourse";
+
+// Token Protected
+import TokenProtected from "../assets/components/protected/TokenProtected";
 import AdminTokenProtected from "../assets/components/protected/AdminTokenProtected";
 
 export const RouteList = () => {

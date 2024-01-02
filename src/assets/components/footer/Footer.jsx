@@ -10,7 +10,7 @@ import {
 export const Footer = () => {
   return (
     <div className="bg-blue pb-6 pt-12">
-      <div className="container mx-auto grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 px-4">
+      <div className="container mx-auto grid grid-cols-1 gap-8 px-4 md:grid-cols-2 lg:grid-cols-4">
         {/* Bagian 1 */}
         <div className="col-span-2 md:col-span-1 lg:col-span-1">
           <h2 className="mb-4 text-xl font-semibold text-white">

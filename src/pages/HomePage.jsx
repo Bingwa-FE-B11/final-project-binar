@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router";
+import { useMediaQuery } from "react-responsive";
 
 // Images
 import Header from "../assets/img/Header.webp";
@@ -11,19 +12,20 @@ import { CardKursus } from "../assets/components/cards/CardKursus";
 import { NavbarKelas } from "../assets/components/navbar/NavbarKelas";
 import CardKategorySkeleton from "../assets/components/skeleton/CardKategorySkeleton";
 import { Footer } from "../assets/components/footer/Footer";
-
-// Redux
-import { getUserProfileAction } from "../redux/action/auth/getUserProfileAction";
-import { getAllCategoriesAction } from "../redux/action/categories/getAllCategoriesAction";
-import { getAllCoursesAction } from "../redux/action/courses/getAllCoursesAction";
-import { useMediaQuery } from "react-responsive";
 import { NavbarMobile } from "../assets/components/navbar/NavbarMobile";
 import { SearchMobile } from "../assets/components/search/SearchMobile";
 import { SliderFilterCategories } from "../assets/components/slider/SliderFilterCategories";
 import { SliderCardCategories } from "../assets/components/slider/SliderCardCategories";
-import { CookieStorage, CookiesKeys } from "../utils/cookie";
-import { getGoogleLoginAction } from "../redux/action/auth/getGoogleLoginAction";
 import LoadingSpinner from "../assets/components/loading/loadingSpinner";
+
+// Redux Actions
+import { getUserProfileAction } from "../redux/action/auth/getUserProfileAction";
+import { getAllCategoriesAction } from "../redux/action/categories/getAllCategoriesAction";
+import { getAllCoursesAction } from "../redux/action/courses/getAllCoursesAction";
+import { getGoogleLoginAction } from "../redux/action/auth/getGoogleLoginAction";
+
+// Cookies
+import { CookieStorage, CookiesKeys } from "../utils/cookie";
 
 export const HomePage = () => {
   const dispatch = useDispatch();

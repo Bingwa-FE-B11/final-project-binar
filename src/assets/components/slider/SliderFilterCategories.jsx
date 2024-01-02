@@ -1,8 +1,12 @@
 import React, { useEffect } from "react";
 import AliceCarousel from "react-alice-carousel";
+import { useDispatch, useSelector } from "react-redux";
+
+// CSS
 import "react-alice-carousel/lib/alice-carousel.css";
 import "./SliderFilterCategories.css";
-import { useDispatch, useSelector } from "react-redux";
+
+// Redux Actions
 import { getAllCategoriesAction } from "../../../redux/action/categories/getAllCategoriesAction";
 
 export const SliderFilterCategories = ({

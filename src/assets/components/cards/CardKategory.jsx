@@ -7,6 +7,7 @@ export const CardKategory = ({ thumbnail, category }) => {
   const handleCategoryClick = () => {
     navigate(`/all-kelas?category=${encodeURIComponent(category)}`);
   };
+
   return (
     <div className="flex cursor-pointer flex-col items-center gap-2 transition-all hover:scale-95">
       <img

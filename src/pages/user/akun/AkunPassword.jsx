@@ -5,21 +5,18 @@ import { useMediaQuery } from "react-responsive";
 
 // Components
 import { NavbarAkun } from "../../../assets/components/navbar/NavbarAkun";
+import { NavbarMobile } from "../../../assets/components/navbar/NavbarMobile";
 import { SidebarAkun } from "../../../assets/components/sidebar/SidebarAkun";
-
-// Images
-import EyePassword from "../../../assets/img/fi_eye.webp";
 
 // Icons
 import { GoArrowLeft } from "react-icons/go";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
-// Toast
+// Helper
 import { showSuccessToast } from "../../../helper/ToastHelper";
 
-// Redux
+// Redux Actions
 import { changePass } from "../../../redux/action/akun/changePassAction";
-import { NavbarMobile } from "../../../assets/components/navbar/NavbarMobile";
-import { FiEye, FiEyeOff } from "react-icons/fi";
 
 export const AkunPassword = () => {
   const navigate = useNavigate();
@@ -80,7 +77,7 @@ export const AkunPassword = () => {
 
   return (
     <>
-      <div className="h-fit bg-secondary px-9 py-20 pt-2 md:h-screen md:px-20 lg:h-fit lg:px-80 lg:pt-[5rem]">
+      <div className="h-fit bg-secondary px-9 py-20 pt-2 md:h-screen md:px-20 md:pt-[5rem] lg:h-fit lg:px-80 lg:pt-[5rem]">
         <div className="relative flex items-center gap-2 py-8 text-lg font-bold text-primary">
           <GoArrowLeft
             size={30}

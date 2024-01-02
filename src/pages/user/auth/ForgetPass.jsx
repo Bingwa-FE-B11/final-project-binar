@@ -5,10 +5,10 @@ import { useNavigate } from "react-router-dom";
 // Images
 import BrandLogo from "../../../assets/img/brain.webp";
 
-// Redux
+// Redux Actions
 import { getForgetPassAction } from "../../../redux/action/auth/getPasswordAction";
 
-// Toast
+// Helper
 import { showSuccessToast } from "../../../helper/ToastHelper";
 
 // Icons
@@ -41,7 +41,7 @@ export const ForgetPass = () => {
     <div className="flex h-screen items-center justify-center">
       <div className="mx-auto w-full rounded-lg md:mt-0 md:max-w-md">
         <div className="mx-auto flex w-[22rem] flex-col lg:w-[30rem]">
-          <div className="absolute top-[120px] cursor-pointer lg:top-[150px] md:top-[350px]">
+          <div className="absolute top-[120px] cursor-pointer md:top-[350px] lg:top-[150px]">
             <GoArrowLeft
               size={25}
               className="items-center"
@@ -83,7 +83,7 @@ export const ForgetPass = () => {
         </div>
       </div>
 
-      <div className="hidden h-screen w-2/5 items-center justify-center bg-primary lg:flex md:flex">
+      <div className="hidden h-screen w-2/5 items-center justify-center bg-primary md:flex lg:flex">
         <div className="flex items-center justify-center gap-6">
           <img src={BrandLogo} alt="Brand Logo" className="w-[15%]" />
           <span className="text-center font-sans text-6xl text-white">

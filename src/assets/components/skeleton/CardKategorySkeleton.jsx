@@ -1,3 +1,4 @@
+// Skeleton Component
 import Skeleton from "react-loading-skeleton";
 
 const CardKategorySkeleton = () => {

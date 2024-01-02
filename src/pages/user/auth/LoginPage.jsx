@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
 
 // Images
 import BrandLogo from "../../../assets/img/brain.webp";
@@ -9,18 +10,17 @@ import BrandLogo from "../../../assets/img/brain.webp";
 import { FiEye } from "react-icons/fi";
 import { FiEyeOff } from "react-icons/fi";
 
-// Redux
+// Redux Actions
 import { loginUserAction } from "../../../redux/action/auth/loginUserAction";
 
-// Toast
+// Helper
 import {
   showErrorToast,
   showLoadingToast,
   showSuccessToast,
 } from "../../../helper/ToastHelper";
-import toast from "react-hot-toast";
 
-// Google Login
+// Components
 import { LoginGoogle } from "../../../assets/components/google/LoginGoogle";
 
 export const LoginPage = () => {

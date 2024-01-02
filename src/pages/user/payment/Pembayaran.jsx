@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import toast from "react-hot-toast";
 
 // Components
 import { NavbarPembayaran } from "../../../assets/components/navbar/NavbarPembayaran";
@@ -21,12 +22,15 @@ import bri from "../../../assets/img/BRI.webp";
 import bca from "../../../assets/img/BCA.webp";
 import mandiri from "../../../assets/img/MANDIRI.webp";
 
-// Redux 
-import { postPaymentAction } from "../../../redux/action/payment/PaymentAction"
+// Redux Actions
+import { postPaymentAction } from "../../../redux/action/payment/PaymentAction";
 
-// Toast
-import { showErrorToast, showLoadingToast, showSuccessToast } from "../../../helper/ToastHelper";
-import toast from "react-hot-toast";
+// Helper
+import {
+  showErrorToast,
+  showLoadingToast,
+  showSuccessToast,
+} from "../../../helper/ToastHelper";
 
 export const Pembayaran = () => {
   const navigate = useNavigate();
@@ -38,17 +42,15 @@ export const Pembayaran = () => {
   // Handle Payment
   const handlePayment = async () => {
     const loadingToastId = showLoadingToast("Loading...");
-    
+
     const payment = await dispatch(
       postPaymentAction(
         {
-          methodPayment: "Bank Transfer"
+          methodPayment: "Bank Transfer",
         },
         storeDetailCourses?.id,
       ),
     );
-
-    console.log('payment', payment)
 
     toast.dismiss(loadingToastId);
 
@@ -58,7 +60,7 @@ export const Pembayaran = () => {
         navigate("/pembayaran-sukses");
       }, 2000);
     } else {
-      showErrorToast("Anda Telah Membeli Course Ini...!!!")
+      showErrorToast("Anda Telah Membeli Course Ini...!!!");
       setTimeout(() => {
         navigate("/kelas-saya");
       }, 2000);
@@ -82,7 +84,7 @@ export const Pembayaran = () => {
       <NavbarPembayaran />
 
       {/* First Container */}
-      <div className="lg:px-80 mt-[5rem] h-[13rem] px-14 shadow-lg md:h-[12rem] md:px-60 lg:h-[10rem]">
+      <div className="mt-[5rem] h-[13rem] px-14 shadow-lg md:h-[12rem] md:px-60 lg:h-[10rem] lg:px-80">
         {/* Button Back */}
         <div className="relative flex items-center gap-1 pt-5 text-lg font-bold">
           <GoArrowLeft
@@ -107,7 +109,7 @@ export const Pembayaran = () => {
       <div className="justify-center gap-10 px-[1rem] py-10 md:px-2 lg:flex lg:px-[3rem]">
         {/* Payment Method */}
         <div className="flex flex-col gap-1 lg:w-[40%]">
-          <div className="flex flex-col gap-2 text-center pb-10">
+          <div className="flex flex-col gap-2 pb-10 text-center">
             <div
               className={`flex cursor-pointer items-center rounded-xl bg-primary py-4 text-xl text-white ${
                 showBankInput ? "bg-primary" : "cursor-pointer"
@@ -199,8 +201,10 @@ export const Pembayaran = () => {
             </div>
           </div>
 
-          <div className="flex w-full cursor-pointer flex-row items-center justify-center gap-2 rounded-2xl bg-red-500 px-6 py-2 text-white"
-          onClick={handlePayment}>
+          <div
+            className="flex w-full cursor-pointer flex-row items-center justify-center gap-2 rounded-2xl bg-red-500 px-6 py-2 text-white"
+            onClick={handlePayment}
+          >
             <div className="text-center text-xl font-bold">
               Bayar dan Ikuti Kelas Selamanya
             </div>

@@ -9,7 +9,6 @@ export const getCoursesEnrollAction = (courseId) => async (dispatch) => {
   try {
     dispatch(startLoading());
     const result = await reduxGetDetailCoursesMe(courseId);
-    console.log("getDetailCoursesMe:", result);
     dispatch(setEnroll(result.data.data));
     return result;
   } catch (err) {

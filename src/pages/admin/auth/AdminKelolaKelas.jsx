@@ -13,6 +13,9 @@ import {
 import { AdminNavbar } from "../../../assets/components/admin/adminNavbar";
 import { AdminPojok } from "../../../assets/components/admin/AdminPojok";
 import { AdminCard } from "../../../assets/components/admin/AdminCard";
+import LoadingSpinner from "../../../assets/components/loading/loadingSpinner";
+
+// Helper
 import { showSuccessToast } from "../../../helper/ToastHelper";
 
 // Icons
@@ -26,9 +29,6 @@ import { editCourseAction } from "../../../redux/action/admin/course/editCourseA
 import { getAllDataAction } from "../../../redux/action/admin/data/getAllDataAction";
 import { getDetailCoursesAction } from "../../../redux/action/courses/getDetailCourseAction";
 import { createCourseAction } from "../../../redux/action/admin/course/createCourseAction";
-import { useLocation, useNavigate } from "react-router-dom";
-import { searchCourseAction } from "../../../redux/action/courses/searchCourseAction";
-import LoadingSpinner from "../../../assets/components/loading/loadingSpinner";
 
 export const AdminKelolaKelas = () => {
   const dispatch = useDispatch();

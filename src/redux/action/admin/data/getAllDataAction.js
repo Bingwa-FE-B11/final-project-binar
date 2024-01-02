@@ -8,7 +8,6 @@ import {
 export const getAllDataAction = () => (dispatch) => {
   return reduxGetAllAdminData()
     .then((result) => {
-      console.log("result -> reduxGetAllAdminData", result);
       dispatch(setAllCourse(result.data.data.allCourse));
       dispatch(setCountUser(result.data.data.countUser));
       dispatch(setCoursePremium(result.data.data.coursePremium));

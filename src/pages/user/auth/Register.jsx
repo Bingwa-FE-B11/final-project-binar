@@ -1,21 +1,23 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
 
 // Images
 import BrandLogo from "../../../assets/img/brain.webp";
 
-// Redux
+// Redux Actions
 import { registerUserAction } from "../../../redux/action/auth/registerUserAction";
 
-// Toast
+// Helper
 import {
   showErrorToast,
   showLoadingToast,
   showSuccessToast,
 } from "../../../helper/ToastHelper";
+
+// Icons
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import toast from "react-hot-toast";
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -277,7 +279,7 @@ export const Register = () => {
         </div>
       </div>
 
-      <div className="hidden h-screen w-2/5 items-center justify-center bg-primary lg:flex md:flex">
+      <div className="hidden h-screen w-2/5 items-center justify-center bg-primary md:flex lg:flex">
         <div className="flex items-center justify-center gap-6">
           <img src={BrandLogo} alt="Brand Logo" className="w-[15%]" />
           <span className="text-center font-sans text-6xl text-white">

@@ -8,7 +8,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { LuLogOut } from "react-icons/lu";
 
-// Redux
+// Redux Actions
 import { logoutUserAction } from "../../../redux/action/auth/logoutUserAction";
 
 export const SidebarAkun = () => {

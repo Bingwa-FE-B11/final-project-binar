@@ -8,6 +8,7 @@ import { NavbarHome } from "../../../assets/components/navbar/NavbarHome";
 import CardCoursesSkeleton from "../../../assets/components/skeleton/CardCourseSkeleton";
 import { CardDetail } from "../../../assets/components/cards/CardDetail";
 import { showErrorToast, showSuccessToast } from "../../../helper/ToastHelper";
+import LoadingSpinner from "../../../assets/components/loading/loadingSpinner";
 
 // Icons
 import { GoArrowLeft } from "react-icons/go";
@@ -20,7 +21,7 @@ import { FaCirclePlay } from "react-icons/fa6";
 import { BiSolidLock } from "react-icons/bi";
 import { FaArrowCircleRight } from "react-icons/fa";
 
-// Redux
+// Redux Actions
 import { postEnrollmentsAction } from "../../../redux/action/enrollments/EnrollmentsAction";
 
 // Material Tailwind Components
@@ -30,7 +31,8 @@ import {
   DialogFooter,
   DialogHeader,
 } from "@material-tailwind/react";
-import LoadingSpinner from "../../../assets/components/loading/loadingSpinner";
+
+// Cookies
 import { CookieStorage, CookiesKeys } from "../../../utils/cookie";
 
 export const DetailKelas = () => {
@@ -313,15 +315,11 @@ export const DetailKelas = () => {
           {/* Chapter */}
           {storeDetailCourses.chapter.map((chapter, index) => (
             <div key={index} className="flex flex-col gap-4">
-              <div className="flex justify-between text-lg pt-6 px-2">
-                <h2 className="font-bold text-primary">
-                  Chapter {index + 1}
-                </h2>
-                <h2 className="font-bold text-blue">
-                  {chapter.duration}
-                </h2>
+              <div className="flex justify-between px-2 pt-6 text-lg">
+                <h2 className="font-bold text-primary">Chapter {index + 1}</h2>
+                <h2 className="font-bold text-blue">{chapter.duration}</h2>
               </div>
-              <h2 className="font-bold text-black text-center">
+              <h2 className="text-center font-bold text-black">
                 {chapter.name}
               </h2>
               {/* Lesson List */}

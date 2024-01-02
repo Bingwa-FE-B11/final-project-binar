@@ -12,7 +12,7 @@ import { FaUser } from "react-icons/fa6";
 // Images
 import BrandLogo from "../../img/brain.webp";
 
-// Components Material Tailwind
+// Material Tailwind Components
 import {
   Button,
   Menu,
@@ -21,7 +21,7 @@ import {
   MenuList,
 } from "@material-tailwind/react";
 
-// Redux
+// Redux Actionss
 import { logoutUserAction } from "../../../redux/action/auth/logoutUserAction";
 import { searchCourseAction } from "../../../redux/action/courses/searchCourseAction";
 

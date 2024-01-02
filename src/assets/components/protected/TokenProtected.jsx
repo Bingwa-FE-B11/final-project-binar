@@ -1,6 +1,10 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
+// Helper
 import { showErrorToast } from "../../../helper/ToastHelper";
+
+// Cookies
 import { CookieStorage, CookiesKeys } from "../../../utils/cookie";
 
 function TokenProtected({ children }) {

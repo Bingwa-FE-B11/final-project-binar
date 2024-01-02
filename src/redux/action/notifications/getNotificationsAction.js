@@ -4,7 +4,6 @@ import { setNotifications } from "../../reducer/notifications/getNotificationsSl
 export const getNotificationsAction = () => (dispatch) => {
   reduxGetNotif()
     .then((result) => {
-      console.log("getNotificationsAction:", result);
       dispatch(setNotifications(result.data.data.notifications));
       return result;
     })

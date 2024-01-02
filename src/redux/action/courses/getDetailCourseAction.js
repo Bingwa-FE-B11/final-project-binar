@@ -9,7 +9,6 @@ export const getDetailCoursesAction = (courseId) => async (dispatch) => {
   try {
     dispatch(startLoading());
     const result = await reduxGetDetailCoursesId(courseId);
-    console.log("getDetailCoursesId:", result);
     dispatch(setDetailCourse(result.data.data.course));
     return result;
   } catch (err) {
