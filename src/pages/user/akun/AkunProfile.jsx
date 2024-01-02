@@ -8,6 +8,9 @@ import toast from "react-hot-toast";
 // Components
 import { NavbarAkun } from "../../../assets/components/navbar/NavbarAkun";
 import { SidebarAkun } from "../../../assets/components/sidebar/SidebarAkun";
+import { NavbarMobile } from "../../../assets/components/navbar/NavbarMobile";
+
+// Helper
 import {
   showLoadingToast,
   showSuccessToast,
@@ -22,7 +25,6 @@ import {
   getUserProfileAction,
   putUpdateProfile,
 } from "../../../redux/action/auth/getUserProfileAction";
-import { NavbarMobile } from "../../../assets/components/navbar/NavbarMobile";
 
 export const AkunProfile = () => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
@@ -112,11 +114,6 @@ export const AkunProfile = () => {
 
     const update = await dispatch(putUpdateProfile(formData));
 
-    console.log(
-      "🚀 ~ file: AkunProfile.jsx:90 ~ handleSave ~ formData:",
-      formData,
-    );
-
     toast.dismiss(loadingToastId);
 
     if (update) {
@@ -126,7 +123,7 @@ export const AkunProfile = () => {
 
   return (
     <>
-      <div className="h-fit bg-secondary px-9 py-20 pt-2 md:h-screen md:px-20 lg:h-fit lg:px-80 lg:pt-[5rem]">
+      <div className="h-fit bg-secondary px-9 py-20 pt-2 md:h-screen md:px-20 md:pt-[5rem] lg:h-fit lg:px-80 lg:pt-[5rem]">
         <div
           className="relative flex cursor-pointer items-center gap-2 py-8 text-lg font-bold text-primary"
           onClick={() => {

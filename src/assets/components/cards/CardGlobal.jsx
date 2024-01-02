@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 // Icons
 import { FaStar } from "react-icons/fa";
@@ -8,8 +8,7 @@ import { RiShieldStarLine } from "react-icons/ri";
 import { LiaBookSolid } from "react-icons/lia";
 import { IoDiamond, IoTime } from "react-icons/io5";
 
-// Redux
-import { getCoursesEnrollAction } from "../../../redux/action/courses/getCoursesEnrollAction";
+// Redux Actions
 import { getDetailCoursesAction } from "../../../redux/action/courses/getDetailCourseAction";
 
 export const CardGlobal = ({
@@ -60,17 +59,29 @@ export const CardGlobal = ({
         </div>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1">
-            <RiShieldStarLine size={20} color="#22c55e" className="hidden md:flex lg:flex" />
+            <RiShieldStarLine
+              size={20}
+              color="#22c55e"
+              className="hidden md:flex lg:flex"
+            />
             <div className="text-sm font-semibold text-primary">{level}</div>
           </div>
           <div className="flex items-center gap-1">
-            <LiaBookSolid size={20} color="#22c55e" className="hidden md:flex lg:flex" />
+            <LiaBookSolid
+              size={20}
+              color="#22c55e"
+              className="hidden md:flex lg:flex"
+            />
             <div className="text-sm font-semibold text-primary">
               {modul} Modul
             </div>
           </div>
           <div className="flex items-center gap-1">
-            <IoTime size={20} color="#22c55e" className="hidden md:flex lg:flex" />
+            <IoTime
+              size={20}
+              color="#22c55e"
+              className="hidden md:flex lg:flex"
+            />
             <div className="text-sm font-semibold text-primary">{duration}</div>
           </div>
         </div>

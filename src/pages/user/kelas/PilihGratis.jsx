@@ -19,6 +19,8 @@ import { SearchMobile } from "../../../assets/components/search/SearchMobile";
 // Redux
 import { getAllCoursesAction } from "../../../redux/action/courses/getAllCoursesAction";
 import { searchCourseAction } from "../../../redux/action/courses/searchCourseAction";
+
+// Cookies
 import { CookieStorage, CookiesKeys } from "../../../utils/cookie";
 
 export const PilihGratis = () => {

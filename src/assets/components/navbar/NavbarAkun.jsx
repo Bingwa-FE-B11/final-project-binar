@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 // Icons
 import { BiSearchAlt } from "react-icons/bi";
@@ -8,8 +9,9 @@ import { LuUser } from "react-icons/lu";
 
 // Images
 import BrandLogo from "../../img/brain.webp";
+
+// Redux Actions
 import { searchCourseAction } from "../../../redux/action/courses/searchCourseAction";
-import { useDispatch } from "react-redux";
 
 export const NavbarAkun = () => {
   const navigate = useNavigate();

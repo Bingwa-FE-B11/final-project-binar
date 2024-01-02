@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
+// Redux Actions
 import { filterCoursesAction } from "../../../redux/action/courses/filterCourseAction";
 
 export const SidebarKelas = () => {

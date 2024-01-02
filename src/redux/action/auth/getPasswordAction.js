@@ -13,7 +13,6 @@ export const getForgetPassAction = (email) => async (dispatch) => {
       if (err.response) {
         if (err.response.status >= 400 && err.response.status <= 500) {
           showErrorToast(err.response.data.message);
-          console.log((err.response.status = 500), "error");
         } else {
           console.error("unexpected Error", err);
         }
@@ -24,7 +23,6 @@ export const getForgetPassAction = (email) => async (dispatch) => {
 export const getUpdatePass = (input, token) => async (dispatch) => {
   reduxUpdatePass(input, token)
     .then((result) => {
-      console.log("result -> reduxUpdatePass", result);
       dispatch(setUpdate(result.data.data));
       return result;
     })

@@ -11,10 +11,11 @@ import { FaUser } from "react-icons/fa";
 // Images
 import BrandLogo from "../../img/brain.webp";
 
-// Redux
+// Redux Actions
 import { logoutUserAction } from "../../../redux/action/auth/logoutUserAction";
+import { searchCourseAction } from "../../../redux/action/courses/searchCourseAction";
 
-// Components Material Tailwind
+// Material Tailwind Components
 import {
   Button,
   Menu,
@@ -22,7 +23,6 @@ import {
   MenuItem,
   MenuList,
 } from "@material-tailwind/react";
-import { searchCourseAction } from "../../../redux/action/courses/searchCourseAction";
 
 export const NavbarNotif = () => {
   const dispatch = useDispatch();
@@ -45,7 +45,7 @@ export const NavbarNotif = () => {
   };
 
   return (
-    <div className="fixed top-0 flex w-screen items-center justify-between gap-2 bg-primary px-2 py-4 md:px-10 lg:px-28">
+    <div className="fixed top-0 z-50 flex w-screen items-center justify-between gap-2 bg-primary px-2 py-4 md:px-10 lg:px-28">
       <div className="flex gap-10">
         <div
           className="hidden cursor-pointer items-center justify-center gap-2 md:flex lg:flex"

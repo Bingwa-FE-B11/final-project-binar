@@ -1,7 +1,11 @@
 import React, { useState } from "react";
-import { BiSearchAlt } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
+// Icons
+import { BiSearchAlt } from "react-icons/bi";
+
+// Redux Actions
 import { searchCourseAction } from "../../../redux/action/courses/searchCourseAction";
 
 export const SearchMobile = () => {

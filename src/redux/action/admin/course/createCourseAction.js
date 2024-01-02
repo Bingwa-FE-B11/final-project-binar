@@ -5,7 +5,6 @@ import { addCourse } from "../../../reducer/courses/courseSlice";
 export const createCourseAction = (input) => async (dispatch) => {
   return reduxCreateCourse(input)
     .then((result) => {
-      console.log("result -> reduxCreateCourse", result);
       dispatch(addCourse(result.data.data.newCourse));
       return true;
     })

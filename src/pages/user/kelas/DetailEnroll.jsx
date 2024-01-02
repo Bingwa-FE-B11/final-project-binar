@@ -6,11 +6,13 @@ import toast from "react-hot-toast";
 // Components
 import { NavbarKelas } from "../../../assets/components/navbar/NavbarKelas";
 import { NavbarHome } from "../../../assets/components/navbar/NavbarHome";
+import LoadingSpinner from "../../../assets/components/loading/loadingSpinner";
+
+// Helper
 import {
   showLoadingToast,
   showSuccessToast,
 } from "../../../helper/ToastHelper";
-import LoadingSpinner from "../../../assets/components/loading/loadingSpinner";
 
 // Icons
 import { GoArrowLeft } from "react-icons/go";
@@ -25,8 +27,10 @@ import { TbProgressCheck } from "react-icons/tb";
 // Material Tailwind Components
 import { Dialog, DialogBody, DialogHeader } from "@material-tailwind/react";
 
-// Redux
+// Services
 import { reduxPutTrackings } from "../../../services/Tracking";
+
+// Cookies
 import { CookieStorage, CookiesKeys } from "../../../utils/cookie";
 
 export const DetailEnroll = () => {

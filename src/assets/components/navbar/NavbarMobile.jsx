@@ -1,5 +1,8 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+// Material Tailwind Components
 import { Dialog, DialogBody } from "@material-tailwind/react";
 
 // Icons
@@ -12,8 +15,11 @@ import { LuPenLine } from "react-icons/lu";
 import { IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { LuLogOut } from "react-icons/lu";
+
+// Redux Actions
 import { logoutUserAction } from "../../../redux/action/auth/logoutUserAction";
-import { useDispatch, useSelector } from "react-redux";
+
+// Cookies
 import { CookieStorage, CookiesKeys } from "../../../utils/cookie";
 
 export const NavbarMobile = () => {

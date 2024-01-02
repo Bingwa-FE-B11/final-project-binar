@@ -8,17 +8,20 @@ import BrandLogo from "../../../assets/img/brain.webp";
 // Icons
 import { GoArrowLeft } from "react-icons/go";
 
-// Redux
-import { getResendOtp, getVerifyOtpAction } from '../../../redux/action/auth/getVerifyOtpAction';
+// Redux Actions
+import {
+  getResendOtp,
+  getVerifyOtpAction,
+} from "../../../redux/action/auth/getVerifyOtpAction";
 
-// Toast
-import { showSuccessToast } from '../../../helper/ToastHelper';
+// Helper
+import { showSuccessToast } from "../../../helper/ToastHelper";
 
 export const Otp = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  const emailParam = new URLSearchParams(location.search).get('email');
+  const emailParam = new URLSearchParams(location.search).get("email");
   const [Email, setEmail] = useState(emailParam || "");
   const [otpInputs, setOtpInputs] = useState(["", "", "", "", "", ""]);
   const [seconds, setSeconds] = useState(60);
@@ -58,9 +61,11 @@ export const Otp = () => {
 
   // Resend-Otp
   const handleResend = async () => {
-    const resendData = await dispatch(getResendOtp({
-      email: Email,
-    }));
+    const resendData = await dispatch(
+      getResendOtp({
+        email: Email,
+      }),
+    );
     if (resendData) {
       showSuccessToast("OTP berhasil dikirim ulang");
       setSeconds(60);
@@ -69,23 +74,25 @@ export const Otp = () => {
 
   // Verify-Otp
   const handleSave = async () => {
-    const otpData = await dispatch(getVerifyOtpAction({
-      email: Email,
-      otp: otpInputs.join(''),
-    }))
+    const otpData = await dispatch(
+      getVerifyOtpAction({
+        email: Email,
+        otp: otpInputs.join(""),
+      }),
+    );
     if (otpData) {
       showSuccessToast("Registrasi Berhasil");
       setTimeout(() => {
-        navigate("/login")
+        navigate("/login");
       }, 1000);
     }
   };
 
   return (
-    <div className="flex items-center justify-center h-screen">
-      <div className="w-full rounded-lg md:mt-0 mx-auto md:max-w-md">
-        <div className="flex flex-col lg:w-[30rem] mx-auto w-[22rem]">
-          <div className="absolute lg:top-[120px] md:top-[320px] cursor-pointer top-[100px]">
+    <div className="flex h-screen items-center justify-center">
+      <div className="mx-auto w-full rounded-lg md:mt-0 md:max-w-md">
+        <div className="mx-auto flex w-[22rem] flex-col lg:w-[30rem]">
+          <div className="absolute top-[100px] cursor-pointer md:top-[320px] lg:top-[120px]">
             <GoArrowLeft
               size={25}
               className="items-center"
@@ -100,7 +107,7 @@ export const Otp = () => {
 
           {/* Masukkan Kode OTP */}
           <div className="flex flex-col gap-2">
-            <span className="py-6 text-lg text-center">
+            <span className="py-6 text-center text-lg">
               Ketik 6 digit kode yang dikirim ke{" "}
               <span className="font-bold">{Email}</span>
             </span>
@@ -110,12 +117,12 @@ export const Otp = () => {
               {otpInputs.map((value, index) => (
                 <div
                   key={index}
-                  className="w-[50px] h-[50px] border-2 rounded-xl"
+                  className="h-[50px] w-[50px] rounded-xl border-2"
                 >
                   <input
                     id={`otp-input-${index}`}
                     placeholder=""
-                    className="w-full h-full font-semibold text-center border rounded-xl border-primary"
+                    className="h-full w-full rounded-xl border border-primary text-center font-semibold"
                     type="text"
                     maxLength="1"
                     value={value}
@@ -126,13 +133,13 @@ export const Otp = () => {
             </div>
 
             {seconds > 0 ? (
-              <span className="py-6 text-lg text-center">
+              <span className="py-6 text-center text-lg">
                 Kirim ulang OTP dalam{" "}
-                <span className="text-primary font-bold">{seconds}</span> detik
+                <span className="font-bold text-primary">{seconds}</span> detik
               </span>
             ) : (
               <span
-                className="py-6 text-xl text-center text-red-500 font-bold cursor-pointer"
+                className="cursor-pointer py-6 text-center text-xl font-bold text-red-500"
                 onClick={handleResend}
               >
                 Kirim Ulang OTP
@@ -144,7 +151,7 @@ export const Otp = () => {
           <div className="flex flex-col py-4">
             <button
               type="button"
-              className="py-3 text-lg font-semibold text-white bg-primary hover:bg-primary-hover rounded-xl"
+              className="rounded-xl bg-primary py-3 text-lg font-semibold text-white hover:bg-primary-hover"
               onClick={handleSave}
             >
               Simpan
@@ -153,10 +160,10 @@ export const Otp = () => {
         </div>
       </div>
 
-      <div className="lg:flex items-center justify-center w-2/5 h-screen bg-primary hidden md:flex">
+      <div className="hidden h-screen w-2/5 items-center justify-center bg-primary md:flex lg:flex">
         <div className="flex items-center justify-center gap-6">
           <img src={BrandLogo} alt="Brand Logo" className="w-[15%]" />
-          <span className="font-sans text-6xl text-center text-white">
+          <span className="text-center font-sans text-6xl text-white">
             Bingwa
           </span>
         </div>

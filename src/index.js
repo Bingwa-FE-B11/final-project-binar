@@ -1,10 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./assets/css/index.css";
 import { RouteList } from "./routes/RouteList";
 import { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
 import { persistor, store } from "./redux/store/store";
+
+// CSS
+import "./assets/css/index.css";
 
 // Material Tailwind
 import { ThemeProvider } from "@material-tailwind/react";
@@ -12,6 +14,8 @@ import { ThemeProvider } from "@material-tailwind/react";
 // Skeleton
 import "react-loading-skeleton/dist/skeleton.css";
 import { SkeletonTheme } from "react-loading-skeleton";
+
+// Redux Persist
 import { PersistGate } from "redux-persist/integration/react";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

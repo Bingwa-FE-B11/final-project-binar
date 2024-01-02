@@ -18,10 +18,6 @@ export const AdminDashboard = () => {
   const adminData = useSelector((state) => state.allAdminData);
   const adminPayment = useSelector((state) => state.adminPayment.payments);
   const isLoading = useSelector((state) => state.adminPayment.loading);
-  console.log(
-    "🚀 ~ file: AdminDashboard.jsx:21 ~ AdminDashboard ~ isLoading:",
-    isLoading,
-  );
 
   const getAdminData = () => {
     dispatch(getAllDataAction());

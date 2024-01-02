@@ -2,9 +2,8 @@ import { reduxPutTrackings } from "../../services/Tracking";
 import { setTrackings } from "../reducer/TrackingsSlice";
 
 export const putTrackingsAction = () => (dispatch) => {
-    reduxPutTrackings()
+  reduxPutTrackings()
     .then((result) => {
-      console.log("putTrackingsAction:", result);
       dispatch(setTrackings(result.data.data.tracking));
       return true;
     })

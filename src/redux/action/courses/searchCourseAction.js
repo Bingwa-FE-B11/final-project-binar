@@ -1,6 +1,6 @@
 import { reduxSearchCourses } from "../../../services/courses/searchCourses";
 import {
-    endLoading,
+  endLoading,
   setSearchedCourses,
   startLoading,
 } from "../../reducer/courses/courseSlice";
@@ -9,7 +9,6 @@ export const searchCourseAction = (searchInput) => async (dispatch) => {
   try {
     dispatch(startLoading());
     const result = await reduxSearchCourses(searchInput);
-    console.log("searchCourseAction:", result);
     dispatch(setSearchedCourses(result.data.data.courses));
     return result;
   } catch (err) {

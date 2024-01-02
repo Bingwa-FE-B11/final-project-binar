@@ -1,9 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 // Images
 import BrandLogo from "../../../assets/img/brain.webp";
-import { useDispatch } from "react-redux";
+
+// Redux Actions
 import { logoutAdminAction } from "../../../redux/action/admin/auth/logoutAdminAction";
 import { searchCourseAction } from "../../../redux/action/courses/searchCourseAction";
 
@@ -29,7 +31,7 @@ export const AdminPojok = () => {
             Bingwa
           </span>
         </div>
-        <div className="mr-auto text-start mt-10">
+        <div className="mr-auto mt-10 text-start">
           <button
             className="py-4 font-sans text-xl text-white"
             onClick={() => {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useMediaQuery } from "react-responsive";
 
 // Icons
 import { BiSearchAlt } from "react-icons/bi";
@@ -10,14 +11,19 @@ import { IoClose } from "react-icons/io5";
 import { NavbarKelas } from "../../../assets/components/navbar/NavbarKelas";
 import { NavbarHome } from "../../../assets/components/navbar/NavbarHome";
 import { CardGlobal } from "../../../assets/components/cards/CardGlobal";
-import { getAllCoursesAction } from "../../../redux/action/courses/getAllCoursesAction";
 import { SidebarKelas } from "../../../assets/components/sidebar/SidebarKelas";
+import { NavbarMobile } from "../../../assets/components/navbar/NavbarMobile";
+import { SearchMobile } from "../../../assets/components/search/SearchMobile";
+
+// Redux Actions
+import { getAllCoursesAction } from "../../../redux/action/courses/getAllCoursesAction";
 import { searchCourseAction } from "../../../redux/action/courses/searchCourseAction";
 import { filterCoursesAction } from "../../../redux/action/courses/filterCourseAction";
-import { NavbarMobile } from "../../../assets/components/navbar/NavbarMobile";
-import { useMediaQuery } from "react-responsive";
-import { SearchMobile } from "../../../assets/components/search/SearchMobile";
+
+// Material Tailwind Components
 import { Dialog, DialogBody, DialogHeader } from "@material-tailwind/react";
+
+// Cookies
 import { CookieStorage, CookiesKeys } from "../../../utils/cookie";
 
 export const AllCourse = () => {

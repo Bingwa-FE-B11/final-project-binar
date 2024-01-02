@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
+
+// Material Tailwind Components
 import { Dialog, DialogBody, DialogHeader } from "@material-tailwind/react";
 
 // Icons
@@ -16,9 +18,11 @@ import { SidebarKelas } from "../../../assets/components/sidebar/SidebarKelas";
 import { NavbarMobile } from "../../../assets/components/navbar/NavbarMobile";
 import { SearchMobile } from "../../../assets/components/search/SearchMobile";
 
-// Redux
+// Redux Actions
 import { getAllCoursesAction } from "../../../redux/action/courses/getAllCoursesAction";
 import { searchCourseAction } from "../../../redux/action/courses/searchCourseAction";
+
+// Cookies
 import { CookieStorage, CookiesKeys } from "../../../utils/cookie";
 
 export const PilihPremium = () => {
