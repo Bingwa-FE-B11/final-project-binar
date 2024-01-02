@@ -6,6 +6,7 @@ const initialState = {
   isLoggedIn: false,
   user: null,
   userProfile: null,
+  loading: false,
 };
 
 const loginSlice = createSlice({
@@ -15,18 +16,36 @@ const loginSlice = createSlice({
     setToken: (state, action) => {
       state.token = action.payload;
     },
+
     setIsLoggedIn: (state, action) => {
       state.isLoggedIn = action.payload;
     },
+
     setUser: (state, action) => {
       state.user = action.payload;
     },
+
     setUserProfile: (state, action) => {
       state.userProfile = action.payload;
+    },
+
+    startLoading: (state) => {
+      state.loading = true;
+    },
+
+    endLoading: (state) => {
+      state.loading = false;
     },
   },
 });
 
-export const { setToken, setIsLoggedIn, setUser, setUserProfile } = loginSlice.actions;
+export const {
+  setToken,
+  setIsLoggedIn,
+  setUser,
+  setUserProfile,
+  startLoading,
+  endLoading,
+} = loginSlice.actions;
 
 export default loginSlice.reducer;

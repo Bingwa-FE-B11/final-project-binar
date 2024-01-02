@@ -10,6 +10,7 @@ import {
   showLoadingToast,
   showSuccessToast,
 } from "../../../helper/ToastHelper";
+import LoadingSpinner from "../../../assets/components/loading/loadingSpinner";
 
 // Icons
 import { GoArrowLeft } from "react-icons/go";
@@ -21,19 +22,18 @@ import { HiChatAlt2 } from "react-icons/hi";
 import { FaCirclePlay } from "react-icons/fa6";
 import { TbProgressCheck } from "react-icons/tb";
 
-// Material Tailwind Components
-import LoadingSpinner from "../../../assets/components/loading/loadingSpinner";
-
 // Redux
 import { reduxPutTrackings } from "../../../services/Tracking";
+import { CookieStorage, CookiesKeys } from "../../../utils/cookie";
 
 export const DetailEnroll = () => {
   const navigate = useNavigate();
-  const storeAuthUser = useSelector((state) => state.authLogin);
   const storeDetailCoursesEnroll = useSelector(
     (state) => state.dataCourses.enroll,
   );
   const isLoading = useSelector((state) => state.dataCourses.loading);
+
+  const token = CookieStorage.get(CookiesKeys.AuthToken);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -59,7 +59,7 @@ export const DetailEnroll = () => {
 
   return (
     <>
-      {storeAuthUser.token === null ? <NavbarHome /> : <NavbarKelas />}
+      {token === undefined ? <NavbarHome /> : <NavbarKelas />}
 
       {/* Parent Container */}
       <div className="z-20 flex min-h-screen px-0 py-6 md:px-4 lg:px-20">
@@ -109,7 +109,7 @@ export const DetailEnroll = () => {
               <div className="flex items-center gap-1">
                 <LiaBookSolid size={20} color="#22c55e" />
                 <div className="text-sm font-semibold">
-                  {storeDetailCoursesEnroll?.modul}
+                  {storeDetailCoursesEnroll?.modul} Modul
                 </div>
               </div>
               <div className="flex items-center gap-1">
@@ -142,7 +142,7 @@ export const DetailEnroll = () => {
                 backgroundPosition: "center",
               }}
             >
-              <div className="cursor-pointer text-primary">
+              <div className="cursor-pointer rounded-full bg-white p-1 text-primary">
                 <FaCirclePlay
                   size={60}
                   onClick={() =>
@@ -185,7 +185,7 @@ export const DetailEnroll = () => {
                   color="#22c55e"
                   className="hidden md:hidden lg:flex"
                 />
-                <div className="rounded-3xl bg-primary px-3 py-1 font-bold text-white">
+                <div className="rounded-3xl bg-primary px-3 py-1 font-semibold text-white">
                   {storeDetailCoursesEnroll?.enrollment?.progres}% Completed
                 </div>
               </div>
@@ -195,10 +195,10 @@ export const DetailEnroll = () => {
             {storeDetailCoursesEnroll.chapter.map((chapter, index) => (
               <div key={index} className="flex flex-col gap-4">
                 <div className="flex justify-between gap-10">
-                  <h2 className="font-semibold text-primary">
+                  <h2 className="w-3/4 font-semibold text-primary">
                     Chapter {index + 1} - {chapter.name}
                   </h2>
-                  <h2 className="font-semibold text-blue">
+                  <h2 className="w-1/4 text-end font-semibold text-blue">
                     {chapter.duration}
                   </h2>
                 </div>
@@ -209,10 +209,10 @@ export const DetailEnroll = () => {
                     className="flex items-center justify-between"
                   >
                     <div className="flex w-full items-center gap-4">
-                      <p className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary font-bold">
+                      <p className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary font-semibold">
                         {lessonIndex + 1}
                       </p>
-                      <p className="font-semibold">{lesson.lessonName}</p>
+                      <p className="font-medium">{lesson.lessonName}</p>
                     </div>
                     <div
                       className={`cursor-pointer text-green ${

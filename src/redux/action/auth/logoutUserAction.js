@@ -3,6 +3,7 @@ import {
   setIsLoggedIn,
   setToken,
   setUser,
+  setUserProfile,
 } from "../../reducer/auth/loginSlice";
 
 export const logoutUserAction = () => (dispatch) => {
@@ -10,5 +11,6 @@ export const logoutUserAction = () => (dispatch) => {
   dispatch(setToken(null));
   dispatch(setIsLoggedIn(false));
   dispatch(setUser(null));
+  dispatch(setUserProfile(null));
   window.location.href = "/";
 };

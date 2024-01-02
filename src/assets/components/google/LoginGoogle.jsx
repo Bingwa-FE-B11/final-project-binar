@@ -1,24 +1,20 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getGoogleLoginAction } from "../../../redux/action/auth/getGoogleLoginAction";
-import { reduxGoogleLoginUser } from "../../../services/user/auth/LoginUser";
-import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
+import React from "react";
+
+// Icons
+import { FcGoogle } from "react-icons/fc";
 
 export const LoginGoogle = () => {
-  const dispatch = useDispatch();
-
-  const handleLoginGoogle = async (e) => {
-    e.preventDefault();
+  const handleLoginGoogle = async () => {
     window.location = "https://bingwa-b11.vercel.app/api/v1/users/google";
   };
 
   return (
-    <button
-      className="cursor-pointer font-bold text-red-600"
+    <div
+      className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl border-2 border-slate-600 bg-white py-2"
       onClick={handleLoginGoogle}
     >
-      Login dengan Google
-    </button>
+      <FcGoogle size={30} />
+      <span className="font-semibold">Masuk dengan Google</span>
+    </div>
   );
 };
