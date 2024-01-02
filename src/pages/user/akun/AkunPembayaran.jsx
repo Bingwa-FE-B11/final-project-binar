@@ -30,13 +30,13 @@ export const AkunPembayaran = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-secondary px-9 py-20 pt-2 md:h-screen md:px-20 lg:h-fit lg:px-80 lg:pt-[5rem]">
+      <div className="min-h-screen bg-secondary px-4 py-20 pt-2 md:h-screen md:px-20 lg:h-fit lg:px-80 lg:pt-[5rem]">
         <div className="relative flex items-center gap-2 py-8 text-lg font-bold text-primary">
           <GoArrowLeft
             size={30}
             className="absolute -inset-x-1 cursor-pointer md:-inset-x-12 lg:-inset-x-16"
             onClick={() => {
-              navigate("/akun-profile");
+              navigate("/");
             }}
           />
           <span className="hidden lg:block">Kembali ke Beranda</span>
@@ -59,7 +59,7 @@ export const AkunPembayaran = () => {
               </div>
 
               {/* Main Content */}
-              <div className="w-fit space-y-6 px-4">
+              <div className="w-fit space-y-6 px-3">
                 {/* Card Item */}
                 {storeHistory == null ? (
                   <CardCoursesSkeleton />
