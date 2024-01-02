@@ -29,9 +29,7 @@ export const KelasSaya = () => {
   const handleFilterChange = (status) => {
     setFilterStatus(status);
   };
-  // const storeFilteredCourses = useSelector(
-  //   (state) => state.dataCourses.filteredCourses,
-  // );
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -51,15 +49,6 @@ export const KelasSaya = () => {
     getCourses();
     getUser();
   }, []);
-
-  // Filter Feature
-  // const [displayedCourses, setDisplayedCourses] = useState([]);
-
-  // useEffect(() => {
-  //   const coursesToDisplay =
-  //     storeFilteredCourses?.length > 0 ? storeFilteredCourses : [];
-  //   setDisplayedCourses(coursesToDisplay);
-  // }, [storeFilteredCourses]);
 
   // Search Feature
   const [searchInput, setSearchInput] = useState("");
@@ -85,7 +74,7 @@ export const KelasSaya = () => {
       ) : (
         <NavbarKelas />
       )}
-      <div className="flex h-full flex-col justify-between bg-secondary">
+      <div className="flex h-full min-h-screen flex-col justify-between bg-secondary">
         {isMobile ? <SearchMobile /> : <></>}
         <div className="flex flex-col justify-center px-4 pb-16 pt-2 md:px-8 md:pb-0 md:pt-20 lg:px-24 lg:pb-0 lg:pt-20">
           {/* Search */}
@@ -94,12 +83,7 @@ export const KelasSaya = () => {
               Kelas Berjalan
             </div>
             {isMobile ? (
-              <div
-                className="-mt-8 font-semibold text-primary md:mt-0 lg:mt-0"
-                onClick={handleOpen}
-              >
-                Filter
-              </div>
+              <></>
             ) : (
               <div className="relative flex items-center">
                 <input
@@ -124,16 +108,11 @@ export const KelasSaya = () => {
           </div>
 
           <div className="flex items-start justify-center py-4 md:justify-between lg:justify-between">
-            {/* Filter */}
-            <div className="hidden w-[30%] md:flex lg:flex">
-              <SidebarKelas />
-            </div>
-
             {/* Button */}
-            <div className="-mt-10 flex w-full flex-wrap items-center justify-between font-semibold md:mt-0 md:w-[65%] lg:mt-0 lg:w-[65%]">
+            <div className="-mt-10 flex w-full flex-wrap items-center justify-between font-semibold md:mt-0 lg:mt-0">
               <div className="flex w-full gap-4 text-center">
                 <div
-                  className={`w-[20%] cursor-pointer rounded-xl py-2 text-sm md:text-base lg:text-base ${
+                  className={`w-full cursor-pointer rounded-xl py-2 text-xs md:w-[20%] md:text-base lg:w-[20%] lg:text-base ${
                     filterStatus === "All"
                       ? "bg-primary text-white"
                       : "bg-white hover:bg-primary hover:text-white"
@@ -143,7 +122,7 @@ export const KelasSaya = () => {
                   <button>All</button>
                 </div>
                 <div
-                  className={`w-[60%] cursor-pointer rounded-xl py-2 text-sm md:text-base lg:text-base ${
+                  className={`w-full cursor-pointer rounded-xl py-2 text-xs md:w-[60%] md:text-base lg:w-[60%] lg:text-base ${
                     filterStatus === "In Progress"
                       ? "bg-primary text-white"
                       : "bg-white hover:bg-primary hover:text-white"
@@ -153,19 +132,19 @@ export const KelasSaya = () => {
                   <button>In Progress</button>
                 </div>
                 <div
-                  className={`w-[20%] cursor-pointer rounded-xl py-2 text-sm md:text-base lg:text-base ${
-                    filterStatus === "Selesai"
+                  className={`w-full cursor-pointer rounded-xl py-2 text-xs md:w-[20%] md:text-base lg:w-[20%] lg:text-base ${
+                    filterStatus === "Completed"
                       ? "bg-primary text-white"
                       : "bg-white hover:bg-primary hover:text-white"
                   }`}
-                  onClick={() => handleFilterChange("Selesai")}
+                  onClick={() => handleFilterChange("Completed")}
                 >
-                  <button>Selesai</button>
+                  <button>Completed</button>
                 </div>
               </div>
 
               {/* Main Content */}
-              <div className="grid w-full grid-cols-1 gap-6 py-4 md:grid-cols-1 lg:grid-cols-2">
+              <div className="grid w-full grid-cols-1 gap-6 py-6 md:grid-cols-2 lg:grid-cols-3">
                 {/* Card Item */}
                 {storeCoursesEnroll === null ? (
                   <CardCoursesSkeleton />
@@ -178,7 +157,7 @@ export const KelasSaya = () => {
                           value.enrollment.progres > 0 &&
                           value.enrollment.progres < 100
                         );
-                      if (filterStatus === "Selesai")
+                      if (filterStatus === "Completed")
                         return value.enrollment.progres >= 100;
                       return false;
                     })
@@ -202,16 +181,6 @@ export const KelasSaya = () => {
           </div>
         </div>
       </div>
-
-      {/* Dialog Filter */}
-      <Dialog open={open} handler={handleOpen} size="xxl">
-        <DialogHeader className="-mb-6 flex justify-end pr-4 pt-4">
-          <IoClose size={30} onClick={handleOpen} />
-        </DialogHeader>
-        <DialogBody>
-          <SidebarKelas />
-        </DialogBody>
-      </Dialog>
     </>
   );
 };

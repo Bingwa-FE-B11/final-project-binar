@@ -73,10 +73,10 @@ export const CardKelasSaya = ({
             <div className="text-sm font-semibold text-primary">{duration}</div>
           </div>
         </div>
-        <div className="flex w-full items-center justify-between gap-2 rounded-3xl">
+        <div className="flex w-full items-center justify-between gap-2">
           <TbProgressCheck size={20} color="#22c55e" />
           <div className="flex w-full">
-            <Progress value={progress} size="lg" label="Completed" />
+            <Progress value={progress} size="lg" label={true} color="blue" />
           </div>
         </div>
       </div>

@@ -31,24 +31,22 @@ import {
   DialogHeader,
 } from "@material-tailwind/react";
 import LoadingSpinner from "../../../assets/components/loading/loadingSpinner";
+import { CookieStorage, CookiesKeys } from "../../../utils/cookie";
 
 export const DetailKelas = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const storeAuthUser = useSelector((state) => state.authLogin);
   const storeDetailCourses = useSelector((state) => state.dataCourses.detail);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [paymentCourseId, setPaymentCourseId] = useState(null);
 
   const isLoading = useSelector((state) => state.dataCourses.loading);
 
+  const token = CookieStorage.get(CookiesKeys.AuthToken);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
 
   const handleDetail = () => {
     handleDialogOpen();
@@ -62,7 +60,7 @@ export const DetailKelas = () => {
 
   const handleEnrollCourse = async () => {
     try {
-      if (storeAuthUser.token !== null) {
+      if (token !== undefined) {
         const isPremium = storeDetailCourses?.isPremium;
 
         if (isPremium) {
@@ -76,7 +74,7 @@ export const DetailKelas = () => {
         }
       }
 
-      if (storeAuthUser.token === null) {
+      if (token === undefined) {
         showErrorToast("Anda harus login terlebih dahulu");
       }
     } catch (err) {
@@ -85,9 +83,13 @@ export const DetailKelas = () => {
     }
   };
 
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <>
-      {storeAuthUser.token === null ? <NavbarHome /> : <NavbarKelas />}
+      {token === undefined ? <NavbarHome /> : <NavbarKelas />}
 
       {/* Parent Container */}
       <div className="z-20 flex min-h-screen px-0 py-6 md:px-4 lg:px-20">
@@ -137,7 +139,7 @@ export const DetailKelas = () => {
               <div className="flex items-center gap-1">
                 <LiaBookSolid size={20} color="#22c55e" />
                 <div className="text-sm font-semibold">
-                  {storeDetailCourses?.modul}
+                  {storeDetailCourses?.modul} Modul
                 </div>
               </div>
               <div className="flex items-center gap-1">
@@ -148,9 +150,7 @@ export const DetailKelas = () => {
               </div>
             </div>
           </div>
-          <div
-            className="flex w-fit cursor-pointer items-center gap-2 rounded-xl bg-green px-6 py-2 text-white"
-          >
+          <div className="flex w-fit cursor-pointer items-center gap-2 rounded-xl bg-green px-6 py-2 text-white">
             <div className="font-semibold">Join Grup Telegram</div>
             <div>
               <HiChatAlt2 size={20} />
@@ -193,8 +193,10 @@ export const DetailKelas = () => {
             <div className="flex justify-between">
               <h1 className="text-xl font-bold">Materi Belajar</h1>
               <div className="flex w-fit items-center justify-between gap-2 rounded-3xl">
-                <div className="rounded-xl bg-green px-3 py-1 font-bold text-white cursor-pointer"
-                  onClick={handleDialogOpen}>
+                <div
+                  className="cursor-pointer rounded-xl bg-green px-3 py-1 font-bold text-white"
+                  onClick={handleDialogOpen}
+                >
                   Buy Course
                 </div>
               </div>
@@ -204,7 +206,9 @@ export const DetailKelas = () => {
             {storeDetailCourses.chapter.map((chapter, index) => (
               <div key={index} className="flex flex-col gap-4">
                 <div className="flex justify-between gap-10">
-                  <h2 className="font-semibold text-primary">Chapter {index + 1 } - {chapter.name}</h2>
+                  <h2 className="font-semibold text-primary">
+                    Chapter {index + 1} - {chapter.name}
+                  </h2>
                   <h2 className="font-semibold text-blue">
                     {chapter.duration}
                   </h2>

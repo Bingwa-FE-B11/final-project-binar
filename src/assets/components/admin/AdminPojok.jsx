@@ -29,9 +29,9 @@ export const AdminPojok = () => {
             Bingwa
           </span>
         </div>
-        <div className="mr-auto text-start">
+        <div className="mr-auto text-start mt-10">
           <button
-            className="pb-[1rem] pt-[5rem] font-sans text-xl text-white"
+            className="py-4 font-sans text-xl text-white"
             onClick={() => {
               navigate("/admin/dashboard");
             }}
