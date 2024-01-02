@@ -41,17 +41,17 @@ export const CardDetail = ({
         </div>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1">
-            <RiShieldStarLine size={20} color="#22c55e" />
+            <RiShieldStarLine size={20} color="#22c55e" className="hidden md:flex lg:flex" />
             <div className="text-sm font-semibold text-primary">{level}</div>
           </div>
           <div className="flex items-center gap-1">
-            <LiaBookSolid size={20} color="#22c55e" />
+            <LiaBookSolid size={20} color="#22c55e" className="hidden md:flex lg:flex" />
             <div className="text-sm font-semibold text-primary">
               {modul} Modul
             </div>
           </div>
           <div className="flex items-center gap-1">
-            <IoTime size={20} color="#22c55e" />
+            <IoTime size={20} color="#22c55e" className="hidden md:flex lg:flex" />
             <div className="text-sm font-semibold text-primary">{duration}</div>
           </div>
         </div>

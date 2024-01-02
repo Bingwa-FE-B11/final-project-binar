@@ -33,7 +33,7 @@ export const Notifikasi = () => {
     <>
       {isMobile ? <NavbarMobile /> : <NavbarNotif />}
       {isMobile ? (
-        <div className="flex min-h-screen flex-col bg-secondary p-4">
+        <div className="flex h-full flex-col bg-secondary p-4">
           <h1 className="pb-8 text-2xl font-bold">Notifikasi</h1>
           {/* Notif Item */}
           {storeNotif &&
@@ -70,7 +70,7 @@ export const Notifikasi = () => {
             ))}
         </div>
       ) : (
-        <div className="mt-[2rem] h-screen bg-secondary px-9 py-10 md:px-20 lg:px-80 ">
+        <div className="mt-[2rem] h-full bg-secondary px-9 py-10 md:px-20 lg:px-80 ">
           <div className="relative flex items-center gap-2 py-8 text-lg font-semibold text-black">
             <GoArrowLeft
               size={30}
