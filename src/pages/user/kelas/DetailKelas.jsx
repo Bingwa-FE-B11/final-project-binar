@@ -31,11 +31,11 @@ import {
   DialogHeader,
 } from "@material-tailwind/react";
 import LoadingSpinner from "../../../assets/components/loading/loadingSpinner";
+import { CookieStorage, CookiesKeys } from "../../../utils/cookie";
 
 export const DetailKelas = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const storeAuthUser = useSelector((state) => state.authLogin);
   const storeDetailCourses = useSelector((state) => state.dataCourses.detail);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [paymentCourseId, setPaymentCourseId] = useState(null);
@@ -45,13 +45,11 @@ export const DetailKelas = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(!open);
 
+  const token = CookieStorage.get(CookiesKeys.AuthToken);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
 
   const handleDetail = () => {
     handleDialogOpen();
@@ -65,7 +63,7 @@ export const DetailKelas = () => {
 
   const handleEnrollCourse = async () => {
     try {
-      if (storeAuthUser.token !== null) {
+      if (token !== undefined) {
         const isPremium = storeDetailCourses?.isPremium;
 
         if (isPremium) {
@@ -79,7 +77,7 @@ export const DetailKelas = () => {
         }
       }
 
-      if (storeAuthUser.token === null) {
+      if (token === undefined) {
         showErrorToast("Anda harus login terlebih dahulu");
       }
     } catch (err) {
@@ -88,9 +86,13 @@ export const DetailKelas = () => {
     }
   };
 
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <>
-      {storeAuthUser.token === null ? <NavbarHome /> : <NavbarKelas />}
+      {token === undefined ? <NavbarHome /> : <NavbarKelas />}
 
       {/* Parent Container */}
       <div className="z-20 flex min-h-screen px-0 py-6 md:px-4 lg:px-20">
@@ -148,7 +150,7 @@ export const DetailKelas = () => {
               <div className="flex items-center gap-1">
                 <LiaBookSolid size={20} color="#22c55e" />
                 <div className="text-sm font-semibold">
-                  {storeDetailCourses?.modul}
+                  {storeDetailCourses?.modul} Modul
                 </div>
               </div>
               <div className="flex items-center gap-1">

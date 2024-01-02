@@ -1,34 +1,39 @@
-import { reduxGoogleLoginUser } from "../../../services/user/auth/LoginUser";
+import { reduxGetUser } from "../../../services/user/auth/GetUser";
+import { CookieStorage, CookiesKeys } from "../../../utils/cookie";
+import {
+  endLoading,
+  setIsLoggedIn,
+  setToken,
+  setUser,
+  startLoading,
+} from "../../reducer/auth/loginSlice";
 
-export const getGoogleLoginAction = () => async (dispatch) => {
-  // try {
-  //   const response = await reduxGoogleLoginUser();
-  //   const data = await response.json();
-  //   console.log(
-  //     "🚀 ~ file: getGoogleLoginAction.js:10 ~ getGoogleLoginAction ~ data:",
-  //     data,
-  //   );
-  //   // navigate(data.url);
-  //   console.log(
-  //     "🚀 ~ file: getGoogleLoginAction.js:14 ~ getGoogleLoginAction ~ response:",
-  //     response,
-  //   );
-  //   // return true;
-  // } catch (error) {
-  //   console.error(
-  //     "🚀 ~ file: getGoogleLoginAction.js:21 ~ getGoogleLoginAction ~ error:",
-  //     error,
-  //   );
-  // }
-  return reduxGoogleLoginUser()
-    .then((result) => {
-      console.log(
-        "🚀 ~ file: getGoogleLoginAction.js:25 ~ .then ~ result:",
-        result,
-      );
-      return true;
-    })
-    .catch((e) => {
-      console.error(e);
-    });
+export const getGoogleLoginAction = (tokenFromGoogle) => async (dispatch) => {
+  try {
+    dispatch(startLoading());
+    if (tokenFromGoogle) {
+      CookieStorage.set(CookiesKeys.AuthToken, tokenFromGoogle);
+    }
+
+    const result = await reduxGetUser();
+
+    // Mengecualikan properti userProfile dari respons API
+    const {
+      data: {
+        data: {
+          user: { userProfile, ...filteredUserData },
+        },
+      },
+    } = result;
+
+    dispatch(setToken(tokenFromGoogle));
+    dispatch(setIsLoggedIn(true));
+    dispatch(setUser(filteredUserData));
+
+    return true;
+  } catch (error) {
+    console.error("getGoogleLoginAction", error);
+  } finally {
+    dispatch(endLoading());
+  }
 };

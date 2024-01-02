@@ -4,7 +4,7 @@ const cookies = new Cookies();
 
 export const CookiesKeys = {
   AuthToken: "authToken",
-  RegisterToken: "registerToken"
+  RegisterToken: "registerToken",
 };
 
 const CookieOptions = {

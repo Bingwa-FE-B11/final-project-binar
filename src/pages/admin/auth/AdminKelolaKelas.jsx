@@ -67,8 +67,6 @@ export const AdminKelolaKelas = () => {
     renderAllState();
   }, [dispatch]);
 
-  console.log("store detail course:", storeDetailCourse);
-
   const handleDialogTambah = () => setDialogTambah(!dialogTambah);
   const handleDialogEdit = () => setDialogEdit(!dialogEdit);
 
@@ -176,6 +174,7 @@ export const AdminKelolaKelas = () => {
     storeDetailCourse?.promotionId || "",
   );
 
+  // Edit Course
   const handleEditCourse = (courseId) => {
     const courseToEdit = storeAllCourse.find(
       (course) => course.id === courseId,
@@ -199,6 +198,7 @@ export const AdminKelolaKelas = () => {
     setDialogEdit(true);
   };
 
+  // Update Course
   const handleUpdateCourse = async () => {
     const updatedCourse = await dispatch(
       editCourseAction(

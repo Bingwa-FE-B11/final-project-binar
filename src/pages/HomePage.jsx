@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 
 // Images
 import Header from "../assets/img/Header.webp";
@@ -22,12 +22,19 @@ import { SearchMobile } from "../assets/components/search/SearchMobile";
 import { SliderFilterCategories } from "../assets/components/slider/SliderFilterCategories";
 import { SliderCardCategories } from "../assets/components/slider/SliderCardCategories";
 import { CookieStorage, CookiesKeys } from "../utils/cookie";
+import { getGoogleLoginAction } from "../redux/action/auth/getGoogleLoginAction";
+import LoadingSpinner from "../assets/components/loading/loadingSpinner";
 
 export const HomePage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const [showAllCourses, setShowAllCourses] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("All");
+
+  // Get Token from Google Login
+  const urlParams = new URLSearchParams(location.search);
+  const authTokenValue = urlParams.get("authToken");
 
   const isMobile = useMediaQuery({ maxWidth: 767 });
 
@@ -43,12 +50,17 @@ export const HomePage = () => {
     dispatch(getAllCoursesAction());
   };
 
+  const getUserGoogleLogin = () => {
+    dispatch(getGoogleLoginAction(authTokenValue));
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
     getUserProfile();
+    getUserGoogleLogin();
     getCategories();
     getCourses();
   }, [dispatch]);
@@ -62,12 +74,17 @@ export const HomePage = () => {
     (state) => state.dataCategories.categories,
   );
   const storeCourses = useSelector((state) => state.dataCourses.courses);
+  const loading = useSelector((state) => state.authLogin.loading);
 
   const token = CookieStorage.get(CookiesKeys.AuthToken);
 
   const handleCategoryFilter = (category) => {
     setSelectedCategory(category);
   };
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <>

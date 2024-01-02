@@ -28,8 +28,8 @@ export const CardKursus = ({
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleCardClick = async () => {
-    await dispatch(getDetailCoursesAction(courseId));
+  const handleCardClick = () => {
+    dispatch(getDetailCoursesAction(courseId));
     navigate(`/detail-kelas/${courseId}`);
   };
 

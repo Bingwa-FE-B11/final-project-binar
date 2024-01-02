@@ -13,8 +13,8 @@ import courseSlice from "./courses/courseSlice";
 import EnrollmentsSlice from "./enrollments/EnrollmentsSlice";
 import PaymentSlice from "./payment/PaymentSlice";
 import getNotificationsSlice from "./notifications/getNotificationsSlice";
-import googleLoginSlice from "./auth/googleLoginSlice";
 import getTrackingsSlice from "./TrackingsSlice";
+import paymentSlice from "./admin/payments/paymentSlice";
 
 export default combineReducers({
   // User
@@ -24,7 +24,6 @@ export default combineReducers({
   authOtp: otpSlice,
   authProfile: profileSlice,
   changePass: ChangePassSlice,
-  googleLogin: googleLoginSlice,
 
   // Categories
   dataCategories: getAllCategoriesSlice,
@@ -37,6 +36,7 @@ export default combineReducers({
 
   // Payment
   payment: PaymentSlice,
+  adminPayment: paymentSlice,
 
   // seNotifications
   notifications: getNotificationsSlice,

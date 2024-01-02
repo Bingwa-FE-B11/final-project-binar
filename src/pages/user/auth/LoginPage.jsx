@@ -191,10 +191,10 @@ export const LoginPage = () => {
 
             {/* Password */}
             <div className="flex flex-col gap-2 py-6">
-              <div className="flex justify-between items-center">
+              <div className="flex items-center justify-between">
                 <span className="text-left text-lg">Password</span>
                 <span
-                  className="cursor-pointer text-md font-semibold text-primary"
+                  className="text-md cursor-pointer font-semibold text-primary"
                   onClick={() => {
                     navigate("/forget-password");
                   }}
@@ -254,7 +254,7 @@ export const LoginPage = () => {
                       navigate("/Register");
                     }}
                   >
-                    Daftar di sini
+                    Daftar di sini.
                   </span>
                 </span>
               </div>
